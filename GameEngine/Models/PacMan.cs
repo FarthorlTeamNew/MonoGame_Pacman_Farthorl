@@ -11,6 +11,9 @@ namespace GameEngine
     public class PacMan : GameObject
     {
         private int health = 100;
+        //not used now,but in future
+        //private int speed = 5;
+        //private int scores = 0;
 
         public PacMan(GraphicsDevice graphicsDevice) //Hardcore width and height
             : base("Pacman", 0,  0)
