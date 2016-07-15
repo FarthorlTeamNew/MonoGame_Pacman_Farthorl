@@ -54,9 +54,9 @@ namespace GameEngine.Animators
             }
             else
             {
-                currentAnimation = this.animations.Find(x => x.Name == currentDirection);
+                this.currentAnimation = this.animations.Find(x => x.Name == currentDirection);
             }
-            currentAnimation.Update(gameTime);
+            this.currentAnimation.Update(gameTime);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
