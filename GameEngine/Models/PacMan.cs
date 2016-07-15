@@ -15,8 +15,8 @@ namespace GameEngine
         //private int speed = 5;
         //private int scores = 0;
 
-        public PacMan(GraphicsDevice graphicsDevice) //Hardcore width and height
-            : base("Pacman", 0,  0)
+        public PacMan(GraphicsDevice graphicsDevice, Rectangle boundingBox) //Hardcore width and height
+            : base("Pacman", 0,  0, boundingBox)
         {
             if (base.Texture == null)
             {

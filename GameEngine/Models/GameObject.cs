@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace GameEngine.Models
 {
@@ -10,11 +11,13 @@ namespace GameEngine.Models
     {
         private string name;
         private Texture2D texture;
+        private Rectangle boundingBox;
         private float x;
         private float y;
 
-        protected GameObject(string name, float x, float y)
+        protected GameObject(string name, float x, float y, Rectangle box)
         {
+            this.boundingBox = box;
             this.Name = name;
             this.X = x;
             this.Y = y;
@@ -28,6 +31,12 @@ namespace GameEngine.Models
         {
             get { return this.texture; }
             set { this.texture = value; }
+        }
+
+        public Rectangle BoundingBox
+        {
+            get { return this.boundingBox; }
+            set { this.boundingBox = value; }
         }
 
         public float X

@@ -37,7 +37,7 @@ namespace GameEngine
         {
             // TODO: Add your initialization logic here
 
-            this.pacMan = new PacMan(this.GraphicsDevice);
+            this.pacMan = new PacMan(this.GraphicsDevice, new Rectangle(0, 0, 32, 32));
             this.pacmanAnimator = new PacmanAnimator(this.pacMan);
             this.inputHandler = new PacmanInputHandler(this.pacMan);
             this.graphics.PreferredBackBufferWidth = Global.GLOBAL_WIDTH;

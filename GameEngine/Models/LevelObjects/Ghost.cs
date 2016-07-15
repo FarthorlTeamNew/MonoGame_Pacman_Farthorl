@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace GameEngine.Models.LevelObjects
 {
     public class Ghost : LevelObject
     {
-        public Ghost(Texture2D texture, float x, float y) 
-            : base(texture.Name, x, y)
+        public Ghost(Texture2D texture, float x, float y, Rectangle boundingBox)
+            : base(texture.Name, x, y, boundingBox)
         {
             base.Texture = texture;
         }

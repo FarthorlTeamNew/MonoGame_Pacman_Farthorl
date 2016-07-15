@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,8 +10,8 @@ namespace GameEngine.Models.LevelObjects
 {
     public class Point :LevelObject
     {
-        public Point(string name, float x, float y) 
-            : base(name, x, y)
+        public Point(Texture2D texture, float x, float y, Rectangle boundingBox)
+            : base(texture.Name, x, y, boundingBox)
         {
         }
 

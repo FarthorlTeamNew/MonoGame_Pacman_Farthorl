@@ -1,12 +1,13 @@
 ﻿using System.Dynamic;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace GameEngine.Models.LevelObjects
 {
     public class Fruit : LevelObject
     {
-        public Fruit(Texture2D texture, float x, float y) 
-            : base(texture.Name, x, y)
+        public Fruit(Texture2D texture, float x, float y, Rectangle boundingBox) 
+            : base(texture.Name, x, y, boundingBox)
         {
             base.Texture = texture;
         }
