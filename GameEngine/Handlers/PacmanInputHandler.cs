@@ -41,8 +41,8 @@ namespace GameEngine.Handlers
             Vector2 desiredVelocity = new Vector2();
             var newPoint = this.GetInput();
 
-            if ((this.pacman.X + newPoint.X) + 5 < Global.GLOBAL_WIDTH && (this.pacman.X + newPoint.X) + 13 >= 0 &&
-                (this.pacman.Y + newPoint.Y) + 5 < Global.GLOBAL_HEIGHT && (this.pacman.Y + newPoint.Y) + 13 >= 0)
+            if ((this.pacman.X + newPoint.X) + 17 < Global.GLOBAL_WIDTH && (this.pacman.X + newPoint.X) + 13 >= 0 &&
+                (this.pacman.Y + newPoint.Y) + 17 < Global.GLOBAL_HEIGHT && (this.pacman.Y + newPoint.Y) + 13 >= 0)
             {
                 desiredVelocity.X = newPoint.X;
                 desiredVelocity.Y = newPoint.Y;

@@ -13,7 +13,7 @@ namespace GameEngine
         private int health = 100;
 
         public PacMan(GraphicsDevice graphicsDevice) //Hardcore width and height
-            : base("Pacman", 20,   16)
+            : base("Pacman", 0,  0)
         {
             if (base.Texture == null)
             {
