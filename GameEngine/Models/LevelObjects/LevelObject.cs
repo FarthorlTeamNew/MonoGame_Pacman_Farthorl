@@ -4,7 +4,7 @@ namespace GameEngine.Models.LevelObjects
 {
     public  abstract class LevelObject:GameObject
     {
-        public LevelObject(string name, float x, float y) 
+        protected LevelObject(string name, float x, float y) 
             : base(name, x, y)
         {
         }

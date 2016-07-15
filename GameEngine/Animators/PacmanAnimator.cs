@@ -8,6 +8,8 @@ namespace GameEngine.Animators
 {
     public class PacmanAnimator : Animator
     {
+        private string currentDirection = "WalkRight";
+
         private PacMan pacman;
         List<Animation> animations = new List<Animation>();
         public Animation currentAnimation;
@@ -28,10 +30,12 @@ namespace GameEngine.Animators
                     if (velocity.X > 0)
                     {
                         currentAnimation = this.animations.Find(x => x.Name == "WalkRight");
+                        currentDirection = "WalkRight";
                     }
                     else
                     {
                         currentAnimation = this.animations.Find(x => x.Name == "WalkLeft");
+                        currentDirection = "WalkLeft";
                     }
                 }
                 else
@@ -39,16 +43,18 @@ namespace GameEngine.Animators
                     if (velocity.Y > 0)
                     {
                         currentAnimation = this.animations.Find(x => x.Name == "WalkDown");
+                        currentDirection = "WalkDown";
                     }
                     else
                     {
                         currentAnimation = this.animations.Find(x => x.Name == "WalkUp");
+                        currentDirection = "WalkUp";
                     }
                 }
             }
             else
             {
-                currentAnimation = this.animations.Find(x => x.Name == "WalkRight");
+                currentAnimation = this.animations.Find(x => x.Name == currentDirection);
             }
             currentAnimation.Update(gameTime);
         }
