@@ -87,6 +87,7 @@ namespace GameEngine
             //// TODO: Add your update logic here
             var pacmanMovement = this.inputHandler.Move(gameTime);
             this.pacmanAnimator.UpdateAnimation(gameTime, pacmanMovement);
+            this.pacMan.UpdateBoundingBox();
             base.Update(gameTime);
 
             this.Window.Title = "PacMan Farthorl v.2.0";

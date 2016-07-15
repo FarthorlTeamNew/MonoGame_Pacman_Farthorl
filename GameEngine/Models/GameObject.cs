@@ -17,7 +17,7 @@ namespace GameEngine.Models
 
         protected GameObject(string name, float x, float y, Rectangle box)
         {
-            this.boundingBox = box;
+            this.BoundingBox = box;
             this.Name = name;
             this.X = x;
             this.Y = y;
@@ -49,6 +49,12 @@ namespace GameEngine.Models
         {
             get { return this.y; }
             set { this.y = value; }
+        }
+
+        public void UpdateBoundingBox()
+        {
+            this.boundingBox.X = (int)this.X;
+            this.boundingBox.Y = (int)this.Y;
         }
     }
 }
