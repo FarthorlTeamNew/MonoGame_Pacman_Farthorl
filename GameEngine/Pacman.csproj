@@ -87,7 +87,7 @@
     <Content Include="Content\PacManSprite_sheets.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Point.PNG">
+    <Content Include="Content\Point.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="DataFiles\Levels\CSharpLove.txt">

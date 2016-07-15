@@ -18,6 +18,7 @@ namespace GameEngine
         private PacMan pacMan;
         private PacmanAnimator pacmanAnimator;
         private PacmanInputHandler inputHandler;
+        private InitializeMatrix levelMatrix;
 
         public Game1()
         {
@@ -41,6 +42,8 @@ namespace GameEngine
             this.inputHandler = new PacmanInputHandler(this.pacMan);
             this.graphics.PreferredBackBufferWidth = Global.GLOBAL_WIDTH;
             this.graphics.PreferredBackBufferHeight = Global.GLOBAL_HEIGHT;
+            this.levelMatrix = new InitializeMatrix();
+            //graphics.IsFullScreen = true; // set this to enable full screen
             this.graphics.ApplyChanges();
 
             
@@ -58,7 +61,7 @@ namespace GameEngine
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-         
+            levelMatrix.LoadLevelMatrix(this.GraphicsDevice);
             // TODO: use this.Content to load your game content here
 
         }
@@ -99,8 +102,8 @@ namespace GameEngine
             if (this.pacMan.Health != 0)
             {
                 this.spriteBatch.Begin();
+                this.levelMatrix.Draw(this.spriteBatch);
                 this.pacmanAnimator.Draw(this.spriteBatch);
-   
                 this.spriteBatch.End();
             }
             // TODO: Add your drawing code here
