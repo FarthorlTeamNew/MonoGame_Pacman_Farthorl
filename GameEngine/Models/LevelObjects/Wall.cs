@@ -17,7 +17,7 @@ namespace GameEngine.Models.LevelObjects
 
         public override void ReactOnCollision(PacMan pacMan)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }
