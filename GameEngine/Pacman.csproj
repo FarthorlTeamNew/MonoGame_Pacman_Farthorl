@@ -55,7 +55,8 @@
     <Compile Include="Models\GameObject.cs" />
     <Compile Include="Models\LevelObjects\Ghost.cs" />
     <Compile Include="Models\LevelObjects\LevelObject.cs" />
-    <Compile Include="Models\LevelObjects\Point.cs" />
+    <Compile Include="Models\LevelObjects\PointObj.cs" />
+    <Compile Include="Models\LevelObjects\Wall.cs" />
     <Compile Include="Models\PacMan.cs" />
     <Compile Include="Models\LevelObjects\Fruits\Peach.cs" />
     <Compile Include="Models\LevelObjects\Fruits\Pear.cs" />

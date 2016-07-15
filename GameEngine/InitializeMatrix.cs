@@ -1,4 +1,5 @@
 ﻿using GameEngine.Globals;
+using GameEngine.Models.LevelObjects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -13,20 +14,17 @@ namespace GameEngine
     public class InitializeMatrix
     {
         private static string Level = @"DataFiles\Levels\CSharpLove.txt";
-        private static string[,] PathsMatrix = new string[24, 13];
+        public static string[,] PathsMatrix = new string[24, 13];
 
-        private Texture2D[,] bricks;
-        private Rectangle[,] brickRectangles;
+        private Texture2D brickTexture;
+        private Texture2D pointTexture;
+        private List<Wall> bricksList;
+        private List<PointObj> pointsList;
 
-        private Texture2D[,] points;
-        private Rectangle[,] pointRectangle;
-
-        public InitializeMatrix()
+        public InitializeMatrix(GraphicsDevice graphicsDevice)
         {
-            bricks = new Texture2D[24, 13];
-            brickRectangles = new Rectangle[24, 13];
-            points = new Texture2D[24, 13];
-            pointRectangle = new Rectangle[24, 13];
+            bricksList = new List<Wall>();
+            pointsList = new List<PointObj>();
         }
 
         public void LoadLevelMatrix(GraphicsDevice graphicsDevice)
@@ -43,48 +41,47 @@ namespace GameEngine
 
                     if (quadrant == 1)
                     {
-                        Stream stream = TitleContainer.OpenStream(@"Content\brick.png");
-                        bricks[x, y] = Texture2D.FromStream(graphicsDevice, stream);
-
-                        Vector2 position = new Vector2(x * 32, y * 32);
-
-                        brickRectangles[x, y] = new Rectangle((int)position.X, (int)position.Y, 32, 32);
+                        Wall brick = new Wall(brickTexture, x * 32, y * 32, new Rectangle(x * 32, y * 32, 32, 32));
+                        if (brick.Texture == null)
+                        {
+                            using (var stream = TitleContainer.OpenStream("Content/brick.png"))
+                            {
+                                brick.Texture = Texture2D.FromStream(graphicsDevice, stream);
+                            }
+                        }
+                        bricksList.Add(brick);
                     }
                     else if (pointIndex == 1)
                     {
-                        Stream stream = TitleContainer.OpenStream(@"Content\Point.png");
-                        points[x, y] = Texture2D.FromStream(graphicsDevice, stream);
-
-                        Vector2 position = new Vector2(x * 32, y * 32);
-
-                        pointRectangle[x, y] = new Rectangle((int)position.X, (int)position.Y, 32, 32);
+                        PointObj point = new PointObj(pointTexture, x * 32, y * 32, new Rectangle(x * 32, y * 32, 32, 32));
+                        if (point.Texture == null)
+                        {
+                            using (var stream = TitleContainer.OpenStream("Content/Point.png"))
+                            {
+                                point.Texture = Texture2D.FromStream(graphicsDevice, stream);
+                            }
+                        }
+                        pointsList.Add(point);
                     }
                 }
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, PacMan pacMan)
         {
-            for (int y = 0; y < Global.YMax; y++)
+            foreach (var brick in bricksList)
             {
-                for (int x = 0; x < Global.XMax; x++)
+                spriteBatch.Draw(brick.Texture, brick.BoundingBox, Color.White);
+            }
+
+            foreach (var point in pointsList)
+            {
+                spriteBatch.Draw(point.Texture, point.BoundingBox, Color.White);
+                if (point.IsColliding(pacMan))
                 {
-                    var elements = PathsMatrix[x, y].Trim().Split(',');
-                    int quadrant = int.Parse(elements[0]);
-                    int pointIndex = int.Parse(elements[1]);
-
-                    if (quadrant == 1)
-                    {
-                        Vector2 position = new Vector2(x * 32, y * 32);
-
-                        spriteBatch.Draw(bricks[x, y], position, Color.White);
-                    }
-                    else if (pointIndex == 1)
-                    {
-                        Vector2 position = new Vector2(x * 32, y * 32);
-
-                        spriteBatch.Draw(points[x, y], position, Color.White);
-                    }
+                    point.ReactOnCollision();
+                    pointsList.Remove(point);
+                    break;
                 }
             }
         }

@@ -42,7 +42,7 @@ namespace GameEngine
             this.inputHandler = new PacmanInputHandler(this.pacMan);
             this.graphics.PreferredBackBufferWidth = Global.GLOBAL_WIDTH;
             this.graphics.PreferredBackBufferHeight = Global.GLOBAL_HEIGHT;
-            this.levelMatrix = new InitializeMatrix();
+            this.levelMatrix = new InitializeMatrix(GraphicsDevice);
             //graphics.IsFullScreen = true; // set this to enable full screen
             this.graphics.ApplyChanges();
 
@@ -103,7 +103,7 @@ namespace GameEngine
             if (this.pacMan.Health != 0)
             {
                 this.spriteBatch.Begin();
-                this.levelMatrix.Draw(this.spriteBatch);
+                this.levelMatrix.Draw(this.spriteBatch, pacMan);
                 this.pacmanAnimator.Draw(this.spriteBatch);
                 this.spriteBatch.End();
             }
