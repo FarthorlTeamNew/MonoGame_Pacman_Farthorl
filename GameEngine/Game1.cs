@@ -15,7 +15,7 @@ namespace GameEngine
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        private PacMan pacMan;
+        public PacMan pacMan;
         private PacmanAnimator pacmanAnimator;
         private PacmanInputHandler inputHandler;
         private InitializeMatrix levelMatrix;
@@ -90,7 +90,7 @@ namespace GameEngine
             this.pacMan.UpdateBoundingBox();
             base.Update(gameTime);
 
-            this.Window.Title = "PacMan Farthorl v.2.0";
+            this.Window.Title = $"Scores: {this.pacMan.Scores}   Left points:{this.levelMatrix.GetLeftPoints()}";
         }
 
         /// <summary>

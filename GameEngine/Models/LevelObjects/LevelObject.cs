@@ -23,6 +23,6 @@ namespace GameEngine.Models.LevelObjects
             return false;
         }
 
-        public abstract void ReactOnCollision();
+        public abstract void ReactOnCollision(PacMan pacman);
     }
 }

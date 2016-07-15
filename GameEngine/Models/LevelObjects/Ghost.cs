@@ -13,7 +13,7 @@ namespace GameEngine.Models.LevelObjects
             base.Texture = texture;
         }
 
-        public override void ReactOnCollision()
+        public override void ReactOnCollision(PacMan pacMan)
         {
             //Just to check the collisin, TODO real collision details
             Task task = Task.Run(() => { Console.Beep(500, 500); });

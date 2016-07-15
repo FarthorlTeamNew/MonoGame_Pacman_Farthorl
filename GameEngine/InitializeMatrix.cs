@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,6 +26,11 @@ namespace GameEngine
         {
             bricksList = new List<Wall>();
             pointsList = new List<PointObj>();
+        }
+
+        public int GetLeftPoints()
+        {
+            return this.pointsList.Count;
         }
 
         public void LoadLevelMatrix(GraphicsDevice graphicsDevice)
@@ -79,7 +85,7 @@ namespace GameEngine
                 spriteBatch.Draw(point.Texture, point.BoundingBox, Color.White);
                 if (point.IsColliding(pacMan))
                 {
-                    point.ReactOnCollision();
+                    point.ReactOnCollision(pacMan);
                     pointsList.Remove(point);
                     break;
                 }

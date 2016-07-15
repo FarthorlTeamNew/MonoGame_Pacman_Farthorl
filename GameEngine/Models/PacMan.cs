@@ -13,7 +13,7 @@ namespace GameEngine
         private int health = 100;
         //not used now,but in future
         //private int speed = 5;
-        //private int scores = 0;
+        private int scores = 0;
 
         public PacMan(GraphicsDevice graphicsDevice, Rectangle boundingBox) //Hardcore width and height
             : base("Pacman", 0,  0, boundingBox)
@@ -25,6 +25,12 @@ namespace GameEngine
                     base.Texture = Texture2D.FromStream(graphicsDevice, stream);
                 }
             }
+        }
+
+        public int Scores
+        {
+            get { return scores; }
+            set { scores = value; }
         }
 
         public int Health
