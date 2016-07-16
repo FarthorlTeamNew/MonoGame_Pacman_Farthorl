@@ -67,7 +67,7 @@ namespace GameEngine
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch, PacMan pacMan)
+        public void Draw(SpriteBatch spriteBatch, PacMan pacMan, List<Fruit> fruitList)
         {
             foreach (var brick in bricksList)
             {
@@ -76,6 +76,7 @@ namespace GameEngine
 
             foreach (var point in pointsList)
             {
+                // Remove points if pacman reaches them
                 spriteBatch.Draw(point.Texture, point.BoundingBox, Color.White);
                 if (point.IsColliding(pacMan))
                 {
@@ -83,9 +84,23 @@ namespace GameEngine
                     pointsList.Remove(point);
                     break;
                 }
-            }
+                // Remove points that have fruit placed on top of them
+                bool colisionFound = false;
+                foreach (var fruit in fruitList)
+                {
+                    if (fruit.X < point.X + 15 && fruit.X > point.X - 15 && fruit.Y < point.Y + 15 && fruit.Y > point.Y - 15)
+                    {
+                        pointsList.Remove(point);
+                        colisionFound = true;
+                        break;
+                    }
+                }
+                if (colisionFound)
+                {
+                    break;
+                }
+            }        
         }
-
         private static string[,] GetMatrixValues()
         {
             try

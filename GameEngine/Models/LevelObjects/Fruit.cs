@@ -120,5 +120,10 @@ namespace GameEngine.Models.LevelObjects
                 }
             }
         }
+
+        public static List<Fruit> GetFruitList()
+        {
+            return fruits;
+        }
     }
 }

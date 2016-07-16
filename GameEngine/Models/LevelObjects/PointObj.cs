@@ -13,7 +13,6 @@ namespace GameEngine.Models.LevelObjects
         public override void ReactOnCollision(PacMan pacman)
         {
             pacman.Scores++;
-            Matrix.PathsMatrix[(int)this.X / 32, (int)base.Y / 32] = "0,0";
         }
     }
 }

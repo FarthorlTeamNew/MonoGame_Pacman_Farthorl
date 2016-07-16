@@ -5,6 +5,7 @@ using GameEngine.Models.LevelObjects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace GameEngine
 {
@@ -20,6 +21,7 @@ namespace GameEngine
         private PacmanAnimator pacmanAnimator;
         private PacmanInputHandler inputHandler;
         private Matrix levelMatrix;
+        private List<Fruit> fruitList;
 
         public Game1()
         {
@@ -44,6 +46,7 @@ namespace GameEngine
             this.graphics.PreferredBackBufferWidth = Global.GLOBAL_WIDTH;
             this.graphics.PreferredBackBufferHeight = Global.GLOBAL_HEIGHT;
             this.levelMatrix = new Matrix(GraphicsDevice);
+            this.fruitList = new List<Fruit>();
             //graphics.IsFullScreen = true; // set this to enable full screen
             this.graphics.ApplyChanges();
 
@@ -64,6 +67,7 @@ namespace GameEngine
             spriteBatch = new SpriteBatch(GraphicsDevice);
             levelMatrix.LoadLevelMatrix(this.GraphicsDevice);
             Fruit.InicializeFruits(GraphicsDevice);
+            fruitList.AddRange(Fruit.GetFruitList());
             // TODO: use this.Content to load your game content here
 
         }
@@ -105,7 +109,7 @@ namespace GameEngine
             if (this.pacMan.Health != 0)
             {
                 this.spriteBatch.Begin();
-                this.levelMatrix.Draw(this.spriteBatch, pacMan);
+                this.levelMatrix.Draw(this.spriteBatch, pacMan, fruitList);
                 Fruit.Draw(this.spriteBatch, pacMan);
                 this.pacmanAnimator.Draw(this.spriteBatch);
                 this.spriteBatch.End();
