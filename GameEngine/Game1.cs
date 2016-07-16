@@ -1,6 +1,7 @@
 ﻿using GameEngine.Animators;
 using GameEngine.Globals;
 using GameEngine.Handlers;
+using GameEngine.Models.LevelObjects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -62,6 +63,7 @@ namespace GameEngine
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             levelMatrix.LoadLevelMatrix(this.GraphicsDevice);
+            Fruit.InicializeFruits(GraphicsDevice);
             // TODO: use this.Content to load your game content here
 
         }
@@ -104,6 +106,7 @@ namespace GameEngine
             {
                 this.spriteBatch.Begin();
                 this.levelMatrix.Draw(this.spriteBatch, pacMan);
+                Fruit.Draw(this.spriteBatch, pacMan);
                 this.pacmanAnimator.Draw(this.spriteBatch);
                 this.spriteBatch.End();
             }
