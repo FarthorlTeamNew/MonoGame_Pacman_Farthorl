@@ -21,10 +21,14 @@ namespace GameEngine.Models.LevelObjects
         public override void ReactOnCollision(PacMan pacMan)
         {
             //Just simple logic to heal the pacman with fruit bonus.. but not to overcome 
-            //if (pacman.Health+this.FruitBonus<=100)
-            //{
-            //    pacman.Health += this.FruitBonus;
-            //}
+            if (pacMan.Health + this.FruitBonus <= 100)
+            {
+                pacMan.Health += this.FruitBonus;
+            }
+            else
+            {
+                pacMan.Health = 100;
+            }
         }
         
         //sealed??? 

@@ -92,7 +92,7 @@ namespace GameEngine
             this.pacMan.UpdateBoundingBox();
             base.Update(gameTime);
 
-            this.Window.Title = $"Scores: {this.pacMan.Scores}   Left points:{this.levelMatrix.GetLeftPoints()}";
+            this.Window.Title = $"Scores: {this.pacMan.Scores}   Left points:{this.levelMatrix.GetLeftPoints()}  HEALTH:{this.pacMan.Health}";
         }
 
         /// <summary>

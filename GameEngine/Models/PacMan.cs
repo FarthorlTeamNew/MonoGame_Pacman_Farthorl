@@ -10,7 +10,7 @@ namespace GameEngine
 {
     public class PacMan : GameObject
     {
-        private int health = 100;
+        private int health = 50;
         //not used now,but in future
         //private int speed = 5;
         private int scores = 0;
