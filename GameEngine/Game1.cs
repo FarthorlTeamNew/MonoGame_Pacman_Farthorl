@@ -14,9 +14,10 @@ namespace GameEngine
     /// </summary>
     public class Game1 : Game
     {
+        private SpriteFont spriteFont;
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-
         public PacMan pacMan;
         private PacmanAnimator pacmanAnimator;
         private PacmanInputHandler inputHandler;
@@ -97,6 +98,10 @@ namespace GameEngine
             base.Update(gameTime);
 
             this.Window.Title = $"Scores: {this.pacMan.Scores}   Left points:{this.levelMatrix.GetLeftPoints()}  HEALTH:{this.pacMan.Health}";
+            if (this.levelMatrix.GetLeftPoints()==0)
+            {
+        
+            }
         }
 
         /// <summary>
