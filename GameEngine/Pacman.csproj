@@ -50,7 +50,7 @@
     <Compile Include="Globals\Global.cs" />
     <Compile Include="Handlers\PacmanInputHandler.cs" />
     <Compile Include="ExtractAllLevels.cs" />
-    <Compile Include="InitializeMatrix.cs" />
+    <Compile Include="Matrix.cs" />
     <Compile Include="Models\LevelObjects\Fruits\Apple.cs" />
     <Compile Include="Models\LevelObjects\Fruits\Banana.cs" />
     <Compile Include="Models\LevelObjects\Fruits\Brezel.cs" />

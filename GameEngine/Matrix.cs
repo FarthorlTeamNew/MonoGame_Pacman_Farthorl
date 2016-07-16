@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace GameEngine
 {
-    public class InitializeMatrix
+    public class Matrix
     {
         private static string Level = @"DataFiles\Levels\CSharpLove.txt";
         public static string[,] PathsMatrix = new string[24, 13];
@@ -22,7 +22,7 @@ namespace GameEngine
         private List<Wall> bricksList;
         private List<PointObj> pointsList;
 
-        public InitializeMatrix(GraphicsDevice graphicsDevice)
+        public Matrix(GraphicsDevice graphicsDevice)
         {
             bricksList = new List<Wall>();
             pointsList = new List<PointObj>();

@@ -93,11 +93,11 @@ namespace GameEngine.Models.LevelObjects
             {
                 int tryX = new Random(DateTime.Now.Millisecond).Next(1, 24);
                 int tryY = new Random(DateTime.Now.Millisecond).Next(1, 13);
-                var elements = InitializeMatrix.PathsMatrix[tryX, tryY].Trim().Split(',');
+                var elements = Matrix.PathsMatrix[tryX, tryY].Trim().Split(',');
                 int placeAvailable = int.Parse(elements[1]);
                 if (placeAvailable == 1)
                 {
-                    InitializeMatrix.PathsMatrix[tryX, tryY] = "0,0";
+                    Matrix.PathsMatrix[tryX, tryY] = "0,0";
                     return $"{tryX} {tryY}";
                 }
             }

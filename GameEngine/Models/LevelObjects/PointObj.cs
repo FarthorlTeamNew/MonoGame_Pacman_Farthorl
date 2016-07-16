@@ -1,10 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameEngine.Models.LevelObjects
 {
@@ -18,7 +13,7 @@ namespace GameEngine.Models.LevelObjects
         public override void ReactOnCollision(PacMan pacman)
         {
             pacman.Scores++;
-            InitializeMatrix.PathsMatrix[(int)this.X / 32, (int)base.Y / 32] = "0,0";
+            Matrix.PathsMatrix[(int)this.X / 32, (int)base.Y / 32] = "0,0";
         }
     }
 }

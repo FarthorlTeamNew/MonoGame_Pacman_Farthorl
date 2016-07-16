@@ -19,7 +19,7 @@ namespace GameEngine
         public PacMan pacMan;
         private PacmanAnimator pacmanAnimator;
         private PacmanInputHandler inputHandler;
-        private InitializeMatrix levelMatrix;
+        private Matrix levelMatrix;
 
         public Game1()
         {
@@ -43,7 +43,7 @@ namespace GameEngine
             this.inputHandler = new PacmanInputHandler(this.pacMan);
             this.graphics.PreferredBackBufferWidth = Global.GLOBAL_WIDTH;
             this.graphics.PreferredBackBufferHeight = Global.GLOBAL_HEIGHT;
-            this.levelMatrix = new InitializeMatrix(GraphicsDevice);
+            this.levelMatrix = new Matrix(GraphicsDevice);
             //graphics.IsFullScreen = true; // set this to enable full screen
             this.graphics.ApplyChanges();
 
