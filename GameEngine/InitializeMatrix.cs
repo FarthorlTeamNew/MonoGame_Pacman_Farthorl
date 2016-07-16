@@ -48,24 +48,18 @@ namespace GameEngine
                     if (quadrant == 1)
                     {
                         Wall brick = new Wall(brickTexture, x * 32, y * 32, new Rectangle(x * 32, y * 32, 32, 32));
-                        if (brick.Texture == null)
+                        using (var stream = TitleContainer.OpenStream("Content/brick.png"))
                         {
-                            using (var stream = TitleContainer.OpenStream("Content/brick.png"))
-                            {
-                                brick.Texture = Texture2D.FromStream(graphicsDevice, stream);
-                            }
+                            brick.Texture = Texture2D.FromStream(graphicsDevice, stream);
                         }
                         bricksList.Add(brick);
                     }
                     else if (pointIndex == 1)
                     {
                         PointObj point = new PointObj(pointTexture, x * 32, y * 32, new Rectangle(x * 32, y * 32, 32, 32));
-                        if (point.Texture == null)
+                        using (var stream = TitleContainer.OpenStream("Content/Point.png"))
                         {
-                            using (var stream = TitleContainer.OpenStream("Content/Point.png"))
-                            {
-                                point.Texture = Texture2D.FromStream(graphicsDevice, stream);
-                            }
+                            point.Texture = Texture2D.FromStream(graphicsDevice, stream);
                         }
                         pointsList.Add(point);
                     }

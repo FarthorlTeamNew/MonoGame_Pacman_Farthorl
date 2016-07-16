@@ -41,6 +41,11 @@
     <Compile Include="Animators\AnimationFrame.cs" />
     <Compile Include="Animators\Animator.cs" />
     <Compile Include="Animators\Animation.cs" />
+    <Compile Include="Animators\GhostAnimator.cs" />
+    <Compile Include="Animators\GhostAnimators\BlinkyAnimator.cs" />
+    <Compile Include="Animators\GhostAnimators\ClydeAnimator.cs" />
+    <Compile Include="Animators\GhostAnimators\InkyAnimator.cs" />
+    <Compile Include="Animators\GhostAnimators\PinkyAnimator.cs" />
     <Compile Include="Animators\PacmanAnimator.cs" />
     <Compile Include="Globals\Global.cs" />
     <Compile Include="Handlers\PacmanInputHandler.cs" />
@@ -54,6 +59,10 @@
     <Compile Include="Game1.cs" />
     <Compile Include="Models\GameObject.cs" />
     <Compile Include="Models\LevelObjects\Ghost.cs" />
+    <Compile Include="Models\LevelObjects\Ghosts\Blinky.cs" />
+    <Compile Include="Models\LevelObjects\Ghosts\Clyde.cs" />
+    <Compile Include="Models\LevelObjects\Ghosts\Inky.cs" />
+    <Compile Include="Models\LevelObjects\Ghosts\Pinky.cs" />
     <Compile Include="Models\LevelObjects\LevelObject.cs" />
     <Compile Include="Models\LevelObjects\PointObj.cs" />
     <Compile Include="Models\LevelObjects\Wall.cs" />

@@ -5,10 +5,10 @@ using Microsoft.Xna.Framework;
 
 namespace GameEngine.Models.LevelObjects
 {
-    public class Ghost : LevelObject
+    public abstract class Ghost : LevelObject
     {
-        public Ghost(Texture2D texture, float x, float y, Rectangle boundingBox)
-            : base(texture.Name, x, y, boundingBox)
+        public Ghost(string name, Texture2D texture, float x, float y, Rectangle boundingBox)
+            : base(name, x, y, boundingBox)
         {
             base.Texture = texture;
         }

@@ -14,7 +14,7 @@ namespace GameEngine.Models.LevelObjects
             return new Rectangle((int)this.X, (int)this.Y, this.Texture.Width, this.Texture.Height);
         }
 
-        public bool IsColliding(PacMan pacman)
+        public virtual bool IsColliding(PacMan pacman)
         {
             if (pacman.X < this.X + 15 && pacman.X  > this.X - 15 && pacman.Y < this.Y + 15 && pacman.Y > this.Y - 15)
             {

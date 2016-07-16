@@ -18,12 +18,9 @@ namespace GameEngine
         public PacMan(GraphicsDevice graphicsDevice, Rectangle boundingBox) //Hardcore width and height
             : base("Pacman", 0,  0, boundingBox)
         {
-            if (base.Texture == null)
+            using (var stream = TitleContainer.OpenStream("Content/PacManSprite_sheets.png"))
             {
-                using (var stream = TitleContainer.OpenStream("Content/PacManSprite_sheets.png"))
-                {
-                    base.Texture = Texture2D.FromStream(graphicsDevice, stream);
-                }
+                base.Texture = Texture2D.FromStream(graphicsDevice, stream);
             }
         }
 
