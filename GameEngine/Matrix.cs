@@ -85,19 +85,13 @@ namespace GameEngine
                     break;
                 }
                 // Remove points that have fruit placed on top of them
-                bool colisionFound = false;
                 foreach (var fruit in fruitList)
                 {
-                    if (fruit.X < point.X + 15 && fruit.X > point.X - 15 && fruit.Y < point.Y + 15 && fruit.Y > point.Y - 15)
+                    if (point.IsColliding(fruit))
                     {
                         pointsList.Remove(point);
-                        colisionFound = true;
-                        break;
+                        return;
                     }
-                }
-                if (colisionFound)
-                {
-                    break;
                 }
             }        
         }
