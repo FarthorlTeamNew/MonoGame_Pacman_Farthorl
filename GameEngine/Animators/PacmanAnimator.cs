@@ -63,10 +63,9 @@ namespace GameEngine.Animators
         {
             Vector2 topLeftPos = new Vector2(this.pacman.X, this.pacman.Y);
             Color tint = Color.White;
-
             var sourceRectangle = this.currentAnimation.CurrentRectangle;
-
             spriteBatch.Draw(this.pacman.Texture, topLeftPos, sourceRectangle, tint);
+
         }
 
         public override void BufferFrames()

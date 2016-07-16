@@ -10,11 +10,13 @@ namespace GameEngine.Models.LevelObjects
     public abstract class Fruit : LevelObject
     {
         private static List<Fruit> fruits;
+        //private string fruitPath;
 
         public Fruit(Texture2D texture, float x, float y, Rectangle boundingBox) 
             : base(texture.Name, x, y, boundingBox)
         {
             base.Texture = texture;
+           // Fruit.fruits.Add(this);//**
         }
         public int FruitBonus { get; set; }
 
@@ -31,16 +33,14 @@ namespace GameEngine.Models.LevelObjects
             }
         }
         
-        //sealed??? 
-
         public static void InicializeFruits(GraphicsDevice graphicsDevice)
         {
-            Texture2D tempTecture = new Texture2D(graphicsDevice, 32,32);
-            Fruit apple = new Apple(tempTecture ,2, 3, new Rectangle(0,0, 32, 32));
+            Texture2D tempTecture = new Texture2D(graphicsDevice, 32, 32);
+            Fruit apple = new Apple(tempTecture, 2, 3, new Rectangle(0, 0, 32, 32));
             using (var stream = TitleContainer.OpenStream("Content/FruitImages/Apple.png"))
             {
                 apple.Texture = Texture2D.FromStream(graphicsDevice, stream);
-            }          
+            }
 
             Fruit banana = new Banana(tempTecture, 2, 3, new Rectangle(0, 0, 32, 32));
             using (var stream = TitleContainer.OpenStream("Content/FruitImages/Banana.png"))
