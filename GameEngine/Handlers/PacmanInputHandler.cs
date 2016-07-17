@@ -50,7 +50,7 @@ namespace GameEngine.Handlers
                 if (desiredVelocity.X != 0 || desiredVelocity.Y != 0)
                 {
                     desiredVelocity.Normalize();
-                    const float desiredSpeed = 200;
+                    float desiredSpeed = Global.PacmanSpeed;
                     desiredVelocity *= desiredSpeed;
                 }
             }

@@ -132,7 +132,21 @@ namespace GameEngine
                         var texture = Content.Load<Texture2D>("PacManWin_image");
                         this.spriteBatch.Draw(texture, new Vector2(250, 100));
                         isRunning = false;
+                        if (Keyboard.GetState().IsKeyDown(Keys.Space))
+                        {
+                            isRunning = true;
+                            this.pacMan.X = 0;
+                            this.pacMan.Y = 0;
+                            this.pacMan.Scores = 0;
+                            this.pacMan.Health = 50;
+                            this.pacmanAnimator.CurrentDirection = "WalkRight";
+                            levelMatrix.LoadLevelMatrix(this.GraphicsDevice);
 
+                            //this.levelMatrix.Draw(this.spriteBatch, pacMan, fruitList);
+                            Fruit.InicializeFruits(GraphicsDevice);
+                            Fruit.Draw(this.spriteBatch, pacMan);
+                          
+                        }
                     }
                     this.spriteBatch.End();
                 }               

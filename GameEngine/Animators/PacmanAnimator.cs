@@ -9,10 +9,10 @@ namespace GameEngine.Animators
     public class PacmanAnimator : Animator
     {
         private string currentDirection = "WalkRight";
-
         private PacMan pacman;
         List<Animation> animations = new List<Animation>();
         public Animation currentAnimation;
+
         public PacmanAnimator(PacMan pacMan)
         {
             this.pacman = pacMan;
@@ -20,6 +20,11 @@ namespace GameEngine.Animators
             this.currentAnimation = this.animations.Find(x => x.Name == currentDirection);
         }
 
+        public string CurrentDirection
+        {
+            get { return currentDirection; }
+            set { currentDirection = value; }
+        }
 
         public override void UpdateAnimation(GameTime gameTime, Vector2 velocity)
         {

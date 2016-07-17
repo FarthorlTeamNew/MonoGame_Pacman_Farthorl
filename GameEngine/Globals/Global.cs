@@ -8,5 +8,6 @@
         public static int GLOBAL_HEIGHT = 416;
         public static int XMax = 24;
         public static int YMax = 13;
+        public static float PacmanSpeed = 350f;
     }
 }
