@@ -51,6 +51,8 @@
     <Compile Include="Handlers\PacmanInputHandler.cs" />
     <Compile Include="ExtractAllLevels.cs" />
     <Compile Include="Matrix.cs" />
+    <Compile Include="Menu\CButton.cs" />
+    <Compile Include="Menu\GameState.cs" />
     <Compile Include="Models\LevelObjects\Fruits\Apple.cs" />
     <Compile Include="Models\LevelObjects\Fruits\Banana.cs" />
     <Compile Include="Models\LevelObjects\Fruits\Brezel.cs" />
@@ -103,6 +105,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\FruitImages\Strawberry.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\MenuImages\highscores.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\MenuImages\MainMenu.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\MenuImages\options.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\MenuImages\PlayGame.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Pacman.png">

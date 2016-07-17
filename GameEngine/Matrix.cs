@@ -89,7 +89,7 @@ namespace GameEngine
                 {
                     foreach (var fruit in fruitList)
                     {
-                        if (pointsList[i].IsColliding(fruit))
+                        if (pointsList[i].IsColliding(fruit) && i < pointsList.Count - 1)
                         {
                             pointsList.Remove(pointsList[i]);
                             counter++;

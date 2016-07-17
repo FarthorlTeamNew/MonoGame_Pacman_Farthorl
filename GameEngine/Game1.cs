@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
+using GameEngine.Menu;
 
 namespace GameEngine
 {
@@ -21,6 +22,12 @@ namespace GameEngine
         private Matrix levelMatrix;
         private List<Fruit> fruitList;
         private bool isRunning = true;
+        int screenWidth = 770;
+        int screenHeight = 420;
+
+        GameState currentGameState = GameState.MainMenu;
+        CButton butPlay;
+
 
         public Game1()
         {
@@ -50,6 +57,14 @@ namespace GameEngine
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            this.graphics.PreferredBackBufferWidth = this.screenWidth;
+            this.graphics.PreferredBackBufferHeight = this.screenHeight;
+            //    this.graphics.IsFullScreen = true;
+            this.graphics.ApplyChanges();
+            this.IsMouseVisible = true;
+            this.butPlay = new CButton(this.Content.Load<Texture2D>("MenuImages/PlayGame"), this.graphics.GraphicsDevice);
+
+            this.butPlay.SetPosition(new Vector2(350, 300));
             levelMatrix.LoadLevelMatrix(this.GraphicsDevice);
             Fruit.InicializeFruits(GraphicsDevice);
             fruitList.AddRange(Fruit.GetFruitList());
@@ -70,6 +85,22 @@ namespace GameEngine
                 return;
             }
 
+            MouseState mouse = Mouse.GetState();
+
+            switch (this.currentGameState)
+            {
+                case GameState.MainMenu:
+                    if (this.butPlay.isClicked == true) this.currentGameState = GameState.Playing;
+
+                    this.butPlay.Update(mouse);
+                    break;
+                case GameState.Options:
+                    break;
+                case GameState.Playing:
+                    break;
+
+            }
+
             //// TODO: Add your update logic here
             if (isRunning)
             {
@@ -87,20 +118,40 @@ namespace GameEngine
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.SkyBlue);
+
+            this.spriteBatch.Begin();
+            switch (this.currentGameState)
+            {
+                case GameState.MainMenu:
+                    this.spriteBatch.Draw(this.Content.Load<Texture2D>("MenuImages/MainMenu"), new Rectangle(0, 0, this.screenWidth, this.screenHeight), Color.White);
+                    this.butPlay.Draw(this.spriteBatch);
+                    break;
+                case GameState.Options:
+                    break;
+                case GameState.Playing:
+                    break;
+            }
+            this.spriteBatch.End();
+
             if (this.pacMan.Health > 0)
             {
-                this.spriteBatch.Begin();
-                this.levelMatrix.Draw(this.spriteBatch, pacMan, fruitList);
-                Fruit.Draw(this.spriteBatch, pacMan);
-                this.pacmanAnimator.Draw(this.spriteBatch);
-                if (this.levelMatrix.GetLeftPoints() == 0)
+                if (this.butPlay.isClicked)
                 {
-                    var texture = Content.Load<Texture2D>("PacManWin_image");
-                    this.spriteBatch.Draw(texture, new Vector2(250, 100));
-                    isRunning = false;
-               
+                    this.spriteBatch.Begin();
+                    this.levelMatrix.Draw(this.spriteBatch, pacMan, fruitList);
+                    Fruit.Draw(this.spriteBatch, pacMan);
+                    this.pacmanAnimator.Draw(this.spriteBatch);
+                    if (this.levelMatrix.GetLeftPoints() == 0)
+                    {
+                        var texture = Content.Load<Texture2D>("PacManWin_image");
+                        this.spriteBatch.Draw(texture, new Vector2(250, 100));
+                        isRunning = false;
+
+                    }
+                    this.spriteBatch.End();
                 }
-                this.spriteBatch.End();
+
+               
             }
             else
             {
