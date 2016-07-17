@@ -10,13 +10,13 @@ namespace GameEngine.Menu
         Vector2 position;
         Rectangle rectangle;
 
-        Color color = new Color(255, 255, 255, 255);
+        Color color = new Color(100, 100, 55, 255);
         public Vector2 size;
 
         public CButton(Texture2D newTexture, GraphicsDevice graphics)
         {
             this.texture = newTexture;
-            this.size = new Vector2(graphics.Viewport.Width / 8, graphics.Viewport.Height / 20);
+            this.size = new Vector2(graphics.Viewport.Width / 5 , graphics.Viewport.Height /18);
         }
 
         bool down;

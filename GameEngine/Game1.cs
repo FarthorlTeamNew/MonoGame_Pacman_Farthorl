@@ -54,7 +54,7 @@ namespace GameEngine
             this.IsMouseVisible = true;
             this.butPlay = new CButton(this.Content.Load<Texture2D>("MenuImages/PlayGame"), this.graphics.GraphicsDevice);
 
-            this.butPlay.SetPosition(new Vector2(350, 300));
+            this.butPlay.SetPosition(new Vector2(300, 166));
             levelMatrix.LoadLevelMatrix(this.GraphicsDevice);
             Fruit.InicializeFruits(GraphicsDevice);
             fruitList.AddRange(Fruit.GetFruitList());
