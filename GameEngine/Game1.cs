@@ -22,12 +22,9 @@ namespace GameEngine
         private Matrix levelMatrix;
         private List<Fruit> fruitList;
         private bool isRunning = true;
-        int screenWidth = 770;
-        int screenHeight = 420;
 
         GameState currentGameState = GameState.MainMenu;
         CButton butPlay;
-
 
         public Game1()
         {
@@ -38,8 +35,6 @@ namespace GameEngine
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
             this.pacMan = new PacMan(this.GraphicsDevice, new Rectangle(0, 0, 32, 32));
             this.pacmanAnimator = new PacmanAnimator(this.pacMan);
             this.inputHandler = new PacmanInputHandler(this.pacMan);
@@ -55,12 +50,7 @@ namespace GameEngine
 
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            this.graphics.PreferredBackBufferWidth = this.screenWidth;
-            this.graphics.PreferredBackBufferHeight = this.screenHeight;
-            //    this.graphics.IsFullScreen = true;
-            this.graphics.ApplyChanges();
             this.IsMouseVisible = true;
             this.butPlay = new CButton(this.Content.Load<Texture2D>("MenuImages/PlayGame"), this.graphics.GraphicsDevice);
 
@@ -69,7 +59,6 @@ namespace GameEngine
             Fruit.InicializeFruits(GraphicsDevice);
             fruitList.AddRange(Fruit.GetFruitList());
             // TODO: use this.Content to load your game content here
-
         }
 
         protected override void UnloadContent()
@@ -98,10 +87,7 @@ namespace GameEngine
                     break;
                 case GameState.Playing:
                     break;
-
             }
-
-            //// TODO: Add your update logic here
             if (isRunning)
             {
                 var pacmanMovement = this.inputHandler.Move(gameTime);
@@ -111,8 +97,6 @@ namespace GameEngine
 
                 this.Window.Title = $"Scores: {this.pacMan.Scores}   Left points:{this.levelMatrix.GetLeftPoints()}  HEALTH:{this.pacMan.Health}";
             }
-
-
         }
 
         protected override void Draw(GameTime gameTime)
@@ -123,7 +107,7 @@ namespace GameEngine
             switch (this.currentGameState)
             {
                 case GameState.MainMenu:
-                    this.spriteBatch.Draw(this.Content.Load<Texture2D>("MenuImages/MainMenu"), new Rectangle(0, 0, this.screenWidth, this.screenHeight), Color.White);
+                    this.spriteBatch.Draw(this.Content.Load<Texture2D>("MenuImages/MainMenu"), new Rectangle(0, 0, Global.GLOBAL_WIDTH, Global.GLOBAL_HEIGHT), Color.White);
                     this.butPlay.Draw(this.spriteBatch);
                     break;
                 case GameState.Options:
@@ -149,18 +133,13 @@ namespace GameEngine
 
                     }
                     this.spriteBatch.End();
-                }
-
-               
+                }               
             }
             else
             {
 
             }
-            // TODO: Add your drawing code here
-
             base.Draw(gameTime);
-
         }
     }
 }

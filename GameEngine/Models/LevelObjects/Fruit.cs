@@ -95,8 +95,8 @@ namespace GameEngine.Models.LevelObjects
         {
             while (true)
             {
-                int tryX = new Random(DateTime.Now.Millisecond).Next(1, 24);
-                int tryY = new Random(DateTime.Now.Millisecond).Next(1, 13);
+                int tryX = new Random(DateTime.Now.Millisecond).Next(1, 23);
+                int tryY = new Random(DateTime.Now.Millisecond).Next(1, 12);
                 var elements = Matrix.PathsMatrix[tryX, tryY].Trim().Split(',');
                 int placeAvailable = int.Parse(elements[1]);
                 if (placeAvailable == 1)
