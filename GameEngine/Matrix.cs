@@ -14,13 +14,15 @@ namespace GameEngine
 {
     public class Matrix
     {
-        private static string Level = @"DataFiles\Levels\CSharpLove.txt";
+        private static string Level = @"DataFiles\Levels\Labirint.txt";
         public static string[,] PathsMatrix = new string[24, 13];
 
         private Texture2D brickTexture;
         private Texture2D pointTexture;
         private List<Wall> bricksList;
         private List<PointObj> pointsList;
+
+        private int counter = 0;
 
         public Matrix(GraphicsDevice graphicsDevice)
         {
@@ -74,26 +76,27 @@ namespace GameEngine
                 spriteBatch.Draw(brick.Texture, brick.BoundingBox, Color.White);
             }
 
-            foreach (var point in pointsList)
+            for (int i = 0; i < pointsList.Count; i++)
             {
-                // Remove points if pacman reaches them
-                spriteBatch.Draw(point.Texture, point.BoundingBox, Color.White);
-                if (point.IsColliding(pacMan))
+                spriteBatch.Draw(pointsList[i].Texture, pointsList[i].BoundingBox, Color.White);
+                if (pointsList[i].IsColliding(pacMan))
                 {
-                    point.ReactOnCollision(pacMan);
-                    pointsList.Remove(point);
-                    break;
+                    pointsList[i].ReactOnCollision(pacMan);
+                    pointsList.Remove(pointsList[i]);
                 }
                 // Remove points that have fruit placed on top of them
-                foreach (var fruit in fruitList)
+                if (counter!= 7)
                 {
-                    if (point.IsColliding(fruit))
+                    foreach (var fruit in fruitList)
                     {
-                        pointsList.Remove(point);
-                        return;
+                        if (pointsList[i].IsColliding(fruit))
+                        {
+                            pointsList.Remove(pointsList[i]);
+                            counter++;
+                        }
                     }
-                }
-            }        
+                }              
+            }     
         }
         private static string[,] GetMatrixValues()
         {
