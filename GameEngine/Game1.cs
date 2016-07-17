@@ -98,6 +98,7 @@ namespace GameEngine
                     var texture = Content.Load<Texture2D>("PacManWin_image");
                     this.spriteBatch.Draw(texture, new Vector2(250, 100));
                     isRunning = false;
+               
                 }
                 this.spriteBatch.End();
             }
