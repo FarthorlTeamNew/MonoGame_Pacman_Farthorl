@@ -21,7 +21,7 @@ namespace GameEngine
         private PacmanInputHandler pacmanInputHandler;
         private Matrix levelMatrix;
         private List<Fruit> fruitList;
-        private bool isRunning = false;
+        private bool isRunning;
 
         GameState currentGameState = GameState.MainMenu;
         CButton butPlay;
@@ -119,9 +119,9 @@ namespace GameEngine
             }
             this.spriteBatch.End();
 
-            if (this.pacMan.Health > 0)
+            if (this.butPlay.isClicked)
             {
-                if (this.butPlay.isClicked)
+                if (this.pacMan.Health > 0)
                 {
                     this.spriteBatch.Begin();
                     this.levelMatrix.Draw(this.spriteBatch, pacMan, fruitList);
@@ -134,28 +134,36 @@ namespace GameEngine
                         isRunning = false;
                         if (Keyboard.GetState().IsKeyDown(Keys.Space))
                         {
-                            isRunning = true;
-                            this.pacMan.X = 0;
-                            this.pacMan.Y = 0;
-                            this.pacMan.Scores = 0;
-                            this.pacMan.Health = 50;
-                            this.pacmanAnimator.CurrentDirection = "WalkRight";
-                            levelMatrix.LoadLevelMatrix(this.GraphicsDevice);
-
-                            //this.levelMatrix.Draw(this.spriteBatch, pacMan, fruitList);
-                            Fruit.InicializeFruits(GraphicsDevice);
-                            Fruit.Draw(this.spriteBatch, pacMan);
-                          
+                            this.Reset();
+                        }
+                        else if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+                        {
+                            this.Exit();
+                            using (var game = new Game1())
+                                game.Run();
                         }
                     }
                     this.spriteBatch.End();
-                }               
+                }
             }
             else
             {
 
             }
             base.Draw(gameTime);
+        }
+
+        private void Reset()
+        {
+            isRunning = true;
+            this.pacMan.X = 0;
+            this.pacMan.Y = 0;
+            this.pacMan.Scores = 0;
+            this.pacMan.Health = 50;
+            this.pacmanAnimator.CurrentDirection = "WalkRight";
+            levelMatrix.LoadLevelMatrix(this.GraphicsDevice);
+            Fruit.InicializeFruits(GraphicsDevice);
+            Fruit.Draw(this.spriteBatch, pacMan);
         }
     }
 }
