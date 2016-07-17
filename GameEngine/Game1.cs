@@ -21,7 +21,7 @@ namespace GameEngine
         private PacmanInputHandler inputHandler;
         private Matrix levelMatrix;
         private List<Fruit> fruitList;
-        private bool isRunning = true;
+        private bool isRunning = false;
 
         GameState currentGameState = GameState.MainMenu;
         CButton butPlay;
@@ -79,8 +79,11 @@ namespace GameEngine
             switch (this.currentGameState)
             {
                 case GameState.MainMenu:
-                    if (this.butPlay.isClicked == true) this.currentGameState = GameState.Playing;
-
+                    if (this.butPlay.isClicked == true)
+                    {
+                        this.currentGameState = GameState.Playing;
+                        isRunning = true;
+                    }
                     this.butPlay.Update(mouse);
                     break;
                 case GameState.Options:
@@ -95,7 +98,7 @@ namespace GameEngine
                 this.pacMan.UpdateBoundingBox();
                 base.Update(gameTime);
 
-                this.Window.Title = $"Scores: {this.pacMan.Scores}   Left points:{this.levelMatrix.GetLeftPoints()}  HEALTH:{this.pacMan.Health}";
+                this.Window.Title = $"Scores: {this.pacMan.Scores}   Left points:{this.levelMatrix.LeftPoints}  HEALTH:{this.pacMan.Health}";
             }
         }
 
@@ -125,7 +128,7 @@ namespace GameEngine
                     this.levelMatrix.Draw(this.spriteBatch, pacMan, fruitList);
                     Fruit.Draw(this.spriteBatch, pacMan);
                     this.pacmanAnimator.Draw(this.spriteBatch);
-                    if (this.levelMatrix.GetLeftPoints() == 0)
+                    if (this.levelMatrix.LeftPoints == 0)
                     {
                         var texture = Content.Load<Texture2D>("PacManWin_image");
                         this.spriteBatch.Draw(texture, new Vector2(250, 100));

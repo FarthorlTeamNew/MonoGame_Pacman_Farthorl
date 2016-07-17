@@ -17,6 +17,7 @@ namespace GameEngine.Animators
         {
             this.pacman = pacMan;
             this.BufferFrames();
+            this.currentAnimation = this.animations.Find(x => x.Name == currentDirection);
         }
 
 

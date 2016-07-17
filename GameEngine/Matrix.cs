@@ -30,9 +30,9 @@ namespace GameEngine
             pointsList = new List<PointObj>();
         }
 
-        public int GetLeftPoints()
+        public int LeftPoints
         {
-            return this.pointsList.Count;
+            get { return this.pointsList.Count; }
         }
 
         public void LoadLevelMatrix(GraphicsDevice graphicsDevice)
