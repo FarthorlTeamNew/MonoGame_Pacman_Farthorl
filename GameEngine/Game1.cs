@@ -16,9 +16,9 @@ namespace GameEngine
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         private SpriteFont spriteFont;
-        public PacMan pacMan;
+        private PacMan pacMan;
         private PacmanAnimator pacmanAnimator;
-        private PacmanInputHandler inputHandler;
+        private PacmanInputHandler pacmanInputHandler;
         private Matrix levelMatrix;
         private List<Fruit> fruitList;
         private bool isRunning = false;
@@ -37,7 +37,7 @@ namespace GameEngine
         {
             this.pacMan = new PacMan(this.GraphicsDevice, new Rectangle(0, 0, 32, 32));
             this.pacmanAnimator = new PacmanAnimator(this.pacMan);
-            this.inputHandler = new PacmanInputHandler(this.pacMan);
+            this.pacmanInputHandler = new PacmanInputHandler(this.pacMan);
             this.graphics.PreferredBackBufferWidth = Global.GLOBAL_WIDTH;
             this.graphics.PreferredBackBufferHeight = Global.GLOBAL_HEIGHT;
             this.levelMatrix = new Matrix(GraphicsDevice);
@@ -74,8 +74,6 @@ namespace GameEngine
                 return;
             }
 
-            MouseState mouse = Mouse.GetState();
-
             switch (this.currentGameState)
             {
                 case GameState.MainMenu:
@@ -84,6 +82,7 @@ namespace GameEngine
                         this.currentGameState = GameState.Playing;
                         isRunning = true;
                     }
+                    MouseState mouse = Mouse.GetState();
                     this.butPlay.Update(mouse);
                     break;
                 case GameState.Options:
@@ -91,11 +90,11 @@ namespace GameEngine
                 case GameState.Playing:
                     break;
             }
+
             if (isRunning)
             {
-                var pacmanMovement = this.inputHandler.Move(gameTime);
+                var pacmanMovement = this.pacmanInputHandler.Move(gameTime);
                 this.pacmanAnimator.UpdateAnimation(gameTime, pacmanMovement);
-                this.pacMan.UpdateBoundingBox();
                 base.Update(gameTime);
 
                 this.Window.Title = $"Scores: {this.pacMan.Scores}   Left points:{this.levelMatrix.LeftPoints}  HEALTH:{this.pacMan.Health}";

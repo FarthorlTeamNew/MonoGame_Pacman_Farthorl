@@ -64,6 +64,8 @@ namespace GameEngine.Handlers
 
             this.pacman.X += velocity.X * (float)gameTime.ElapsedGameTime.TotalSeconds;
             this.pacman.Y += velocity.Y * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            this.pacman.UpdateBoundingBox();
+
             return velocity;
         }
     }
