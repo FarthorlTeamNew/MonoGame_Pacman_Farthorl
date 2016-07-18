@@ -11,5 +11,6 @@ namespace GameEngine.Menu
         MainMenu,
         Options,
         Playing,
+        Exit
     }
 }

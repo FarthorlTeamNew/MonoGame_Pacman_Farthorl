@@ -22,15 +22,15 @@ namespace GameEngine
         private Matrix levelMatrix;
         private List<Fruit> fruitList;
         private bool isRunning;
-
         GameState currentGameState = GameState.MainMenu;
         CButton butPlay;
+        CButton butExit;
 
         public Game1()
         {
-            graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
-            IsMouseVisible = true;
+            this.graphics = new GraphicsDeviceManager(this);
+            this.Content.RootDirectory = "Content";
+            this.IsMouseVisible = true;
         }
 
         protected override void Initialize()
@@ -50,14 +50,15 @@ namespace GameEngine
 
         protected override void LoadContent()
         {
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            this.spriteBatch = new SpriteBatch(GraphicsDevice);
             this.IsMouseVisible = true;
             this.butPlay = new CButton(this.Content.Load<Texture2D>("MenuImages/PlayGame"), this.graphics.GraphicsDevice);
-
             this.butPlay.SetPosition(new Vector2(300, 166));
-            levelMatrix.LoadLevelMatrix(this.GraphicsDevice);
+            this.butExit = new CButton(this.Content.Load<Texture2D>("MenuImages/Exit"), this.graphics.GraphicsDevice);
+            this.butExit.SetPosition(new Vector2(300, 200));
+            this.levelMatrix.LoadLevelMatrix(this.GraphicsDevice);
             Fruit.InicializeFruits(GraphicsDevice);
-            fruitList.AddRange(Fruit.GetFruitList());
+            this.fruitList.AddRange(Fruit.GetFruitList());
             // TODO: use this.Content to load your game content here
         }
 
@@ -76,18 +77,18 @@ namespace GameEngine
 
             switch (this.currentGameState)
             {
+
                 case GameState.MainMenu:
-                    if (this.butPlay.isClicked == true)
-                    {
-                        this.currentGameState = GameState.Playing;
-                        isRunning = true;
-                    }
                     MouseState mouse = Mouse.GetState();
-                    this.butPlay.Update(mouse);
+                    if (this.butPlay.isClicked) this.currentGameState = GameState.Playing; this.isRunning = true;
+                    if (this.butExit.isClicked) this.currentGameState = GameState.Exit;
+                    this.butPlay.Update(mouse); this.butExit.Update(mouse);
                     break;
                 case GameState.Options:
                     break;
                 case GameState.Playing:
+                    break;
+                    case GameState.Exit:
                     break;
             }
 
@@ -111,11 +112,16 @@ namespace GameEngine
                 case GameState.MainMenu:
                     this.spriteBatch.Draw(this.Content.Load<Texture2D>("MenuImages/MainMenu"), new Rectangle(0, 0, Global.GLOBAL_WIDTH, Global.GLOBAL_HEIGHT), Color.White);
                     this.butPlay.Draw(this.spriteBatch);
+                    this.butExit.Draw(this.spriteBatch);
                     break;
                 case GameState.Options:
                     break;
                 case GameState.Playing:
                     break;
+                    case GameState.Exit:
+                    Environment.Exit(0);
+                    break;
+               
             }
             this.spriteBatch.End();
 
