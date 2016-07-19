@@ -22,9 +22,7 @@ namespace GameEngine
         private List<Wall> bricksList;
         private List<PointObj> pointsList;
 
-        private int counter = 0;
-
-        public Matrix(GraphicsDevice graphicsDevice)
+        public Matrix()
         {
             bricksList = new List<Wall>();
             pointsList = new List<PointObj>();
@@ -35,7 +33,7 @@ namespace GameEngine
             get { return this.pointsList.Count; }
         }
 
-        public void LoadLevelMatrix(GraphicsDevice graphicsDevice)
+        public void InitializeMatrix(GraphicsDevice graphicsDevice)
         {
             PathsMatrix = GetMatrixValues();
 
@@ -49,7 +47,7 @@ namespace GameEngine
 
                     if (quadrant == 1)
                     {
-                        Wall brick = new Wall(brickTexture, x * 32, y * 32, new Rectangle(x * 32, y * 32, 32, 32));
+                        Wall brick = new Wall(brickTexture, x * Global.frame_Width, y * Global.frame_Height, new Rectangle(x * Global.frame_Width, y * Global.frame_Height, Global.frame_Width, Global.frame_Height));
                         using (var stream = TitleContainer.OpenStream("Content/brick.png"))
                         {
                             brick.Texture = Texture2D.FromStream(graphicsDevice, stream);
@@ -58,7 +56,7 @@ namespace GameEngine
                     }
                     else if (pointIndex == 1)
                     {
-                        PointObj point = new PointObj(pointTexture, x * 32, y * 32, new Rectangle(x * 32, y * 32, 32, 32));
+                        PointObj point = new PointObj(pointTexture, x * Global.frame_Width, y * Global.frame_Height, new Rectangle(x * Global.frame_Width, y * Global.frame_Height, Global.frame_Width, Global.frame_Height));
                         using (var stream = TitleContainer.OpenStream("Content/Point.png"))
                         {
                             point.Texture = Texture2D.FromStream(graphicsDevice, stream);
@@ -67,6 +65,26 @@ namespace GameEngine
                     }
                 }
             }
+        }
+
+        public void RemovePoints(List<Fruit> fruitList)
+        {
+            // Remove points that have fruit placed on top of them
+            for (int i = 0; i < pointsList.Count; i++)
+            {
+                foreach (var fruit in fruitList)
+                {
+                    if (pointsList[i].IsColliding(fruit) && i < pointsList.Count - 1)
+                    {
+                        pointsList.Remove(pointsList[i]);
+                    }
+                }
+            }
+        }
+
+        public void Update()
+        {
+            
         }
 
         public void Draw(SpriteBatch spriteBatch, PacMan pacMan, List<Fruit> fruitList)
@@ -84,18 +102,6 @@ namespace GameEngine
                     pointsList[i].ReactOnCollision(pacMan);
                     pointsList.Remove(pointsList[i]);
                 }
-                // Remove points that have fruit placed on top of them
-                if (counter!= 7)
-                {
-                    foreach (var fruit in fruitList)
-                    {
-                        if (pointsList[i].IsColliding(fruit) && i < pointsList.Count - 1)
-                        {
-                            pointsList.Remove(pointsList[i]);
-                            counter++;
-                        }
-                    }
-                }              
             }     
         }
         private static string[,] GetMatrixValues()

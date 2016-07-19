@@ -40,7 +40,7 @@ namespace GameEngine
             this.pacmanInputHandler = new PacmanInputHandler(this.pacMan);
             this.graphics.PreferredBackBufferWidth = Global.GLOBAL_WIDTH;
             this.graphics.PreferredBackBufferHeight = Global.GLOBAL_HEIGHT;
-            this.levelMatrix = new Matrix(GraphicsDevice);
+            this.levelMatrix = new Matrix();
             this.fruitList = new List<Fruit>();
             //graphics.IsFullScreen = true; // set this to enable full screen
             this.graphics.ApplyChanges();
@@ -56,9 +56,10 @@ namespace GameEngine
             this.butPlay.SetPosition(new Vector2(300, 166));
             this.butExit = new CButton(this.Content.Load<Texture2D>("MenuImages/Exit"), this.graphics.GraphicsDevice);
             this.butExit.SetPosition(new Vector2(300, 200));
-            this.levelMatrix.LoadLevelMatrix(this.GraphicsDevice);
+            this.levelMatrix.InitializeMatrix(this.GraphicsDevice);
             Fruit.InicializeFruits(GraphicsDevice);
             this.fruitList.AddRange(Fruit.GetFruitList());
+            this.levelMatrix.RemovePoints(fruitList);
             // TODO: use this.Content to load your game content here
         }
 
@@ -167,7 +168,7 @@ namespace GameEngine
             this.pacMan.Scores = 0;
             this.pacMan.Health = 50;
             this.pacmanAnimator.CurrentDirection = "WalkRight";
-            levelMatrix.LoadLevelMatrix(this.GraphicsDevice);
+            levelMatrix.InitializeMatrix(this.GraphicsDevice);
             Fruit.InicializeFruits(GraphicsDevice);
             Fruit.Draw(this.spriteBatch, pacMan);
         }
