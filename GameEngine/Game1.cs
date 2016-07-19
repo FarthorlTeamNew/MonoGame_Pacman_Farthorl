@@ -99,9 +99,9 @@ namespace GameEngine
                 var pacmanMovement = this.pacmanInputHandler.Move(gameTime);
                 this.pacmanAnimator.UpdateAnimation(gameTime, pacmanMovement);
                 base.Update(gameTime);
-
-                this.Window.Title = $"Scores: {this.pacMan.Scores}   Left points:{this.levelMatrix.LeftPoints}  HEALTH:{this.pacMan.Health}";
             }
+
+            this.Window.Title = $"Scores: {this.pacMan.Scores}   Left points:{this.levelMatrix.LeftPoints}  HEALTH:{this.pacMan.Health}";
         }
 
         protected override void Draw(GameTime gameTime)
