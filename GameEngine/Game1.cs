@@ -20,7 +20,7 @@ namespace GameEngine
         private PacmanAnimator pacmanAnimator;
         private PacmanInputHandler pacmanInputHandler;
         private Matrix levelMatrix;
-        private List<Fruit> fruitList;
+        private List<LevelObject> fruitList;
         private bool isRunning;
         GameState currentGameState = GameState.MainMenu;
         CButton butPlay;
@@ -41,7 +41,7 @@ namespace GameEngine
             this.graphics.PreferredBackBufferWidth = Global.GLOBAL_WIDTH;
             this.graphics.PreferredBackBufferHeight = Global.GLOBAL_HEIGHT;
             this.levelMatrix = new Matrix();
-            this.fruitList = new List<Fruit>();
+            this.fruitList = new List<LevelObject>();
             //graphics.IsFullScreen = true; // set this to enable full screen
             this.graphics.ApplyChanges();
 
@@ -57,8 +57,9 @@ namespace GameEngine
             this.butExit = new CButton(this.Content.Load<Texture2D>("MenuImages/Exit"), this.graphics.GraphicsDevice);
             this.butExit.SetPosition(new Vector2(300, 200));
             this.levelMatrix.InitializeMatrix(this.GraphicsDevice);
-            Fruit.InicializeFruits(GraphicsDevice);
+            Fruit.InitializeFruits(GraphicsDevice);
             this.fruitList.AddRange(Fruit.GetFruitList());
+            this.fruitList.AddRange(Fruit.GetGhostKillerList());
             this.levelMatrix.RemovePoints(fruitList);
             // TODO: use this.Content to load your game content here
         }

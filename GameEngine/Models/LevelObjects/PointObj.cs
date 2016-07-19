@@ -5,7 +5,7 @@ namespace GameEngine.Models.LevelObjects
 {
     public class PointObj :LevelObject
     {
-        public PointObj(Texture2D texture, float x, float y, Rectangle boundingBox)
+        public PointObj(float x, float y, Rectangle boundingBox)
             : base("Point", x, y, boundingBox)
         {
         }

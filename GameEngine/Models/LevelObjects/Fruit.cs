@@ -10,6 +10,9 @@ namespace GameEngine.Models.LevelObjects
     public abstract class Fruit : LevelObject
     {
         private static List<Fruit> fruits;
+        private static List<GhostKiller> ghostKillers;
+        private static int coefficientX = 1;
+        private static int coefficientY = 1;
         //private string fruitPath;
 
         public Fruit(Texture2D texture, float x, float y, Rectangle boundingBox) 
@@ -33,7 +36,7 @@ namespace GameEngine.Models.LevelObjects
             }
         }
         
-        public static void InicializeFruits(GraphicsDevice graphicsDevice)
+        public static void InitializeFruits(GraphicsDevice graphicsDevice)
         {
             Texture2D tempTecture = new Texture2D(graphicsDevice, 32, 32);
             Fruit apple = new Apple(tempTecture, 2, 3, new Rectangle(0, 0, 32, 32));
@@ -89,7 +92,32 @@ namespace GameEngine.Models.LevelObjects
                 fruit.Y = placeFruitY * 32;
                 fruit.UpdateBoundingBox();
             }
-        }
+
+            ghostKillers = new List<GhostKiller>();
+            for (int i = 0; i < 4; i++)
+            {
+                GhostKiller ghostKiller = new GhostKiller(2, 3, new Rectangle(0, 0, 32, 32));
+                using (var stream = TitleContainer.OpenStream("Content/GhostKiller.png"))
+                {
+                    ghostKiller.Texture = Texture2D.FromStream(graphicsDevice, stream);
+                }
+                ghostKillers.Add(ghostKiller);
+            }
+
+            foreach (var killer in ghostKillers)
+            {
+                string[] placeAvailable = AvailableGhostKillerXY().Split();
+                int placeKillerX = int.Parse(placeAvailable[0]);
+                int placeKillerY = int.Parse(placeAvailable[1]);
+                killer.X = placeKillerX*32;
+                killer.Y = placeKillerY*32;
+                killer.UpdateBoundingBox();
+                coefficientX += 5;
+                coefficientY += 2;
+            }
+        coefficientX = 1;
+        coefficientY = 1;
+    }
 
         private static string AvailableFruitXY()
         {
@@ -107,16 +135,41 @@ namespace GameEngine.Models.LevelObjects
             }
         }
 
+        private static string AvailableGhostKillerXY()
+        {
+
+            while (true)
+            {
+                int tryX = new Random(DateTime.Now.Millisecond).Next(coefficientX, coefficientX + 5);
+                int tryY = new Random(DateTime.Now.Millisecond).Next(coefficientY, coefficientY + 4);
+                var elements = Matrix.PathsMatrix[tryX, tryY].Trim().Split(',');
+                int placeAvailable = int.Parse(elements[1]);
+                if (placeAvailable == 1)
+                {
+                    Matrix.PathsMatrix[tryX, tryY] = "0,0";
+                    return $"{tryX} {tryY}";
+                }
+            }
+        }
+
         public static void Draw(SpriteBatch spriteBatch, PacMan pacMan)
         {
-            foreach (var fruit in fruits)
+            for (int i = 0; i < fruits.Count; i++)
             {
-                spriteBatch.Draw(fruit.Texture, fruit.BoundingBox, Color.White);
-                if (fruit.IsColliding(pacMan))
+                spriteBatch.Draw(fruits[i].Texture, fruits[i].BoundingBox, Color.White);
+                if (fruits[i].IsColliding(pacMan))
                 {
-                    fruit.ReactOnCollision(pacMan);
-                    fruits.Remove(fruit);
-                    break;
+                    fruits[i].ReactOnCollision(pacMan);
+                    fruits.Remove(fruits[i]);
+                }
+            }
+            for (int i = 0; i < ghostKillers.Count; i++)
+            {
+                spriteBatch.Draw(ghostKillers[i].Texture, ghostKillers[i].BoundingBox, Color.White);
+                if (ghostKillers[i].IsColliding(pacMan))
+                {
+                    ghostKillers[i].ReactOnCollision(pacMan);
+                    ghostKillers.Remove(ghostKillers[i]);
                 }
             }
         }
@@ -124,6 +177,12 @@ namespace GameEngine.Models.LevelObjects
         public static List<Fruit> GetFruitList()
         {
             return fruits;
+        }
+
+
+        public static List<GhostKiller> GetGhostKillerList()
+        {
+            return ghostKillers;
         }
     }
 }
