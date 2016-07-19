@@ -61,6 +61,7 @@
     <Compile Include="Game1.cs" />
     <Compile Include="Models\GameObject.cs" />
     <Compile Include="Models\LevelObjects\Ghost.cs" />
+    <Compile Include="Models\LevelObjects\GhostKiller.cs" />
     <Compile Include="Models\LevelObjects\Ghosts\Blinky.cs" />
     <Compile Include="Models\LevelObjects\Ghosts\Clyde.cs" />
     <Compile Include="Models\LevelObjects\Ghosts\Inky.cs" />
@@ -105,6 +106,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\FruitImages\Strawberry.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\GhostKiller.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\MenuImages\Exit.png">

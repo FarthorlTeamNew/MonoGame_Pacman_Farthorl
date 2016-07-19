@@ -56,7 +56,7 @@ namespace GameEngine
                     }
                     else if (pointIndex == 1)
                     {
-                        PointObj point = new PointObj(pointTexture, x * Global.frame_Width, y * Global.frame_Height, new Rectangle(x * Global.frame_Width, y * Global.frame_Height, Global.frame_Width, Global.frame_Height));
+                        PointObj point = new PointObj(x * Global.frame_Width, y * Global.frame_Height, new Rectangle(x * Global.frame_Width, y * Global.frame_Height, Global.frame_Width, Global.frame_Height));
                         using (var stream = TitleContainer.OpenStream("Content/Point.png"))
                         {
                             point.Texture = Texture2D.FromStream(graphicsDevice, stream);
@@ -67,7 +67,7 @@ namespace GameEngine
             }
         }
 
-        public void RemovePoints(List<Fruit> fruitList)
+        public void RemovePoints(List<LevelObject> fruitList)
         {
             // Remove points that have fruit placed on top of them
             for (int i = 0; i < pointsList.Count; i++)
@@ -87,7 +87,7 @@ namespace GameEngine
             
         }
 
-        public void Draw(SpriteBatch spriteBatch, PacMan pacMan, List<Fruit> fruitList)
+        public void Draw(SpriteBatch spriteBatch, PacMan pacMan, List<LevelObject> fruitList)
         {
             foreach (var brick in bricksList)
             {
