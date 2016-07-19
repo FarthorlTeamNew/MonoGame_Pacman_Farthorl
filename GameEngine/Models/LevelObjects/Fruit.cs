@@ -36,7 +36,7 @@ namespace GameEngine.Models.LevelObjects
             }
         }
         
-        public static void InitializeFruits(GraphicsDevice graphicsDevice)
+        public static void InitializeFruits(GraphicsDevice graphicsDevice, Matrix level)
         {
             Texture2D tempTecture = new Texture2D(graphicsDevice, 32, 32);
             Fruit apple = new Apple(tempTecture, 2, 3, new Rectangle(0, 0, 32, 32));
@@ -85,7 +85,7 @@ namespace GameEngine.Models.LevelObjects
 
             foreach (var fruit in fruits)
             {
-                string[] placeAvailable = AvailableFruitXY().Split();
+                string[] placeAvailable = AvailableFruitXY(level).Split();
                 int placeFruitX = int.Parse(placeAvailable[0]);
                 int placeFruitY = int.Parse(placeAvailable[1]);
                 fruit.X = placeFruitX * 32;
@@ -106,7 +106,7 @@ namespace GameEngine.Models.LevelObjects
 
             foreach (var killer in ghostKillers)
             {
-                string[] placeAvailable = AvailableGhostKillerXY().Split();
+                string[] placeAvailable = AvailableGhostKillerXY(level).Split();
                 int placeKillerX = int.Parse(placeAvailable[0]);
                 int placeKillerY = int.Parse(placeAvailable[1]);
                 killer.X = placeKillerX*32;
@@ -119,34 +119,34 @@ namespace GameEngine.Models.LevelObjects
         coefficientY = 1;
     }
 
-        private static string AvailableFruitXY()
+        private static string AvailableFruitXY(Matrix level)
         {
             while (true)
             {
                 int tryX = new Random(DateTime.Now.Millisecond).Next(1, 23);
                 int tryY = new Random(DateTime.Now.Millisecond).Next(1, 12);
-                var elements = Matrix.PathsMatrix[tryX, tryY].Trim().Split(',');
+                var elements = level.PathsMatrix[tryX, tryY].Trim().Split(',');
                 int placeAvailable = int.Parse(elements[1]);
                 if (placeAvailable == 1)
                 {
-                    Matrix.PathsMatrix[tryX, tryY] = "0,0";
+                    level.PathsMatrix[tryX, tryY] = "0,0";
                     return $"{tryX} {tryY}";
                 }
             }
         }
 
-        private static string AvailableGhostKillerXY()
+        private static string AvailableGhostKillerXY(Matrix level)
         {
 
             while (true)
             {
                 int tryX = new Random(DateTime.Now.Millisecond).Next(coefficientX, coefficientX + 5);
                 int tryY = new Random(DateTime.Now.Millisecond).Next(coefficientY, coefficientY + 4);
-                var elements = Matrix.PathsMatrix[tryX, tryY].Trim().Split(',');
+                var elements = level.PathsMatrix[tryX, tryY].Trim().Split(',');
                 int placeAvailable = int.Parse(elements[1]);
                 if (placeAvailable == 1)
                 {
-                    Matrix.PathsMatrix[tryX, tryY] = "0,0";
+                    level.PathsMatrix[tryX, tryY] = "0,0";
                     return $"{tryX} {tryY}";
                 }
             }

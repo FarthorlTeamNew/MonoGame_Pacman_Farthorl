@@ -5,17 +5,13 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameEngine
 {
     public class Matrix
     {
-        private static string Level = @"DataFiles\Levels\Labirint.txt";
-        public static string[,] PathsMatrix = new string[24, 13];
+        private string Level = @"DataFiles\Levels\Labirint.txt";
+        public string[,] PathsMatrix = new string[24, 13];
 
         private Texture2D brickTexture;
         private Texture2D pointTexture;
@@ -104,7 +100,7 @@ namespace GameEngine
                 }
             }     
         }
-        private static string[,] GetMatrixValues()
+        private string[,] GetMatrixValues()
         {
             try
             {

@@ -57,7 +57,7 @@ namespace GameEngine
             this.butExit = new CButton(this.Content.Load<Texture2D>("MenuImages/Exit"), this.graphics.GraphicsDevice);
             this.butExit.SetPosition(new Vector2(300, 200));
             this.levelMatrix.InitializeMatrix(this.GraphicsDevice);
-            Fruit.InitializeFruits(GraphicsDevice);
+            Fruit.InitializeFruits(GraphicsDevice, levelMatrix);
             this.fruitList.AddRange(Fruit.GetFruitList());
             this.fruitList.AddRange(Fruit.GetGhostKillerList());
             this.levelMatrix.RemovePoints(fruitList);
@@ -169,8 +169,13 @@ namespace GameEngine
             this.pacMan.Scores = 0;
             this.pacMan.Health = 50;
             this.pacmanAnimator.CurrentDirection = "WalkRight";
-            levelMatrix.InitializeMatrix(this.GraphicsDevice);
-            Fruit.InitializeFruits(GraphicsDevice);
+            this.levelMatrix = new Matrix();
+            this.levelMatrix.InitializeMatrix(this.GraphicsDevice);
+            Fruit.InitializeFruits(GraphicsDevice, levelMatrix);
+            this.fruitList.Clear();
+            this.fruitList.AddRange(Fruit.GetFruitList());
+            this.fruitList.AddRange(Fruit.GetGhostKillerList());
+            this.levelMatrix.RemovePoints(fruitList);
             Fruit.Draw(this.spriteBatch, pacMan);
         }
     }
