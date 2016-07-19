@@ -73,6 +73,7 @@ namespace GameEngine
                     if (pointsList[i].IsColliding(fruit) && i < pointsList.Count - 1)
                     {
                         pointsList.Remove(pointsList[i]);
+                        i--;
                     }
                 }
             }
