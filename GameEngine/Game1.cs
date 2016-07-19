@@ -171,10 +171,7 @@ namespace GameEngine
             this.pacmanAnimator.CurrentDirection = "WalkRight";
             levelMatrix.InitializeMatrix(this.GraphicsDevice);
             Fruit.InicializeFruits(GraphicsDevice);
-            this.fruitList = new List<Fruit>();
-            this.fruitList.AddRange(Fruit.GetFruitList());
-            this.levelMatrix.RemovePoints(fruitList);
-            //Fruit.Draw(this.spriteBatch, pacMan);  Do we need this
+            Fruit.Draw(this.spriteBatch, pacMan);
         }
     }
 }
