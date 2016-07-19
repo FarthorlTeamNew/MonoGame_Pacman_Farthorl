@@ -170,7 +170,7 @@ namespace GameEngine
             this.pacMan.Health = 50;
             this.pacmanAnimator.CurrentDirection = "WalkRight";
             levelMatrix.InitializeMatrix(this.GraphicsDevice);
-            Fruit.InicializeFruits(GraphicsDevice);
+            Fruit.InitializeFruits(GraphicsDevice);
             Fruit.Draw(this.spriteBatch, pacMan);
         }
     }
