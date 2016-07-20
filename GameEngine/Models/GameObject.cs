@@ -69,8 +69,8 @@ namespace GameEngine.Models
 
         public int QuadrantY
         {
-            get { return this.quadrantX; }
-            set { this.quadrantX = value; }
+            get { return this.quadrantY; }
+            set { this.quadrantY = value; }
         }
     }
 }

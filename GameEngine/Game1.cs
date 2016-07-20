@@ -169,6 +169,7 @@ namespace GameEngine
             this.pacMan.Scores = 0;
             this.pacMan.Health = 50;
             this.pacmanAnimator.CurrentDirection = "WalkRight";
+            this.pacmanInputHandler.Reset();
             this.levelMatrix = new Matrix();
             this.levelMatrix.InitializeMatrix(this.GraphicsDevice);
             Fruit.InitializeFruits(GraphicsDevice, levelMatrix);
