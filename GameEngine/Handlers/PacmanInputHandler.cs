@@ -46,28 +46,23 @@ namespace GameEngine.Handlers
         private void GetInput()
         {
             KeyboardState state = Keyboard.GetState();
-            //Point point = new Point();
 
             if (state.GetPressedKeys().Length == 1)
             {
                 if (state.IsKeyDown(Keys.Down))
                 {
-                    //point.Y += 15;
                     desiredDir = Direction.Down;
                 }
                 else if (state.IsKeyDown(Keys.Up))
                 {
-                    //point.Y -= 15;
                     desiredDir = Direction.Up;
                 }
                 else if (state.IsKeyDown(Keys.Left))
                 {
-                    //point.X -= 15;
                     desiredDir = Direction.Left;
                 }
                 else if (state.IsKeyDown(Keys.Right))
                 {
-                    //point.X += 15;
                     desiredDir = Direction.Right;
                 }
             }
@@ -155,18 +150,14 @@ namespace GameEngine.Handlers
 
         private Vector2 GetDesiredVelocityFromInput()
         {
-            //var newPoint = this.GetInput();
-            Vector2 desiredVelocity = new Vector2();
-            this.GetInput(); // listens for key pressed
+            GetInput(); // listens for key pressed
 
             if (IsReadyToChangePackmanQuadrant())
             {
                 CalculateDirection();
             }
-            //if ((this.pacman.X + newPoint.X) + 17 < Global.GLOBAL_WIDTH && (this.pacman.X + newPoint.X) + 13 >= 0 &&
-            //    (this.pacman.Y + newPoint.Y) + 17 < Global.GLOBAL_HEIGHT && (this.pacman.Y + newPoint.Y) + 13 >= 0)
-            //{
 
+            Vector2 desiredVelocity = new Vector2();
             switch (currentDir)
             {
                 case Direction.Up:
@@ -190,17 +181,6 @@ namespace GameEngine.Handlers
                     desiredVelocity.Y = 0;
                     break;
             }
-
-            //desiredVelocity.X = newPoint.X;
-            //    desiredVelocity.Y = newPoint.Y;
-
-            //    if (desiredVelocity.X != 0 || desiredVelocity.Y != 0)
-            //    {
-            //        desiredVelocity.Normalize();
-            //        float desiredSpeed = Global.PacmanSpeed;
-            //        desiredVelocity *= desiredSpeed;
-            //    }
-            //}
 
             return desiredVelocity;
         }
