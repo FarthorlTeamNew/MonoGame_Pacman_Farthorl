@@ -11,7 +11,7 @@ namespace GameEngine
     public class Matrix
     {
         private string Level = @"DataFiles\Levels\Labirint.txt";
-        public string[,] PathsMatrix = new string[24, 13];
+        public string[,] PathsMatrix = new string[Global.YMax, Global.XMax];
 
         private Texture2D brickTexture;
         private Texture2D pointTexture;
@@ -37,13 +37,13 @@ namespace GameEngine
             {
                 for (int x = 0; x < Global.XMax; x++)
                 {
-                    var elements = PathsMatrix[x, y].Trim().Split(',');
+                    var elements = PathsMatrix[y, x].Trim().Split(',');
                     int quadrant = int.Parse(elements[0]);
                     int pointIndex = int.Parse(elements[1]);
 
                     if (quadrant == 1)
                     {
-                        Wall brick = new Wall(brickTexture, x * Global.frame_Width, y * Global.frame_Height, new Rectangle(x * Global.frame_Width, y * Global.frame_Height, Global.frame_Width, Global.frame_Height));
+                        Wall brick = new Wall(brickTexture, x * Global.quad_Width, y * Global.quad_Height, new Rectangle(x * Global.quad_Width, y * Global.quad_Height, Global.quad_Width, Global.quad_Height));
                         using (var stream = TitleContainer.OpenStream("Content/brick.png"))
                         {
                             brick.Texture = Texture2D.FromStream(graphicsDevice, stream);
@@ -52,7 +52,7 @@ namespace GameEngine
                     }
                     else if (pointIndex == 1)
                     {
-                        PointObj point = new PointObj(x * Global.frame_Width, y * Global.frame_Height, new Rectangle(x * Global.frame_Width, y * Global.frame_Height, Global.frame_Width, Global.frame_Height));
+                        PointObj point = new PointObj(x * Global.quad_Width, y * Global.quad_Height, new Rectangle(x * Global.quad_Width, y * Global.quad_Height, Global.quad_Width, Global.quad_Height));
                         using (var stream = TitleContainer.OpenStream("Content/Point.png"))
                         {
                             point.Texture = Texture2D.FromStream(graphicsDevice, stream);
@@ -131,7 +131,7 @@ namespace GameEngine
                         }
 
                         //Add element data in to the specific point in the 2D array
-                        PathsMatrix[arrayX, arrayY] = arrayValue;
+                        PathsMatrix[arrayY, arrayX] = arrayValue;
                     }
                 }
                 return PathsMatrix;

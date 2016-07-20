@@ -77,20 +77,20 @@ namespace GameEngine.Animators
         public override void BufferFrames()
         {
             var walkDown = new Animation("WalkDown");
-            walkDown.AddFrame(new Rectangle(10 * Global.frame_Width, Global.frame_Height, Global.frame_Width, Global.frame_Height), TimeSpan.FromSeconds(.25));
-            walkDown.AddFrame(new Rectangle(11 * Global.frame_Width, Global.frame_Height, Global.frame_Width, Global.frame_Height), TimeSpan.FromSeconds(.25));
+            walkDown.AddFrame(new Rectangle(10 * Global.quad_Width, Global.quad_Height, Global.quad_Width, Global.quad_Height), TimeSpan.FromSeconds(.25));
+            walkDown.AddFrame(new Rectangle(11 * Global.quad_Width, Global.quad_Height, Global.quad_Width, Global.quad_Height), TimeSpan.FromSeconds(.25));
 
             var walkUp = new Animation("WalkUp");
-            walkUp.AddFrame(new Rectangle(10 * Global.frame_Width, 3 * Global.frame_Height, Global.frame_Width, Global.frame_Height), TimeSpan.FromSeconds(.25));
-            walkUp.AddFrame(new Rectangle(11 * Global.frame_Width, 3 * Global.frame_Height, Global.frame_Width, Global.frame_Height), TimeSpan.FromSeconds(.25));
+            walkUp.AddFrame(new Rectangle(10 * Global.quad_Width, 3 * Global.quad_Height, Global.quad_Width, Global.quad_Height), TimeSpan.FromSeconds(.25));
+            walkUp.AddFrame(new Rectangle(11 * Global.quad_Width, 3 * Global.quad_Height, Global.quad_Width, Global.quad_Height), TimeSpan.FromSeconds(.25));
 
             var walkLeft = new Animation("WalkLeft");
-            walkLeft.AddFrame(new Rectangle(10 * Global.frame_Width, 2 * Global.frame_Height, Global.frame_Width, Global.frame_Height), TimeSpan.FromSeconds(.25));
-            walkLeft.AddFrame(new Rectangle(11 * Global.frame_Width, 2 * Global.frame_Height, Global.frame_Width, Global.frame_Height), TimeSpan.FromSeconds(.25));
+            walkLeft.AddFrame(new Rectangle(10 * Global.quad_Width, 2 * Global.quad_Height, Global.quad_Width, Global.quad_Height), TimeSpan.FromSeconds(.25));
+            walkLeft.AddFrame(new Rectangle(11 * Global.quad_Width, 2 * Global.quad_Height, Global.quad_Width, Global.quad_Height), TimeSpan.FromSeconds(.25));
 
             var walkRight = new Animation("WalkRight");
-            walkRight.AddFrame(new Rectangle(10 * Global.frame_Width, 0, Global.frame_Width, Global.frame_Height), TimeSpan.FromSeconds(.25));
-            walkRight.AddFrame(new Rectangle(11 * Global.frame_Width, 0, Global.frame_Width, Global.frame_Height), TimeSpan.FromSeconds(.25));
+            walkRight.AddFrame(new Rectangle(10 * Global.quad_Width, 0, Global.quad_Width, Global.quad_Height), TimeSpan.FromSeconds(.25));
+            walkRight.AddFrame(new Rectangle(11 * Global.quad_Width, 0, Global.quad_Width, Global.quad_Height), TimeSpan.FromSeconds(.25));
 
             this.animations.Add(walkDown);
             this.animations.Add(walkUp);

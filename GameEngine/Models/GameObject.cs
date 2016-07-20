@@ -14,13 +14,17 @@ namespace GameEngine.Models
         private Rectangle boundingBox;
         private float x;
         private float y;
+        protected int quadrantX;
+        protected int quadrantY;
 
-        protected GameObject(string name, float x, float y, Rectangle box)
+        protected GameObject(string name, float x, float y, Rectangle box, int quadrantX = 0, int quadrantY = 0)
         {
             this.BoundingBox = box;
             this.Name = name;
             this.X = x;
             this.Y = y;
+            this.quadrantX = quadrantX;
+            this.quadrantY = quadrantY;
         }
         public string Name
         {
@@ -55,6 +59,18 @@ namespace GameEngine.Models
         {
             this.boundingBox.X = (int)this.X;
             this.boundingBox.Y = (int)this.Y;
+        }
+
+        public int QuadrantX
+        {
+            get { return this.quadrantX; }
+            set { this.quadrantX = value; }
+        }
+
+        public int QuadrantY
+        {
+            get { return this.quadrantX; }
+            set { this.quadrantX = value; }
         }
     }
 }

@@ -15,8 +15,8 @@ namespace GameEngine
         //private int speed = 5;
         private int scores = 0;
 
-        public PacMan(GraphicsDevice graphicsDevice, Rectangle boundingBox) //Hardcore width and height
-            : base("Pacman", 0,  0, boundingBox)
+        public PacMan(GraphicsDevice graphicsDevice, Rectangle boundingBox , int quadrantX, int quadrantY) //Hardcore width and height
+            : base("Pacman", 0,  0, boundingBox, quadrantX, quadrantY)
         {
             using (var stream = TitleContainer.OpenStream("Content/PacManSprite_sheets.png"))
             {

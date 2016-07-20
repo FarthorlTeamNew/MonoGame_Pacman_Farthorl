@@ -115,9 +115,9 @@ namespace GameEngine.Models.LevelObjects
                 coefficientX += 5;
                 coefficientY += 2;
             }
-        coefficientX = 1;
-        coefficientY = 1;
-    }
+            coefficientX = 1;
+            coefficientY = 1;
+        }
 
         private static string AvailableFruitXY(Matrix level)
         {
@@ -125,11 +125,11 @@ namespace GameEngine.Models.LevelObjects
             {
                 int tryX = new Random(DateTime.Now.Millisecond).Next(1, 23);
                 int tryY = new Random(DateTime.Now.Millisecond).Next(1, 12);
-                var elements = level.PathsMatrix[tryX, tryY].Trim().Split(',');
+                var elements = level.PathsMatrix[tryY, tryX].Trim().Split(',');
                 int placeAvailable = int.Parse(elements[1]);
                 if (placeAvailable == 1)
                 {
-                    level.PathsMatrix[tryX, tryY] = "0,0";
+                    level.PathsMatrix[tryY, tryX] = "0,0";
                     return $"{tryX} {tryY}";
                 }
             }
@@ -142,11 +142,11 @@ namespace GameEngine.Models.LevelObjects
             {
                 int tryX = new Random(DateTime.Now.Millisecond).Next(coefficientX, coefficientX + 5);
                 int tryY = new Random(DateTime.Now.Millisecond).Next(coefficientY, coefficientY + 4);
-                var elements = level.PathsMatrix[tryX, tryY].Trim().Split(',');
+                var elements = level.PathsMatrix[tryY, tryX].Trim().Split(',');
                 int placeAvailable = int.Parse(elements[1]);
                 if (placeAvailable == 1)
                 {
-                    level.PathsMatrix[tryX, tryY] = "0,0";
+                    level.PathsMatrix[tryY, tryX] = "0,0";
                     return $"{tryX} {tryY}";
                 }
             }

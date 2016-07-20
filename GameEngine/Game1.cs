@@ -35,9 +35,8 @@ namespace GameEngine
 
         protected override void Initialize()
         {
-            this.pacMan = new PacMan(this.GraphicsDevice, new Rectangle(0, 0, 32, 32));
+            this.pacMan = new PacMan(this.GraphicsDevice, new Rectangle(0, 0, 32, 32), 0, 0);
             this.pacmanAnimator = new PacmanAnimator(this.pacMan);
-            this.pacmanInputHandler = new PacmanInputHandler(this.pacMan);
             this.graphics.PreferredBackBufferWidth = Global.GLOBAL_WIDTH;
             this.graphics.PreferredBackBufferHeight = Global.GLOBAL_HEIGHT;
             this.levelMatrix = new Matrix();
@@ -57,6 +56,7 @@ namespace GameEngine
             this.butExit = new CButton(this.Content.Load<Texture2D>("MenuImages/Exit"), this.graphics.GraphicsDevice);
             this.butExit.SetPosition(new Vector2(300, 200));
             this.levelMatrix.InitializeMatrix(this.GraphicsDevice);
+            this.pacmanInputHandler = new PacmanInputHandler(this.pacMan, levelMatrix);
             Fruit.InitializeFruits(GraphicsDevice, levelMatrix);
             this.fruitList.AddRange(Fruit.GetFruitList());
             this.fruitList.AddRange(Fruit.GetGhostKillerList());
