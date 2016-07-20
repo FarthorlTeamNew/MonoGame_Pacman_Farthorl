@@ -77,57 +77,66 @@ namespace GameEngine.Handlers
         {
             if (desiredDir == currentDir)
             {
-                if (currentDir == Direction.Up
-                    && (pacman.QuadrantY == 0
-                    || obsticals[pacman.QuadrantY - 1, pacman.QuadrantX] == true))
-                {
-                    currentDir = Direction.None;
-                }
-                else if (currentDir == Direction.Down
-                    && (pacman.QuadrantY == (Global.YMax - 1)
-                    || obsticals[pacman.QuadrantY + 1, pacman.QuadrantX] == true))
-                { 
-                    currentDir = Direction.None;
-                }
-                else if (currentDir == Direction.Left
-                    && (pacman.QuadrantX == 0
-                    || obsticals[pacman.QuadrantY, pacman.QuadrantX - 1] == true))
-                {
-                    currentDir = Direction.None;
-                }
-                else if (currentDir == Direction.Right
-                   && (pacman.QuadrantX == (Global.XMax - 1)
-                   || obsticals[pacman.QuadrantY, pacman.QuadrantX + 1] == true))
-                {
-                    currentDir = Direction.None;
-                }
+                CheckForStopMoving(); // e.g. Direction.None
             }
             else
             {
                 if (desiredDir == Direction.Up
-                    && pacman.QuadrantY > 0)
+                    && pacman.QuadrantY > 0
+                    && obsticals[pacman.QuadrantY - 1, pacman.QuadrantX] == false)
                 {
-                    if (obsticals[pacman.QuadrantY - 1, pacman.QuadrantX] == false)
-                        currentDir = desiredDir;
+                    currentDir = desiredDir;
                 }
                 else if (desiredDir == Direction.Down
-                    && pacman.QuadrantY < (Global.YMax - 1))
+                    && pacman.QuadrantY < (Global.YMax - 1)
+                    && obsticals[pacman.QuadrantY + 1, pacman.QuadrantX] == false)
                 {
-                    if (obsticals[pacman.QuadrantY + 1, pacman.QuadrantX] == false)
-                        currentDir = desiredDir;
+                    currentDir = desiredDir;
                 }
                 else if (desiredDir == Direction.Left
-                    && pacman.QuadrantX > 0)
+                    && pacman.QuadrantX > 0
+                    && obsticals[pacman.QuadrantY, pacman.QuadrantX - 1] == false)
                 {
-                    if (obsticals[pacman.QuadrantY, pacman.QuadrantX - 1] == false)
-                        currentDir = desiredDir;
+                    currentDir = desiredDir;
                 }
                 else if (desiredDir == Direction.Right
-                    && pacman.QuadrantX < (Global.XMax - 1))
+                    && pacman.QuadrantX < (Global.XMax - 1)
+                    && obsticals[pacman.QuadrantY, pacman.QuadrantX + 1] == false)
                 {
-                    if (obsticals[pacman.QuadrantY, pacman.QuadrantX + 1] == false)
-                        currentDir = desiredDir;
+                    currentDir = desiredDir;
                 }
+                else
+                {
+                    CheckForStopMoving();
+                }
+            }
+        }
+
+        private void CheckForStopMoving()
+        {
+            if (currentDir == Direction.Up
+                && (pacman.QuadrantY == 0
+                || obsticals[pacman.QuadrantY - 1, pacman.QuadrantX] == true))
+            {
+                currentDir = Direction.None;
+            }
+            else if (currentDir == Direction.Down
+                && (pacman.QuadrantY == (Global.YMax - 1)
+                || obsticals[pacman.QuadrantY + 1, pacman.QuadrantX] == true))
+            {
+                currentDir = Direction.None;
+            }
+            else if (currentDir == Direction.Left
+                && (pacman.QuadrantX == 0
+                || obsticals[pacman.QuadrantY, pacman.QuadrantX - 1] == true))
+            {
+                currentDir = Direction.None;
+            }
+            else if (currentDir == Direction.Right
+               && (pacman.QuadrantX == (Global.XMax - 1)
+               || obsticals[pacman.QuadrantY, pacman.QuadrantX + 1] == true))
+            {
+                currentDir = Direction.None;
             }
         }
 
