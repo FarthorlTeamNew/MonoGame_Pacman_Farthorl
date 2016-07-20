@@ -43,36 +43,34 @@ namespace GameEngine.Handlers
             desiredDir = Direction.None;
         }
 
-        private Point GetInput()
+        private void GetInput()
         {
             KeyboardState state = Keyboard.GetState();
-            Point point = new Point();
+            //Point point = new Point();
 
             if (state.GetPressedKeys().Length == 1)
             {
                 if (state.IsKeyDown(Keys.Down))
                 {
-                    point.Y += 15;
+                    //point.Y += 15;
                     desiredDir = Direction.Down;
                 }
                 else if (state.IsKeyDown(Keys.Up))
                 {
-                    point.Y -= 15;
+                    //point.Y -= 15;
                     desiredDir = Direction.Up;
                 }
                 else if (state.IsKeyDown(Keys.Left))
                 {
-                    point.X -= 15;
+                    //point.X -= 15;
                     desiredDir = Direction.Left;
                 }
                 else if (state.IsKeyDown(Keys.Right))
                 {
-                    point.X += 15;
+                    //point.X += 15;
                     desiredDir = Direction.Right;
                 }
             }
-
-            return point;
         }
 
         private void CalculateDirection()
@@ -133,21 +131,32 @@ namespace GameEngine.Handlers
             }
         }
 
-        private Vector2 GetDesiredVelocityFromInput()
+        private bool IsReadyToChangePackmanQuadrant()
         {
-            Vector2 desiredVelocity = new Vector2();
-            var newPoint = this.GetInput();
-            if (pacman.X % Global.quad_Width == 0 
+            if (pacman.X % Global.quad_Width == 0
                 && pacman.Y % Global.quad_Height == 0)
             {
                 pacman.QuadrantX = (int)pacman.X / 32;
                 pacman.QuadrantY = (int)pacman.Y / 32;
+                return true;
+            }
+
+            return false;
+        }
+
+        private Vector2 GetDesiredVelocityFromInput()
+        {
+            //var newPoint = this.GetInput();
+            Vector2 desiredVelocity = new Vector2();
+            this.GetInput(); // listens for key pressed
+
+            if (IsReadyToChangePackmanQuadrant())
+            {
                 CalculateDirection();
             }
             //if ((this.pacman.X + newPoint.X) + 17 < Global.GLOBAL_WIDTH && (this.pacman.X + newPoint.X) + 13 >= 0 &&
             //    (this.pacman.Y + newPoint.Y) + 17 < Global.GLOBAL_HEIGHT && (this.pacman.Y + newPoint.Y) + 13 >= 0)
             //{
-
 
             switch (currentDir)
             {
