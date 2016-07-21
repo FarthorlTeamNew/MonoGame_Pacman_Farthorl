@@ -60,24 +60,16 @@ namespace GameEngine
         public void RemovePoints(List<LevelObject> fruitList)
         {
             // Remove points that have fruit placed on top of them
-            for (int i = 0; i < pointsList.Count; i++)
+            foreach (var fruit in fruitList)
             {
-                foreach (var fruit in fruitList)
-                {
-                    if (pointsList[i].IsColliding(fruit) && i < pointsList.Count - 1)
-                    {
-                        pointsList.Remove(pointsList[i]);
-                        i--;
-                    }
-                }
+                pointsList.Remove(pointsList.FirstOrDefault(p => p.IsColliding(fruit)));
             }
         }
 
         public void Update(PacMan pacMan)
         {
-            PointObj pointEaten = pointsList.FirstOrDefault(x => x.IsColliding(pacMan));
-            pointEaten?.ReactOnCollision(pacMan);
-            pointsList?.Remove(pointEaten);
+            pointsList.FirstOrDefault(x => x.IsColliding(pacMan))?.ReactOnCollision(pacMan);
+            pointsList.Remove(pointsList.FirstOrDefault(x => x.IsColliding(pacMan)));
         }
 
         public void Draw(SpriteBatch spriteBatch)

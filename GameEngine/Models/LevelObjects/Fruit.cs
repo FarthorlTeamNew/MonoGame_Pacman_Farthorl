@@ -4,8 +4,8 @@ using Microsoft.Xna.Framework;
 using GameEngine.Models.LevelObjects.Fruits;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 using GameEngine.Globals;
-using GameEngine.Menu;
 
 namespace GameEngine.Models.LevelObjects
 {
@@ -21,7 +21,6 @@ namespace GameEngine.Models.LevelObjects
             : base(texture.Name, x, y, boundingBox)
         {
             base.Texture = texture;
-           // Fruit.fruits.Add(this);//**
         }
         public int FruitBonus { get; set; }
 
@@ -40,13 +39,13 @@ namespace GameEngine.Models.LevelObjects
         
         public static void InitializeFruits(GraphicsDevice graphicsDevice, Matrix level)
         {
-            Fruit apple = new Apple(GameTexture.apple, 2, 3, new Rectangle(0, 0, 32, 32));
-            Fruit banana = new Banana(GameTexture.banana, 2, 3, new Rectangle(0, 0, 32, 32));
-            Fruit brezel = new Brezel(GameTexture.brezel, 2, 3, new Rectangle(0, 0, 32, 32));
-            Fruit cherry = new Cherry(GameTexture.cherry, 2, 3, new Rectangle(0, 0, 32, 32));
-            Fruit peach = new Peach(GameTexture.peach, 2, 3, new Rectangle(0, 0, 32, 32));
-            Fruit pear = new Pear(GameTexture.pear, 2, 3, new Rectangle(0, 0, 32, 32));
-            Fruit strawberry = new Strawberry(GameTexture.strawberry, 2, 3, new Rectangle(0, 0, 32, 32));
+            Fruit apple = new Apple(GameTexture.apple, 0, 0, new Rectangle(0, 0, 32, 32));
+            Fruit banana = new Banana(GameTexture.banana, 0, 0, new Rectangle(0, 0, 32, 32));
+            Fruit brezel = new Brezel(GameTexture.brezel, 0, 0, new Rectangle(0, 0, 32, 32));
+            Fruit cherry = new Cherry(GameTexture.cherry, 0, 0, new Rectangle(0, 0, 32, 32));
+            Fruit peach = new Peach(GameTexture.peach, 0, 0, new Rectangle(0, 0, 32, 32));
+            Fruit pear = new Pear(GameTexture.pear, 0, 0, new Rectangle(0, 0, 32, 32));
+            Fruit strawberry = new Strawberry(GameTexture.strawberry, 0, 0, new Rectangle(0, 0, 32, 32));
           
             fruits = new List<Fruit> { apple, banana, brezel, cherry, peach, pear, strawberry };
 
@@ -55,16 +54,15 @@ namespace GameEngine.Models.LevelObjects
                 string[] placeAvailable = AvailableFruitXY(level).Split();
                 int placeFruitX = int.Parse(placeAvailable[0]);
                 int placeFruitY = int.Parse(placeAvailable[1]);
-                fruit.X = placeFruitX * Global.GLOBAL_WIDTH;
-                fruit.Y = placeFruitY * Global.GLOBAL_HEIGHT;
+                fruit.X = placeFruitX * Global.quad_Width;
+                fruit.Y = placeFruitY * Global.quad_Height;
                 fruit.UpdateBoundingBox();
             }
 
             ghostKillers = new List<GhostKiller>();
             for (int i = 0; i < 4; i++)
             {
-                GhostKiller ghostKiller = new GhostKiller(2, 3, new Rectangle(0, 0, 32, 32));
-                ghostKiller.Texture = GameTexture.ghostKiller;
+                GhostKiller ghostKiller = new GhostKiller(GameTexture.ghostKiller, 0, 0, new Rectangle(0, 0, 32, 32));
                 ghostKillers.Add(ghostKiller);
             }
 
@@ -73,8 +71,8 @@ namespace GameEngine.Models.LevelObjects
                 string[] placeAvailable = AvailableGhostKillerXY(level).Split();
                 int placeKillerX = int.Parse(placeAvailable[0]);
                 int placeKillerY = int.Parse(placeAvailable[1]);
-                killer.X = placeKillerX*Global.GLOBAL_WIDTH;
-                killer.Y = placeKillerY*Global.GLOBAL_HEIGHT;
+                killer.X = placeKillerX*Global.quad_Width;
+                killer.Y = placeKillerY*Global.quad_Height;
                 killer.UpdateBoundingBox();
                 coefficientX += 5;
                 coefficientY += 2;
@@ -131,23 +129,11 @@ namespace GameEngine.Models.LevelObjects
 
         public static void CheckCollisions(PacMan pacman)
         {
-            for (int i = 0; i < fruits.Count; i++)
-            {
-                if (fruits[i].IsColliding(pacman))
-                {
-                    fruits[i].ReactOnCollision(pacman);
-                    fruits.Remove(fruits[i]);
-                }
-            }
-
-            for (int i = 0; i < ghostKillers.Count; i++)
-            {
-                if (ghostKillers[i].IsColliding(pacman))
-                {
-                    ghostKillers[i].ReactOnCollision(pacman);
-                    ghostKillers.Remove(ghostKillers[i]);
-                }
-            }
+            fruits.FirstOrDefault(x => x.IsColliding(pacman))?.ReactOnCollision(pacman);
+            fruits.Remove(fruits.FirstOrDefault(x => x.IsColliding(pacman)));
+            
+            ghostKillers.FirstOrDefault(x => x.IsColliding(pacman))?.ReactOnCollision(pacman);
+            ghostKillers.Remove(ghostKillers.FirstOrDefault(x => x.IsColliding(pacman)));
         }
 
         public static List<Fruit> GetFruitList()
