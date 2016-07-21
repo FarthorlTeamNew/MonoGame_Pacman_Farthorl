@@ -17,6 +17,11 @@ namespace GameEngine.Globals
         public static Texture2D peach;
         public static Texture2D pear;
         public static Texture2D strawberry;
+        public static Texture2D pacMan;
+        public static Texture2D brick;
+        public static Texture2D point;
+        public static Texture2D ghostKiller;
+
 
 
         public static void LoadTextures(Game game)
@@ -31,7 +36,11 @@ namespace GameEngine.Globals
             peach = game.Content.Load<Texture2D>("FruitImages/Peach");
             pear = game.Content.Load<Texture2D>("FruitImages/Pear");
             strawberry = game.Content.Load<Texture2D>("FruitImages/Strawberry");
-            
+            pacMan = game.Content.Load<Texture2D>("PacManSprite_sheets");
+            brick = game.Content.Load<Texture2D>("brick");
+            point = game.Content.Load<Texture2D>("Point");
+            ghostKiller = game.Content.Load<Texture2D>("GhostKiller");
+
         }
     }
 }

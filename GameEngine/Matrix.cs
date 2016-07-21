@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using GameEngine.Models;
 
 namespace GameEngine
 {
@@ -45,19 +46,13 @@ namespace GameEngine
                     if (quadrant == 1)
                     {
                         Wall brick = new Wall(brickTexture, x * Global.quad_Width, y * Global.quad_Height, new Rectangle(x * Global.quad_Width, y * Global.quad_Height, Global.quad_Width, Global.quad_Height));
-                        using (var stream = TitleContainer.OpenStream("Content/brick.png"))
-                        {
-                            brick.Texture = Texture2D.FromStream(graphicsDevice, stream);
-                        }
+                        brick.Texture = GameTexture.brick;                       
                         bricksList.Add(brick);
                     }
                     else if (pointIndex == 1)
                     {
                         PointObj point = new PointObj(x * Global.quad_Width, y * Global.quad_Height, new Rectangle(x * Global.quad_Width, y * Global.quad_Height, Global.quad_Width, Global.quad_Height));
-                        using (var stream = TitleContainer.OpenStream("Content/Point.png"))
-                        {
-                            point.Texture = Texture2D.FromStream(graphicsDevice, stream);
-                        }
+                        point.Texture = GameTexture.point;
                         pointsList.Add(point);
                     }
                 }
