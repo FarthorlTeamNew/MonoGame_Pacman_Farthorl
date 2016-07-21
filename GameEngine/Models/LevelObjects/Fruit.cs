@@ -124,18 +124,30 @@ namespace GameEngine.Models.LevelObjects
             for (int i = 0; i < fruits.Count; i++)
             {
                 spriteBatch.Draw(fruits[i].Texture, fruits[i].BoundingBox, Color.White);
-                if (fruits[i].IsColliding(pacMan))
-                {
-                    fruits[i].ReactOnCollision(pacMan);
-                    fruits.Remove(fruits[i]);
-                }
             }
+
             for (int i = 0; i < ghostKillers.Count; i++)
             {
                 spriteBatch.Draw(ghostKillers[i].Texture, ghostKillers[i].BoundingBox, Color.White);
-                if (ghostKillers[i].IsColliding(pacMan))
+            }
+        }
+
+        public static void CheckCollisions(PacMan pacman)
+        {
+            for (int i = 0; i < fruits.Count; i++)
+            {
+                if (fruits[i].IsColliding(pacman))
                 {
-                    ghostKillers[i].ReactOnCollision(pacMan);
+                    fruits[i].ReactOnCollision(pacman);
+                    fruits.Remove(fruits[i]);
+                }
+            }
+
+            for (int i = 0; i < ghostKillers.Count; i++)
+            {
+                if (ghostKillers[i].IsColliding(pacman))
+                {
+                    ghostKillers[i].ReactOnCollision(pacman);
                     ghostKillers.Remove(ghostKillers[i]);
                 }
             }

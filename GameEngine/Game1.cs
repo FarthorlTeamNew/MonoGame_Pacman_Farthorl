@@ -100,6 +100,7 @@ namespace GameEngine
                 var pacmanMovement = this.pacmanInputHandler.Move(gameTime);
                 this.pacmanAnimator.UpdateAnimation(gameTime, pacmanMovement);
                 levelMatrix.Update(pacMan);
+                Fruit.CheckCollisions(pacMan);
                 base.Update(gameTime);
             }
 
