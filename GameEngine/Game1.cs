@@ -51,9 +51,10 @@ namespace GameEngine
         {
             this.spriteBatch = new SpriteBatch(GraphicsDevice);
             this.IsMouseVisible = true;
-            this.butPlay = new CButton(this.Content.Load<Texture2D>("MenuImages/PlayGame"), this.graphics.GraphicsDevice);
+            GameTexture.LoadTextures(this);
+            this.butPlay = new CButton(GameTexture.playButton, this.graphics.GraphicsDevice);
             this.butPlay.SetPosition(new Vector2(300, 166));
-            this.butExit = new CButton(this.Content.Load<Texture2D>("MenuImages/Exit"), this.graphics.GraphicsDevice);
+            this.butExit = new CButton(GameTexture.exitButton, this.graphics.GraphicsDevice);
             this.butExit.SetPosition(new Vector2(300, 200));
             this.levelMatrix.InitializeMatrix(this.GraphicsDevice);
             this.pacmanInputHandler = new PacmanInputHandler(this.pacMan, levelMatrix);
@@ -112,7 +113,7 @@ namespace GameEngine
             switch (this.currentGameState)
             {
                 case GameState.MainMenu:
-                    this.spriteBatch.Draw(this.Content.Load<Texture2D>("MenuImages/MainMenu"), new Rectangle(0, 0, Global.GLOBAL_WIDTH, Global.GLOBAL_HEIGHT), Color.White);
+                    this.spriteBatch.Draw(GameTexture.mainMenu, new Rectangle(0, 0, Global.GLOBAL_WIDTH, Global.GLOBAL_HEIGHT), Color.White);
                     this.butPlay.Draw(this.spriteBatch);
                     this.butExit.Draw(this.spriteBatch);
                     break;

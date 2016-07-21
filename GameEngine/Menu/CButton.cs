@@ -42,9 +42,9 @@ namespace GameEngine.Menu
             }
         }
 
-        public void SetPosition(Vector2 newPosition)
+        public  void SetPosition(Vector2 newPositon)
         {
-            this.position = newPosition;
+            this.position = newPositon;
         }
 
         public void Draw(SpriteBatch spriteBatch)

@@ -53,6 +53,7 @@
     <Compile Include="Matrix.cs" />
     <Compile Include="Menu\CButton.cs" />
     <Compile Include="Menu\GameState.cs" />
+    <Compile Include="Globals\GameTexture.cs" />
     <Compile Include="Models\LevelObjects\Fruits\Apple.cs" />
     <Compile Include="Models\LevelObjects\Fruits\Banana.cs" />
     <Compile Include="Models\LevelObjects\Fruits\Brezel.cs" />

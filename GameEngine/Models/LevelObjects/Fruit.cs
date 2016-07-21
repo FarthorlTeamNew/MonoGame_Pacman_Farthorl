@@ -4,6 +4,8 @@ using Microsoft.Xna.Framework;
 using GameEngine.Models.LevelObjects.Fruits;
 using System.Collections.Generic;
 using System;
+using GameEngine.Globals;
+using GameEngine.Menu;
 
 namespace GameEngine.Models.LevelObjects
 {
@@ -38,49 +40,14 @@ namespace GameEngine.Models.LevelObjects
         
         public static void InitializeFruits(GraphicsDevice graphicsDevice, Matrix level)
         {
-            Texture2D tempTecture = new Texture2D(graphicsDevice, 32, 32);
-            Fruit apple = new Apple(tempTecture, 2, 3, new Rectangle(0, 0, 32, 32));
-            using (var stream = TitleContainer.OpenStream("Content/FruitImages/Apple.png"))
-            {
-                apple.Texture = Texture2D.FromStream(graphicsDevice, stream);
-            }
-
-            Fruit banana = new Banana(tempTecture, 2, 3, new Rectangle(0, 0, 32, 32));
-            using (var stream = TitleContainer.OpenStream("Content/FruitImages/Banana.png"))
-            {
-                banana.Texture = Texture2D.FromStream(graphicsDevice, stream);
-            }
-
-            Fruit brezel = new Brezel(tempTecture, 2, 3, new Rectangle(0, 0, 32, 32));
-            using (var stream = TitleContainer.OpenStream("Content/FruitImages/Brezel.png"))
-            {
-                brezel.Texture = Texture2D.FromStream(graphicsDevice, stream);
-            }
-
-            Fruit cherry = new Cherry(tempTecture, 2, 3, new Rectangle(0, 0, 32, 32));
-            using (var stream = TitleContainer.OpenStream("Content/FruitImages/Cherry.png"))
-            {
-                cherry.Texture = Texture2D.FromStream(graphicsDevice, stream);
-            }
-
-            Fruit peach = new Peach(tempTecture, 2, 3, new Rectangle(0, 0, 32, 32));
-            using (var stream = TitleContainer.OpenStream("Content/FruitImages/Peach.png"))
-            {
-                peach.Texture = Texture2D.FromStream(graphicsDevice, stream);
-            }
-
-            Fruit pear = new Pear(tempTecture, 2, 3, new Rectangle(0, 0, 32, 32));
-            using (var stream = TitleContainer.OpenStream("Content/FruitImages/Pear.png"))
-            {
-                pear.Texture = Texture2D.FromStream(graphicsDevice, stream);
-            }
-
-            Fruit strawberry = new Strawberry(tempTecture, 2, 3, new Rectangle(0, 0, 32, 32));
-            using (var stream = TitleContainer.OpenStream("Content/FruitImages/Strawberry.png"))
-            {
-                strawberry.Texture = Texture2D.FromStream(graphicsDevice, stream);
-            }
-
+            Fruit apple = new Apple(GameTexture.apple, 2, 3, new Rectangle(0, 0, 32, 32));
+            Fruit banana = new Banana(GameTexture.banana, 2, 3, new Rectangle(0, 0, 32, 32));
+            Fruit brezel = new Brezel(GameTexture.brezel, 2, 3, new Rectangle(0, 0, 32, 32));
+            Fruit cherry = new Cherry(GameTexture.cherry, 2, 3, new Rectangle(0, 0, 32, 32));
+            Fruit peach = new Peach(GameTexture.peach, 2, 3, new Rectangle(0, 0, 32, 32));
+            Fruit pear = new Pear(GameTexture.pear, 2, 3, new Rectangle(0, 0, 32, 32));
+            Fruit strawberry = new Strawberry(GameTexture.strawberry, 2, 3, new Rectangle(0, 0, 32, 32));
+          
             fruits = new List<Fruit> { apple, banana, brezel, cherry, peach, pear, strawberry };
 
             foreach (var fruit in fruits)
