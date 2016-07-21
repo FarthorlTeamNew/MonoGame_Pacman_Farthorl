@@ -123,6 +123,10 @@ namespace GameEngine
                             throw new ArgumentException("Cannot convert string to integer");
                         }
 
+                        if (arrayX >= Global.XMax || arrayY >= Global.YMax)
+                        {
+                            continue;
+                        }
                         //Add element data in to the specific point in the 2D array
                         PathsMatrix[arrayY, arrayX] = arrayValue;
                     }

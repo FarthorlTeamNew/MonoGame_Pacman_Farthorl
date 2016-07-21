@@ -55,8 +55,8 @@ namespace GameEngine.Models.LevelObjects
                 string[] placeAvailable = AvailableFruitXY(level).Split();
                 int placeFruitX = int.Parse(placeAvailable[0]);
                 int placeFruitY = int.Parse(placeAvailable[1]);
-                fruit.X = placeFruitX * 32;
-                fruit.Y = placeFruitY * 32;
+                fruit.X = placeFruitX * Global.GLOBAL_WIDTH;
+                fruit.Y = placeFruitY * Global.GLOBAL_HEIGHT;
                 fruit.UpdateBoundingBox();
             }
 
@@ -73,8 +73,8 @@ namespace GameEngine.Models.LevelObjects
                 string[] placeAvailable = AvailableGhostKillerXY(level).Split();
                 int placeKillerX = int.Parse(placeAvailable[0]);
                 int placeKillerY = int.Parse(placeAvailable[1]);
-                killer.X = placeKillerX*32;
-                killer.Y = placeKillerY*32;
+                killer.X = placeKillerX*Global.GLOBAL_WIDTH;
+                killer.Y = placeKillerY*Global.GLOBAL_HEIGHT;
                 killer.UpdateBoundingBox();
                 coefficientX += 5;
                 coefficientY += 2;
@@ -87,8 +87,8 @@ namespace GameEngine.Models.LevelObjects
         {
             while (true)
             {
-                int tryX = new Random(DateTime.Now.Millisecond).Next(1, 23);
-                int tryY = new Random(DateTime.Now.Millisecond).Next(1, 12);
+                int tryX = new Random(DateTime.Now.Millisecond).Next(1, Global.XMax - 1);
+                int tryY = new Random(DateTime.Now.Millisecond).Next(1, Global.YMax - 1);
                 var elements = level.PathsMatrix[tryY, tryX].Trim().Split(',');
                 int placeAvailable = int.Parse(elements[1]);
                 if (placeAvailable == 1)

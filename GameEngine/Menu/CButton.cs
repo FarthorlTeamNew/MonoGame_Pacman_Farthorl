@@ -32,8 +32,8 @@ namespace GameEngine.Menu
                 if (this.color.A == 255) this.down = false;
                 if (this.color.A == 0) this.down = true;
                 if (this.down) this.color.A += 3; else this.color.A -= 3;
-                if (mouseState.LeftButton == ButtonState.Pressed) this.isClicked = true;
-
+                if (mouseState.LeftButton == ButtonState.Pressed)
+                    this.isClicked = true;
             }
             else if (this.color.A < 255)
             {

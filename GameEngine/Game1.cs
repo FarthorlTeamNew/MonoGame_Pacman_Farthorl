@@ -75,6 +75,12 @@ namespace GameEngine
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
                 Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
+                if (currentGameState == GameState.Playing)
+                {
+                    currentGameState = GameState.MainMenu;
+                    this.isRunning = false;
+                    return;
+                }
                 Exit();
                 return;
             }
@@ -84,7 +90,14 @@ namespace GameEngine
 
                 case GameState.MainMenu:
                     MouseState mouse = Mouse.GetState();
-                    if (this.butPlay.isClicked) this.currentGameState = GameState.Playing; this.isRunning = true;
+                    if (this.butPlay.isClicked)
+                    {
+                        //graphics.IsFullScreen = true; // set this to enable full screen
+                        //this.graphics.ApplyChanges();
+                        this.currentGameState = GameState.Playing;
+                        this.isRunning = true;
+                        this.butPlay.isClicked = false; // revert back to be ready for next click if we go in menu
+                    }
                     if (this.butExit.isClicked) this.currentGameState = GameState.Exit;
                     this.butPlay.Update(mouse); this.butExit.Update(mouse);
                     break;
@@ -92,7 +105,7 @@ namespace GameEngine
                     break;
                 case GameState.Playing:
                     break;
-                    case GameState.Exit:
+                case GameState.Exit:
                     break;
             }
 
@@ -123,45 +136,36 @@ namespace GameEngine
                 case GameState.Options:
                     break;
                 case GameState.Playing:
-                    break;
-                    case GameState.Exit:
-                    Environment.Exit(0);
-                    break;
-               
-            }
-            this.spriteBatch.End();
-
-            if (this.butPlay.isClicked)
-            {
-                if (this.pacMan.Health > 0)
-                {
-                    this.spriteBatch.Begin();
-                    this.levelMatrix.Draw(this.spriteBatch);
-                    Fruit.Draw(this.spriteBatch, pacMan);
-                    this.pacmanAnimator.Draw(this.spriteBatch);
-                    if (this.levelMatrix.LeftPoints == 0)
+                    if (this.pacMan.Health > 0)
                     {
-                        var texture = Content.Load<Texture2D>("PacManWin_image");
-                        this.spriteBatch.Draw(texture, new Vector2(250, 100));
-                        isRunning = false;
-                        if (Keyboard.GetState().IsKeyDown(Keys.Space))
+                        this.levelMatrix.Draw(this.spriteBatch);
+                        Fruit.Draw(this.spriteBatch, pacMan);
+                        this.pacmanAnimator.Draw(this.spriteBatch);
+                        if (this.levelMatrix.LeftPoints == 0)
                         {
-                            this.Reset();
-                        }
-                        else if (Keyboard.GetState().IsKeyDown(Keys.Enter))
-                        {
-                            this.Exit();
-                            using (var game = new Game1())
-                                game.Run();
+                            var texture = Content.Load<Texture2D>("PacManWin_image");
+                            this.spriteBatch.Draw(texture, new Vector2(250, 100));
+                            isRunning = false;
+                            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+                            {
+                                this.Reset();
+                            }
+                            else if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+                            {
+                                this.Exit();
+                                using (var game = new Game1())
+                                    game.Run();
+                            }
                         }
                     }
-                    this.spriteBatch.End();
-                }
+                    break;
+                case GameState.Exit:
+                    Environment.Exit(0);
+                    break;
             }
-            else
-            {
 
-            }
+            this.spriteBatch.End();
+
             base.Draw(gameTime);
         }
 
