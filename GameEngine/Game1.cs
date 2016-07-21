@@ -18,11 +18,13 @@ namespace GameEngine
         SpriteBatch spriteBatch;
         private SpriteFont spriteFont;
         private PacMan pacMan;
+        private bool isLevelCompleated;
         private PacmanAnimator pacmanAnimator;
         private PacmanInputHandler pacmanInputHandler;
         private Matrix levelMatrix;
         private List<LevelObject> fruitList;
-        private bool isRunning;
+        private KeyPress keyPress;
+        private KeyboardState oldState;
         GameState currentGameState = GameState.MainMenu;
         CButton butPlay;
         CButton butExit;
@@ -45,6 +47,9 @@ namespace GameEngine
             this.fruitList = new List<LevelObject>();
             //graphics.IsFullScreen = true; // set this to enable full screen
             this.graphics.ApplyChanges();
+            keyPress = new KeyPress();
+            oldState = Keyboard.GetState();
+            isLevelCompleated = false;
 
             base.Initialize();
         }
@@ -72,17 +77,18 @@ namespace GameEngine
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
-                Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (keyPress.IsPressedKey(Keys.Escape, oldState))
             {
                 if (currentGameState == GameState.Playing)
                 {
                     currentGameState = GameState.MainMenu;
-                    this.isRunning = false;
+                    Reset();
+                }
+                else if(currentGameState == GameState.MainMenu)
+                {
+                    Exit();
                     return;
                 }
-                Exit();
-                return;
             }
 
             switch (this.currentGameState)
@@ -90,35 +96,47 @@ namespace GameEngine
 
                 case GameState.MainMenu:
                     MouseState mouse = Mouse.GetState();
-                    if (this.butPlay.isClicked)
+                    this.butPlay.Update(mouse); this.butExit.Update(mouse);
+                    if (this.butPlay.isClicked || keyPress.IsPressedKey(Keys.Space, oldState))
                     {
                         //graphics.IsFullScreen = true; // set this to enable full screen
                         //this.graphics.ApplyChanges();
                         this.currentGameState = GameState.Playing;
-                        this.isRunning = true;
-                        this.butPlay.isClicked = false; // revert back to be ready for next click if we go in menu
+                        this.butPlay.isClicked = false; // BugFix - revert back to be ready for next click if we go in menu
                     }
                     if (this.butExit.isClicked) this.currentGameState = GameState.Exit;
-                    this.butPlay.Update(mouse); this.butExit.Update(mouse);
                     break;
                 case GameState.Options:
                     break;
                 case GameState.Playing:
+                    if (!isLevelCompleated)
+                    {
+                        var pacmanMovement = this.pacmanInputHandler.Move(gameTime);
+                        this.pacmanAnimator.UpdateAnimation(gameTime, pacmanMovement);
+                        levelMatrix.Update(pacMan);
+                        Fruit.CheckCollisions(pacMan);
+                    }
+                    else   // Wining Condition
+                    {
+                        if (Keyboard.GetState().IsKeyDown(Keys.Space))
+                        {
+                            this.Reset();
+                        }
+                        else if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+                        {
+                            this.Exit();
+                            using (var game = new Game1())
+                                game.Run();
+                        }
+                    }
+                    base.Update(gameTime);
                     break;
-                    case GameState.Exit:
+                case GameState.Exit:
                     break;
-            }
-
-            if (isRunning)
-            {
-                var pacmanMovement = this.pacmanInputHandler.Move(gameTime);
-                this.pacmanAnimator.UpdateAnimation(gameTime, pacmanMovement);
-                levelMatrix.Update(pacMan);
-                Fruit.CheckCollisions(pacMan);
-                base.Update(gameTime);
             }
 
             this.Window.Title = $"Scores: {this.pacMan.Scores}   Left points:{this.levelMatrix.LeftPoints}  HEALTH:{this.pacMan.Health}";
+            oldState = Keyboard.GetState();  // Update saved state.
         }
 
         protected override void Draw(GameTime gameTime)
@@ -136,28 +154,19 @@ namespace GameEngine
                 case GameState.Options:
                     break;
                 case GameState.Playing:
-                if (this.pacMan.Health > 0)
-                {
-                    this.levelMatrix.Draw(this.spriteBatch);
-                    Fruit.Draw(this.spriteBatch, pacMan);
-                    this.pacmanAnimator.Draw(this.spriteBatch);
-                    if (this.levelMatrix.LeftPoints == 0)
+                    if (this.pacMan.Health > 0)
                     {
-                        var texture = Content.Load<Texture2D>("PacManWin_image");
-                        this.spriteBatch.Draw(texture, new Vector2(250, 100));
-                        isRunning = false;
-                        if (Keyboard.GetState().IsKeyDown(Keys.Space))
+                        this.levelMatrix.Draw(this.spriteBatch);
+                        Fruit.Draw(this.spriteBatch, pacMan);
+                        this.pacmanAnimator.Draw(this.spriteBatch);
+
+                        if (this.levelMatrix.LeftPoints == 0)
                         {
-                            this.Reset();
-                        }
-                        else if (Keyboard.GetState().IsKeyDown(Keys.Enter))
-                        {
-                            this.Exit();
-                            using (var game = new Game1())
-                                game.Run();
+                            var texture = Content.Load<Texture2D>("PacManWin_image");
+                            this.spriteBatch.Draw(texture, new Vector2(250, 100));
+                            isLevelCompleated = true;
                         }
                     }
-                }
                     break;
                 case GameState.Exit:
                     Environment.Exit(0);
@@ -171,7 +180,7 @@ namespace GameEngine
 
         private void Reset()
         {
-            isRunning = true;
+            isLevelCompleated = false;
             this.pacMan.X = 0;
             this.pacMan.Y = 0;
             this.pacMan.Scores = 0;
@@ -185,7 +194,7 @@ namespace GameEngine
             this.fruitList.AddRange(Fruit.GetFruitList());
             this.fruitList.AddRange(Fruit.GetGhostKillerList());
             this.levelMatrix.RemovePoints(fruitList);
-            Fruit.Draw(this.spriteBatch, pacMan);
+            //Fruit.Draw(this.spriteBatch, pacMan);
         }
     }
 }
