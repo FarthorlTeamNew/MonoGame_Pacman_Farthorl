@@ -79,28 +79,45 @@ namespace GameEngine.Handlers
             else
             {
                 if (desiredDir == Direction.Up
-                    && pacman.QuadrantY > 0
-                    && obsticals[pacman.QuadrantY - 1, pacman.QuadrantX] == false)
+                    && pacman.Y > Global.quad_Height / 2)
                 {
-                    currentDir = desiredDir;
+                    if (this.pacman.Y - pixelMoved >= this.pacman.QuadrantY * Global.quad_Height
+                        || obsticals[pacman.QuadrantY - 1, pacman.QuadrantX] == false)
+                    {
+                        currentDir = desiredDir;
+                    }
+
+
                 }
                 else if (desiredDir == Direction.Down
-                    && pacman.QuadrantY < (Global.YMax - 1)
-                    && obsticals[pacman.QuadrantY + 1, pacman.QuadrantX] == false)
+                    && pacman.Y < ((Global.YMax * Global.quad_Height) - (Global.quad_Height / 2)))
                 {
-                    currentDir = desiredDir;
+                    if (this.pacman.Y + pixelMoved <= this.pacman.QuadrantY * Global.quad_Height
+                        || obsticals[pacman.QuadrantY + 1, pacman.QuadrantX] == false)
+                    {
+                        currentDir = desiredDir;
+                    }
+
                 }
                 else if (desiredDir == Direction.Left
-                    && pacman.QuadrantX > 0
-                    && obsticals[pacman.QuadrantY, pacman.QuadrantX - 1] == false)
+                    && this.pacman.X > Global.quad_Width / 2)
                 {
-                    currentDir = desiredDir;
+                    if (this.pacman.X - pixelMoved >= this.pacman.QuadrantX * Global.quad_Width
+                        || obsticals[pacman.QuadrantY, pacman.QuadrantX - 1] == false)
+                    {
+                        currentDir = desiredDir;
+                    }
+
                 }
                 else if (desiredDir == Direction.Right
-                    && pacman.QuadrantX < (Global.XMax - 1)
-                    && obsticals[pacman.QuadrantY, pacman.QuadrantX + 1] == false)
+                    && this.pacman.X < (Global.XMax * Global.quad_Width) - (Global.quad_Width / 2))
                 {
-                    currentDir = desiredDir;
+                    if (this.pacman.X + pixelMoved <= this.pacman.QuadrantX * Global.quad_Width
+                        || obsticals[pacman.QuadrantY, pacman.QuadrantX + 1] == false)
+                    {
+                        currentDir = desiredDir;
+                    }
+
                 }
                 else
                 {
@@ -139,6 +156,21 @@ namespace GameEngine.Handlers
 
         private bool IsReadyToChangePackmanQuadrant()
         {
+            if (this.currentDir == Direction.Up && desiredDir == Direction.Down ||
+               this.currentDir == Direction.Down && this.desiredDir == Direction.Up ||
+               this.currentDir == Direction.Right && this.desiredDir == Direction.Left ||
+               this.currentDir == Direction.Left && this.desiredDir == Direction.Right)
+            {
+                return true; //Change direction immediately if the changed direction is pposite
+            }
+
+            if (this.currentDir == Direction.Down && desiredDir == Direction.Up)
+            {
+                return true;
+            }
+
+
+
             if (pacman.X % Global.quad_Width == 0
                 && pacman.Y % Global.quad_Height == 0)
             {
@@ -159,8 +191,10 @@ namespace GameEngine.Handlers
                 CalculateDirection();
             }
 
+            //CalculateDirection();
+
             Vector2 desiredVelocity = new Vector2();
-            switch (currentDir)
+            switch (this.currentDir)
             {
                 case Direction.Up:
                     desiredVelocity.X = 0;
