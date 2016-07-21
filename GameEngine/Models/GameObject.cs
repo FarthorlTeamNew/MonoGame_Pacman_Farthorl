@@ -23,10 +23,15 @@
             this.quadrantX = quadrantX;
             this.quadrantY = quadrantY;
         }
-        public string Name
+
+        protected GameObject()
+        {
+        }
+
+        public virtual string Name
         {
             get { return this.name; }
-            private set { this.name = value; }
+            protected set { this.name = value; }
         }
         public Texture2D Texture
         {
@@ -37,7 +42,7 @@
         public Rectangle BoundingBox
         {
             get { return this.boundingBox; }
-            private set { this.boundingBox = value; }
+            protected set { this.boundingBox = value; }
         }
 
         public float X
@@ -61,13 +66,13 @@
         public int QuadrantX
         {
             get { return this.quadrantX; }
-            protected set { this.quadrantX = value; }
+            protected internal set { this.quadrantX = value; }
         }
 
         public int QuadrantY
         {
             get { return this.quadrantY; }
-            protected set { this.quadrantY = value; }
+            protected internal set { this.quadrantY = value; }
         }
     }
 }
