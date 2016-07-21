@@ -19,7 +19,8 @@ namespace GameEngine.Handlers
         private PacMan pacman;
         private Direction currentDir;
         private Direction desiredDir;
-        private bool[,] obsticals; 
+        private bool[,] obsticals;
+        private const int pixelMoved = 2; //inicialize how pixel will move PacMan per iteration
 
         public PacmanInputHandler(PacMan pacMan, Matrix levelMatrix)
         {
@@ -163,18 +164,18 @@ namespace GameEngine.Handlers
             {
                 case Direction.Up:
                     desiredVelocity.X = 0;
-                    desiredVelocity.Y = -4; // this magic number is velocity(pixels per gameTime) and he must devide 32(Global.quad_Width) with reminder 0
+                    desiredVelocity.Y = 0 - PacmanInputHandler.pixelMoved; // this magic number is velocity(pixels per gameTime) and he must devide 32(Global.quad_Width) with reminder 0
                     break;
                 case Direction.Down:
                     desiredVelocity.X = 0;
-                    desiredVelocity.Y = 4;
+                    desiredVelocity.Y = PacmanInputHandler.pixelMoved;
                     break;
                 case Direction.Left:
-                    desiredVelocity.X = -4;
+                    desiredVelocity.X = 0 - PacmanInputHandler.pixelMoved;
                     desiredVelocity.Y = 0;
                     break;
                 case Direction.Right:
-                    desiredVelocity.X = 4;
+                    desiredVelocity.X = PacmanInputHandler.pixelMoved;
                     desiredVelocity.Y = 0;
                     break;
                 case Direction.None:
@@ -188,7 +189,7 @@ namespace GameEngine.Handlers
 
         public Vector2 Move(GameTime gameTime)
         {
-            var velocity = GetDesiredVelocityFromInput();
+            var velocity = this.GetDesiredVelocityFromInput();
 
             this.pacman.X += velocity.X /** (float)gameTime.ElapsedGameTime.TotalSeconds*/;
             this.pacman.Y += velocity.Y /** (float)gameTime.ElapsedGameTime.TotalSeconds*/;

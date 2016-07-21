@@ -2,7 +2,7 @@
 
 namespace GameEngine
 {
-    public static class Program
+    public static class Startup
     {
         static void Main()
         {

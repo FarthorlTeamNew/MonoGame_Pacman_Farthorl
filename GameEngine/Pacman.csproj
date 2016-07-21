@@ -73,7 +73,7 @@
     <Compile Include="Models\PacMan.cs" />
     <Compile Include="Models\LevelObjects\Fruits\Peach.cs" />
     <Compile Include="Models\LevelObjects\Fruits\Pear.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Startup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\LevelObjects\Fruits\Strawberry.cs" />
   </ItemGroup>
