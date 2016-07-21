@@ -36,6 +36,7 @@ namespace GameEngine
 
         protected override void Initialize()
         {
+            GameTexture.LoadTextures(this);
             this.pacMan = new PacMan(new Rectangle(0, 0, 32, 32), 0, 0);
             this.pacmanAnimator = new PacmanAnimator(this.pacMan);
             this.graphics.PreferredBackBufferWidth = Global.GLOBAL_WIDTH;
@@ -52,7 +53,6 @@ namespace GameEngine
         {
             this.spriteBatch = new SpriteBatch(GraphicsDevice);
             this.IsMouseVisible = true;
-            GameTexture.LoadTextures(this);
             this.butPlay = new CButton(GameTexture.playButton, this.graphics.GraphicsDevice);
             this.butPlay.SetPosition(new Vector2(300, 166));
             this.butExit = new CButton(GameTexture.exitButton, this.graphics.GraphicsDevice);
