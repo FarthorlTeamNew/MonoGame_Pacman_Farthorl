@@ -13,13 +13,14 @@ namespace GameEngine.Models.LevelObjects
     {
         private static List<Fruit> fruits;
         private static List<GhostKiller> ghostKillers;
-        private static int coefficientX = 1;
-        private static int coefficientY = 1;
-        //private string fruitPath;
+        private static int coefficientX;
+        private static int coefficientY;
 
         public Fruit(Texture2D texture, float x, float y, Rectangle boundingBox) 
             : base(texture.Name, x, y, boundingBox)
         {
+            coefficientX = 1;
+            coefficientY = 1;
             base.Texture = texture;
         }
         public int FruitBonus { get; set; }
@@ -62,8 +63,7 @@ namespace GameEngine.Models.LevelObjects
             ghostKillers = new List<GhostKiller>();
             for (int i = 0; i < 4; i++)
             {
-                GhostKiller ghostKiller = new GhostKiller(GameTexture.ghostKiller, 0, 0, new Rectangle(0, 0, 32, 32));
-                ghostKillers.Add(ghostKiller);
+                ghostKillers.Add(new GhostKiller(GameTexture.ghostKiller, 0, 0, new Rectangle(0, 0, 32, 32)));
             }
 
             foreach (var killer in ghostKillers)
@@ -77,8 +77,6 @@ namespace GameEngine.Models.LevelObjects
                 coefficientX += 5;
                 coefficientY += 2;
             }
-            coefficientX = 1;
-            coefficientY = 1;
         }
 
         private static string AvailableFruitXY(Matrix level)

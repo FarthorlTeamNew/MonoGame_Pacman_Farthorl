@@ -14,11 +14,9 @@ namespace GameEngine
     {
         private string Level = @"DataFiles\Levels\Labirint.txt";
         public string[,] PathsMatrix = new string[Global.YMax, Global.XMax];
-
-        private Texture2D brickTexture;
-        private Texture2D pointTexture;
-        private List<Wall> bricksList;
-        private List<PointObj> pointsList;
+        
+        private readonly List<Wall> bricksList;
+        private readonly List<PointObj> pointsList;
 
         public Matrix()
         {
