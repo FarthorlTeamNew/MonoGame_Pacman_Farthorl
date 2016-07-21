@@ -1,6 +1,7 @@
 ﻿using GameEngine.Globals;
 using GameEngine.Models;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace GameEngine.Handlers
@@ -83,21 +84,15 @@ namespace GameEngine.Handlers
                     && pacman.Y > Global.quad_Height / 2)
                 {
                     //Check is can change direction to Up move
-                    if (this.pacman.Y - pixelMoved >= this.pacman.QuadrantY*Global.quad_Height
+                    if (this.pacman.Y - pixelMoved >= this.pacman.QuadrantY * Global.quad_Height
                         || obsticals[pacman.QuadrantY - 1, pacman.QuadrantX] == false)
                     {
                         this.currentDir = this.desiredDir;
                     }
-                    else
-                    {
-                        this.desiredDir = this.currentDir;
-                    }
-
-
                 }
                 //Change directio to Down
                 else if (desiredDir == Direction.Down
-                    && pacman.Y < ((Global.YMax * Global.quad_Height) - (Global.quad_Height / 2)))
+                    && pacman.Y < (((Global.YMax - 1) * Global.quad_Height) - (Global.quad_Height / 2)))
                 {
                     //Check is can change direction to Down move
                     if (this.pacman.Y + pixelMoved <= this.pacman.QuadrantY * Global.quad_Height
@@ -105,11 +100,6 @@ namespace GameEngine.Handlers
                     {
                         currentDir = desiredDir;
                     }
-                    else
-                    {
-                        this.desiredDir = this.currentDir;
-                    }
-
                 }
                 //Change directio to Left
                 else if (desiredDir == Direction.Left
@@ -121,15 +111,10 @@ namespace GameEngine.Handlers
                     {
                         currentDir = desiredDir;
                     }
-                    else
-                    {
-                        this.desiredDir = this.currentDir;
-                    }
-
                 }
                 //Change directio to Right
                 else if (desiredDir == Direction.Right
-                    && this.pacman.X < (Global.XMax * Global.quad_Width) - (Global.quad_Width / 2))
+                    && this.pacman.X < ((Global.XMax - 1) * Global.quad_Width) - (Global.quad_Width / 2))
                 {
                     //Check is can change direction to Right move
                     if (this.pacman.X + pixelMoved <= this.pacman.QuadrantX * Global.quad_Width
@@ -137,11 +122,6 @@ namespace GameEngine.Handlers
                     {
                         currentDir = desiredDir;
                     }
-                    else
-                    {
-                        this.desiredDir = this.currentDir;
-                    }
-
                 }
                 else
                 {
@@ -187,13 +167,6 @@ namespace GameEngine.Handlers
             {
                 return true; //Change direction immediately if the changed direction is pposite
             }
-
-            if (this.currentDir == Direction.Down && desiredDir == Direction.Up)
-            {
-                return true;
-            }
-
-
 
             if (pacman.X % Global.quad_Width == 0
                 && pacman.Y % Global.quad_Height == 0)
