@@ -99,6 +99,7 @@ namespace GameEngine
             {
                 var pacmanMovement = this.pacmanInputHandler.Move(gameTime);
                 this.pacmanAnimator.UpdateAnimation(gameTime, pacmanMovement);
+                levelMatrix.Update(pacMan);
                 base.Update(gameTime);
             }
 

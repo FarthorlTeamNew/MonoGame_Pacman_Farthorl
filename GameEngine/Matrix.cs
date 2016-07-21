@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace GameEngine
 {
@@ -79,9 +80,11 @@ namespace GameEngine
             }
         }
 
-        public void Update()
+        public void Update(PacMan pacMan)
         {
-            
+            PointObj pointEaten = pointsList.FirstOrDefault(x => x.IsColliding(pacMan));
+            pointEaten?.ReactOnCollision(pacMan);
+            pointsList?.Remove(pointEaten);
         }
 
         public void Draw(SpriteBatch spriteBatch, PacMan pacMan, List<LevelObject> fruitList)
@@ -91,15 +94,10 @@ namespace GameEngine
                 spriteBatch.Draw(brick.Texture, brick.BoundingBox, Color.White);
             }
 
-            for (int i = 0; i < pointsList.Count; i++)
+            foreach (var point in pointsList)
             {
-                spriteBatch.Draw(pointsList[i].Texture, pointsList[i].BoundingBox, Color.White);
-                if (pointsList[i].IsColliding(pacMan))
-                {
-                    pointsList[i].ReactOnCollision(pacMan);
-                    pointsList.Remove(pointsList[i]);
-                }
-            }     
+                spriteBatch.Draw(point.Texture, point.BoundingBox, Color.White);
+            }           
         }
         private string[,] GetMatrixValues()
         {
