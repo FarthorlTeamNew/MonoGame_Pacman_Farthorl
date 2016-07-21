@@ -16,7 +16,7 @@ namespace GameEngine.Models.LevelObjects
         private static int coefficientX;
         private static int coefficientY;
 
-        public Fruit(Texture2D texture, float x, float y, Rectangle boundingBox) 
+        public Fruit(Texture2D texture, float x, float y, Rectangle boundingBox)
             : base(texture.Name, x, y, boundingBox)
         {
             coefficientX = 1;
@@ -37,7 +37,7 @@ namespace GameEngine.Models.LevelObjects
                 pacMan.Health = 100;
             }
         }
-        
+
         public static void InitializeFruits(GraphicsDevice graphicsDevice, Matrix level)
         {
             Fruit apple = new Apple(GameTexture.apple, 0, 0, new Rectangle(0, 0, 32, 32));
@@ -47,7 +47,7 @@ namespace GameEngine.Models.LevelObjects
             Fruit peach = new Peach(GameTexture.peach, 0, 0, new Rectangle(0, 0, 32, 32));
             Fruit pear = new Pear(GameTexture.pear, 0, 0, new Rectangle(0, 0, 32, 32));
             Fruit strawberry = new Strawberry(GameTexture.strawberry, 0, 0, new Rectangle(0, 0, 32, 32));
-          
+
             fruits = new List<Fruit> { apple, banana, brezel, cherry, peach, pear, strawberry };
 
             foreach (var fruit in fruits)
@@ -71,8 +71,8 @@ namespace GameEngine.Models.LevelObjects
                 string[] placeAvailable = AvailableGhostKillerXY(level).Split();
                 int placeKillerX = int.Parse(placeAvailable[0]);
                 int placeKillerY = int.Parse(placeAvailable[1]);
-                killer.X = placeKillerX*Global.quad_Width;
-                killer.Y = placeKillerY*Global.quad_Height;
+                killer.X = placeKillerX * Global.quad_Width;
+                killer.Y = placeKillerY * Global.quad_Height;
                 killer.UpdateBoundingBox();
                 coefficientX += 5;
                 coefficientY += 2;
@@ -129,7 +129,7 @@ namespace GameEngine.Models.LevelObjects
         {
             fruits.FirstOrDefault(x => x.IsColliding(pacman))?.ReactOnCollision(pacman);
             fruits.Remove(fruits.FirstOrDefault(x => x.IsColliding(pacman)));
-            
+
             ghostKillers.FirstOrDefault(x => x.IsColliding(pacman))?.ReactOnCollision(pacman);
             ghostKillers.Remove(ghostKillers.FirstOrDefault(x => x.IsColliding(pacman)));
         }
