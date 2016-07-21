@@ -64,10 +64,7 @@ namespace GameEngine.Models.LevelObjects
             for (int i = 0; i < 4; i++)
             {
                 GhostKiller ghostKiller = new GhostKiller(2, 3, new Rectangle(0, 0, 32, 32));
-                using (var stream = TitleContainer.OpenStream("Content/GhostKiller.png"))
-                {
-                    ghostKiller.Texture = Texture2D.FromStream(graphicsDevice, stream);
-                }
+                ghostKiller.Texture = GameTexture.ghostKiller;
                 ghostKillers.Add(ghostKiller);
             }
 

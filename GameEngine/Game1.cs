@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using GameEngine.Menu;
+using GameEngine.Models;
 
 namespace GameEngine
 {
@@ -35,7 +36,7 @@ namespace GameEngine
 
         protected override void Initialize()
         {
-            this.pacMan = new PacMan(this.GraphicsDevice, new Rectangle(0, 0, 32, 32), 0, 0);
+            this.pacMan = new PacMan(new Rectangle(0, 0, 32, 32), 0, 0);
             this.pacmanAnimator = new PacmanAnimator(this.pacMan);
             this.graphics.PreferredBackBufferWidth = Global.GLOBAL_WIDTH;
             this.graphics.PreferredBackBufferHeight = Global.GLOBAL_HEIGHT;

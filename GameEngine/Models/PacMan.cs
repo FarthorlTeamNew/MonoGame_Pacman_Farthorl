@@ -1,39 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using GameEngine.Models;
+﻿using GameEngine.Globals;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace GameEngine
+namespace GameEngine.Models
 {
     public class PacMan : GameObject
     {
-        private int health = 50;
         //not used now,but in future
         //private int speed = 5;
-        private int scores = 0;
 
-        public PacMan(GraphicsDevice graphicsDevice, Rectangle boundingBox , int quadrantX, int quadrantY) //Hardcore width and height
+        public PacMan(Rectangle boundingBox , int quadrantX, int quadrantY) //Hardcore width and height
             : base("Pacman", 0,  0, boundingBox, quadrantX, quadrantY)
         {
-            using (var stream = TitleContainer.OpenStream("Content/PacManSprite_sheets.png"))
-            {
-                base.Texture = Texture2D.FromStream(graphicsDevice, stream);
-            }
+           base.Texture = GameTexture.pacMan;
         }
 
-        public int Scores
-        {
-            get { return scores; }
-            set { scores = value; }
-        }
+        public int Scores { get; set; } = 0;
 
-        public int Health
-        {
-            get { return health; }
-            set { health = value; }
-        }
+        public int Health { get; set; } = 50;
     }
 }

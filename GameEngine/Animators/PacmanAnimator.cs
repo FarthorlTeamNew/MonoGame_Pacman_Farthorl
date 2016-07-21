@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using GameEngine.Globals;
+using GameEngine.Models;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -70,7 +71,7 @@ namespace GameEngine.Animators
             Vector2 topLeftPos = new Vector2(this.pacman.X, this.pacman.Y);
             Color tint = Color.White;
             var sourceRectangle = this.currentAnimation.CurrentRectangle;
-            spriteBatch.Draw(this.pacman.Texture, topLeftPos, sourceRectangle, tint);
+            spriteBatch.Draw(GameTexture.pacMan, topLeftPos, sourceRectangle, tint);
 
         }
 
