@@ -84,7 +84,14 @@ namespace GameEngine
 
                 case GameState.MainMenu:
                     MouseState mouse = Mouse.GetState();
-                    if (this.butPlay.isClicked) this.currentGameState = GameState.Playing; this.isRunning = true;
+                    if (this.butPlay.isClicked)
+                    {
+                        //graphics.IsFullScreen = true; // set this to enable full screen
+                        //this.graphics.ApplyChanges();
+                        this.currentGameState = GameState.Playing;
+                        this.isRunning = true;
+                    }
+            
                     if (this.butExit.isClicked) this.currentGameState = GameState.Exit;
                     this.butPlay.Update(mouse); this.butExit.Update(mouse);
                     break;
