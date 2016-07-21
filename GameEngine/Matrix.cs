@@ -87,7 +87,7 @@ namespace GameEngine
             pointsList?.Remove(pointEaten);
         }
 
-        public void Draw(SpriteBatch spriteBatch, PacMan pacMan, List<LevelObject> fruitList)
+        public void Draw(SpriteBatch spriteBatch)
         {
             foreach (var brick in bricksList)
             {

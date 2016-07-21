@@ -134,7 +134,7 @@ namespace GameEngine
                 if (this.pacMan.Health > 0)
                 {
                     this.spriteBatch.Begin();
-                    this.levelMatrix.Draw(this.spriteBatch, pacMan, fruitList);
+                    this.levelMatrix.Draw(this.spriteBatch);
                     Fruit.Draw(this.spriteBatch, pacMan);
                     this.pacmanAnimator.Draw(this.spriteBatch);
                     if (this.levelMatrix.LeftPoints == 0)
