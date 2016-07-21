@@ -118,14 +118,14 @@ namespace GameEngine.Models.LevelObjects
 
         public static void Draw(SpriteBatch spriteBatch, PacMan pacMan)
         {
-            for (int i = 0; i < fruits.Count; i++)
+            foreach (var fruit in fruits)
             {
-                spriteBatch.Draw(fruits[i].Texture, fruits[i].BoundingBox, Color.White);
+                spriteBatch.Draw(fruit.Texture, fruit.BoundingBox, Color.White);
             }
 
-            for (int i = 0; i < ghostKillers.Count; i++)
+            foreach (var ghostKiller in ghostKillers)
             {
-                spriteBatch.Draw(ghostKillers[i].Texture, ghostKillers[i].BoundingBox, Color.White);
+                spriteBatch.Draw(ghostKiller.Texture, ghostKiller.BoundingBox, Color.White);
             }
         }
 
@@ -154,7 +154,6 @@ namespace GameEngine.Models.LevelObjects
         {
             return fruits;
         }
-
 
         public static List<GhostKiller> GetGhostKillerList()
         {

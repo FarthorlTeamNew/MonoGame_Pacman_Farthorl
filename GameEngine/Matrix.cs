@@ -45,14 +45,12 @@ namespace GameEngine
 
                     if (quadrant == 1)
                     {
-                        Wall brick = new Wall(brickTexture, x * Global.quad_Width, y * Global.quad_Height, new Rectangle(x * Global.quad_Width, y * Global.quad_Height, Global.quad_Width, Global.quad_Height));
-                        brick.Texture = GameTexture.brick;                       
+                        Wall brick = new Wall(GameTexture.brick, x * Global.quad_Width, y * Global.quad_Height, new Rectangle(x * Global.quad_Width, y * Global.quad_Height, Global.quad_Width, Global.quad_Height));             
                         bricksList.Add(brick);
                     }
                     else if (pointIndex == 1)
                     {
-                        PointObj point = new PointObj(x * Global.quad_Width, y * Global.quad_Height, new Rectangle(x * Global.quad_Width, y * Global.quad_Height, Global.quad_Width, Global.quad_Height));
-                        point.Texture = GameTexture.point;
+                        PointObj point = new PointObj(GameTexture.point, x * Global.quad_Width, y * Global.quad_Height, new Rectangle(x * Global.quad_Width, y * Global.quad_Height, Global.quad_Width, Global.quad_Height));
                         pointsList.Add(point);
                     }
                 }

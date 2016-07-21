@@ -36,6 +36,7 @@ namespace GameEngine
 
         protected override void Initialize()
         {
+            GameTexture.LoadTextures(this);
             this.pacMan = new PacMan(new Rectangle(0, 0, 32, 32), 0, 0);
             this.pacmanAnimator = new PacmanAnimator(this.pacMan);
             this.graphics.PreferredBackBufferWidth = Global.GLOBAL_WIDTH;
@@ -52,7 +53,6 @@ namespace GameEngine
         {
             this.spriteBatch = new SpriteBatch(GraphicsDevice);
             this.IsMouseVisible = true;
-            GameTexture.LoadTextures(this);
             this.butPlay = new CButton(GameTexture.playButton, this.graphics.GraphicsDevice);
             this.butPlay.SetPosition(new Vector2(300, 166));
             this.butExit = new CButton(GameTexture.exitButton, this.graphics.GraphicsDevice);
@@ -105,7 +105,7 @@ namespace GameEngine
                     break;
                 case GameState.Playing:
                     break;
-                case GameState.Exit:
+                    case GameState.Exit:
                     break;
             }
 
@@ -136,28 +136,28 @@ namespace GameEngine
                 case GameState.Options:
                     break;
                 case GameState.Playing:
-                    if (this.pacMan.Health > 0)
+                if (this.pacMan.Health > 0)
+                {
+                    this.levelMatrix.Draw(this.spriteBatch);
+                    Fruit.Draw(this.spriteBatch, pacMan);
+                    this.pacmanAnimator.Draw(this.spriteBatch);
+                    if (this.levelMatrix.LeftPoints == 0)
                     {
-                        this.levelMatrix.Draw(this.spriteBatch);
-                        Fruit.Draw(this.spriteBatch, pacMan);
-                        this.pacmanAnimator.Draw(this.spriteBatch);
-                        if (this.levelMatrix.LeftPoints == 0)
+                        var texture = Content.Load<Texture2D>("PacManWin_image");
+                        this.spriteBatch.Draw(texture, new Vector2(250, 100));
+                        isRunning = false;
+                        if (Keyboard.GetState().IsKeyDown(Keys.Space))
                         {
-                            var texture = Content.Load<Texture2D>("PacManWin_image");
-                            this.spriteBatch.Draw(texture, new Vector2(250, 100));
-                            isRunning = false;
-                            if (Keyboard.GetState().IsKeyDown(Keys.Space))
-                            {
-                                this.Reset();
-                            }
-                            else if (Keyboard.GetState().IsKeyDown(Keys.Enter))
-                            {
-                                this.Exit();
-                                using (var game = new Game1())
-                                    game.Run();
-                            }
+                            this.Reset();
+                        }
+                        else if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+                        {
+                            this.Exit();
+                            using (var game = new Game1())
+                                game.Run();
                         }
                     }
+                }
                     break;
                 case GameState.Exit:
                     Environment.Exit(0);

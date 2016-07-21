@@ -71,7 +71,7 @@ namespace GameEngine.Animators
             Vector2 topLeftPos = new Vector2(this.pacman.X, this.pacman.Y);
             Color tint = Color.White;
             var sourceRectangle = this.currentAnimation.CurrentRectangle;
-            spriteBatch.Draw(GameTexture.pacMan, topLeftPos, sourceRectangle, tint);
+            spriteBatch.Draw(pacman.Texture, topLeftPos, sourceRectangle, tint);
 
         }
 
