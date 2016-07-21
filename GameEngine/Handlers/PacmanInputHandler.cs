@@ -1,6 +1,7 @@
 ﻿using GameEngine.Globals;
 using GameEngine.Models;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace GameEngine.Handlers
@@ -19,7 +20,8 @@ namespace GameEngine.Handlers
         private PacMan pacman;
         private Direction currentDir;
         private Direction desiredDir;
-        private bool[,] obsticals; 
+        private bool[,] obsticals;
+        private const int pixelMoved = 2; //inicialize how pixel will move PacMan per iteration
 
         public PacmanInputHandler(PacMan pacMan, Matrix levelMatrix)
         {
@@ -71,35 +73,55 @@ namespace GameEngine.Handlers
 
         private void CalculateDirection()
         {
-            if (desiredDir == currentDir)
+            if (this.desiredDir == this.currentDir)
             {
-                CheckForStopMoving(); // e.g. Direction.None
+                this.CheckForStopMoving(); // e.g. Direction.None
             }
             else
             {
+                //Change directio to Up
                 if (desiredDir == Direction.Up
-                    && pacman.QuadrantY > 0
-                    && obsticals[pacman.QuadrantY - 1, pacman.QuadrantX] == false)
+                    && pacman.Y > Global.quad_Height / 2)
                 {
-                    currentDir = desiredDir;
+                    //Check is can change direction to Up move
+                    if (this.pacman.Y - pixelMoved >= this.pacman.QuadrantY * Global.quad_Height
+                        || obsticals[pacman.QuadrantY - 1, pacman.QuadrantX] == false)
+                    {
+                        this.currentDir = this.desiredDir;
+                    }
                 }
+                //Change directio to Down
                 else if (desiredDir == Direction.Down
-                    && pacman.QuadrantY < (Global.YMax - 1)
-                    && obsticals[pacman.QuadrantY + 1, pacman.QuadrantX] == false)
+                    && pacman.Y < (((Global.YMax - 1) * Global.quad_Height) - (Global.quad_Height / 2)))
                 {
-                    currentDir = desiredDir;
+                    //Check is can change direction to Down move
+                    if (this.pacman.Y + pixelMoved <= this.pacman.QuadrantY * Global.quad_Height
+                        || obsticals[pacman.QuadrantY + 1, pacman.QuadrantX] == false)
+                    {
+                        currentDir = desiredDir;
+                    }
                 }
+                //Change directio to Left
                 else if (desiredDir == Direction.Left
-                    && pacman.QuadrantX > 0
-                    && obsticals[pacman.QuadrantY, pacman.QuadrantX - 1] == false)
+                    && this.pacman.X > Global.quad_Width / 2)
                 {
-                    currentDir = desiredDir;
+                    //Check is can change direction to Left move
+                    if (this.pacman.X - pixelMoved >= this.pacman.QuadrantX * Global.quad_Width
+                        || obsticals[pacman.QuadrantY, pacman.QuadrantX - 1] == false)
+                    {
+                        currentDir = desiredDir;
+                    }
                 }
+                //Change directio to Right
                 else if (desiredDir == Direction.Right
-                    && pacman.QuadrantX < (Global.XMax - 1)
-                    && obsticals[pacman.QuadrantY, pacman.QuadrantX + 1] == false)
+                    && this.pacman.X < ((Global.XMax - 1) * Global.quad_Width) - (Global.quad_Width / 2))
                 {
-                    currentDir = desiredDir;
+                    //Check is can change direction to Right move
+                    if (this.pacman.X + pixelMoved <= this.pacman.QuadrantX * Global.quad_Width
+                        || obsticals[pacman.QuadrantY, pacman.QuadrantX + 1] == false)
+                    {
+                        currentDir = desiredDir;
+                    }
                 }
                 else
                 {
@@ -138,6 +160,14 @@ namespace GameEngine.Handlers
 
         private bool IsReadyToChangePackmanQuadrant()
         {
+            if (this.currentDir == Direction.Up && desiredDir == Direction.Down ||
+               this.currentDir == Direction.Down && this.desiredDir == Direction.Up ||
+               this.currentDir == Direction.Right && this.desiredDir == Direction.Left ||
+               this.currentDir == Direction.Left && this.desiredDir == Direction.Right)
+            {
+                return true; //Change direction immediately if the changed direction is pposite
+            }
+
             if (pacman.X % Global.quad_Width == 0
                 && pacman.Y % Global.quad_Height == 0)
             {
@@ -158,23 +188,25 @@ namespace GameEngine.Handlers
                 CalculateDirection();
             }
 
+            //CalculateDirection();
+
             Vector2 desiredVelocity = new Vector2();
-            switch (currentDir)
+            switch (this.currentDir)
             {
                 case Direction.Up:
                     desiredVelocity.X = 0;
-                    desiredVelocity.Y = -4; // this magic number is velocity(pixels per gameTime) and he must devide 32(Global.quad_Width) with reminder 0
+                    desiredVelocity.Y = 0 - PacmanInputHandler.pixelMoved; // this magic number is velocity(pixels per gameTime) and he must devide 32(Global.quad_Width) with reminder 0
                     break;
                 case Direction.Down:
                     desiredVelocity.X = 0;
-                    desiredVelocity.Y = 4;
+                    desiredVelocity.Y = PacmanInputHandler.pixelMoved;
                     break;
                 case Direction.Left:
-                    desiredVelocity.X = -4;
+                    desiredVelocity.X = 0 - PacmanInputHandler.pixelMoved;
                     desiredVelocity.Y = 0;
                     break;
                 case Direction.Right:
-                    desiredVelocity.X = 4;
+                    desiredVelocity.X = PacmanInputHandler.pixelMoved;
                     desiredVelocity.Y = 0;
                     break;
                 case Direction.None:
@@ -188,7 +220,7 @@ namespace GameEngine.Handlers
 
         public Vector2 Move(GameTime gameTime)
         {
-            var velocity = GetDesiredVelocityFromInput();
+            var velocity = this.GetDesiredVelocityFromInput();
 
             this.pacman.X += velocity.X /** (float)gameTime.ElapsedGameTime.TotalSeconds*/;
             this.pacman.Y += velocity.Y /** (float)gameTime.ElapsedGameTime.TotalSeconds*/;

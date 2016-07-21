@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
-
-namespace GameEngine.Models
+﻿namespace GameEngine.Models
 {
-    public abstract class GameObject
+    using GameEngine.Interfaces;
+    using Microsoft.Xna.Framework.Graphics;
+    using Microsoft.Xna.Framework;
+
+    public abstract class GameObject : IGameObject
     {
         private string name;
         private Texture2D texture;
@@ -26,33 +23,38 @@ namespace GameEngine.Models
             this.quadrantX = quadrantX;
             this.quadrantY = quadrantY;
         }
-        public string Name
+
+        protected GameObject()
+        {
+        }
+
+        public virtual string Name
         {
             get { return this.name; }
-            set { this.name = value; }
+            protected set { this.name = value; }
         }
         public Texture2D Texture
         {
             get { return this.texture; }
-            set { this.texture = value; }
+            protected set { this.texture = value; }
         }
 
         public Rectangle BoundingBox
         {
             get { return this.boundingBox; }
-            set { this.boundingBox = value; }
+            protected set { this.boundingBox = value; }
         }
 
         public float X
         {
             get { return this.x; }
-            set { this.x = value; }
+            protected internal set { this.x = value; }
         }
 
         public float Y
         {
             get { return this.y; }
-            set { this.y = value; }
+            protected internal set { this.y = value; }
         }
 
         public void UpdateBoundingBox()
@@ -64,13 +66,13 @@ namespace GameEngine.Models
         public int QuadrantX
         {
             get { return this.quadrantX; }
-            set { this.quadrantX = value; }
+            protected internal set { this.quadrantX = value; }
         }
 
         public int QuadrantY
         {
             get { return this.quadrantY; }
-            set { this.quadrantY = value; }
+            protected internal set { this.quadrantY = value; }
         }
     }
 }
