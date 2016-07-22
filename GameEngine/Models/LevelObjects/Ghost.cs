@@ -7,7 +7,7 @@ namespace GameEngine.Models.LevelObjects
 {
     public abstract class Ghost : LevelObject
     {
-        public Ghost(Texture2D texture, float x, float y, Rectangle boundingBox)
+        protected Ghost(Texture2D texture, float x, float y, Rectangle boundingBox)
             : base(texture, x, y, boundingBox)
         {
 

@@ -5,31 +5,44 @@ namespace GameEngine
 {
     public class Sound
     {
-        private SoundEffect soundEPacdead;
-        private SoundEffect soundEPaceat;
-        private SoundEffect soundEbegin;
+        private SoundEffect soundPacManChomp;
+        private SoundEffect soundPacManDead;
+        private SoundEffect soundPaceatFruit;
+        private SoundEffect soundPacManBegin;
+        private SoundEffect soundPacmanEatghost;
         private SoundBank soundBank;
 
         public Sound(Game game)
         {
-            this.soundEPaceat = game.Content.Load<SoundEffect>("Sound/paceat");
-            this.soundEPacdead = game.Content.Load<SoundEffect>("Sound/pacdead");
-            this.soundEbegin = game.Content.Load<SoundEffect>("Sound/pacbegin");
+            this.soundPacManChomp = game.Content.Load<SoundEffect>("Sound/pacman_chomp");
+            this.soundPacmanEatghost = game.Content.Load<SoundEffect>("Sound/pacman_eatghost");
+            this.soundPaceatFruit = game.Content.Load<SoundEffect>("Sound/paceat");
+            this.soundPacManDead = game.Content.Load<SoundEffect>("Sound/pacdead");
+            this.soundPacManBegin = game.Content.Load<SoundEffect>("Sound/pacbegin");
         }
 
         public void Dead()
         {
-            this.soundEPacdead.Play();
+            this.soundPacManDead.Play();
         }
 
-        public void Eat()
+        public void EatFruit()
         {
-            this.soundEPaceat.Play();
+            this.soundPaceatFruit.Play();
         }
 
         public void Begin()
         {
-            this.soundEbegin.Play();
+            this.soundPacManBegin.Play();
+        }
+
+        public void PacManEatChomp()
+        {
+            this.soundPacManChomp.Play();
+        }
+        public void PacManEatGhost()
+        {
+            this.soundPacmanEatghost.Play();
         }
 
         public void Ghostmove()

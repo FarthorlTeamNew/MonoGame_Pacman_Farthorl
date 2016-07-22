@@ -37,3 +37,15 @@
 /processorParam:Quality=Best
 /build:Sound/pacghost.wav
 
+#begin Sound/pacman_eatghost.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/pacman_eatghost.wav
+
+#begin Sound/pacman_chomp.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/pacman_chomp.wav
+
