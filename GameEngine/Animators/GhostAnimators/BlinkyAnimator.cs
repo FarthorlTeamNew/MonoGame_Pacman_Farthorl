@@ -2,7 +2,6 @@
 using GameEngine.Handlers;
 using GameEngine.Models.LevelObjects;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
 
 namespace GameEngine.Animators.GhostAnimators
