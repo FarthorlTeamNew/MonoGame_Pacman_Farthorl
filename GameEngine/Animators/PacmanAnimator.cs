@@ -4,12 +4,13 @@ using GameEngine.Globals;
 using GameEngine.Models;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using GameEngine.Handlers;
 
 namespace GameEngine.Animators
 {
     public class PacmanAnimator : Animator
     {
-        private string currentDirection = "WalkRight";
+        private Direction currentDirection = Direction.Right;
         private PacMan pacman;
         List<Animation> animations = new List<Animation>();
         public Animation currentAnimation;
@@ -18,10 +19,10 @@ namespace GameEngine.Animators
         {
             this.pacman = pacMan;
             this.BufferFrames();
-            this.currentAnimation = this.animations.Find(x => x.Name == currentDirection);
+            this.currentAnimation = this.animations.Find(x => x.Face == currentDirection);
         }
 
-        public string CurrentDirection
+        public Direction CurrentDirection
         {
             get { return currentDirection; }
             set { currentDirection = value; }
@@ -36,32 +37,32 @@ namespace GameEngine.Animators
                 {
                     if (velocity.X > 0)
                     {
-                        currentAnimation = this.animations.Find(x => x.Name == "WalkRight");
-                        currentDirection = "WalkRight";
+                        currentAnimation = this.animations.Find(x => x.Face == Direction.Right);
+                        currentDirection = Direction.Right;
                     }
                     else
                     {
-                        currentAnimation = this.animations.Find(x => x.Name == "WalkLeft");
-                        currentDirection = "WalkLeft";
+                        currentAnimation = this.animations.Find(x => x.Face == Direction.Left);
+                        currentDirection = Direction.Left;
                     }
                 }
                 else
                 {
                     if (velocity.Y > 0)
                     {
-                        currentAnimation = this.animations.Find(x => x.Name == "WalkDown");
-                        currentDirection = "WalkDown";
+                        currentAnimation = this.animations.Find(x => x.Face == Direction.Down);
+                        currentDirection = Direction.Down;
                     }
                     else
                     {
-                        currentAnimation = this.animations.Find(x => x.Name == "WalkUp");
-                        currentDirection = "WalkUp";
+                        currentAnimation = this.animations.Find(x => x.Face == Direction.Up);
+                        currentDirection = Direction.Up;
                     }
                 }
             }
             else
             {
-                this.currentAnimation = this.animations.Find(x => x.Name == currentDirection);
+                this.currentAnimation = this.animations.Find(x => x.Face == currentDirection);
             }
             this.currentAnimation.Update(gameTime);
         }
@@ -77,19 +78,19 @@ namespace GameEngine.Animators
 
         public override void BufferFrames()
         {
-            var walkDown = new Animation("WalkDown");
+            var walkDown = new Animation(Direction.Down);
             walkDown.AddFrame(new Rectangle(10 * Global.quad_Width, Global.quad_Height, Global.quad_Width, Global.quad_Height), TimeSpan.FromSeconds(.25));
             walkDown.AddFrame(new Rectangle(11 * Global.quad_Width, Global.quad_Height, Global.quad_Width, Global.quad_Height), TimeSpan.FromSeconds(.25));
 
-            var walkUp = new Animation("WalkUp");
+            var walkUp = new Animation(Direction.Up);
             walkUp.AddFrame(new Rectangle(10 * Global.quad_Width, 3 * Global.quad_Height, Global.quad_Width, Global.quad_Height), TimeSpan.FromSeconds(.25));
             walkUp.AddFrame(new Rectangle(11 * Global.quad_Width, 3 * Global.quad_Height, Global.quad_Width, Global.quad_Height), TimeSpan.FromSeconds(.25));
 
-            var walkLeft = new Animation("WalkLeft");
+            var walkLeft = new Animation(Direction.Left);
             walkLeft.AddFrame(new Rectangle(10 * Global.quad_Width, 2 * Global.quad_Height, Global.quad_Width, Global.quad_Height), TimeSpan.FromSeconds(.25));
             walkLeft.AddFrame(new Rectangle(11 * Global.quad_Width, 2 * Global.quad_Height, Global.quad_Width, Global.quad_Height), TimeSpan.FromSeconds(.25));
 
-            var walkRight = new Animation("WalkRight");
+            var walkRight = new Animation(Direction.Right);
             walkRight.AddFrame(new Rectangle(10 * Global.quad_Width, 0, Global.quad_Width, Global.quad_Height), TimeSpan.FromSeconds(.25));
             walkRight.AddFrame(new Rectangle(11 * Global.quad_Width, 0, Global.quad_Width, Global.quad_Height), TimeSpan.FromSeconds(.25));
 

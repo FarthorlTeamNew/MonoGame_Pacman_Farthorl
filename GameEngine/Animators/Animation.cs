@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using GameEngine.Handlers;
 
 namespace GameEngine.Animators
 {
@@ -10,12 +11,12 @@ namespace GameEngine.Animators
         List<AnimationFrame> frames = new List<AnimationFrame>();
         private TimeSpan timeIntoAnimation;
 
-        public Animation(string name)
+        public Animation(Direction face)
         {
-            this.Name = name;
+            this.Face = face;
         }
 
-        public string Name { get; set; }
+        public Direction Face { get; set; }
 
         TimeSpan Duration
         {

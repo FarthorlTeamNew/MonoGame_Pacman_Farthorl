@@ -184,7 +184,7 @@ namespace GameEngine
             this.pacMan.Y = 0;
             this.pacMan.Scores = 0;
             this.pacMan.Health = 50;
-            this.pacmanAnimator.CurrentDirection = "WalkRight";
+            this.pacmanAnimator.CurrentDirection = Direction.Right;
             this.pacmanInputHandler.Reset();
             this.levelMatrix = new Matrix();
             this.levelMatrix.InitializeMatrix(this.GraphicsDevice);
