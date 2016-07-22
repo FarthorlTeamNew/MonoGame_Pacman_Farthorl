@@ -13,7 +13,7 @@ namespace GameEngine.Handlers
         private Direction currentDir;
         private Direction desiredDir;
         private bool[,] obstacles;
-        private static int pixelMoved = Global.PacmanSpeed; //inicialize how many pixels will move PacMan per iteration
+        private static int pixelMoved = Global.BlinkySpeed; //inicialize how many pixels will move PacMan per iteration
 
         public BlinkyRandomMovement(Blinky blinky, Matrix levelMatrix)
         {
@@ -165,7 +165,7 @@ namespace GameEngine.Handlers
 
         private Vector2 GetDesiredVelocityFromInput()
         {
-            GetInput(); // listens for key pressed
+             GetInput(); // listens for key pressed
 
             if (IsReadyToChangePackmanQuadrant())
             {
