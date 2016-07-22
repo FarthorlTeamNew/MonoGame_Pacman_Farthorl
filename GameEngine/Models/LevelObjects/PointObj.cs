@@ -6,9 +6,9 @@ namespace GameEngine.Models.LevelObjects
     public class PointObj :LevelObject
     {
         public PointObj(Texture2D texture ,float x, float y, Rectangle boundingBox)
-            : base("Point", x, y, boundingBox)
+            : base(texture, x, y, boundingBox)
         {
-            this.Texture = texture;
+
         }
 
         public override void ReactOnCollision(PacMan pacman)

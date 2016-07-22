@@ -1,8 +1,10 @@
-﻿namespace GameEngine.Interfaces
+﻿using Microsoft.Xna.Framework.Graphics;
+
+namespace GameEngine.Interfaces
 {
     public interface IGameObject
     {
-        string Name { get; }
+        Texture2D Texture { get; }
         float X { get; }
         float Y { get; }
         int QuadrantX { get; }

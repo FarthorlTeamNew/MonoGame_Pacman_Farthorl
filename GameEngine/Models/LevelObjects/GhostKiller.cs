@@ -5,9 +5,10 @@ namespace GameEngine.Models.LevelObjects
 {
     public class GhostKiller : LevelObject
     {
-        public GhostKiller(Texture2D texture, float x, float y, Rectangle boundingBox) : base("GhostKiller", x, y, boundingBox)
+        public GhostKiller(Texture2D texture, float x, float y, Rectangle boundingBox) 
+            : base(texture, x, y, boundingBox)
         {
-            this.Texture = texture;
+
         }
 
         public override void ReactOnCollision(PacMan pacman)

@@ -7,10 +7,10 @@ namespace GameEngine.Models.LevelObjects
 {
     public abstract class Ghost : LevelObject
     {
-        public Ghost(string name, Texture2D texture, float x, float y, Rectangle boundingBox)
-            : base(name, x, y, boundingBox)
+        public Ghost(Texture2D texture, float x, float y, Rectangle boundingBox)
+            : base(texture, x, y, boundingBox)
         {
-            base.Texture = texture;
+
         }
 
         public override void ReactOnCollision(PacMan pacMan)

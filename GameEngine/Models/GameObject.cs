@@ -6,7 +6,6 @@
 
     public abstract class GameObject : IGameObject
     {
-        private string name;
         private Texture2D texture;
         private Rectangle boundingBox;
         private float x;
@@ -14,10 +13,10 @@
         protected int quadrantX;
         protected int quadrantY;
 
-        protected GameObject(string name, float x, float y, Rectangle box, int quadrantX = 0, int quadrantY = 0)
+        protected GameObject(Texture2D texture, float x, float y, Rectangle box, int quadrantX = 0, int quadrantY = 0)
         {
             this.BoundingBox = box;
-            this.Name = name;
+            this.Texture = texture;
             this.X = x;
             this.Y = y;
             this.quadrantX = quadrantX;
@@ -28,11 +27,6 @@
         {
         }
 
-        public virtual string Name
-        {
-            get { return this.name; }
-            protected set { this.name = value; }
-        }
         public Texture2D Texture
         {
             get { return this.texture; }

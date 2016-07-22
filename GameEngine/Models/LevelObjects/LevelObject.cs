@@ -1,12 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace GameEngine.Models.LevelObjects
 {
     public abstract class LevelObject : GameObject
     {
-        protected LevelObject(string name, float x, float y, Rectangle boundingBox)
+        protected LevelObject(Texture2D texture, float x, float y, Rectangle boundingBox)
         {
-            this.Name = name;
+            this.Texture = texture;
             this.X = x;
             this.Y = y;
             this.BoundingBox = boundingBox;

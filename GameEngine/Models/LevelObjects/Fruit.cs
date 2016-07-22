@@ -17,12 +17,12 @@ namespace GameEngine.Models.LevelObjects
         private static int coefficientY;
 
         public Fruit(Texture2D texture, float x, float y, Rectangle boundingBox)
-            : base(texture.Name, x, y, boundingBox)
+            : base(texture, x, y, boundingBox)
         {
             coefficientX = 1;
             coefficientY = 1;
-            base.Texture = texture;
         }
+
         public int FruitBonus { get; set; }
 
         public override void ReactOnCollision(PacMan pacMan)

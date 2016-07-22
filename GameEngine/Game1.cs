@@ -41,7 +41,7 @@ namespace GameEngine
         {
             sound = new Sound(this);
             GameTexture.LoadTextures(this);
-            this.pacMan = new PacMan(new Rectangle(0, 0, 32, 32), 0, 0);
+            this.pacMan = new PacMan(GameTexture.pacMan, 0, 0, new Rectangle(0, 0, 32, 32), 0, 0);
             this.pacmanAnimator = new PacmanAnimator(this.pacMan);
             this.graphics.PreferredBackBufferWidth = Global.GLOBAL_WIDTH;
             this.graphics.PreferredBackBufferHeight = Global.GLOBAL_HEIGHT;
