@@ -81,47 +81,35 @@ namespace GameEngine.Handlers
             {
                 //Change directio to Up
                 if (desiredDir == Direction.Up
-                    && pacman.Y > Global.quad_Height / 2)
+                    && pacman.Y > Global.quad_Height / 2
+                    && (this.pacman.Y - pixelMoved >= this.pacman.QuadrantY * Global.quad_Height
+                    || obstacles[pacman.QuadrantY - 1, pacman.QuadrantX] == false))
                 {
-                    //Check is can change direction to Up move
-                    if (this.pacman.Y - pixelMoved >= this.pacman.QuadrantY * Global.quad_Height
-                        || obstacles[pacman.QuadrantY - 1, pacman.QuadrantX] == false)
-                    {
-                        this.currentDir = this.desiredDir;
-                    }
+                    this.currentDir = this.desiredDir;
                 }
                 //Change directio to Down
                 else if (desiredDir == Direction.Down
-                    && pacman.Y < (((Global.YMax - 1) * Global.quad_Height) - (Global.quad_Height / 2)))
+                    && pacman.Y < (((Global.YMax - 1) * Global.quad_Height) - (Global.quad_Height / 2))
+                    && (this.pacman.Y + pixelMoved <= this.pacman.QuadrantY * Global.quad_Height
+                    || obstacles[pacman.QuadrantY + 1, pacman.QuadrantX] == false))
                 {
-                    //Check is can change direction to Down move
-                    if (this.pacman.Y + pixelMoved <= this.pacman.QuadrantY * Global.quad_Height
-                        || obstacles[pacman.QuadrantY + 1, pacman.QuadrantX] == false)
-                    {
-                        currentDir = desiredDir;
-                    }
+                    currentDir = desiredDir;
                 }
                 //Change directio to Left
                 else if (desiredDir == Direction.Left
-                    && this.pacman.X > Global.quad_Width / 2)
+                    && this.pacman.X > Global.quad_Width / 2
+                    && (this.pacman.X - pixelMoved >= this.pacman.QuadrantX * Global.quad_Width
+                    || obstacles[pacman.QuadrantY, pacman.QuadrantX - 1] == false))
                 {
-                    //Check is can change direction to Left move
-                    if (this.pacman.X - pixelMoved >= this.pacman.QuadrantX * Global.quad_Width
-                        || obstacles[pacman.QuadrantY, pacman.QuadrantX - 1] == false)
-                    {
-                        currentDir = desiredDir;
-                    }
+                    currentDir = desiredDir;
                 }
                 //Change directio to Right
                 else if (desiredDir == Direction.Right
-                    && this.pacman.X < ((Global.XMax - 1) * Global.quad_Width) - (Global.quad_Width / 2))
+                    && this.pacman.X < ((Global.XMax - 1) * Global.quad_Width) - (Global.quad_Width / 2)
+                    && (this.pacman.X + pixelMoved <= this.pacman.QuadrantX * Global.quad_Width
+                    || obstacles[pacman.QuadrantY, pacman.QuadrantX + 1] == false))
                 {
-                    //Check is can change direction to Right move
-                    if (this.pacman.X + pixelMoved <= this.pacman.QuadrantX * Global.quad_Width
-                        || obstacles[pacman.QuadrantY, pacman.QuadrantX + 1] == false)
-                    {
-                        currentDir = desiredDir;
-                    }
+                    currentDir = desiredDir;
                 }
                 else
                 {
