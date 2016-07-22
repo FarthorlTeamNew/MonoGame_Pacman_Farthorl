@@ -26,33 +26,6 @@ namespace GameEngine.Models.LevelObjects
             return false;
         }
 
-
-        public string Name
-        {
-            get { return base.Name; }
-            protected set { base.Name = value; }
-        }
-
-        public float X
-        {
-            get { return base.X; }
-            protected set { base.X = value; }
-        }
-
-        public float Y
-        {
-            get { return base.Y; }
-            protected set { base.Y = value; }
-        }
-
-        public Rectangle BoundingBox
-        {
-            get { return base.BoundingBox; }
-            protected set { base.BoundingBox = value; }
-        }
-
-
-
         public abstract void ReactOnCollision(PacMan pacman);
     }
 }
