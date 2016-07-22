@@ -1,7 +1,6 @@
 ﻿using GameEngine.Globals;
 using GameEngine.Models;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace GameEngine.Handlers

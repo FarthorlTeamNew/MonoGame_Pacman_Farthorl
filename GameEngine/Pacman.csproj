@@ -48,6 +48,7 @@
     <Compile Include="Animators\GhostAnimators\PinkyAnimator.cs" />
     <Compile Include="Animators\PacmanAnimator.cs" />
     <Compile Include="Globals\Global.cs" />
+    <Compile Include="Handlers\BlinkyRandomMovement.cs" />
     <Compile Include="Handlers\KeyPress.cs" />
     <Compile Include="Handlers\PacmanInputHandler.cs" />
     <Compile Include="ExtractAllLevels.cs" />

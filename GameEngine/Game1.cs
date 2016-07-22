@@ -22,9 +22,10 @@ namespace GameEngine
         private SpriteFont spriteFont;
         private PacMan pacMan;
         private PacmanAnimator pacmanAnimator;
-        private Ghost blinky;
+        private Blinky blinky;
         private BlinkyAnimator blinkyAnimator;
         private PacmanInputHandler pacmanInputHandler;
+        private BlinkyRandomMovement blinkyRandomMovement;
         private Matrix levelMatrix;
         private List<LevelObject> fruitList;
         private KeyPress keyPress;
@@ -73,6 +74,7 @@ namespace GameEngine
             this.butExit.SetPosition(new Vector2(300, 200));
             this.levelMatrix.InitializeMatrix(this.GraphicsDevice);
             this.pacmanInputHandler = new PacmanInputHandler(this.pacMan, levelMatrix);
+            this.blinkyRandomMovement = new BlinkyRandomMovement(this.blinky, levelMatrix);
             Fruit.InitializeFruits(GraphicsDevice, levelMatrix);
             this.fruitList.AddRange(Fruit.GetFruitList());
             this.levelMatrix.RemovePoints(fruitList);
@@ -121,8 +123,9 @@ namespace GameEngine
                     if (!isLevelCompleated)
                     {
                         var pacmanMovement = this.pacmanInputHandler.Move(gameTime);
+                        var blinkyMovement = this.blinkyRandomMovement.Move(gameTime);
                         this.pacmanAnimator.UpdateAnimation(gameTime, pacmanMovement);
-                        this.blinkyAnimator.UpdateAnimation(gameTime, pacmanMovement);
+                        this.blinkyAnimator.UpdateAnimation(gameTime, blinkyMovement);
                         levelMatrix.Update(pacMan);
                         Fruit.CheckCollisions(pacMan);
                     }
