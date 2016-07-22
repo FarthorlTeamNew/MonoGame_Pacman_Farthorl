@@ -9,6 +9,8 @@ using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using GameEngine.Menu;
 using GameEngine.Models;
+using GameEngine.Animators.GhostAnimators;
+using GameEngine.Models.LevelObjects.Ghosts;
 
 namespace GameEngine
 {
@@ -19,13 +21,15 @@ namespace GameEngine
         SpriteBatch spriteBatch;
         private SpriteFont spriteFont;
         private PacMan pacMan;
-        private bool isLevelCompleated;
         private PacmanAnimator pacmanAnimator;
+        private Ghost blinky;
+        private BlinkyAnimator blinkyAnimator;
         private PacmanInputHandler pacmanInputHandler;
         private Matrix levelMatrix;
         private List<LevelObject> fruitList;
         private KeyPress keyPress;
         private KeyboardState oldState;
+        private bool isLevelCompleated;
         GameState currentGameState = GameState.MainMenu;
         CButton butPlay;
         CButton butExit;
@@ -41,8 +45,10 @@ namespace GameEngine
         {
             sound = new Sound(this);
             GameTexture.LoadTextures(this);
-            this.pacMan = new PacMan(GameTexture.pacMan, 0, 0, new Rectangle(0, 0, 32, 32), 0, 0);
+            this.pacMan = new PacMan(GameTexture.pacmanAndGhost, 0, 0, new Rectangle(0, 0, 32, 32), 0, 0);
+            this.blinky = new Blinky(GameTexture.pacmanAndGhost, 0, 64, new Rectangle(0, 0, 32, 32));
             this.pacmanAnimator = new PacmanAnimator(this.pacMan);
+            this.blinkyAnimator = new BlinkyAnimator(this.blinky);
             this.graphics.PreferredBackBufferWidth = Global.GLOBAL_WIDTH;
             this.graphics.PreferredBackBufferHeight = Global.GLOBAL_HEIGHT;
             this.levelMatrix = new Matrix();
@@ -116,6 +122,7 @@ namespace GameEngine
                     {
                         var pacmanMovement = this.pacmanInputHandler.Move(gameTime);
                         this.pacmanAnimator.UpdateAnimation(gameTime, pacmanMovement);
+                        this.blinkyAnimator.UpdateAnimation(gameTime, pacmanMovement);
                         levelMatrix.Update(pacMan);
                         Fruit.CheckCollisions(pacMan);
                     }
@@ -162,6 +169,7 @@ namespace GameEngine
                         this.levelMatrix.Draw(this.spriteBatch);
                         Fruit.Draw(this.spriteBatch, pacMan);
                         this.pacmanAnimator.Draw(this.spriteBatch);
+                        this.blinkyAnimator.Draw(this.spriteBatch);
 
                         if (this.levelMatrix.LeftPoints == 0)
                         {
@@ -189,6 +197,7 @@ namespace GameEngine
             this.pacMan.Scores = 0;
             this.pacMan.Health = 50;
             this.pacmanAnimator.CurrentDirection = Direction.Right;
+            this.blinkyAnimator.CurrentDirection = Direction.Right;
             this.pacmanInputHandler.Reset();
             this.levelMatrix = new Matrix();
             this.levelMatrix.InitializeMatrix(this.GraphicsDevice);

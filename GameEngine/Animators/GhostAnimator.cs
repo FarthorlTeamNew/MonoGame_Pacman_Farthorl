@@ -12,7 +12,7 @@
     {
         private Direction currentDirection = Direction.Right;
         private Ghost ghost;
-        List<Animation> animations = new List<Animation>();
+        protected List<Animation> animations = new List<Animation>();
         public Animation currentAnimation;
 
         public GhostAnimator(Ghost ghost)
