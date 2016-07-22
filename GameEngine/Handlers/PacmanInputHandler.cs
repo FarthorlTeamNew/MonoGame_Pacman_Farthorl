@@ -20,22 +20,22 @@ namespace GameEngine.Handlers
         private PacMan pacman;
         private Direction currentDir;
         private Direction desiredDir;
-        private bool[,] obsticals;
-        private const int pixelMoved = 2; //inicialize how pixel will move PacMan per iteration
+        private bool[,] obstacles;
+        private static int pixelMoved = Global.PacmanSpeed; //inicialize how many pixels will move PacMan per iteration
 
         public PacmanInputHandler(PacMan pacMan, Matrix levelMatrix)
         {
             this.pacman = pacMan;
             currentDir = Direction.None;
             desiredDir = Direction.None;
-            obsticals = new bool[Global.YMax, Global.XMax];
+            obstacles = new bool[Global.YMax, Global.XMax];
 
             for (int i = 0; i < Global.YMax; i++)
             {
                 for (int j = 0; j < Global.XMax; j++)
                 {
                     string obstical = levelMatrix.PathsMatrix[i, j].Trim().Split(',')[0];
-                    obsticals[i, j] = obstical == "1";
+                    obstacles[i, j] = obstical == "1";
                 }
             }
         }
@@ -85,7 +85,7 @@ namespace GameEngine.Handlers
                 {
                     //Check is can change direction to Up move
                     if (this.pacman.Y - pixelMoved >= this.pacman.QuadrantY * Global.quad_Height
-                        || obsticals[pacman.QuadrantY - 1, pacman.QuadrantX] == false)
+                        || obstacles[pacman.QuadrantY - 1, pacman.QuadrantX] == false)
                     {
                         this.currentDir = this.desiredDir;
                     }
@@ -96,7 +96,7 @@ namespace GameEngine.Handlers
                 {
                     //Check is can change direction to Down move
                     if (this.pacman.Y + pixelMoved <= this.pacman.QuadrantY * Global.quad_Height
-                        || obsticals[pacman.QuadrantY + 1, pacman.QuadrantX] == false)
+                        || obstacles[pacman.QuadrantY + 1, pacman.QuadrantX] == false)
                     {
                         currentDir = desiredDir;
                     }
@@ -107,7 +107,7 @@ namespace GameEngine.Handlers
                 {
                     //Check is can change direction to Left move
                     if (this.pacman.X - pixelMoved >= this.pacman.QuadrantX * Global.quad_Width
-                        || obsticals[pacman.QuadrantY, pacman.QuadrantX - 1] == false)
+                        || obstacles[pacman.QuadrantY, pacman.QuadrantX - 1] == false)
                     {
                         currentDir = desiredDir;
                     }
@@ -118,7 +118,7 @@ namespace GameEngine.Handlers
                 {
                     //Check is can change direction to Right move
                     if (this.pacman.X + pixelMoved <= this.pacman.QuadrantX * Global.quad_Width
-                        || obsticals[pacman.QuadrantY, pacman.QuadrantX + 1] == false)
+                        || obstacles[pacman.QuadrantY, pacman.QuadrantX + 1] == false)
                     {
                         currentDir = desiredDir;
                     }
@@ -134,25 +134,25 @@ namespace GameEngine.Handlers
         {
             if (currentDir == Direction.Up
                 && (pacman.QuadrantY == 0
-                || obsticals[pacman.QuadrantY - 1, pacman.QuadrantX] == true))
+                || obstacles[pacman.QuadrantY - 1, pacman.QuadrantX] == true))
             {
                 currentDir = Direction.None;
             }
             else if (currentDir == Direction.Down
                 && (pacman.QuadrantY == (Global.YMax - 1)
-                || obsticals[pacman.QuadrantY + 1, pacman.QuadrantX] == true))
+                || obstacles[pacman.QuadrantY + 1, pacman.QuadrantX] == true))
             {
                 currentDir = Direction.None;
             }
             else if (currentDir == Direction.Left
                 && (pacman.QuadrantX == 0
-                || obsticals[pacman.QuadrantY, pacman.QuadrantX - 1] == true))
+                || obstacles[pacman.QuadrantY, pacman.QuadrantX - 1] == true))
             {
                 currentDir = Direction.None;
             }
             else if (currentDir == Direction.Right
                && (pacman.QuadrantX == (Global.XMax - 1)
-               || obsticals[pacman.QuadrantY, pacman.QuadrantX + 1] == true))
+               || obstacles[pacman.QuadrantY, pacman.QuadrantX + 1] == true))
             {
                 currentDir = Direction.None;
             }

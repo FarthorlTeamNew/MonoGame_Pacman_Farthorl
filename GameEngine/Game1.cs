@@ -66,7 +66,6 @@ namespace GameEngine
             this.pacmanInputHandler = new PacmanInputHandler(this.pacMan, levelMatrix);
             Fruit.InitializeFruits(GraphicsDevice, levelMatrix);
             this.fruitList.AddRange(Fruit.GetFruitList());
-            this.fruitList.AddRange(Fruit.GetGhostKillerList());
             this.levelMatrix.RemovePoints(fruitList);
             // TODO: use this.Content to load your game content here
         }
@@ -192,7 +191,6 @@ namespace GameEngine
             Fruit.InitializeFruits(GraphicsDevice, levelMatrix);
             this.fruitList.Clear();
             this.fruitList.AddRange(Fruit.GetFruitList());
-            this.fruitList.AddRange(Fruit.GetGhostKillerList());
             this.levelMatrix.RemovePoints(fruitList);
             //Fruit.Draw(this.spriteBatch, pacMan);
         }

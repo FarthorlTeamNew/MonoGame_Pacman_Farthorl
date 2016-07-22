@@ -134,14 +134,12 @@ namespace GameEngine.Models.LevelObjects
             ghostKillers.Remove(ghostKillers.FirstOrDefault(x => x.IsColliding(pacman)));
         }
 
-        public static List<Fruit> GetFruitList()
+        public static List<LevelObject> GetFruitList()
         {
-            return fruits;
-        }
-
-        public static List<GhostKiller> GetGhostKillerList()
-        {
-            return ghostKillers;
+            List<LevelObject> combinedList = new List<LevelObject>();
+            combinedList.AddRange(fruits);
+            combinedList.AddRange(ghostKillers);
+            return combinedList;
         }
     }
 }
