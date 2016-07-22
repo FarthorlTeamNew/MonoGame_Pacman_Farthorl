@@ -144,7 +144,7 @@ namespace GameEngine
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.SkyBlue);
+            GraphicsDevice.Clear(Color.Green);
 
             this.spriteBatch.Begin();
             switch (this.currentGameState)

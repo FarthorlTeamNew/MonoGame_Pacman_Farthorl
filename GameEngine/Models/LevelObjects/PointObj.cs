@@ -13,6 +13,7 @@ namespace GameEngine.Models.LevelObjects
 
         public override void ReactOnCollision(PacMan pacman)
         {
+            Game1.sound.Eat();
             pacman.Scores++;
         }
     }
