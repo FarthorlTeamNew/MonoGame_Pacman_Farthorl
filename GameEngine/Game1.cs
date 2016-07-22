@@ -14,6 +14,7 @@ namespace GameEngine
 {
     public class Game1 : Game
     {
+        public static Sound sound;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         private SpriteFont spriteFont;
@@ -38,6 +39,7 @@ namespace GameEngine
 
         protected override void Initialize()
         {
+            sound = new Sound(this);
             GameTexture.LoadTextures(this);
             this.pacMan = new PacMan(new Rectangle(0, 0, 32, 32), 0, 0);
             this.pacmanAnimator = new PacmanAnimator(this.pacMan);
@@ -56,6 +58,7 @@ namespace GameEngine
 
         protected override void LoadContent()
         {
+            sound = new Sound(this);
             this.spriteBatch = new SpriteBatch(GraphicsDevice);
             this.IsMouseVisible = true;
             this.butPlay = new CButton(GameTexture.playButton, this.graphics.GraphicsDevice);
@@ -67,6 +70,7 @@ namespace GameEngine
             Fruit.InitializeFruits(GraphicsDevice, levelMatrix);
             this.fruitList.AddRange(Fruit.GetFruitList());
             this.levelMatrix.RemovePoints(fruitList);
+            sound.Begin();
             // TODO: use this.Content to load your game content here
         }
 
