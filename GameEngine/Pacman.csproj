@@ -63,7 +63,7 @@
     <Compile Include="Models\LevelObjects\Fruits\Brezel.cs" />
     <Compile Include="Models\LevelObjects\Fruits\Cherry.cs" />
     <Compile Include="Models\LevelObjects\Fruit.cs" />
-    <Compile Include="Game1.cs" />
+    <Compile Include="Engine.cs" />
     <Compile Include="Models\GameObject.cs" />
     <Compile Include="Models\LevelObjects\Ghost.cs" />
     <Compile Include="Models\LevelObjects\GhostKiller.cs" />

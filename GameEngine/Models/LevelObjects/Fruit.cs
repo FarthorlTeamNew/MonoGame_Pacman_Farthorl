@@ -30,12 +30,12 @@ namespace GameEngine.Models.LevelObjects
             //Just simple logic to heal the pacman with fruit bonus.. but not to overcome 
             if (pacMan.Health + this.FruitBonus <= 100)
             {
-                Game1.sound.PacManEatGhost();
+                Engine.sound.PacManEatGhost();
                 pacMan.Health += this.FruitBonus;
             }
             else
             {
-                Game1.sound.PacManEatGhost();
+                Engine.sound.PacManEatGhost();
                 pacMan.Health = 100;
             }
         }
