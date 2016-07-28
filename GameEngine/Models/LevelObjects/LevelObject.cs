@@ -6,11 +6,9 @@ namespace GameEngine.Models.LevelObjects
     public abstract class LevelObject : GameObject
     {
         protected LevelObject(Texture2D texture, float x, float y, Rectangle boundingBox)
+            :base(texture, x, y, boundingBox)
         {
-            this.Texture = texture;
-            this.X = x;
-            this.Y = y;
-            this.BoundingBox = boundingBox;
+
         }
 
         public virtual Rectangle GetBoundingBox()

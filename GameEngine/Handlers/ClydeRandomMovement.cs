@@ -13,12 +13,12 @@ namespace GameEngine.Handlers
         private Direction currentDir;
         private Direction desiredDir;
         private bool[,] obstacles;
-        private static int pixelMoved = Global.BlinkySpeed; //inicialize how many pixels will move PacMan per iteration
+        private static int pixelMoved = Global.DefaultGhostSpeed; //inicialize how many pixels will move PacMan per iteration
 
         public ClydeRandomMovement(Clyde clyde, Matrix levelMatrix)
         {
             this.clyde = clyde;
-            currentDir = Direction.None;
+            currentDir = Direction.Right;
             desiredDir = Direction.None;
             obstacles = new bool[Global.YMax, Global.XMax];
 
@@ -38,120 +38,146 @@ namespace GameEngine.Handlers
             desiredDir = Direction.None;
         }
 
-        private void GetInput()
-        {
-            KeyboardState state = Keyboard.GetState();
-
-            if (state.GetPressedKeys().Length == 1)
-            {
-                if (state.IsKeyDown(Keys.Down))
-                {
-                    desiredDir = Direction.Down;
-                }
-                else if (state.IsKeyDown(Keys.Up))
-                {
-                    desiredDir = Direction.Up;
-                }
-                else if (state.IsKeyDown(Keys.Left))
-                {
-                    desiredDir = Direction.Left;
-                }
-                else if (state.IsKeyDown(Keys.Right))
-                {
-                    desiredDir = Direction.Right;
-                }
-            }
-        }
-
         private void CalculateDirection()
         {
-            Array values = Enum.GetValues(typeof(Direction));
-            Random random = new Random();
-            Direction randomDir = (Direction)values.GetValue(random.Next(values.Length));
-
-            if (this.desiredDir == this.currentDir)
+            // checks if ghost is finishing his current direction to the end then randomize to the left, right or back
+            // preferred left and right
+            if (currentDir == Direction.Up && !IsMovingUpPossible())
             {
-                this.CheckForStopMoving(); // e.g. Direction.None
-            }
-            else
-            {
-                //Change directio to Up
-                if (desiredDir == Direction.Up
-                    && clyde.Y > Global.quad_Height / 2
-                    && (this.clyde.Y - pixelMoved >= this.clyde.QuadrantY * Global.quad_Height
-                    || obstacles[clyde.QuadrantY - 1, clyde.QuadrantX] == false))
+                if (IsMovingLeftPossible() && !IsMovingRightPossible()) // only right
                 {
-                    this.currentDir = this.desiredDir;
+                    currentDir = Direction.Left;
                 }
-                //Change directio to Down
-                else if (desiredDir == Direction.Down
-                    && clyde.Y < (((Global.YMax - 1) * Global.quad_Height) - (Global.quad_Height / 2))
-                    && (this.clyde.Y + pixelMoved <= this.clyde.QuadrantY * Global.quad_Height
-                    || obstacles[clyde.QuadrantY + 1, clyde.QuadrantX] == false))
+                else if (!IsMovingLeftPossible() && IsMovingRightPossible()) // only left
                 {
-                    currentDir = desiredDir;
+                    currentDir = Direction.Right;
                 }
-                //Change directio to Left
-                else if (desiredDir == Direction.Left
-                    && this.clyde.X > Global.quad_Width / 2
-                    && (this.clyde.X - pixelMoved >= this.clyde.QuadrantX * Global.quad_Width
-                    || obstacles[clyde.QuadrantY, clyde.QuadrantX - 1] == false))
+                else if ((IsMovingLeftPossible() == false) && (IsMovingRightPossible() == false)) // only back
                 {
-                    currentDir = desiredDir;
-                }
-                //Change directio to Right
-                else if (desiredDir == Direction.Right
-                    && this.clyde.X < ((Global.XMax - 1) * Global.quad_Width) - (Global.quad_Width / 2)
-                    && (this.clyde.X + pixelMoved <= this.clyde.QuadrantX * Global.quad_Width
-                    || obstacles[clyde.QuadrantY, clyde.QuadrantX + 1] == false))
-                {
-                    currentDir = desiredDir;
+                    currentDir = Direction.Down;
                 }
                 else
                 {
-                    CheckForStopMoving();
+                    Array values = new Direction[] { Direction.Right, Direction.Left };//Enum.GetValues(typeof(Direction));
+                    Random random = new Random(DateTime.Now.Millisecond);
+                    Direction randomDir = (Direction)values.GetValue(random.Next(values.Length));
+                    currentDir = randomDir;
                 }
             }
+            else if (currentDir == Direction.Down && !IsMovingDownPossible())
+            {
+                if (IsMovingLeftPossible() && !IsMovingRightPossible())
+                {
+                    currentDir = Direction.Left;
+                }
+                else if (!IsMovingLeftPossible() && IsMovingRightPossible())
+                {
+                    currentDir = Direction.Right;
+                }
+                else if ((IsMovingLeftPossible() == false) && (IsMovingRightPossible() == false))
+                {
+                    currentDir = Direction.Up;
+                }
+                else
+                {
+                    Array values = new Direction[] { Direction.Right, Direction.Left };
+                    Random random = new Random(DateTime.Now.Millisecond);
+                    Direction randomDir = (Direction)values.GetValue(random.Next(values.Length));
+                    currentDir = randomDir;
+                }
+            }
+            else if (currentDir == Direction.Left && !IsMovingLeftPossible())
+            {
+                if (IsMovingUpPossible() && !IsMovingDownPossible())
+                {
+                    currentDir = Direction.Up;
+                }
+                else if (!IsMovingUpPossible() && IsMovingDownPossible())
+                {
+                    currentDir = Direction.Down;
+                }
+                else if ((IsMovingUpPossible() == false) && (IsMovingDownPossible() == false))
+                {
+                    currentDir = Direction.Right;
+                }
+                else
+                {
+                    Array values = new Direction[] { Direction.Up, Direction.Down };
+                    Random random = new Random(DateTime.Now.Millisecond);
+                    Direction randomDir = (Direction)values.GetValue(random.Next(values.Length));
+                    currentDir = randomDir;
+                }
+            }
+            else if (currentDir == Direction.Right && !IsMovingRightPossible())
+            {
+                if (IsMovingUpPossible() && !IsMovingDownPossible())
+                {
+                    currentDir = Direction.Up;
+                }
+                else if (!IsMovingUpPossible() && IsMovingDownPossible())
+                {
+                    currentDir = Direction.Down;
+                }
+                else if ((IsMovingUpPossible() == false) && (IsMovingDownPossible() == false))
+                {
+                    currentDir = Direction.Left;
+                }
+                else
+                {
+                    Array values = new Direction[] { Direction.Up, Direction.Down };
+                    Random random = new Random(DateTime.Now.Millisecond);
+                    Direction randomDir = (Direction)values.GetValue(random.Next(values.Length));
+                    currentDir = randomDir;
+                }
+            }
+            else
+            {
+                return; // without changing direction
+            }
         }
 
-        private void CheckForStopMoving()
+        private bool IsMovingLeftPossible()
         {
-            if (currentDir == Direction.Up
-                && (clyde.QuadrantY == 0
-                || obstacles[clyde.QuadrantY - 1, clyde.QuadrantX] == true))
+            if (clyde.QuadrantX > 0
+               && obstacles[clyde.QuadrantY, clyde.QuadrantX - 1] == false)
             {
-                currentDir = Direction.None;
+                return true;
             }
-            else if (currentDir == Direction.Down
-                && (clyde.QuadrantY == (Global.YMax - 1)
-                || obstacles[clyde.QuadrantY + 1, clyde.QuadrantX] == true))
-            {
-                currentDir = Direction.None;
-            }
-            else if (currentDir == Direction.Left
-                && (clyde.QuadrantX == 0
-                || obstacles[clyde.QuadrantY, clyde.QuadrantX - 1] == true))
-            {
-                currentDir = Direction.None;
-            }
-            else if (currentDir == Direction.Right
-               && (clyde.QuadrantX == (Global.XMax - 1)
-               || obstacles[clyde.QuadrantY, clyde.QuadrantX + 1] == true))
-            {
-                currentDir = Direction.None;
-            }
+            return false;
         }
 
-        private bool IsReadyToChangePackmanQuadrant()
+        private bool IsMovingRightPossible()
         {
-            if (this.currentDir == Direction.Up && desiredDir == Direction.Down ||
-               this.currentDir == Direction.Down && this.desiredDir == Direction.Up ||
-               this.currentDir == Direction.Right && this.desiredDir == Direction.Left ||
-               this.currentDir == Direction.Left && this.desiredDir == Direction.Right)
+            if (clyde.QuadrantX < Global.XMax - 1
+               && obstacles[clyde.QuadrantY, clyde.QuadrantX + 1] == false)
             {
-                return true; //Change direction immediately if the changed direction is pposite
+                return true;
             }
+            return false;
+        }
 
+        private bool IsMovingUpPossible()
+        {
+            if (clyde.QuadrantY > 0
+               && obstacles[clyde.QuadrantY - 1, clyde.QuadrantX] == false)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private bool IsMovingDownPossible()
+        {
+            if (clyde.QuadrantY < Global.YMax - 1
+               && obstacles[clyde.QuadrantY + 1, clyde.QuadrantX] == false)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private bool IsReadyToChangeGhostQuadrant()
+        {
             if (clyde.X % Global.quad_Width == 0
                 && clyde.Y % Global.quad_Height == 0)
             {
@@ -163,54 +189,52 @@ namespace GameEngine.Handlers
             return false;
         }
 
-        private Vector2 GetDesiredVelocityFromInput()
+        private Vector2 GetNextMovementPoint()
         {
-             GetInput(); // listens for key pressed
+            //GetInput(); // listens for key pressed
 
-            if (IsReadyToChangePackmanQuadrant())
+            if (IsReadyToChangeGhostQuadrant())
             {
                 CalculateDirection();
             }
 
-            //CalculateDirection();
-
-            Vector2 desiredVelocity = new Vector2();
+            Vector2 nextPointToMove = new Vector2();
             switch (this.currentDir)
             {
                 case Direction.Up:
-                    desiredVelocity.X = 0;
-                    desiredVelocity.Y = 0 - ClydeRandomMovement.pixelMoved; // this magic number is velocity(pixels per gameTime) and he must devide 32(Global.quad_Width) with reminder 0
+                    nextPointToMove.X = 0;
+                    nextPointToMove.Y = 0 - ClydeRandomMovement.pixelMoved; // this magic number is velocity(pixels per gameTime) and he must devide 32(Global.quad_Width) with reminder 0
                     break;
                 case Direction.Down:
-                    desiredVelocity.X = 0;
-                    desiredVelocity.Y = ClydeRandomMovement.pixelMoved;
+                    nextPointToMove.X = 0;
+                    nextPointToMove.Y = ClydeRandomMovement.pixelMoved;
                     break;
                 case Direction.Left:
-                    desiredVelocity.X = 0 - ClydeRandomMovement.pixelMoved;
-                    desiredVelocity.Y = 0;
+                    nextPointToMove.X = 0 - ClydeRandomMovement.pixelMoved;
+                    nextPointToMove.Y = 0;
                     break;
                 case Direction.Right:
-                    desiredVelocity.X = ClydeRandomMovement.pixelMoved;
-                    desiredVelocity.Y = 0;
+                    nextPointToMove.X = ClydeRandomMovement.pixelMoved;
+                    nextPointToMove.Y = 0;
                     break;
                 case Direction.None:
-                    desiredVelocity.X = 0;
-                    desiredVelocity.Y = 0;
+                    nextPointToMove.X = 0;
+                    nextPointToMove.Y = 0;
                     break;
             }
 
-            return desiredVelocity;
+            return nextPointToMove;
         }
 
         public Vector2 Move(GameTime gameTime)
         {
-            var velocity = this.GetDesiredVelocityFromInput();
+            var nextPointToMove = this.GetNextMovementPoint();
 
-            this.clyde.X += velocity.X /** (float)gameTime.ElapsedGameTime.TotalSeconds*/;
-            this.clyde.Y += velocity.Y /** (float)gameTime.ElapsedGameTime.TotalSeconds*/;
+            this.clyde.X += nextPointToMove.X /** (float)gameTime.ElapsedGameTime.TotalSeconds*/;
+            this.clyde.Y += nextPointToMove.Y /** (float)gameTime.ElapsedGameTime.TotalSeconds*/;
             this.clyde.UpdateBoundingBox();
 
-            return velocity;
+            return nextPointToMove;
         }
     }
 }

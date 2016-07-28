@@ -13,12 +13,12 @@ namespace GameEngine.Handlers
         private Direction currentDir;
         private Direction desiredDir;
         private bool[,] obstacles;
-        private static int pixelMoved = Global.BlinkySpeed; //inicialize how many pixels will move PacMan per iteration
+        private static int pixelMoved = Global.DefaultGhostSpeed; //inicialize how many pixels will move PacMan per iteration
 
         public BlinkyRandomMovement(Blinky blinky, Matrix levelMatrix)
         {
             this.blinky = blinky;
-            currentDir = Direction.None;
+            currentDir = Direction.Right;
             desiredDir = Direction.None;
             obstacles = new bool[Global.YMax, Global.XMax];
 
@@ -38,120 +38,146 @@ namespace GameEngine.Handlers
             desiredDir = Direction.None;
         }
 
-        private void GetInput()
-        {
-            KeyboardState state = Keyboard.GetState();
-
-            if (state.GetPressedKeys().Length == 1)
-            {
-                if (state.IsKeyDown(Keys.Down))
-                {
-                    desiredDir = Direction.Down;
-                }
-                else if (state.IsKeyDown(Keys.Up))
-                {
-                    desiredDir = Direction.Up;
-                }
-                else if (state.IsKeyDown(Keys.Left))
-                {
-                    desiredDir = Direction.Left;
-                }
-                else if (state.IsKeyDown(Keys.Right))
-                {
-                    desiredDir = Direction.Right;
-                }
-            }
-        }
-
         private void CalculateDirection()
         {
-            Array values = Enum.GetValues(typeof(Direction));
-            Random random = new Random();
-            Direction randomDir = (Direction)values.GetValue(random.Next(values.Length));
-
-            if (this.desiredDir == this.currentDir)
+            // checks if ghost is finishing his current direction to the end then randomize to the left, right or back
+            // preferred left and right
+            if (currentDir == Direction.Up && !IsMovingUpPossible())
             {
-                this.CheckForStopMoving(); // e.g. Direction.None
-            }
-            else
-            {
-                //Change directio to Up
-                if (desiredDir == Direction.Up
-                    && blinky.Y > Global.quad_Height / 2
-                    && (this.blinky.Y - pixelMoved >= this.blinky.QuadrantY * Global.quad_Height
-                    || obstacles[blinky.QuadrantY - 1, blinky.QuadrantX] == false))
+                if ( IsMovingLeftPossible() && !IsMovingRightPossible()) // only right
                 {
-                    this.currentDir = this.desiredDir;
+                    currentDir = Direction.Left;
                 }
-                //Change directio to Down
-                else if (desiredDir == Direction.Down
-                    && blinky.Y < (((Global.YMax - 1) * Global.quad_Height) - (Global.quad_Height / 2))
-                    && (this.blinky.Y + pixelMoved <= this.blinky.QuadrantY * Global.quad_Height
-                    || obstacles[blinky.QuadrantY + 1, blinky.QuadrantX] == false))
+                else if (!IsMovingLeftPossible() && IsMovingRightPossible()) // only left
                 {
-                    currentDir = desiredDir;
+                    currentDir = Direction.Right;
                 }
-                //Change directio to Left
-                else if (desiredDir == Direction.Left
-                    && this.blinky.X > Global.quad_Width / 2
-                    && (this.blinky.X - pixelMoved >= this.blinky.QuadrantX * Global.quad_Width
-                    || obstacles[blinky.QuadrantY, blinky.QuadrantX - 1] == false))
+                else if ((IsMovingLeftPossible() == false) && (IsMovingRightPossible() == false)) // only back
                 {
-                    currentDir = desiredDir;
-                }
-                //Change directio to Right
-                else if (desiredDir == Direction.Right
-                    && this.blinky.X < ((Global.XMax - 1) * Global.quad_Width) - (Global.quad_Width / 2)
-                    && (this.blinky.X + pixelMoved <= this.blinky.QuadrantX * Global.quad_Width
-                    || obstacles[blinky.QuadrantY, blinky.QuadrantX + 1] == false))
-                {
-                    currentDir = desiredDir;
+                    currentDir = Direction.Down;
                 }
                 else
                 {
-                    CheckForStopMoving();
+                    Array values = new Direction[] { Direction.Right, Direction.Left };//Enum.GetValues(typeof(Direction));
+                    Random random = new Random(DateTime.Now.Millisecond);
+                    Direction randomDir = (Direction)values.GetValue(random.Next(values.Length));
+                    currentDir = randomDir;
                 }
             }
+            else if (currentDir == Direction.Down && !IsMovingDownPossible())
+            {
+                if (IsMovingLeftPossible() && !IsMovingRightPossible())
+                {
+                    currentDir = Direction.Left;
+                }
+                else if (!IsMovingLeftPossible() && IsMovingRightPossible())
+                {
+                    currentDir = Direction.Right;
+                }
+                else if ((IsMovingLeftPossible() == false) && (IsMovingRightPossible() == false))
+                {
+                    currentDir = Direction.Up;
+                }
+                else
+                {
+                    Array values = new Direction[] { Direction.Right, Direction.Left };
+                    Random random = new Random(DateTime.Now.Millisecond);
+                    Direction randomDir = (Direction)values.GetValue(random.Next(values.Length));
+                    currentDir = randomDir;
+                }
+            }
+            else if (currentDir == Direction.Left && !IsMovingLeftPossible())
+            {
+                if (IsMovingUpPossible() && !IsMovingDownPossible())
+                {
+                    currentDir = Direction.Up;
+                }
+                else if (!IsMovingUpPossible() && IsMovingDownPossible())
+                {
+                    currentDir = Direction.Down;
+                }
+                else if ((IsMovingUpPossible() == false) && (IsMovingDownPossible() == false))
+                {
+                    currentDir = Direction.Right;
+                }
+                else
+                {
+                    Array values = new Direction[] { Direction.Up, Direction.Down };
+                    Random random = new Random(DateTime.Now.Millisecond);
+                    Direction randomDir = (Direction)values.GetValue(random.Next(values.Length));
+                    currentDir = randomDir;
+                }
+            }
+            else if (currentDir == Direction.Right && !IsMovingRightPossible())
+            {
+                if (IsMovingUpPossible() && !IsMovingDownPossible())
+                {
+                    currentDir = Direction.Up;
+                }
+                else if (!IsMovingUpPossible() && IsMovingDownPossible())
+                {
+                    currentDir = Direction.Down;
+                }
+                else if ((IsMovingUpPossible() == false) && (IsMovingDownPossible() == false))
+                {
+                    currentDir = Direction.Left;
+                }
+                else
+                {
+                    Array values = new Direction[] { Direction.Up, Direction.Down };
+                    Random random = new Random(DateTime.Now.Millisecond);
+                    Direction randomDir = (Direction)values.GetValue(random.Next(values.Length));
+                    currentDir = randomDir;
+                }
+            }
+            else
+            {
+                return; // without changing direction
+            }
         }
 
-        private void CheckForStopMoving()
+        private bool IsMovingLeftPossible()
         {
-            if (currentDir == Direction.Up
-                && (blinky.QuadrantY == 0
-                || obstacles[blinky.QuadrantY - 1, blinky.QuadrantX] == true))
+            if (blinky.QuadrantX > 0
+               && obstacles[blinky.QuadrantY, blinky.QuadrantX - 1] == false)
             {
-                currentDir = Direction.None;
+                return true;
             }
-            else if (currentDir == Direction.Down
-                && (blinky.QuadrantY == (Global.YMax - 1)
-                || obstacles[blinky.QuadrantY + 1, blinky.QuadrantX] == true))
-            {
-                currentDir = Direction.None;
-            }
-            else if (currentDir == Direction.Left
-                && (blinky.QuadrantX == 0
-                || obstacles[blinky.QuadrantY, blinky.QuadrantX - 1] == true))
-            {
-                currentDir = Direction.None;
-            }
-            else if (currentDir == Direction.Right
-               && (blinky.QuadrantX == (Global.XMax - 1)
-               || obstacles[blinky.QuadrantY, blinky.QuadrantX + 1] == true))
-            {
-                currentDir = Direction.None;
-            }
+            return false;
         }
 
-        private bool IsReadyToChangePackmanQuadrant()
+        private bool IsMovingRightPossible()
         {
-            if (this.currentDir == Direction.Up && desiredDir == Direction.Down ||
-               this.currentDir == Direction.Down && this.desiredDir == Direction.Up ||
-               this.currentDir == Direction.Right && this.desiredDir == Direction.Left ||
-               this.currentDir == Direction.Left && this.desiredDir == Direction.Right)
+            if (blinky.QuadrantX < Global.XMax - 1
+               && obstacles[blinky.QuadrantY, blinky.QuadrantX + 1] == false)
             {
-                return true; //Change direction immediately if the changed direction is pposite
+                return true;
             }
+            return false;
+        }
 
+        private bool IsMovingUpPossible()
+        {
+            if (blinky.QuadrantY > 0
+               && obstacles[blinky.QuadrantY - 1, blinky.QuadrantX] == false)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private bool IsMovingDownPossible()
+        {
+            if (blinky.QuadrantY < Global.YMax - 1
+               && obstacles[blinky.QuadrantY + 1, blinky.QuadrantX] == false)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private bool IsReadyToChangeGhostQuadrant()
+        {
             if (blinky.X % Global.quad_Width == 0
                 && blinky.Y % Global.quad_Height == 0)
             {
@@ -163,54 +189,52 @@ namespace GameEngine.Handlers
             return false;
         }
 
-        private Vector2 GetDesiredVelocityFromInput()
+        private Vector2 GetNextMovementPoint()
         {
-             GetInput(); // listens for key pressed
+            //GetInput(); // listens for key pressed
 
-            if (IsReadyToChangePackmanQuadrant())
+            if (IsReadyToChangeGhostQuadrant())
             {
                 CalculateDirection();
             }
 
-            //CalculateDirection();
-
-            Vector2 desiredVelocity = new Vector2();
+            Vector2 nextPointToMove = new Vector2();
             switch (this.currentDir)
             {
                 case Direction.Up:
-                    desiredVelocity.X = 0;
-                    desiredVelocity.Y = 0 - BlinkyRandomMovement.pixelMoved; // this magic number is velocity(pixels per gameTime) and he must devide 32(Global.quad_Width) with reminder 0
+                    nextPointToMove.X = 0;
+                    nextPointToMove.Y = 0 - BlinkyRandomMovement.pixelMoved; // this magic number is velocity(pixels per gameTime) and he must devide 32(Global.quad_Width) with reminder 0
                     break;
                 case Direction.Down:
-                    desiredVelocity.X = 0;
-                    desiredVelocity.Y = BlinkyRandomMovement.pixelMoved;
+                    nextPointToMove.X = 0;
+                    nextPointToMove.Y = BlinkyRandomMovement.pixelMoved;
                     break;
                 case Direction.Left:
-                    desiredVelocity.X = 0 - BlinkyRandomMovement.pixelMoved;
-                    desiredVelocity.Y = 0;
+                    nextPointToMove.X = 0 - BlinkyRandomMovement.pixelMoved;
+                    nextPointToMove.Y = 0;
                     break;
                 case Direction.Right:
-                    desiredVelocity.X = BlinkyRandomMovement.pixelMoved;
-                    desiredVelocity.Y = 0;
+                    nextPointToMove.X = BlinkyRandomMovement.pixelMoved;
+                    nextPointToMove.Y = 0;
                     break;
                 case Direction.None:
-                    desiredVelocity.X = 0;
-                    desiredVelocity.Y = 0;
+                    nextPointToMove.X = 0;
+                    nextPointToMove.Y = 0;
                     break;
             }
 
-            return desiredVelocity;
+            return nextPointToMove;
         }
 
         public Vector2 Move(GameTime gameTime)
         {
-            var velocity = this.GetDesiredVelocityFromInput();
+            var nextPointToMove = this.GetNextMovementPoint();
 
-            this.blinky.X += velocity.X /** (float)gameTime.ElapsedGameTime.TotalSeconds*/;
-            this.blinky.Y += velocity.Y /** (float)gameTime.ElapsedGameTime.TotalSeconds*/;
+            this.blinky.X += nextPointToMove.X /** (float)gameTime.ElapsedGameTime.TotalSeconds*/;
+            this.blinky.Y += nextPointToMove.Y /** (float)gameTime.ElapsedGameTime.TotalSeconds*/;
             this.blinky.UpdateBoundingBox();
 
-            return velocity;
+            return nextPointToMove;
         }
     }
 }

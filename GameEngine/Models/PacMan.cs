@@ -9,8 +9,8 @@ namespace GameEngine.Models
         //not used now,but in future
         //private int speed = 5;
 
-        public PacMan(Texture2D texture, float x, float y, Rectangle boundingBox, int quadrantX, int quadrantY)
-            : base(texture, 0,  0, boundingBox, quadrantX, quadrantY)
+        public PacMan(Texture2D texture, float x, float y, Rectangle boundingBox)
+            : base(texture, 0,  0, boundingBox)
         {
 
         }

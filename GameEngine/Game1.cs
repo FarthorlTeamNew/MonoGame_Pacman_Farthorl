@@ -49,8 +49,8 @@ namespace GameEngine
         {
             sound = new Sound(this);
             GameTexture.LoadTextures(this);
-            this.pacMan = new PacMan(GameTexture.pacmanAndGhost, 0, 0, new Rectangle(0, 0, 32, 32), 0, 0);
-            this.blinky = new Blinky(GameTexture.pacmanAndGhost, 0, 64, new Rectangle(0, 0, 32, 32));
+            this.pacMan = new PacMan(GameTexture.pacmanAndGhost, 0, 0, new Rectangle(0, 0, 32, 32));
+            this.blinky = new Blinky(GameTexture.pacmanAndGhost, 4 * Global.quad_Width, 4 * Global.quad_Width, new Rectangle(0, 0, 32, 32));
             this.clyde = new Clyde(GameTexture.pacmanAndGhost, 64, 64, new Rectangle(0, 0, 32, 32));
             this.pacmanAnimator = new PacmanAnimator(this.pacMan);
             this.blinkyAnimator = new BlinkyAnimator(this.blinky);
@@ -183,7 +183,7 @@ namespace GameEngine
                         this.blinkyAnimator.Draw(this.spriteBatch);
                         this.clydeAnimator.Draw(this.spriteBatch);
 
-                        if (this.levelMatrix.LeftPoints == 0)
+                        if (this.levelMatrix.LeftPoints == 0 || blinky.IsColliding(pacMan)) 
                         {
                             var texture = Content.Load<Texture2D>("PacManWin_image");
                             this.spriteBatch.Draw(texture, new Vector2(250, 100));
@@ -209,9 +209,12 @@ namespace GameEngine
             this.pacMan.Scores = 0;
             this.pacMan.Health = 50;
             this.pacmanAnimator.CurrentDirection = Direction.Right;
+            this.pacmanInputHandler.Reset();
+
+            // TODO Restart ghost
             this.blinkyAnimator.CurrentDirection = Direction.Right;
             this.clydeAnimator.CurrentDirection = Direction.Right;
-            this.pacmanInputHandler.Reset();
+
             this.levelMatrix = new Matrix();
             this.levelMatrix.InitializeMatrix(this.GraphicsDevice);
             Fruit.InitializeFruits(GraphicsDevice, levelMatrix);
