@@ -4,6 +4,7 @@ using GameEngine.Models.LevelObjects.Ghosts;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Collections.Generic;
 
 namespace GameEngine.Handlers
 {
@@ -14,6 +15,8 @@ namespace GameEngine.Handlers
         private Direction desiredDir;
         private bool[,] obstacles;
         private static int pixelMoved = Global.DefaultGhostSpeed; //inicialize how many pixels will move PacMan per iteration
+        private Random random;
+        List<Direction> possibleDirections;
 
         public ClydeRandomMovement(Clyde clyde, Matrix levelMatrix)
         {
@@ -21,6 +24,8 @@ namespace GameEngine.Handlers
             currentDir = Direction.Right;
             desiredDir = Direction.None;
             obstacles = new bool[Global.YMax, Global.XMax];
+            random = new Random(DateTime.Now.Millisecond);
+            possibleDirections = new List<Direction>();
 
             for (int i = 0; i < Global.YMax; i++)
             {
@@ -40,99 +45,107 @@ namespace GameEngine.Handlers
 
         private void CalculateDirection()
         {
-            // checks if ghost is finishing his current direction to the end then randomize to the left, right or back
-            // preferred left and right
-            if (currentDir == Direction.Up && !IsMovingUpPossible())
+            this.possibleDirections.Clear();
+            // checks if ghost is can randomize direction if not going back
+            // preferred left, right, front
+            if (currentDir == Direction.Up)
             {
-                if (IsMovingLeftPossible() && !IsMovingRightPossible()) // only right
+                if (IsMovingLeftPossible())
                 {
-                    currentDir = Direction.Left;
+                    possibleDirections.Add(Direction.Left);
                 }
-                else if (!IsMovingLeftPossible() && IsMovingRightPossible()) // only left
+                if (IsMovingRightPossible())
                 {
-                    currentDir = Direction.Right;
+                    possibleDirections.Add(Direction.Right);
                 }
-                else if ((IsMovingLeftPossible() == false) && (IsMovingRightPossible() == false)) // only back
+                if (IsMovingUpPossible())
+                {
+                    possibleDirections.Add(Direction.Up);
+                }
+                if(possibleDirections.Count == 0) // go back
                 {
                     currentDir = Direction.Down;
+                    return;
                 }
-                else
-                {
-                    Array values = new Direction[] { Direction.Right, Direction.Left };//Enum.GetValues(typeof(Direction));
-                    Random random = new Random(DateTime.Now.Millisecond);
-                    Direction randomDir = (Direction)values.GetValue(random.Next(values.Length));
-                    currentDir = randomDir;
-                }
+                ChooseRandomDirection();
             }
-            else if (currentDir == Direction.Down && !IsMovingDownPossible())
+            else if (currentDir == Direction.Down)
             {
-                if (IsMovingLeftPossible() && !IsMovingRightPossible())
+                if (IsMovingLeftPossible())
                 {
-                    currentDir = Direction.Left;
+                    possibleDirections.Add(Direction.Left);
                 }
-                else if (!IsMovingLeftPossible() && IsMovingRightPossible())
+                if (IsMovingRightPossible())
+                {
+                    possibleDirections.Add(Direction.Right);
+                }
+                if (IsMovingDownPossible())
+                {
+                    possibleDirections.Add(Direction.Down);
+                }
+                if (possibleDirections.Count == 0) // go back
+                {
+                    currentDir = Direction.Up;
+                    return;
+                }
+                ChooseRandomDirection();
+            }
+            else if (currentDir == Direction.Left)
+            {
+                if (IsMovingLeftPossible())
+                {
+                    possibleDirections.Add(Direction.Left);
+                }
+                if (IsMovingDownPossible())
+                {
+                    possibleDirections.Add(Direction.Down);
+                }
+                if (IsMovingUpPossible())
+                {
+                    possibleDirections.Add(Direction.Up);
+                }
+                if (possibleDirections.Count == 0) // go back
                 {
                     currentDir = Direction.Right;
+                    return;
                 }
-                else if ((IsMovingLeftPossible() == false) && (IsMovingRightPossible() == false))
-                {
-                    currentDir = Direction.Up;
-                }
-                else
-                {
-                    Array values = new Direction[] { Direction.Right, Direction.Left };
-                    Random random = new Random(DateTime.Now.Millisecond);
-                    Direction randomDir = (Direction)values.GetValue(random.Next(values.Length));
-                    currentDir = randomDir;
-                }
+
+                ChooseRandomDirection();
             }
-            else if (currentDir == Direction.Left && !IsMovingLeftPossible())
+            else if (currentDir == Direction.Right)
             {
-                if (IsMovingUpPossible() && !IsMovingDownPossible())
+                if (IsMovingRightPossible())
                 {
-                    currentDir = Direction.Up;
+                    possibleDirections.Add(Direction.Right);
                 }
-                else if (!IsMovingUpPossible() && IsMovingDownPossible())
+                if (IsMovingDownPossible())
                 {
-                    currentDir = Direction.Down;
+                    possibleDirections.Add(Direction.Down);
                 }
-                else if ((IsMovingUpPossible() == false) && (IsMovingDownPossible() == false))
+                if (IsMovingUpPossible())
                 {
-                    currentDir = Direction.Right;
+                    possibleDirections.Add(Direction.Up);
                 }
-                else
-                {
-                    Array values = new Direction[] { Direction.Up, Direction.Down };
-                    Random random = new Random(DateTime.Now.Millisecond);
-                    Direction randomDir = (Direction)values.GetValue(random.Next(values.Length));
-                    currentDir = randomDir;
-                }
-            }
-            else if (currentDir == Direction.Right && !IsMovingRightPossible())
-            {
-                if (IsMovingUpPossible() && !IsMovingDownPossible())
-                {
-                    currentDir = Direction.Up;
-                }
-                else if (!IsMovingUpPossible() && IsMovingDownPossible())
-                {
-                    currentDir = Direction.Down;
-                }
-                else if ((IsMovingUpPossible() == false) && (IsMovingDownPossible() == false))
+                if (possibleDirections.Count == 0) // go back
                 {
                     currentDir = Direction.Left;
+                    return;
                 }
-                else
-                {
-                    Array values = new Direction[] { Direction.Up, Direction.Down };
-                    Random random = new Random(DateTime.Now.Millisecond);
-                    Direction randomDir = (Direction)values.GetValue(random.Next(values.Length));
-                    currentDir = randomDir;
-                }
+
+                ChooseRandomDirection();
+            }
+        }
+
+        private void ChooseRandomDirection()
+        {
+            if (this.possibleDirections.Count == 1)
+            {
+                currentDir = this.possibleDirections[0];
             }
             else
             {
-                return; // without changing direction
+                Direction randomDir = (Direction)this.possibleDirections.ToArray().GetValue(random.Next(this.possibleDirections.Count));
+                currentDir = randomDir;
             }
         }
 

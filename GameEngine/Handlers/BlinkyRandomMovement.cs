@@ -14,6 +14,7 @@ namespace GameEngine.Handlers
         private Direction desiredDir;
         private bool[,] obstacles;
         private static int pixelMoved = Global.DefaultGhostSpeed; //inicialize how many pixels will move PacMan per iteration
+        Random random;
 
         public BlinkyRandomMovement(Blinky blinky, Matrix levelMatrix)
         {
@@ -21,6 +22,7 @@ namespace GameEngine.Handlers
             currentDir = Direction.Right;
             desiredDir = Direction.None;
             obstacles = new bool[Global.YMax, Global.XMax];
+            random = new Random(DateTime.Now.Millisecond);
 
             for (int i = 0; i < Global.YMax; i++)
             {
@@ -58,8 +60,7 @@ namespace GameEngine.Handlers
                 }
                 else
                 {
-                    Array values = new Direction[] { Direction.Right, Direction.Left };//Enum.GetValues(typeof(Direction));
-                    Random random = new Random(DateTime.Now.Millisecond);
+                    Array values = new Direction[] { Direction.Right, Direction.Left };
                     Direction randomDir = (Direction)values.GetValue(random.Next(values.Length));
                     currentDir = randomDir;
                 }
@@ -81,7 +82,6 @@ namespace GameEngine.Handlers
                 else
                 {
                     Array values = new Direction[] { Direction.Right, Direction.Left };
-                    Random random = new Random(DateTime.Now.Millisecond);
                     Direction randomDir = (Direction)values.GetValue(random.Next(values.Length));
                     currentDir = randomDir;
                 }
@@ -103,7 +103,6 @@ namespace GameEngine.Handlers
                 else
                 {
                     Array values = new Direction[] { Direction.Up, Direction.Down };
-                    Random random = new Random(DateTime.Now.Millisecond);
                     Direction randomDir = (Direction)values.GetValue(random.Next(values.Length));
                     currentDir = randomDir;
                 }
@@ -125,7 +124,6 @@ namespace GameEngine.Handlers
                 else
                 {
                     Array values = new Direction[] { Direction.Up, Direction.Down };
-                    Random random = new Random(DateTime.Now.Millisecond);
                     Direction randomDir = (Direction)values.GetValue(random.Next(values.Length));
                     currentDir = randomDir;
                 }
