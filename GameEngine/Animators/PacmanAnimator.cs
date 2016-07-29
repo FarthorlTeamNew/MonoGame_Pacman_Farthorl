@@ -10,13 +10,12 @@ namespace GameEngine.Animators
 {
     public class PacmanAnimator : Animator
     {
-        private PacMan pacman;
         List<Animation> animations = new List<Animation>();
         public Animation currentAnimation;
 
         public PacmanAnimator(PacMan pacMan)
+            :base(pacMan)
         {
-            this.pacman = pacMan;
             this.BufferFrames();
             this.currentAnimation = this.animations.Find(x => x.Face == base.currentDirection);
         }
@@ -68,10 +67,10 @@ namespace GameEngine.Animators
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            Vector2 topLeftPos = new Vector2(this.pacman.X, this.pacman.Y);
+            Vector2 topLeftPos = new Vector2(base.gameObject.X, base.gameObject.Y);
             Color tint = Color.White;
             var sourceRectangle = this.currentAnimation.CurrentRectangle;
-            spriteBatch.Draw(pacman.Texture, topLeftPos, sourceRectangle, tint);
+            spriteBatch.Draw(base.gameObject.Texture, topLeftPos, sourceRectangle, tint);
 
         }
 

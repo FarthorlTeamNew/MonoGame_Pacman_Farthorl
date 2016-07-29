@@ -215,7 +215,8 @@ namespace GameEngine
                         //this.blinkyAnimator.Draw(this.spriteBatch);
                         //this.clydeAnimator.Draw(this.spriteBatch);
 
-                        if (this.levelMatrix.LeftPoints == 0 || blinky.IsColliding(pacMan) || clyde.IsColliding(pacMan)) 
+                        if (this.levelMatrix.LeftPoints == 0 || blinky.IsColliding(pacMan) || clyde.IsColliding(pacMan)
+                            || inky.IsColliding(pacMan) || pinky.IsColliding(pacMan)) 
                         {
                             //blinky.ReactOnCollision(pacMan);
                             var texture = Content.Load<Texture2D>("PacManWin_image");
@@ -237,8 +238,8 @@ namespace GameEngine
         private void Reset()
         {
             isLevelCompleated = false;
-            this.pacMan.X = 0;
-            this.pacMan.Y = 0;
+            //this.pacMan.X = 0;
+            //this.pacMan.Y = 0;
             this.pacMan.Scores = 0;
             this.pacMan.Health = 50;
             //this.pacmanAnimator.CurrentDirection = Direction.Right;

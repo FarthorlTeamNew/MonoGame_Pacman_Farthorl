@@ -10,13 +10,12 @@
 
     public abstract class GhostAnimator : Animator
     {
-        private Ghost ghost;
         protected List<Animation> animations = new List<Animation>();
         public Animation currentAnimation;
 
         public GhostAnimator(Ghost ghost)
+            :base(ghost)
         {
-            this.ghost = ghost;
             this.BufferFrames();
             this.currentAnimation = this.animations.Find(x => x.Face == base.currentDirection);
         }
@@ -68,10 +67,10 @@
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            Vector2 topLeftPos = new Vector2(this.ghost.X, this.ghost.Y);
+            Vector2 topLeftPos = new Vector2(base.gameObject.X, base.gameObject.Y);
             Color tint = Color.White;
             var sourceRectangle = this.currentAnimation.CurrentRectangle;
-            spriteBatch.Draw(ghost.Texture, topLeftPos, sourceRectangle, tint);
+            spriteBatch.Draw(base.gameObject.Texture, topLeftPos, sourceRectangle, tint);
 
         }
 
