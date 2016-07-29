@@ -5,16 +5,8 @@ using Microsoft.Xna.Framework.Input;
 
 namespace GameEngine.Handlers
 {
-    public enum Direction
-    {
-        Up,
-        Down,
-        Left,
-        Right,
-        None
-    }
 
-    public class PacmanInputHandler
+    public class PacmanInputHandler : IMoving
     {
         private PacMan pacman;
         private Direction currentDir;

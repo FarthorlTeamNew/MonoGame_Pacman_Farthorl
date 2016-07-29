@@ -50,6 +50,7 @@
     <Compile Include="Globals\Global.cs" />
     <Compile Include="Handlers\ClydeRandomMovement.cs" />
     <Compile Include="Handlers\BlinkyRandomMovement.cs" />
+    <Compile Include="Handlers\IMoving.cs" />
     <Compile Include="Handlers\KeyPress.cs" />
     <Compile Include="Handlers\PacmanInputHandler.cs" />
     <Compile Include="ExtractAllLevels.cs" />

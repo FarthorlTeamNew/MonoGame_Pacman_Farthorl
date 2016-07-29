@@ -1,5 +1,6 @@
 ﻿using GameEngine.Globals;
 using GameEngine.Models;
+using GameEngine.Models.LevelObjects;
 using GameEngine.Models.LevelObjects.Ghosts;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -8,9 +9,9 @@ using System.Collections.Generic;
 
 namespace GameEngine.Handlers
 {
-    class ClydeRandomMovement
+    class ClydeRandomMovement : IMoving
     {
-        private Clyde clyde;
+        private Ghost clyde;
         private Direction currentDir;
         private Direction desiredDir;
         private bool[,] obstacles;
@@ -18,7 +19,7 @@ namespace GameEngine.Handlers
         private Random random;
         List<Direction> possibleDirections;
 
-        public ClydeRandomMovement(Clyde clyde, Matrix levelMatrix)
+        public ClydeRandomMovement(Ghost clyde, Matrix levelMatrix)
         {
             this.clyde = clyde;
             currentDir = Direction.Right;
@@ -39,7 +40,7 @@ namespace GameEngine.Handlers
 
         public void Reset()
         {
-            currentDir = Direction.None;
+            //currentDir = Direction.None;
             desiredDir = Direction.None;
         }
 

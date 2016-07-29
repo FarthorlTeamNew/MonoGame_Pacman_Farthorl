@@ -10,7 +10,6 @@ namespace GameEngine.Animators
 {
     public class PacmanAnimator : Animator
     {
-        private Direction currentDirection = Direction.Right;
         private PacMan pacman;
         List<Animation> animations = new List<Animation>();
         public Animation currentAnimation;
@@ -19,13 +18,13 @@ namespace GameEngine.Animators
         {
             this.pacman = pacMan;
             this.BufferFrames();
-            this.currentAnimation = this.animations.Find(x => x.Face == currentDirection);
+            this.currentAnimation = this.animations.Find(x => x.Face == base.currentDirection);
         }
 
         public Direction CurrentDirection
         {
-            get { return currentDirection; }
-            set { currentDirection = value; }
+            get { return base.currentDirection; }
+            set { base.currentDirection = value; }
         }
 
         public override void UpdateAnimation(GameTime gameTime, Vector2 velocity)
@@ -38,12 +37,12 @@ namespace GameEngine.Animators
                     if (velocity.X > 0)
                     {
                         currentAnimation = this.animations.Find(x => x.Face == Direction.Right);
-                        currentDirection = Direction.Right;
+                        base.currentDirection = Direction.Right;
                     }
                     else
                     {
                         currentAnimation = this.animations.Find(x => x.Face == Direction.Left);
-                        currentDirection = Direction.Left;
+                        base.currentDirection = Direction.Left;
                     }
                 }
                 else
@@ -51,18 +50,18 @@ namespace GameEngine.Animators
                     if (velocity.Y > 0)
                     {
                         currentAnimation = this.animations.Find(x => x.Face == Direction.Down);
-                        currentDirection = Direction.Down;
+                        base.currentDirection = Direction.Down;
                     }
                     else
                     {
                         currentAnimation = this.animations.Find(x => x.Face == Direction.Up);
-                        currentDirection = Direction.Up;
+                        base.currentDirection = Direction.Up;
                     }
                 }
             }
             else
             {
-                this.currentAnimation = this.animations.Find(x => x.Face == currentDirection);
+                this.currentAnimation = this.animations.Find(x => x.Face == base.currentDirection);
             }
             this.currentAnimation.Update(gameTime);
         }

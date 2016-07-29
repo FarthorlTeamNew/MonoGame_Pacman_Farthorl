@@ -1,5 +1,6 @@
 ﻿using GameEngine.Globals;
 using GameEngine.Models;
+using GameEngine.Models.LevelObjects;
 using GameEngine.Models.LevelObjects.Ghosts;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -7,16 +8,16 @@ using System;
 
 namespace GameEngine.Handlers
 {
-    class BlinkyRandomMovement
+    class BlinkyRandomMovement : IMoving
     {
-        private Blinky blinky;
+        private Ghost blinky;
         private Direction currentDir;
         private Direction desiredDir;
         private bool[,] obstacles;
         private static int pixelMoved = Global.DefaultGhostSpeed; //inicialize how many pixels will move PacMan per iteration
         Random random;
 
-        public BlinkyRandomMovement(Blinky blinky, Matrix levelMatrix)
+        public BlinkyRandomMovement(Ghost blinky, Matrix levelMatrix)
         {
             this.blinky = blinky;
             currentDir = Direction.Right;
@@ -36,7 +37,7 @@ namespace GameEngine.Handlers
 
         public void Reset()
         {
-            currentDir = Direction.None;
+            //currentDir = Direction.None;
             desiredDir = Direction.None;
         }
 
