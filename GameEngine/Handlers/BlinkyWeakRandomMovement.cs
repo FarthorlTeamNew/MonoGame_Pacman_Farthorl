@@ -8,16 +8,16 @@ using System;
 
 namespace GameEngine.Handlers
 {
-    class BlinkyRandomMovement : IMoving
+    class BlinkyWeakRandomMovement : IMoving
     {
         private Ghost blinky;
         private Direction currentDir;
         private Direction desiredDir;
         private bool[,] obstacles;
-        private static int pixelMoved = Global.DefaultGhostSpeed; //inicialize how many pixels will move PacMan per iteration
+        private static int pixelMoved = Global.DefaultGhostSpeed; //inicialize how many pixels will move per iteration
         Random random;
 
-        public BlinkyRandomMovement(Ghost blinky, Matrix levelMatrix)
+        public BlinkyWeakRandomMovement(Ghost blinky, Matrix levelMatrix)
         {
             this.blinky = blinky;
             currentDir = Direction.Right;
@@ -202,18 +202,18 @@ namespace GameEngine.Handlers
             {
                 case Direction.Up:
                     nextPointToMove.X = 0;
-                    nextPointToMove.Y = 0 - BlinkyRandomMovement.pixelMoved; // this magic number is velocity(pixels per gameTime) and he must devide 32(Global.quad_Width) with reminder 0
+                    nextPointToMove.Y = 0 - BlinkyWeakRandomMovement.pixelMoved;
                     break;
                 case Direction.Down:
                     nextPointToMove.X = 0;
-                    nextPointToMove.Y = BlinkyRandomMovement.pixelMoved;
+                    nextPointToMove.Y = BlinkyWeakRandomMovement.pixelMoved;
                     break;
                 case Direction.Left:
-                    nextPointToMove.X = 0 - BlinkyRandomMovement.pixelMoved;
+                    nextPointToMove.X = 0 - BlinkyWeakRandomMovement.pixelMoved;
                     nextPointToMove.Y = 0;
                     break;
                 case Direction.Right:
-                    nextPointToMove.X = BlinkyRandomMovement.pixelMoved;
+                    nextPointToMove.X = BlinkyWeakRandomMovement.pixelMoved;
                     nextPointToMove.Y = 0;
                     break;
                 case Direction.None:

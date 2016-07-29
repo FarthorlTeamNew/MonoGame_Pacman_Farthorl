@@ -1,27 +1,27 @@
 ﻿using GameEngine.Globals;
-using GameEngine.Models;
 using GameEngine.Models.LevelObjects;
-using GameEngine.Models.LevelObjects.Ghosts;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace GameEngine.Handlers
 {
-    class ClydeRandomMovement : IMoving
+    class InkyHuntingRandomMovement : IMoving
     {
-        private Ghost clyde;
+        private Ghost inky;
         private Direction currentDir;
         private Direction desiredDir;
         private bool[,] obstacles;
-        private static int pixelMoved = Global.DefaultGhostSpeed; //inicialize how many pixels will move PacMan per iteration
+        private static int pixelMoved = Global.DefaultGhostSpeed; //inicialize how many pixels will move per iteration
         private Random random;
         List<Direction> possibleDirections;
 
-        public ClydeRandomMovement(Ghost clyde, Matrix levelMatrix)
+        public InkyHuntingRandomMovement(Ghost inky, Matrix levelMatrix)
         {
-            this.clyde = clyde;
+            this.inky = inky;
             currentDir = Direction.Right;
             desiredDir = Direction.None;
             obstacles = new bool[Global.YMax, Global.XMax];
@@ -63,7 +63,7 @@ namespace GameEngine.Handlers
                 {
                     possibleDirections.Add(Direction.Up);
                 }
-                if(possibleDirections.Count == 0) // go back
+                if (possibleDirections.Count == 0) // go back
                 {
                     currentDir = Direction.Down;
                     return;
@@ -152,8 +152,8 @@ namespace GameEngine.Handlers
 
         private bool IsMovingLeftPossible()
         {
-            if (clyde.QuadrantX > 0
-               && obstacles[clyde.QuadrantY, clyde.QuadrantX - 1] == false)
+            if (inky.QuadrantX > 0
+               && obstacles[inky.QuadrantY, inky.QuadrantX - 1] == false)
             {
                 return true;
             }
@@ -162,8 +162,8 @@ namespace GameEngine.Handlers
 
         private bool IsMovingRightPossible()
         {
-            if (clyde.QuadrantX < Global.XMax - 1
-               && obstacles[clyde.QuadrantY, clyde.QuadrantX + 1] == false)
+            if (inky.QuadrantX < Global.XMax - 1
+               && obstacles[inky.QuadrantY, inky.QuadrantX + 1] == false)
             {
                 return true;
             }
@@ -172,8 +172,8 @@ namespace GameEngine.Handlers
 
         private bool IsMovingUpPossible()
         {
-            if (clyde.QuadrantY > 0
-               && obstacles[clyde.QuadrantY - 1, clyde.QuadrantX] == false)
+            if (inky.QuadrantY > 0
+               && obstacles[inky.QuadrantY - 1, inky.QuadrantX] == false)
             {
                 return true;
             }
@@ -182,8 +182,8 @@ namespace GameEngine.Handlers
 
         private bool IsMovingDownPossible()
         {
-            if (clyde.QuadrantY < Global.YMax - 1
-               && obstacles[clyde.QuadrantY + 1, clyde.QuadrantX] == false)
+            if (inky.QuadrantY < Global.YMax - 1
+               && obstacles[inky.QuadrantY + 1, inky.QuadrantX] == false)
             {
                 return true;
             }
@@ -192,11 +192,11 @@ namespace GameEngine.Handlers
 
         private bool IsReadyToChangeGhostQuadrant()
         {
-            if (clyde.X % Global.quad_Width == 0
-                && clyde.Y % Global.quad_Height == 0)
+            if (inky.X % Global.quad_Width == 0
+                && inky.Y % Global.quad_Height == 0)
             {
-                clyde.QuadrantX = (int)clyde.X / 32;
-                clyde.QuadrantY = (int)clyde.Y / 32;
+                inky.QuadrantX = (int)inky.X / 32;
+                inky.QuadrantY = (int)inky.Y / 32;
                 return true;
             }
 
@@ -217,18 +217,18 @@ namespace GameEngine.Handlers
             {
                 case Direction.Up:
                     nextPointToMove.X = 0;
-                    nextPointToMove.Y = 0 - ClydeRandomMovement.pixelMoved; // this magic number is velocity(pixels per gameTime) and he must devide 32(Global.quad_Width) with reminder 0
+                    nextPointToMove.Y = 0 - InkyHuntingRandomMovement.pixelMoved;
                     break;
                 case Direction.Down:
                     nextPointToMove.X = 0;
-                    nextPointToMove.Y = ClydeRandomMovement.pixelMoved;
+                    nextPointToMove.Y = InkyHuntingRandomMovement.pixelMoved;
                     break;
                 case Direction.Left:
-                    nextPointToMove.X = 0 - ClydeRandomMovement.pixelMoved;
+                    nextPointToMove.X = 0 - InkyHuntingRandomMovement.pixelMoved;
                     nextPointToMove.Y = 0;
                     break;
                 case Direction.Right:
-                    nextPointToMove.X = ClydeRandomMovement.pixelMoved;
+                    nextPointToMove.X = InkyHuntingRandomMovement.pixelMoved;
                     nextPointToMove.Y = 0;
                     break;
                 case Direction.None:
@@ -244,9 +244,9 @@ namespace GameEngine.Handlers
         {
             var nextPointToMove = this.GetNextMovementPoint();
 
-            this.clyde.X += nextPointToMove.X /** (float)gameTime.ElapsedGameTime.TotalSeconds*/;
-            this.clyde.Y += nextPointToMove.Y /** (float)gameTime.ElapsedGameTime.TotalSeconds*/;
-            this.clyde.UpdateBoundingBox();
+            this.inky.X += nextPointToMove.X /** (float)gameTime.ElapsedGameTime.TotalSeconds*/;
+            this.inky.Y += nextPointToMove.Y /** (float)gameTime.ElapsedGameTime.TotalSeconds*/;
+            this.inky.UpdateBoundingBox();
 
             return nextPointToMove;
         }

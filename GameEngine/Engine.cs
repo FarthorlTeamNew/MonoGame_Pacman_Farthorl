@@ -25,6 +25,8 @@ namespace GameEngine
         private PacMan pacMan;
         private Blinky blinky;
         private Clyde clyde;
+        private Inky inky;
+        private Pinky pinky;
         private List<Animator> animationObjects;
         private List<IMoving> movableObjects;
         //private BlinkyAnimator blinkyAnimator;
@@ -56,10 +58,14 @@ namespace GameEngine
             this.pacMan = new PacMan(GameTexture.pacmanAndGhost, 0, 0, new Rectangle(0, 0, 32, 32));
             this.blinky = new Blinky(GameTexture.pacmanAndGhost, 4 * Global.quad_Width, 4 * Global.quad_Width, new Rectangle(0, 0, 32, 32));
             this.clyde = new Clyde(GameTexture.pacmanAndGhost, 64, 64, new Rectangle(0, 0, 32, 32));
+            this.inky = new Inky(GameTexture.pacmanAndGhost, 512, 0, new Rectangle(0, 0, 32, 32));
+            this.pinky = new Pinky(GameTexture.pacmanAndGhost, 576, 0, new Rectangle(0, 0, 32, 32));
 
             this.animationObjects.Add(new PacmanAnimator(this.pacMan));
             this.animationObjects.Add(new BlinkyAnimator(this.blinky));
             this.animationObjects.Add(new ClydeAnimator(this.clyde));
+            this.animationObjects.Add(new InkyAnimator(this.inky));
+            this.animationObjects.Add(new PinkyAnimator(this.pinky));
 
             //this.pacmanAnimator = new PacmanAnimator(this.pacMan);
             //this.blinkyAnimator = new BlinkyAnimator(this.blinky);
@@ -90,8 +96,10 @@ namespace GameEngine
             //this.pacmanInputHandler = new PacmanInputHandler(this.pacMan, levelMatrix);
 
             this.movableObjects.Add(new PacmanInputHandler(this.pacMan, levelMatrix));
-            this.movableObjects.Add(new BlinkyRandomMovement(this.blinky, levelMatrix));
-            this.movableObjects.Add(new ClydeRandomMovement(this.clyde, levelMatrix));
+            this.movableObjects.Add(new BlinkyWeakRandomMovement(this.blinky, levelMatrix));
+            this.movableObjects.Add(new ClydeGoodRandomMovement(this.clyde, levelMatrix));
+            this.movableObjects.Add(new InkyHuntingRandomMovement(this.inky, levelMatrix));
+            this.movableObjects.Add(new PinkyHuntingRandomMovement(this.pinky, levelMatrix));
 
             //this.blinkyRandomMovement = new BlinkyRandomMovement(this.blinky, levelMatrix);
             //this.clydeRandomMovement = new ClydeRandomMovement(this.clyde, levelMatrix);
@@ -209,6 +217,7 @@ namespace GameEngine
 
                         if (this.levelMatrix.LeftPoints == 0 || blinky.IsColliding(pacMan) || clyde.IsColliding(pacMan)) 
                         {
+                            //blinky.ReactOnCollision(pacMan);
                             var texture = Content.Load<Texture2D>("PacManWin_image");
                             this.spriteBatch.Draw(texture, new Vector2(250, 100));
                             isLevelCompleated = true;

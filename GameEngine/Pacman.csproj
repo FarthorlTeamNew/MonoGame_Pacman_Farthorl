@@ -48,9 +48,11 @@
     <Compile Include="Animators\GhostAnimators\PinkyAnimator.cs" />
     <Compile Include="Animators\PacmanAnimator.cs" />
     <Compile Include="Globals\Global.cs" />
-    <Compile Include="Handlers\ClydeRandomMovement.cs" />
-    <Compile Include="Handlers\BlinkyRandomMovement.cs" />
+    <Compile Include="Handlers\ClydeGoodRandomMovement.cs" />
+    <Compile Include="Handlers\BlinkyWeakRandomMovement.cs" />
     <Compile Include="Handlers\IMoving.cs" />
+    <Compile Include="Handlers\PinkyHuntingRandomMovement.cs" />
+    <Compile Include="Handlers\InkyHuntingRandomMovement.cs" />
     <Compile Include="Handlers\KeyPress.cs" />
     <Compile Include="Handlers\PacmanInputHandler.cs" />
     <Compile Include="ExtractAllLevels.cs" />
