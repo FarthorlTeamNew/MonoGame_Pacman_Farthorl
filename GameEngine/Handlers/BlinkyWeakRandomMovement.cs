@@ -1,4 +1,5 @@
 ﻿using GameEngine.Globals;
+using GameEngine.Interfaces;
 using GameEngine.Models;
 using GameEngine.Models.LevelObjects;
 using GameEngine.Models.LevelObjects.Ghosts;
@@ -8,7 +9,7 @@ using System;
 
 namespace GameEngine.Handlers
 {
-    class BlinkyWeakRandomMovement : IMoving
+    class BlinkyWeakRandomMovement : IMovable
     {
         private Ghost blinky;
         private Direction currentDir;

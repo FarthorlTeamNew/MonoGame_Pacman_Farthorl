@@ -50,13 +50,14 @@
     <Compile Include="Globals\Global.cs" />
     <Compile Include="Handlers\ClydeGoodRandomMovement.cs" />
     <Compile Include="Handlers\BlinkyWeakRandomMovement.cs" />
-    <Compile Include="Handlers\IMoving.cs" />
+    <Compile Include="Handlers\Direction.cs" />
     <Compile Include="Handlers\PinkyHuntingRandomMovement.cs" />
     <Compile Include="Handlers\InkyHuntingRandomMovement.cs" />
     <Compile Include="Handlers\KeyPress.cs" />
     <Compile Include="Handlers\PacmanInputHandler.cs" />
     <Compile Include="ExtractAllLevels.cs" />
     <Compile Include="Interfaces\IGameObject.cs" />
+    <Compile Include="Interfaces\IMovable.cs" />
     <Compile Include="Matrix.cs" />
     <Compile Include="Menu\CButton.cs" />
     <Compile Include="Menu\GameState.cs" />

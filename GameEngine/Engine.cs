@@ -11,6 +11,7 @@ using GameEngine.Menu;
 using GameEngine.Models;
 using GameEngine.Animators.GhostAnimators;
 using GameEngine.Models.LevelObjects.Ghosts;
+using GameEngine.Interfaces;
 
 namespace GameEngine
 {
@@ -28,7 +29,7 @@ namespace GameEngine
         private Inky inky;
         private Pinky pinky;
         private List<Animator> animationObjects;
-        private List<IMoving> movableObjects;
+        private List<IMovable> movableObjects;
         //private BlinkyAnimator blinkyAnimator;
         //private BlinkyRandomMovement blinkyRandomMovement;
         //private ClydeAnimator clydeAnimator;
@@ -51,7 +52,7 @@ namespace GameEngine
 
         protected override void Initialize()
         {
-            movableObjects = new List<IMoving>();
+            movableObjects = new List<IMovable>();
             animationObjects = new List<Animator>();
             sound = new Sound(this);
             GameTexture.LoadTextures(this);

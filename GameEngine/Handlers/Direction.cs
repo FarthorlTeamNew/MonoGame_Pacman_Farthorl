@@ -15,10 +15,4 @@ namespace GameEngine.Handlers
         Right,
         None
     }
-
-    public interface IMoving
-    {
-        Vector2 Move(GameTime gameTime);
-        void Reset();
-    }
 }

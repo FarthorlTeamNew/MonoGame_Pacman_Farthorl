@@ -1,4 +1,5 @@
 ﻿using GameEngine.Globals;
+using GameEngine.Interfaces;
 using GameEngine.Models.LevelObjects;
 using Microsoft.Xna.Framework;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace GameEngine.Handlers
 {
-    class PinkyHuntingRandomMovement : IMoving
+    class PinkyHuntingRandomMovement : IMovable
     {
         private Ghost pinky;
         private Direction currentDir;

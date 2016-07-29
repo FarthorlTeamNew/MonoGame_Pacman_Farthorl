@@ -1,4 +1,5 @@
 ﻿using GameEngine.Globals;
+using GameEngine.Interfaces;
 using GameEngine.Models;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -6,7 +7,7 @@ using Microsoft.Xna.Framework.Input;
 namespace GameEngine.Handlers
 {
 
-    public class PacmanInputHandler : IMoving
+    public class PacmanInputHandler : IMovable
     {
         private PacMan pacman;
         private Direction currentDir;

@@ -1,4 +1,5 @@
 ﻿using GameEngine.Globals;
+using GameEngine.Interfaces;
 using GameEngine.Models;
 using GameEngine.Models.LevelObjects;
 using GameEngine.Models.LevelObjects.Ghosts;
@@ -9,7 +10,7 @@ using System.Collections.Generic;
 
 namespace GameEngine.Handlers
 {
-    class ClydeGoodRandomMovement : IMoving
+    class ClydeGoodRandomMovement : IMovable
     {
         private Ghost clyde;
         private Direction currentDir;
