@@ -203,6 +203,77 @@ namespace GameEngine.Handlers
             return false;
         }
 
+        private void TurnBackImmediatelyIfSeePackman()
+        {
+            switch (currentDir)
+            {
+                case Direction.Up:
+                    if (inky.QuadrantX == pacman.QuadrantX)
+                    {
+                        int distanceToSee = 1;
+                        while (inky.QuadrantY + distanceToSee <= Global.YMax - 1
+                            && obstacles[inky.QuadrantY + distanceToSee, inky.QuadrantX] != true)
+                        {
+                            if (inky.QuadrantY + distanceToSee == pacman.QuadrantY)
+                            {
+                                this.currentDir = Direction.Down;
+                                return;
+                            }
+                            distanceToSee++;
+                        }
+                    }
+                    break;
+                case Direction.Down:
+                    if (inky.QuadrantX == pacman.QuadrantX)
+                    {
+                        int distanceToSee = 1;
+                        while (inky.QuadrantY - distanceToSee >= 0
+                            && obstacles[inky.QuadrantY - distanceToSee, inky.QuadrantX] != true)
+                        {
+                            if (inky.QuadrantY - distanceToSee == pacman.QuadrantY)
+                            {
+                                this.currentDir = Direction.Up;
+                                return;
+                            }
+                            distanceToSee++;
+                        }
+                    }
+                    break;
+                case Direction.Left:
+                    if (inky.QuadrantY == pacman.QuadrantY)
+                    {
+                        int distanceToSee = 1;
+                        while (inky.QuadrantX + distanceToSee <= Global.XMax - 1
+                            && obstacles[inky.QuadrantY, inky.QuadrantX + distanceToSee] != true)
+                        {
+                            if (inky.QuadrantX + distanceToSee == pacman.QuadrantX)
+                            {
+                                this.currentDir = Direction.Right;
+                                return;
+                            }
+                            distanceToSee++;
+                        }
+                    }
+                    break;
+                case Direction.Right:
+                    if (inky.QuadrantY == pacman.QuadrantY)
+                    {
+                        int distanceToSee = 1;
+                        while (inky.QuadrantX - distanceToSee >= 0
+                            && obstacles[inky.QuadrantY, inky.QuadrantX - distanceToSee] != true)
+                        {
+                            if (inky.QuadrantX - distanceToSee == pacman.QuadrantX)
+                            {
+                                this.currentDir = Direction.Left;
+                                return;
+                            }
+                            distanceToSee++;
+                        }
+                    }
+                    break;
+            }
+        }
+
         private void ChooseRandomDirection()
         {
             if (this.possibleDirections.Count == 1)
@@ -277,6 +348,8 @@ namespace GameEngine.Handlers
             {
                 CalculateDirection();
             }
+
+            TurnBackImmediatelyIfSeePackman();
 
             Vector2 nextPointToMove = new Vector2();
             switch (this.currentDir)
