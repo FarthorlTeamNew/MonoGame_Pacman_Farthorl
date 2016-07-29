@@ -1,5 +1,6 @@
 ﻿using GameEngine.Globals;
 using GameEngine.Interfaces;
+using GameEngine.Models;
 using GameEngine.Models.LevelObjects;
 using Microsoft.Xna.Framework;
 using System;
@@ -13,6 +14,7 @@ namespace GameEngine.Handlers
     class PinkyHuntingRandomMovement : IMovable
     {
         private Ghost pinky;
+        private PacMan pacman;
         private Direction currentDir;
         private Direction desiredDir;
         private bool[,] obstacles;
@@ -20,8 +22,9 @@ namespace GameEngine.Handlers
         private Random random;
         List<Direction> possibleDirections;
 
-        public PinkyHuntingRandomMovement(Ghost pinky, Matrix levelMatrix)
+        public PinkyHuntingRandomMovement(Ghost pinky, Matrix levelMatrix, PacMan pacman)
         {
+            this.pacman = pacman;
             this.pinky = pinky;
             currentDir = Direction.Right;
             desiredDir = Direction.None;
@@ -41,13 +44,18 @@ namespace GameEngine.Handlers
 
         public void Reset()
         {
-            //currentDir = Direction.None;
+            currentDir = Direction.Right;
             desiredDir = Direction.None;
         }
 
         private void CalculateDirection()
         {
             this.possibleDirections.Clear();
+
+            if (SeePackman())
+            {
+                return;
+            }
             // checks if ghost is can randomize direction if not going back
             // preferred left, right, front
             if (currentDir == Direction.Up)
@@ -69,7 +77,6 @@ namespace GameEngine.Handlers
                     currentDir = Direction.Down;
                     return;
                 }
-                ChooseRandomDirection();
             }
             else if (currentDir == Direction.Down)
             {
@@ -90,7 +97,6 @@ namespace GameEngine.Handlers
                     currentDir = Direction.Up;
                     return;
                 }
-                ChooseRandomDirection();
             }
             else if (currentDir == Direction.Left)
             {
@@ -111,8 +117,6 @@ namespace GameEngine.Handlers
                     currentDir = Direction.Right;
                     return;
                 }
-
-                ChooseRandomDirection();
             }
             else if (currentDir == Direction.Right)
             {
@@ -133,9 +137,70 @@ namespace GameEngine.Handlers
                     currentDir = Direction.Left;
                     return;
                 }
-
-                ChooseRandomDirection();
             }
+
+            ChooseRandomDirection();
+        }
+
+        private bool SeePackman()
+        {
+            // watch left and right
+            if (pinky.QuadrantY == pacman.QuadrantY)
+            {
+                int distanceToSee = 1;
+                while (pinky.QuadrantX - distanceToSee >= 0
+                    && obstacles[pinky.QuadrantY, pinky.QuadrantX - distanceToSee] != true)
+                {
+                    if (pinky.QuadrantX - distanceToSee == pacman.QuadrantX)
+                    {
+                        this.currentDir = Direction.Left;
+                        return true;
+                    }
+                    distanceToSee++;
+                }
+
+                distanceToSee = 1;
+                while (pinky.QuadrantX + distanceToSee <= Global.XMax - 1
+                    && obstacles[pinky.QuadrantY, pinky.QuadrantX + distanceToSee] != true)
+                {
+                    if (pinky.QuadrantX + distanceToSee == pacman.QuadrantX)
+                    {
+                        this.currentDir = Direction.Right;
+                        return true;
+                    }
+                    distanceToSee++;
+                }
+            }
+
+            // watch up and down
+            if (pinky.QuadrantX == pacman.QuadrantX)
+            {
+                int distanceToSee = 1;
+                while (pinky.QuadrantY - distanceToSee >= 0
+                    && obstacles[pinky.QuadrantY - distanceToSee, pinky.QuadrantX] != true)
+                {
+                    if (pinky.QuadrantY - distanceToSee == pacman.QuadrantY)
+                    {
+                        this.currentDir = Direction.Up;
+                        return true;
+                    }
+                    distanceToSee++;
+                }
+
+                distanceToSee = 1;
+                while (pinky.QuadrantY + distanceToSee <= Global.YMax - 1
+                    && obstacles[pinky.QuadrantY + distanceToSee, pinky.QuadrantX] != true)
+                {
+                    if (pinky.QuadrantY + distanceToSee == pacman.QuadrantY)
+                    {
+                        this.currentDir = Direction.Down;
+                        return true;
+                    }
+                    distanceToSee++;
+                }
+            }
+
+            return false;
         }
 
         private void ChooseRandomDirection()

@@ -38,7 +38,7 @@ namespace GameEngine.Handlers
 
         public void Reset()
         {
-            //currentDir = Direction.None;
+            currentDir = Direction.Right;
             desiredDir = Direction.None;
         }
 

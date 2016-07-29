@@ -99,8 +99,8 @@ namespace GameEngine
             this.movableObjects.Add(new PacmanInputHandler(this.pacMan, levelMatrix));
             this.movableObjects.Add(new BlinkyWeakRandomMovement(this.blinky, levelMatrix));
             this.movableObjects.Add(new ClydeGoodRandomMovement(this.clyde, levelMatrix));
-            this.movableObjects.Add(new InkyHuntingRandomMovement(this.inky, levelMatrix));
-            this.movableObjects.Add(new PinkyHuntingRandomMovement(this.pinky, levelMatrix));
+            this.movableObjects.Add(new InkyHuntingRandomMovement(this.inky, levelMatrix, pacMan));
+            this.movableObjects.Add(new PinkyHuntingRandomMovement(this.pinky, levelMatrix, pacMan));
 
             //this.blinkyRandomMovement = new BlinkyRandomMovement(this.blinky, levelMatrix);
             //this.clydeRandomMovement = new ClydeRandomMovement(this.clyde, levelMatrix);
