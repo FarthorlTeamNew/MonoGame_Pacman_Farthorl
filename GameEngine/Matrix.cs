@@ -74,12 +74,7 @@ namespace GameEngine
 
             foreach (var fruit in fruits)
             {
-                string[] placeAvailable = AvailableXY().Split();
-                int placeFruitX = int.Parse(placeAvailable[0]);
-                int placeFruitY = int.Parse(placeAvailable[1]);
-                fruit.X = placeFruitX * Global.quad_Width;
-                fruit.Y = placeFruitY * Global.quad_Height;
-                fruit.UpdateBoundingBox();
+                PlaceOnRandomXY(fruit);
             }
 
             for (int i = 0; i < 4; i++)
@@ -89,13 +84,18 @@ namespace GameEngine
 
             foreach (var killer in ghostKillers)
             {
-                string[] placeAvailable = AvailableXY().Split();
-                int placeKillerX = int.Parse(placeAvailable[0]);
-                int placeKillerY = int.Parse(placeAvailable[1]);
-                killer.X = placeKillerX * Global.quad_Width;
-                killer.Y = placeKillerY * Global.quad_Height;
-                killer.UpdateBoundingBox();
+                PlaceOnRandomXY(killer);
             }
+        }
+
+        private void PlaceOnRandomXY(GameObject fruit)
+        {
+            string[] placeAvailable = AvailableXY().Split();
+            int placeFruitX = int.Parse(placeAvailable[0]);
+            int placeFruitY = int.Parse(placeAvailable[1]);
+            fruit.X = placeFruitX*Global.quad_Width;
+            fruit.Y = placeFruitY*Global.quad_Height;
+            fruit.UpdateBoundingBox();
         }
 
         private string AvailableXY()
