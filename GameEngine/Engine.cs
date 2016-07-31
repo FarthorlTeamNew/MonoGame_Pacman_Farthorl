@@ -104,8 +104,7 @@ namespace GameEngine
 
             //this.blinkyRandomMovement = new BlinkyRandomMovement(this.blinky, levelMatrix);
             //this.clydeRandomMovement = new ClydeRandomMovement(this.clyde, levelMatrix);
-            Fruit.InitializeFruits(GraphicsDevice, levelMatrix);
-            this.fruitList.AddRange(Fruit.GetFruitList());
+            this.fruitList.AddRange(levelMatrix.GetFruitList());
             this.levelMatrix.RemovePoints(fruitList);
             sound.Begin();
             // TODO: use this.Content to load your game content here
@@ -163,7 +162,7 @@ namespace GameEngine
                         //this.blinkyAnimator.UpdateAnimation(gameTime, blinkyMovement);
                         //this.clydeAnimator.UpdateAnimation(gameTime, clydeMovement);
                         levelMatrix.Update(pacMan);
-                        Fruit.CheckCollisions(pacMan);
+                        levelMatrix.CheckCollisions(pacMan);
                     }
                     else   // Wining Condition
                     {
@@ -206,7 +205,6 @@ namespace GameEngine
                     if (this.pacMan.Health > 0)
                     {
                         this.levelMatrix.Draw(this.spriteBatch);
-                        Fruit.Draw(this.spriteBatch, pacMan);
 
                         foreach (var obj in animationObjects)
                         {
@@ -257,9 +255,8 @@ namespace GameEngine
 
             this.levelMatrix = new Matrix();
             this.levelMatrix.InitializeMatrix(this.GraphicsDevice);
-            Fruit.InitializeFruits(GraphicsDevice, levelMatrix);
             this.fruitList.Clear();
-            this.fruitList.AddRange(Fruit.GetFruitList());
+            this.fruitList.AddRange(levelMatrix.GetFruitList());
             this.levelMatrix.RemovePoints(fruitList);
             //Fruit.Draw(this.spriteBatch, pacMan);
         }

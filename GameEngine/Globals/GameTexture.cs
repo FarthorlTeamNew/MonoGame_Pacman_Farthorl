@@ -21,14 +21,14 @@ namespace GameEngine.Globals
         public static Texture2D brick;
         public static Texture2D point;
         public static Texture2D ghostKiller;
-
-
+        public static Texture2D[] fruitArray;
 
         public static void LoadTextures(Game game)
         {
             mainMenu = game.Content.Load<Texture2D>("MenuImages/MainMenu");
             playButton = game.Content.Load<Texture2D>("MenuImages/PlayGame");
             exitButton = game.Content.Load<Texture2D>("MenuImages/Exit");
+
             apple = game.Content.Load<Texture2D>("FruitImages/Apple");
             banana = game.Content.Load<Texture2D>("FruitImages/Banana");
             brezel = game.Content.Load<Texture2D>("FruitImages/Brezel");
@@ -36,11 +36,12 @@ namespace GameEngine.Globals
             peach = game.Content.Load<Texture2D>("FruitImages/Peach");
             pear = game.Content.Load<Texture2D>("FruitImages/Pear");
             strawberry = game.Content.Load<Texture2D>("FruitImages/Strawberry");
+            fruitArray = new Texture2D[] { apple, banana, brezel, cherry, peach, pear, strawberry };
+
             pacmanAndGhost = game.Content.Load<Texture2D>("PacManSprite_sheets");
             brick = game.Content.Load<Texture2D>("brick.png");
             point = game.Content.Load<Texture2D>("Point");
             ghostKiller = game.Content.Load<Texture2D>("GhostKiller");
-
         }
     }
 }

@@ -47,6 +47,7 @@
     <Compile Include="Animators\GhostAnimators\InkyAnimator.cs" />
     <Compile Include="Animators\GhostAnimators\PinkyAnimator.cs" />
     <Compile Include="Animators\PacmanAnimator.cs" />
+    <Compile Include="Factories\FruitFactory.cs" />
     <Compile Include="Globals\Global.cs" />
     <Compile Include="Handlers\ClydeGoodRandomMovement.cs" />
     <Compile Include="Handlers\BlinkyWeakRandomMovement.cs" />

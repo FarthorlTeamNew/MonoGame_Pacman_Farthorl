@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using GameEngine.Factories;
 using GameEngine.Models;
 
 namespace GameEngine
@@ -17,11 +18,15 @@ namespace GameEngine
         
         private readonly List<Wall> bricksList;
         private readonly List<PointObj> pointsList;
+        private List<Fruit> fruits;
+        private List<GhostKiller> ghostKillers;
 
         public Matrix()
         {
             bricksList = new List<Wall>();
             pointsList = new List<PointObj>();
+            fruits = new List<Fruit>();
+            ghostKillers = new List<GhostKiller>();
         }
 
         public int LeftPoints
@@ -53,6 +58,76 @@ namespace GameEngine
                     }
                 }
             }
+            this.LoadFruit();
+        }
+
+        public void LoadFruit()
+        {
+            Texture2D[] fruitTextures = GameTexture.fruitArray;
+            FruitFactory factory = new FruitFactory();
+            foreach (var fruitTexture in fruitTextures)
+            {
+                Fruit fruit = factory.CreateFruit(fruitTexture);
+                fruits.Add(fruit);
+            }
+
+            foreach (var fruit in fruits)
+            {
+                string[] placeAvailable = AvailableXY().Split();
+                int placeFruitX = int.Parse(placeAvailable[0]);
+                int placeFruitY = int.Parse(placeAvailable[1]);
+                fruit.X = placeFruitX * Global.quad_Width;
+                fruit.Y = placeFruitY * Global.quad_Height;
+                fruit.UpdateBoundingBox();
+            }
+
+            for (int i = 0; i < 4; i++)
+            {
+                ghostKillers.Add(new GhostKiller(GameTexture.ghostKiller, 0, 0, new Rectangle(0, 0, 32, 32)));
+            }
+
+            foreach (var killer in ghostKillers)
+            {
+                string[] placeAvailable = AvailableXY().Split();
+                int placeKillerX = int.Parse(placeAvailable[0]);
+                int placeKillerY = int.Parse(placeAvailable[1]);
+                killer.X = placeKillerX * Global.quad_Width;
+                killer.Y = placeKillerY * Global.quad_Height;
+                killer.UpdateBoundingBox();
+            }
+        }
+
+        private string AvailableXY()
+        {
+            while (true)
+            {
+                int tryX = new Random(DateTime.Now.Millisecond).Next(1, Global.XMax - 1);
+                int tryY = new Random(DateTime.Now.Millisecond).Next(1, Global.YMax - 1);
+                var elements = PathsMatrix[tryY, tryX].Trim().Split(',');
+                int placeAvailable = int.Parse(elements[1]);
+                if (placeAvailable == 1)
+                {
+                    PathsMatrix[tryY, tryX] = "0,0";
+                    return $"{tryX} {tryY}";
+                }
+            }
+        }
+
+        public List<LevelObject> GetFruitList()
+        {
+            List<LevelObject> combinedList = new List<LevelObject>();
+            combinedList.AddRange(fruits);
+            combinedList.AddRange(ghostKillers);
+            return combinedList;
+        }
+
+        public void CheckCollisions(PacMan pacman)
+        {
+            fruits.FirstOrDefault(x => x.IsColliding(pacman))?.ReactOnCollision(pacman);
+            fruits.Remove(fruits.FirstOrDefault(x => x.IsColliding(pacman)));
+
+            ghostKillers.FirstOrDefault(x => x.IsColliding(pacman))?.ReactOnCollision(pacman);
+            ghostKillers.Remove(ghostKillers.FirstOrDefault(x => x.IsColliding(pacman)));
         }
 
         public void RemovePoints(List<LevelObject> fruitList)
@@ -80,8 +155,19 @@ namespace GameEngine
             foreach (var point in pointsList)
             {
                 spriteBatch.Draw(point.Texture, point.BoundingBox, Color.White);
-            }           
+            }
+            foreach (var fruit in fruits)
+            {
+                spriteBatch.Draw(fruit.Texture, fruit.BoundingBox, Color.White);
+            }
+
+            foreach (var ghostKiller in ghostKillers)
+            {
+                spriteBatch.Draw(ghostKiller.Texture, ghostKiller.BoundingBox, Color.White);
+            }
         }
+
+
         private string[,] GetMatrixValues()
         {
             try
