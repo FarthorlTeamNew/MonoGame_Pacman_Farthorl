@@ -1,54 +1,30 @@
-﻿using GameEngine.Globals;
-using GameEngine.Interfaces;
-using GameEngine.Models;
-using GameEngine.Models.LevelObjects;
-using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Xna.Framework;
 
 namespace GameEngine.Handlers
 {
-    class InkyHuntingRandomMovement : IMovable
+    using Globals;
+    using Interfaces;
+    using Models;
+    using Models.LevelObjects;
+    using System;
+    using System.Collections.Generic;
+
+    class GhostHuntingRandomMovement : ObjectMover, IMovable
     {
-        private Ghost inky;
         private PacMan pacman;
-        private Direction currentDir;
-        private Direction desiredDir;
-        private bool[,] obstacles;
-        private static int pixelMoved = Global.DefaultGhostSpeed; //inicialize how many pixels will move per iteration
         private Random random;
         List<Direction> possibleDirections;
 
-        public InkyHuntingRandomMovement(Ghost inky, Matrix levelMatrix, PacMan pacman)
+        public GhostHuntingRandomMovement(Ghost gameObject, Matrix levelMatrix, PacMan pacman)
+            :base(gameObject, levelMatrix)
         {
             this.pacman = pacman;
-            this.inky = inky;
-            currentDir = Direction.Right;
-            desiredDir = Direction.None;
-            obstacles = new bool[Global.YMax, Global.XMax];
             random = new Random(DateTime.Now.Millisecond);
             possibleDirections = new List<Direction>();
-
-            for (int i = 0; i < Global.YMax; i++)
-            {
-                for (int j = 0; j < Global.XMax; j++)
-                {
-                    string obstical = levelMatrix.PathsMatrix[i, j].Trim().Split(',')[0];
-                    obstacles[i, j] = obstical == "1";
-                }
-            }
+            pixelMoved = Global.DefaultGhostSpeed;
         }
 
-        public void Reset()
-        {
-            currentDir = Direction.Right;
-            desiredDir = Direction.None;
-        }
-
-        private void CalculateDirection()
+        protected override void CalculateDirection()
         {
             this.possibleDirections.Clear();
 
@@ -145,13 +121,13 @@ namespace GameEngine.Handlers
         private bool SeePackman()
         {
             // watch left and right
-            if(inky.QuadrantY == pacman.QuadrantY)
+            if(gameObject.QuadrantY == pacman.QuadrantY)
             {
                 int distanceToSee = 1;
-                while (inky.QuadrantX - distanceToSee >= 0 
-                    && obstacles[inky.QuadrantY, inky.QuadrantX - distanceToSee] != true)
+                while (gameObject.QuadrantX - distanceToSee >= 0 
+                    && obstacles[gameObject.QuadrantY, gameObject.QuadrantX - distanceToSee] != true)
                 {
-                    if (inky.QuadrantX - distanceToSee == pacman.QuadrantX)
+                    if (gameObject.QuadrantX - distanceToSee == pacman.QuadrantX)
                     {
                         this.currentDir = Direction.Left;
                         return true;
@@ -160,10 +136,10 @@ namespace GameEngine.Handlers
                 }
 
                 distanceToSee = 1;
-                while (inky.QuadrantX + distanceToSee <= Global.XMax - 1
-                    && obstacles[inky.QuadrantY, inky.QuadrantX + distanceToSee] != true)
+                while (gameObject.QuadrantX + distanceToSee <= Global.XMax - 1
+                    && obstacles[gameObject.QuadrantY, gameObject.QuadrantX + distanceToSee] != true)
                 {
-                    if (inky.QuadrantX + distanceToSee == pacman.QuadrantX)
+                    if (gameObject.QuadrantX + distanceToSee == pacman.QuadrantX)
                     {
                         this.currentDir = Direction.Right;
                         return true;
@@ -173,13 +149,13 @@ namespace GameEngine.Handlers
             }
 
             // watch up and down
-            if (inky.QuadrantX == pacman.QuadrantX)
+            if (gameObject.QuadrantX == pacman.QuadrantX)
             {
                 int distanceToSee = 1;
-                while (inky.QuadrantY - distanceToSee >= 0
-                    && obstacles[inky.QuadrantY - distanceToSee, inky.QuadrantX] != true)
+                while (gameObject.QuadrantY - distanceToSee >= 0
+                    && obstacles[gameObject.QuadrantY - distanceToSee, gameObject.QuadrantX] != true)
                 {
-                    if (inky.QuadrantY - distanceToSee == pacman.QuadrantY)
+                    if (gameObject.QuadrantY - distanceToSee == pacman.QuadrantY)
                     {
                         this.currentDir = Direction.Up;
                         return true;
@@ -188,10 +164,10 @@ namespace GameEngine.Handlers
                 }
 
                 distanceToSee = 1;
-                while (inky.QuadrantY + distanceToSee <= Global.YMax - 1
-                    && obstacles[inky.QuadrantY + distanceToSee, inky.QuadrantX] != true)
+                while (gameObject.QuadrantY + distanceToSee <= Global.YMax - 1
+                    && obstacles[gameObject.QuadrantY + distanceToSee, gameObject.QuadrantX] != true)
                 {
-                    if (inky.QuadrantY + distanceToSee == pacman.QuadrantY)
+                    if (gameObject.QuadrantY + distanceToSee == pacman.QuadrantY)
                     {
                         this.currentDir = Direction.Down;
                         return true;
@@ -208,13 +184,13 @@ namespace GameEngine.Handlers
             switch (currentDir)
             {
                 case Direction.Up:
-                    if (inky.QuadrantX == pacman.QuadrantX)
+                    if (gameObject.QuadrantX == pacman.QuadrantX)
                     {
                         int distanceToSee = 1;
-                        while (inky.QuadrantY + distanceToSee <= Global.YMax - 1
-                            && obstacles[inky.QuadrantY + distanceToSee, inky.QuadrantX] != true)
+                        while (gameObject.QuadrantY + distanceToSee <= Global.YMax - 1
+                            && obstacles[gameObject.QuadrantY + distanceToSee, gameObject.QuadrantX] != true)
                         {
-                            if (inky.QuadrantY + distanceToSee == pacman.QuadrantY)
+                            if (gameObject.QuadrantY + distanceToSee == pacman.QuadrantY)
                             {
                                 this.currentDir = Direction.Down;
                                 return;
@@ -224,13 +200,13 @@ namespace GameEngine.Handlers
                     }
                     break;
                 case Direction.Down:
-                    if (inky.QuadrantX == pacman.QuadrantX)
+                    if (gameObject.QuadrantX == pacman.QuadrantX)
                     {
                         int distanceToSee = 1;
-                        while (inky.QuadrantY - distanceToSee >= 0
-                            && obstacles[inky.QuadrantY - distanceToSee, inky.QuadrantX] != true)
+                        while (gameObject.QuadrantY - distanceToSee >= 0
+                            && obstacles[gameObject.QuadrantY - distanceToSee, gameObject.QuadrantX] != true)
                         {
-                            if (inky.QuadrantY - distanceToSee == pacman.QuadrantY)
+                            if (gameObject.QuadrantY - distanceToSee == pacman.QuadrantY)
                             {
                                 this.currentDir = Direction.Up;
                                 return;
@@ -240,13 +216,13 @@ namespace GameEngine.Handlers
                     }
                     break;
                 case Direction.Left:
-                    if (inky.QuadrantY == pacman.QuadrantY)
+                    if (gameObject.QuadrantY == pacman.QuadrantY)
                     {
                         int distanceToSee = 1;
-                        while (inky.QuadrantX + distanceToSee <= Global.XMax - 1
-                            && obstacles[inky.QuadrantY, inky.QuadrantX + distanceToSee] != true)
+                        while (gameObject.QuadrantX + distanceToSee <= Global.XMax - 1
+                            && obstacles[gameObject.QuadrantY, gameObject.QuadrantX + distanceToSee] != true)
                         {
-                            if (inky.QuadrantX + distanceToSee == pacman.QuadrantX)
+                            if (gameObject.QuadrantX + distanceToSee == pacman.QuadrantX)
                             {
                                 this.currentDir = Direction.Right;
                                 return;
@@ -256,13 +232,13 @@ namespace GameEngine.Handlers
                     }
                     break;
                 case Direction.Right:
-                    if (inky.QuadrantY == pacman.QuadrantY)
+                    if (gameObject.QuadrantY == pacman.QuadrantY)
                     {
                         int distanceToSee = 1;
-                        while (inky.QuadrantX - distanceToSee >= 0
-                            && obstacles[inky.QuadrantY, inky.QuadrantX - distanceToSee] != true)
+                        while (gameObject.QuadrantX - distanceToSee >= 0
+                            && obstacles[gameObject.QuadrantY, gameObject.QuadrantX - distanceToSee] != true)
                         {
-                            if (inky.QuadrantX - distanceToSee == pacman.QuadrantX)
+                            if (gameObject.QuadrantX - distanceToSee == pacman.QuadrantX)
                             {
                                 this.currentDir = Direction.Left;
                                 return;
@@ -287,64 +263,9 @@ namespace GameEngine.Handlers
             }
         }
 
-        private bool IsMovingLeftPossible()
+        protected override Vector2 GetNextPointToMove()
         {
-            if (inky.QuadrantX > 0
-               && obstacles[inky.QuadrantY, inky.QuadrantX - 1] == false)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        private bool IsMovingRightPossible()
-        {
-            if (inky.QuadrantX < Global.XMax - 1
-               && obstacles[inky.QuadrantY, inky.QuadrantX + 1] == false)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        private bool IsMovingUpPossible()
-        {
-            if (inky.QuadrantY > 0
-               && obstacles[inky.QuadrantY - 1, inky.QuadrantX] == false)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        private bool IsMovingDownPossible()
-        {
-            if (inky.QuadrantY < Global.YMax - 1
-               && obstacles[inky.QuadrantY + 1, inky.QuadrantX] == false)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        private bool IsReadyToChangeGhostQuadrant()
-        {
-            if (inky.X % Global.quad_Width == 0
-                && inky.Y % Global.quad_Height == 0)
-            {
-                inky.QuadrantX = (int)inky.X / 32;
-                inky.QuadrantY = (int)inky.Y / 32;
-                return true;
-            }
-
-            return false;
-        }
-
-        private Vector2 GetNextMovementPoint()
-        {
-            //GetInput(); // listens for key pressed
-
-            if (IsReadyToChangeGhostQuadrant())
+            if (IsReadyToChangeQuadrant())
             {
                 CalculateDirection();
             }
@@ -356,18 +277,18 @@ namespace GameEngine.Handlers
             {
                 case Direction.Up:
                     nextPointToMove.X = 0;
-                    nextPointToMove.Y = 0 - InkyHuntingRandomMovement.pixelMoved;
+                    nextPointToMove.Y = 0 - base.pixelMoved;
                     break;
                 case Direction.Down:
                     nextPointToMove.X = 0;
-                    nextPointToMove.Y = InkyHuntingRandomMovement.pixelMoved;
+                    nextPointToMove.Y = base.pixelMoved;
                     break;
                 case Direction.Left:
-                    nextPointToMove.X = 0 - InkyHuntingRandomMovement.pixelMoved;
+                    nextPointToMove.X = 0 - base.pixelMoved;
                     nextPointToMove.Y = 0;
                     break;
                 case Direction.Right:
-                    nextPointToMove.X = InkyHuntingRandomMovement.pixelMoved;
+                    nextPointToMove.X = base.pixelMoved;
                     nextPointToMove.Y = 0;
                     break;
                 case Direction.None:
@@ -375,17 +296,6 @@ namespace GameEngine.Handlers
                     nextPointToMove.Y = 0;
                     break;
             }
-
-            return nextPointToMove;
-        }
-
-        public Vector2 Move(GameTime gameTime)
-        {
-            var nextPointToMove = this.GetNextMovementPoint();
-
-            this.inky.X += nextPointToMove.X /** (float)gameTime.ElapsedGameTime.TotalSeconds*/;
-            this.inky.Y += nextPointToMove.Y /** (float)gameTime.ElapsedGameTime.TotalSeconds*/;
-            this.inky.UpdateBoundingBox();
 
             return nextPointToMove;
         }

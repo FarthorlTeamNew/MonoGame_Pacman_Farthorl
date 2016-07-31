@@ -49,11 +49,11 @@
     <Compile Include="Animators\PacmanAnimator.cs" />
     <Compile Include="Factories\FruitFactory.cs" />
     <Compile Include="Globals\Global.cs" />
-    <Compile Include="Handlers\ClydeGoodRandomMovement.cs" />
-    <Compile Include="Handlers\BlinkyWeakRandomMovement.cs" />
+    <Compile Include="Handlers\GhostGoodRandomMovement.cs" />
+    <Compile Include="Handlers\GhostWeakRandomMovement.cs" />
     <Compile Include="Handlers\Direction.cs" />
-    <Compile Include="Handlers\PinkyHuntingRandomMovement.cs" />
-    <Compile Include="Handlers\InkyHuntingRandomMovement.cs" />
+    <Compile Include="Handlers\ObjectMover.cs" />
+    <Compile Include="Handlers\GhostHuntingRandomMovement.cs" />
     <Compile Include="Handlers\KeyPress.cs" />
     <Compile Include="Handlers\PacmanInputHandler.cs" />
     <Compile Include="ExtractAllLevels.cs" />

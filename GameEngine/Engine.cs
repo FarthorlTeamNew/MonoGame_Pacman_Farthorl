@@ -1,28 +1,25 @@
-﻿using System;
-using GameEngine.Animators;
-using GameEngine.Globals;
-using GameEngine.Handlers;
-using GameEngine.Models.LevelObjects;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using System.Collections.Generic;
-using GameEngine.Menu;
-using GameEngine.Models;
-using GameEngine.Animators.GhostAnimators;
-using GameEngine.Models.LevelObjects.Ghosts;
-using GameEngine.Interfaces;
-
-namespace GameEngine
+﻿namespace GameEngine
 {
+    using System;
+    using Animators;
+    using Globals;
+    using Handlers;
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+    using Microsoft.Xna.Framework.Input;
+    using System.Collections.Generic;
+    using Menu;
+    using Models;
+    using Animators.GhostAnimators;
+    using Models.LevelObjects.Ghosts;
+    using Interfaces;
+
     public class Engine : Game
     {
         public static Sound sound;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         private SpriteFont spriteFont;
-        //private PacmanAnimator pacmanAnimator;
-        //private PacmanInputHandler pacmanInputHandler;
         private PacMan pacMan;
         private Blinky blinky;
         private Clyde clyde;
@@ -30,10 +27,6 @@ namespace GameEngine
         private Pinky pinky;
         private List<Animator> animationObjects;
         private List<IMovable> movableObjects;
-        //private BlinkyAnimator blinkyAnimator;
-        //private BlinkyRandomMovement blinkyRandomMovement;
-        //private ClydeAnimator clydeAnimator;
-        //private ClydeRandomMovement clydeRandomMovement;
         private Matrix levelMatrix;
         private KeyPress keyPress;
         private KeyboardState oldState;
@@ -66,10 +59,7 @@ namespace GameEngine
             this.animationObjects.Add(new ClydeAnimator(this.clyde));
             this.animationObjects.Add(new InkyAnimator(this.inky));
             this.animationObjects.Add(new PinkyAnimator(this.pinky));
-
-            //this.pacmanAnimator = new PacmanAnimator(this.pacMan);
-            //this.blinkyAnimator = new BlinkyAnimator(this.blinky);
-            //this.clydeAnimator = new ClydeAnimator(this.clyde);
+            
             this.graphics.PreferredBackBufferWidth = Global.GLOBAL_WIDTH;
             this.graphics.PreferredBackBufferHeight = Global.GLOBAL_HEIGHT;
             this.levelMatrix = new Matrix();
@@ -84,7 +74,6 @@ namespace GameEngine
 
         protected override void LoadContent()
         {
-            sound = new Sound(this);
             this.spriteBatch = new SpriteBatch(GraphicsDevice);
             this.IsMouseVisible = true;
             this.butPlay = new CButton(GameTexture.playButton, this.graphics.GraphicsDevice);
@@ -92,16 +81,14 @@ namespace GameEngine
             this.butExit = new CButton(GameTexture.exitButton, this.graphics.GraphicsDevice);
             this.butExit.SetPosition(new Vector2(300, 200));
             this.levelMatrix.InitializeMatrix(this.GraphicsDevice);
-            //this.pacmanInputHandler = new PacmanInputHandler(this.pacMan, levelMatrix);
 
             this.movableObjects.Add(new PacmanInputHandler(this.pacMan, levelMatrix));
-            this.movableObjects.Add(new BlinkyWeakRandomMovement(this.blinky, levelMatrix));
-            this.movableObjects.Add(new ClydeGoodRandomMovement(this.clyde, levelMatrix));
-            this.movableObjects.Add(new InkyHuntingRandomMovement(this.inky, levelMatrix, pacMan));
-            this.movableObjects.Add(new PinkyHuntingRandomMovement(this.pinky, levelMatrix, pacMan));
+            this.movableObjects.Add(new GhostWeakRandomMovement(this.blinky, levelMatrix));
+            this.movableObjects.Add(new GhostGoodRandomMovement(this.clyde, levelMatrix));
+            this.movableObjects.Add(new GhostHuntingRandomMovement(this.inky, levelMatrix, pacMan));
+            this.movableObjects.Add(new GhostHuntingRandomMovement(this.pinky, levelMatrix, pacMan));
 
-            //this.blinkyRandomMovement = new BlinkyRandomMovement(this.blinky, levelMatrix);
-            //this.clydeRandomMovement = new ClydeRandomMovement(this.clyde, levelMatrix);
+            sound = new Sound(this);
             sound.Begin();
             // TODO: use this.Content to load your game content here
         }
@@ -151,12 +138,6 @@ namespace GameEngine
                             var movedToPoint = movableObjects[i].Move(gameTime);
                             animationObjects[i].UpdateAnimation(gameTime, movedToPoint);
                         }
-                        //var pacmanMovement = this.pacmanInputHandler.Move(gameTime);
-                        //var blinkyMovement = this.blinkyRandomMovement.Move(gameTime);
-                        //var clydeMovement = this.clydeRandomMovement.Move(gameTime);
-                        //this.pacmanAnimator.UpdateAnimation(gameTime, pacmanMovement);
-                        //this.blinkyAnimator.UpdateAnimation(gameTime, blinkyMovement);
-                        //this.clydeAnimator.UpdateAnimation(gameTime, clydeMovement);
                         levelMatrix.Update(pacMan);
                     }
                     else   // Wining Condition
@@ -205,14 +186,10 @@ namespace GameEngine
                         {
                             obj.Draw(this.spriteBatch);
                         }
-                        //this.pacmanAnimator.Draw(this.spriteBatch);
-                        //this.blinkyAnimator.Draw(this.spriteBatch);
-                        //this.clydeAnimator.Draw(this.spriteBatch);
 
                         if (this.levelMatrix.LeftPoints == 0 || blinky.IsColliding(pacMan) || clyde.IsColliding(pacMan)
                             || inky.IsColliding(pacMan) || pinky.IsColliding(pacMan)) 
                         {
-                            //blinky.ReactOnCollision(pacMan);
                             var texture = Content.Load<Texture2D>("PacManWin_image");
                             this.spriteBatch.Draw(texture, new Vector2(250, 100));
                             isLevelCompleated = true;
@@ -232,22 +209,14 @@ namespace GameEngine
         private void Reset()
         {
             isLevelCompleated = false;
-            //this.pacMan.X = 0;
-            //this.pacMan.Y = 0;
             this.pacMan.Scores = 0;
             this.pacMan.Health = 50;
-            //this.pacmanAnimator.CurrentDirection = Direction.Right;
-            //this.pacmanInputHandler.Reset();
             for (int i = 0; i < movableObjects.Count; i++)
             {
                 movableObjects[i].Reset();
                 animationObjects[i].Reset();
             }
-
-            // TODO Restart ghost
-            //this.blinkyAnimator.CurrentDirection = Direction.Right;
-            //this.clydeAnimator.CurrentDirection = Direction.Right;
-
+            
             this.levelMatrix = new Matrix();
             this.levelMatrix.InitializeMatrix(this.GraphicsDevice);
         }

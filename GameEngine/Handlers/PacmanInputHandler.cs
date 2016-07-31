@@ -1,38 +1,24 @@
-﻿using GameEngine.Globals;
-using GameEngine.Interfaces;
-using GameEngine.Models;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework;
 
 namespace GameEngine.Handlers
 {
+    using Microsoft.Xna.Framework.Input;
+    using Globals;
+    using Interfaces;
+    using Models;
 
-    public class PacmanInputHandler : IMovable
+    public class PacmanInputHandler : ObjectMover, IMovable
     {
-        private PacMan pacman;
-        private Direction currentDir;
         private Direction desiredDir;
-        private bool[,] obstacles;
-        private static int pixelMoved = Global.PacmanSpeed; //inicialize how many pixels will move PacMan per iteration
 
         public PacmanInputHandler(PacMan pacMan, Matrix levelMatrix)
+            :base(pacMan, levelMatrix)
         {
-            this.pacman = pacMan;
-            currentDir = Direction.None;
             desiredDir = Direction.None;
-            obstacles = new bool[Global.YMax, Global.XMax];
-
-            for (int i = 0; i < Global.YMax; i++)
-            {
-                for (int j = 0; j < Global.XMax; j++)
-                {
-                    string obstical = levelMatrix.PathsMatrix[i, j].Trim().Split(',')[0];
-                    obstacles[i, j] = obstical == "1";
-                }
-            }
+            pixelMoved = Global.PacmanSpeed;
         }
 
-        public void Reset()
+        public override void Reset()
         {
             currentDir = Direction.None;
             desiredDir = Direction.None;
@@ -63,7 +49,7 @@ namespace GameEngine.Handlers
             }
         }
 
-        private void CalculateDirection()
+        protected override void CalculateDirection()
         {
             if (this.desiredDir == this.currentDir)
             {
@@ -73,33 +59,33 @@ namespace GameEngine.Handlers
             {
                 //Change directio to Up
                 if (desiredDir == Direction.Up
-                    && pacman.Y > Global.quad_Height / 2
-                    && (this.pacman.Y - pixelMoved >= this.pacman.QuadrantY * Global.quad_Height
-                    || obstacles[pacman.QuadrantY - 1, pacman.QuadrantX] == false))
+                    && gameObject.Y > Global.quad_Height / 2
+                    && (this.gameObject.Y - pixelMoved >= this.gameObject.QuadrantY * Global.quad_Height
+                    || obstacles[gameObject.QuadrantY - 1, gameObject.QuadrantX] == false))
                 {
                     this.currentDir = this.desiredDir;
                 }
                 //Change directio to Down
                 else if (desiredDir == Direction.Down
-                    && pacman.Y < (((Global.YMax - 1) * Global.quad_Height) - (Global.quad_Height / 2))
-                    && (this.pacman.Y + pixelMoved <= this.pacman.QuadrantY * Global.quad_Height
-                    || obstacles[pacman.QuadrantY + 1, pacman.QuadrantX] == false))
+                    && gameObject.Y < (((Global.YMax - 1) * Global.quad_Height) - (Global.quad_Height / 2))
+                    && (this.gameObject.Y + pixelMoved <= this.gameObject.QuadrantY * Global.quad_Height
+                    || obstacles[gameObject.QuadrantY + 1, gameObject.QuadrantX] == false))
                 {
                     currentDir = desiredDir;
                 }
                 //Change directio to Left
                 else if (desiredDir == Direction.Left
-                    && this.pacman.X > Global.quad_Width / 2
-                    && (this.pacman.X - pixelMoved >= this.pacman.QuadrantX * Global.quad_Width
-                    || obstacles[pacman.QuadrantY, pacman.QuadrantX - 1] == false))
+                    && this.gameObject.X > Global.quad_Width / 2
+                    && (this.gameObject.X - pixelMoved >= this.gameObject.QuadrantX * Global.quad_Width
+                    || obstacles[gameObject.QuadrantY, gameObject.QuadrantX - 1] == false))
                 {
                     currentDir = desiredDir;
                 }
                 //Change directio to Right
                 else if (desiredDir == Direction.Right
-                    && this.pacman.X < ((Global.XMax - 1) * Global.quad_Width) - (Global.quad_Width / 2)
-                    && (this.pacman.X + pixelMoved <= this.pacman.QuadrantX * Global.quad_Width
-                    || obstacles[pacman.QuadrantY, pacman.QuadrantX + 1] == false))
+                    && this.gameObject.X < ((Global.XMax - 1) * Global.quad_Width) - (Global.quad_Width / 2)
+                    && (this.gameObject.X + pixelMoved <= this.gameObject.QuadrantX * Global.quad_Width
+                    || obstacles[gameObject.QuadrantY, gameObject.QuadrantX + 1] == false))
                 {
                     currentDir = desiredDir;
                 }
@@ -113,80 +99,78 @@ namespace GameEngine.Handlers
         private void CheckForStopMoving()
         {
             if (currentDir == Direction.Up
-                && (pacman.QuadrantY == 0
-                || obstacles[pacman.QuadrantY - 1, pacman.QuadrantX] == true))
+                && (gameObject.QuadrantY == 0
+                || obstacles[gameObject.QuadrantY - 1, gameObject.QuadrantX] == true))
             {
                 currentDir = Direction.None;
             }
             else if (currentDir == Direction.Down
-                && (pacman.QuadrantY == (Global.YMax - 1)
-                || obstacles[pacman.QuadrantY + 1, pacman.QuadrantX] == true))
+                && (gameObject.QuadrantY == (Global.YMax - 1)
+                || obstacles[gameObject.QuadrantY + 1, gameObject.QuadrantX] == true))
             {
                 currentDir = Direction.None;
             }
             else if (currentDir == Direction.Left
-                && (pacman.QuadrantX == 0
-                || obstacles[pacman.QuadrantY, pacman.QuadrantX - 1] == true))
+                && (gameObject.QuadrantX == 0
+                || obstacles[gameObject.QuadrantY, gameObject.QuadrantX - 1] == true))
             {
                 currentDir = Direction.None;
             }
             else if (currentDir == Direction.Right
-               && (pacman.QuadrantX == (Global.XMax - 1)
-               || obstacles[pacman.QuadrantY, pacman.QuadrantX + 1] == true))
+               && (gameObject.QuadrantX == (Global.XMax - 1)
+               || obstacles[gameObject.QuadrantY, gameObject.QuadrantX + 1] == true))
             {
                 currentDir = Direction.None;
             }
         }
 
-        private bool IsReadyToChangePackmanQuadrant()
+        protected override bool IsReadyToChangeQuadrant()
         {
             if (this.currentDir == Direction.Up && desiredDir == Direction.Down ||
                this.currentDir == Direction.Down && this.desiredDir == Direction.Up ||
                this.currentDir == Direction.Right && this.desiredDir == Direction.Left ||
                this.currentDir == Direction.Left && this.desiredDir == Direction.Right)
             {
-                return true; //Change direction immediately if the changed direction is pposite
+                return true; //Change direction immediately if the changed direction is opposite(back)
             }
 
-            if (pacman.X % Global.quad_Width == 0
-                && pacman.Y % Global.quad_Height == 0)
+            if (gameObject.X % Global.quad_Width == 0
+                && gameObject.Y % Global.quad_Height == 0)
             {
-                pacman.QuadrantX = (int)pacman.X / 32;
-                pacman.QuadrantY = (int)pacman.Y / 32;
+                gameObject.QuadrantX = (int)gameObject.X / 32;
+                gameObject.QuadrantY = (int)gameObject.Y / 32;
                 return true;
             }
 
             return false;
         }
 
-        private Vector2 GetDesiredVelocityFromInput()
+        protected override Vector2 GetNextPointToMove()
         {
             GetInput(); // listens for key pressed
 
-            if (IsReadyToChangePackmanQuadrant())
+            if (IsReadyToChangeQuadrant())
             {
                 CalculateDirection();
             }
-
-            //CalculateDirection();
 
             Vector2 desiredVelocity = new Vector2();
             switch (this.currentDir)
             {
                 case Direction.Up:
                     desiredVelocity.X = 0;
-                    desiredVelocity.Y = 0 - PacmanInputHandler.pixelMoved; // this magic number is velocity(pixels per gameTime) and he must devide 32(Global.quad_Width) with reminder 0
+                    desiredVelocity.Y = 0 - base.pixelMoved; // this magic number is velocity(pixels per gameTime) and he must devide 32(Global.quad_Width) with reminder 0
                     break;
                 case Direction.Down:
                     desiredVelocity.X = 0;
-                    desiredVelocity.Y = PacmanInputHandler.pixelMoved;
+                    desiredVelocity.Y = base.pixelMoved;
                     break;
                 case Direction.Left:
-                    desiredVelocity.X = 0 - PacmanInputHandler.pixelMoved;
+                    desiredVelocity.X = 0 - base.pixelMoved;
                     desiredVelocity.Y = 0;
                     break;
                 case Direction.Right:
-                    desiredVelocity.X = PacmanInputHandler.pixelMoved;
+                    desiredVelocity.X = base.pixelMoved;
                     desiredVelocity.Y = 0;
                     break;
                 case Direction.None:
@@ -196,17 +180,6 @@ namespace GameEngine.Handlers
             }
 
             return desiredVelocity;
-        }
-
-        public Vector2 Move(GameTime gameTime)
-        {
-            var velocity = this.GetDesiredVelocityFromInput();
-
-            this.pacman.X += velocity.X /** (float)gameTime.ElapsedGameTime.TotalSeconds*/;
-            this.pacman.Y += velocity.Y /** (float)gameTime.ElapsedGameTime.TotalSeconds*/;
-            this.pacman.UpdateBoundingBox();
-
-            return velocity;
         }
     }
 }

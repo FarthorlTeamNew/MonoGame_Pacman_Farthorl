@@ -1,51 +1,27 @@
-﻿using GameEngine.Globals;
-using GameEngine.Interfaces;
-using GameEngine.Models;
-using GameEngine.Models.LevelObjects;
-using GameEngine.Models.LevelObjects.Ghosts;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
-using System;
-using System.Collections.Generic;
+﻿using Microsoft.Xna.Framework;
 
 namespace GameEngine.Handlers
 {
-    class ClydeGoodRandomMovement : IMovable
+    using Globals;
+    using Interfaces;
+    using Models.LevelObjects;
+    using System;
+    using System.Collections.Generic;
+
+    class GhostGoodRandomMovement : ObjectMover, IMovable
     {
-        private Ghost clyde;
-        private Direction currentDir;
-        private Direction desiredDir;
-        private bool[,] obstacles;
-        private static int pixelMoved = Global.DefaultGhostSpeed; //inicialize how many pixels will move per iteration
         private Random random;
         List<Direction> possibleDirections;
 
-        public ClydeGoodRandomMovement(Ghost clyde, Matrix levelMatrix)
+        public GhostGoodRandomMovement(Ghost gameObject, Matrix levelMatrix)
+            : base(gameObject, levelMatrix)
         {
-            this.clyde = clyde;
-            currentDir = Direction.Right;
-            desiredDir = Direction.None;
-            obstacles = new bool[Global.YMax, Global.XMax];
+            pixelMoved = Global.DefaultGhostSpeed;
             random = new Random(DateTime.Now.Millisecond);
             possibleDirections = new List<Direction>();
-
-            for (int i = 0; i < Global.YMax; i++)
-            {
-                for (int j = 0; j < Global.XMax; j++)
-                {
-                    string obstical = levelMatrix.PathsMatrix[i, j].Trim().Split(',')[0];
-                    obstacles[i, j] = obstical == "1";
-                }
-            }
         }
 
-        public void Reset()
-        {
-            currentDir = Direction.Right;
-            desiredDir = Direction.None;
-        }
-
-        private void CalculateDirection()
+        protected override void CalculateDirection()
         {
             this.possibleDirections.Clear();
             // checks if ghost is can randomize direction if not going back
@@ -151,64 +127,9 @@ namespace GameEngine.Handlers
             }
         }
 
-        private bool IsMovingLeftPossible()
+        protected override Vector2 GetNextPointToMove()
         {
-            if (clyde.QuadrantX > 0
-               && obstacles[clyde.QuadrantY, clyde.QuadrantX - 1] == false)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        private bool IsMovingRightPossible()
-        {
-            if (clyde.QuadrantX < Global.XMax - 1
-               && obstacles[clyde.QuadrantY, clyde.QuadrantX + 1] == false)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        private bool IsMovingUpPossible()
-        {
-            if (clyde.QuadrantY > 0
-               && obstacles[clyde.QuadrantY - 1, clyde.QuadrantX] == false)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        private bool IsMovingDownPossible()
-        {
-            if (clyde.QuadrantY < Global.YMax - 1
-               && obstacles[clyde.QuadrantY + 1, clyde.QuadrantX] == false)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        private bool IsReadyToChangeGhostQuadrant()
-        {
-            if (clyde.X % Global.quad_Width == 0
-                && clyde.Y % Global.quad_Height == 0)
-            {
-                clyde.QuadrantX = (int)clyde.X / 32;
-                clyde.QuadrantY = (int)clyde.Y / 32;
-                return true;
-            }
-
-            return false;
-        }
-
-        private Vector2 GetNextMovementPoint()
-        {
-            //GetInput(); // listens for key pressed
-
-            if (IsReadyToChangeGhostQuadrant())
+            if (base.IsReadyToChangeQuadrant())
             {
                 CalculateDirection();
             }
@@ -218,18 +139,18 @@ namespace GameEngine.Handlers
             {
                 case Direction.Up:
                     nextPointToMove.X = 0;
-                    nextPointToMove.Y = 0 - ClydeGoodRandomMovement.pixelMoved;
+                    nextPointToMove.Y = 0 - base.pixelMoved;
                     break;
                 case Direction.Down:
                     nextPointToMove.X = 0;
-                    nextPointToMove.Y = ClydeGoodRandomMovement.pixelMoved;
+                    nextPointToMove.Y = base.pixelMoved;
                     break;
                 case Direction.Left:
-                    nextPointToMove.X = 0 - ClydeGoodRandomMovement.pixelMoved;
+                    nextPointToMove.X = 0 - base.pixelMoved;
                     nextPointToMove.Y = 0;
                     break;
                 case Direction.Right:
-                    nextPointToMove.X = ClydeGoodRandomMovement.pixelMoved;
+                    nextPointToMove.X = base.pixelMoved;
                     nextPointToMove.Y = 0;
                     break;
                 case Direction.None:
@@ -237,17 +158,6 @@ namespace GameEngine.Handlers
                     nextPointToMove.Y = 0;
                     break;
             }
-
-            return nextPointToMove;
-        }
-
-        public Vector2 Move(GameTime gameTime)
-        {
-            var nextPointToMove = this.GetNextMovementPoint();
-
-            this.clyde.X += nextPointToMove.X /** (float)gameTime.ElapsedGameTime.TotalSeconds*/;
-            this.clyde.Y += nextPointToMove.Y /** (float)gameTime.ElapsedGameTime.TotalSeconds*/;
-            this.clyde.UpdateBoundingBox();
 
             return nextPointToMove;
         }

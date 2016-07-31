@@ -1,48 +1,24 @@
-﻿using GameEngine.Globals;
-using GameEngine.Interfaces;
-using GameEngine.Models;
-using GameEngine.Models.LevelObjects;
-using GameEngine.Models.LevelObjects.Ghosts;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
-using System;
+﻿using Microsoft.Xna.Framework;
 
 namespace GameEngine.Handlers
 {
-    class BlinkyWeakRandomMovement : IMovable
+    using Globals;
+    using Interfaces;
+    using Models.LevelObjects;
+    using System;
+
+    class GhostWeakRandomMovement : ObjectMover, IMovable
     {
-        private Ghost blinky;
-        private Direction currentDir;
-        private Direction desiredDir;
-        private bool[,] obstacles;
-        private static int pixelMoved = Global.DefaultGhostSpeed; //inicialize how many pixels will move per iteration
-        Random random;
+        private Random random;
 
-        public BlinkyWeakRandomMovement(Ghost blinky, Matrix levelMatrix)
+        public GhostWeakRandomMovement(Ghost blinky, Matrix levelMatrix)
+            :base(blinky, levelMatrix)
         {
-            this.blinky = blinky;
-            currentDir = Direction.Right;
-            desiredDir = Direction.None;
-            obstacles = new bool[Global.YMax, Global.XMax];
+            pixelMoved = Global.DefaultGhostSpeed;
             random = new Random(DateTime.Now.Millisecond);
-
-            for (int i = 0; i < Global.YMax; i++)
-            {
-                for (int j = 0; j < Global.XMax; j++)
-                {
-                    string obstical = levelMatrix.PathsMatrix[i, j].Trim().Split(',')[0];
-                    obstacles[i, j] = obstical == "1";
-                }
-            }
         }
 
-        public void Reset()
-        {
-            currentDir = Direction.Right;
-            desiredDir = Direction.None;
-        }
-
-        private void CalculateDirection()
+        protected override void CalculateDirection()
         {
             // checks if ghost is finishing his current direction to the end then randomize to the left, right or back
             // preferred left and right
@@ -136,64 +112,9 @@ namespace GameEngine.Handlers
             }
         }
 
-        private bool IsMovingLeftPossible()
+        protected override Vector2 GetNextPointToMove()
         {
-            if (blinky.QuadrantX > 0
-               && obstacles[blinky.QuadrantY, blinky.QuadrantX - 1] == false)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        private bool IsMovingRightPossible()
-        {
-            if (blinky.QuadrantX < Global.XMax - 1
-               && obstacles[blinky.QuadrantY, blinky.QuadrantX + 1] == false)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        private bool IsMovingUpPossible()
-        {
-            if (blinky.QuadrantY > 0
-               && obstacles[blinky.QuadrantY - 1, blinky.QuadrantX] == false)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        private bool IsMovingDownPossible()
-        {
-            if (blinky.QuadrantY < Global.YMax - 1
-               && obstacles[blinky.QuadrantY + 1, blinky.QuadrantX] == false)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        private bool IsReadyToChangeGhostQuadrant()
-        {
-            if (blinky.X % Global.quad_Width == 0
-                && blinky.Y % Global.quad_Height == 0)
-            {
-                blinky.QuadrantX = (int)blinky.X / 32;
-                blinky.QuadrantY = (int)blinky.Y / 32;
-                return true;
-            }
-
-            return false;
-        }
-
-        private Vector2 GetNextMovementPoint()
-        {
-            //GetInput(); // listens for key pressed
-
-            if (IsReadyToChangeGhostQuadrant())
+            if (base.IsReadyToChangeQuadrant())
             {
                 CalculateDirection();
             }
@@ -203,18 +124,18 @@ namespace GameEngine.Handlers
             {
                 case Direction.Up:
                     nextPointToMove.X = 0;
-                    nextPointToMove.Y = 0 - BlinkyWeakRandomMovement.pixelMoved;
+                    nextPointToMove.Y = 0 - pixelMoved;
                     break;
                 case Direction.Down:
                     nextPointToMove.X = 0;
-                    nextPointToMove.Y = BlinkyWeakRandomMovement.pixelMoved;
+                    nextPointToMove.Y = pixelMoved;
                     break;
                 case Direction.Left:
-                    nextPointToMove.X = 0 - BlinkyWeakRandomMovement.pixelMoved;
+                    nextPointToMove.X = 0 - pixelMoved;
                     nextPointToMove.Y = 0;
                     break;
                 case Direction.Right:
-                    nextPointToMove.X = BlinkyWeakRandomMovement.pixelMoved;
+                    nextPointToMove.X = pixelMoved;
                     nextPointToMove.Y = 0;
                     break;
                 case Direction.None:
@@ -222,17 +143,6 @@ namespace GameEngine.Handlers
                     nextPointToMove.Y = 0;
                     break;
             }
-
-            return nextPointToMove;
-        }
-
-        public Vector2 Move(GameTime gameTime)
-        {
-            var nextPointToMove = this.GetNextMovementPoint();
-
-            this.blinky.X += nextPointToMove.X /** (float)gameTime.ElapsedGameTime.TotalSeconds*/;
-            this.blinky.Y += nextPointToMove.Y /** (float)gameTime.ElapsedGameTime.TotalSeconds*/;
-            this.blinky.UpdateBoundingBox();
 
             return nextPointToMove;
         }
