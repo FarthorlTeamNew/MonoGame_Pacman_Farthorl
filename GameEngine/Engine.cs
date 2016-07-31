@@ -35,7 +35,6 @@ namespace GameEngine
         //private ClydeAnimator clydeAnimator;
         //private ClydeRandomMovement clydeRandomMovement;
         private Matrix levelMatrix;
-        private List<LevelObject> fruitList;
         private KeyPress keyPress;
         private KeyboardState oldState;
         private bool isLevelCompleated;
@@ -52,8 +51,8 @@ namespace GameEngine
 
         protected override void Initialize()
         {
-            movableObjects = new List<IMovable>();
-            animationObjects = new List<Animator>();
+            this.movableObjects = new List<IMovable>();
+            this.animationObjects = new List<Animator>();
             sound = new Sound(this);
             GameTexture.LoadTextures(this);
             this.pacMan = new PacMan(GameTexture.pacmanAndGhost, 0, 0, new Rectangle(0, 0, 32, 32));
@@ -74,7 +73,6 @@ namespace GameEngine
             this.graphics.PreferredBackBufferWidth = Global.GLOBAL_WIDTH;
             this.graphics.PreferredBackBufferHeight = Global.GLOBAL_HEIGHT;
             this.levelMatrix = new Matrix();
-            this.fruitList = new List<LevelObject>();
             //graphics.IsFullScreen = true; // set this to enable full screen
             this.graphics.ApplyChanges();
             keyPress = new KeyPress();
@@ -104,8 +102,6 @@ namespace GameEngine
 
             //this.blinkyRandomMovement = new BlinkyRandomMovement(this.blinky, levelMatrix);
             //this.clydeRandomMovement = new ClydeRandomMovement(this.clyde, levelMatrix);
-            this.fruitList.AddRange(levelMatrix.GetFruitList());
-            this.levelMatrix.RemovePoints(fruitList);
             sound.Begin();
             // TODO: use this.Content to load your game content here
         }
@@ -162,7 +158,6 @@ namespace GameEngine
                         //this.blinkyAnimator.UpdateAnimation(gameTime, blinkyMovement);
                         //this.clydeAnimator.UpdateAnimation(gameTime, clydeMovement);
                         levelMatrix.Update(pacMan);
-                        levelMatrix.CheckCollisions(pacMan);
                     }
                     else   // Wining Condition
                     {
@@ -255,10 +250,6 @@ namespace GameEngine
 
             this.levelMatrix = new Matrix();
             this.levelMatrix.InitializeMatrix(this.GraphicsDevice);
-            this.fruitList.Clear();
-            this.fruitList.AddRange(levelMatrix.GetFruitList());
-            this.levelMatrix.RemovePoints(fruitList);
-            //Fruit.Draw(this.spriteBatch, pacMan);
         }
     }
 }

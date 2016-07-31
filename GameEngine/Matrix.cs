@@ -59,9 +59,10 @@ namespace GameEngine
                 }
             }
             this.LoadFruit();
+            this.RemovePoints();
         }
 
-        public void LoadFruit()
+        private void LoadFruit()
         {
             Texture2D[] fruitTextures = GameTexture.fruitArray;
             FruitFactory factory = new FruitFactory();
@@ -113,29 +114,16 @@ namespace GameEngine
             }
         }
 
-        public List<LevelObject> GetFruitList()
-        {
-            List<LevelObject> combinedList = new List<LevelObject>();
-            combinedList.AddRange(fruits);
-            combinedList.AddRange(ghostKillers);
-            return combinedList;
-        }
-
-        public void CheckCollisions(PacMan pacman)
-        {
-            fruits.FirstOrDefault(x => x.IsColliding(pacman))?.ReactOnCollision(pacman);
-            fruits.Remove(fruits.FirstOrDefault(x => x.IsColliding(pacman)));
-
-            ghostKillers.FirstOrDefault(x => x.IsColliding(pacman))?.ReactOnCollision(pacman);
-            ghostKillers.Remove(ghostKillers.FirstOrDefault(x => x.IsColliding(pacman)));
-        }
-
-        public void RemovePoints(List<LevelObject> fruitList)
+        private void RemovePoints()
         {
             // Remove points that have fruit placed on top of them
-            foreach (var fruit in fruitList)
+            foreach (var fruit in fruits)
             {
                 pointsList.Remove(pointsList.FirstOrDefault(p => p.IsColliding(fruit)));
+            }
+            foreach (var ghostKiller in ghostKillers)
+            {
+                pointsList.Remove(pointsList.FirstOrDefault(p => p.IsColliding(ghostKiller)));
             }
         }
 
@@ -143,6 +131,12 @@ namespace GameEngine
         {
             pointsList.FirstOrDefault(x => x.IsColliding(pacMan))?.ReactOnCollision(pacMan);
             pointsList.Remove(pointsList.FirstOrDefault(x => x.IsColliding(pacMan)));
+
+            fruits.FirstOrDefault(x => x.IsColliding(pacMan))?.ReactOnCollision(pacMan);
+            fruits.Remove(fruits.FirstOrDefault(x => x.IsColliding(pacMan)));
+
+            ghostKillers.FirstOrDefault(x => x.IsColliding(pacMan))?.ReactOnCollision(pacMan);
+            ghostKillers.Remove(ghostKillers.FirstOrDefault(x => x.IsColliding(pacMan)));
         }
 
         public void Draw(SpriteBatch spriteBatch)
