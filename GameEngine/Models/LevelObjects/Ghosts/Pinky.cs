@@ -8,7 +8,6 @@ namespace GameEngine.Models.LevelObjects.Ghosts
         public Pinky(Texture2D texture, float x, float y, Rectangle boundingBox)
             : base(texture, x, y, boundingBox)
         {
-
         }
     }
 }

@@ -19,7 +19,6 @@
         public static Sound sound;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        private SpriteFont spriteFont;
         private PacMan pacMan;
         private Blinky blinky;
         private Clyde clyde;
@@ -200,9 +199,7 @@
                     Environment.Exit(0);
                     break;
             }
-
             this.spriteBatch.End();
-
             base.Draw(gameTime);
         }
 

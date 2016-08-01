@@ -8,7 +8,6 @@ namespace GameEngine.Models.LevelObjects
         protected LevelObject(Texture2D texture, float x, float y, Rectangle boundingBox)
             :base(texture, x, y, boundingBox)
         {
-
         }
 
         public virtual Rectangle GetBoundingBox()
@@ -18,11 +17,7 @@ namespace GameEngine.Models.LevelObjects
 
         public virtual bool IsColliding(GameObject gameObject)
         {
-            if (gameObject.X < this.X + 15 && gameObject.X > this.X - 15 && gameObject.Y < this.Y + 15 && gameObject.Y > this.Y - 15)
-            {
-                return true;
-            }
-            return false;
+            return gameObject.X < this.X + 15 && gameObject.X > this.X - 15 && gameObject.Y < this.Y + 15 && gameObject.Y > this.Y - 15;
         }
 
         public abstract void ReactOnCollision(PacMan pacman);

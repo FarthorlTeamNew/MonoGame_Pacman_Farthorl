@@ -8,7 +8,6 @@ namespace GameEngine.Models.LevelObjects
         public GhostKiller(Texture2D texture, float x, float y, Rectangle boundingBox) 
             : base(texture, x, y, boundingBox)
         {
-
         }
 
         public override void ReactOnCollision(PacMan pacman)
