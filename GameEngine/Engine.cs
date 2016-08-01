@@ -59,8 +59,8 @@
             this.butExit.SetPosition(new Vector2(300, 200));
             this.levelMatrix.InitializeMatrix(this.GraphicsDevice);
             this.ghostGen = new GhostGenerator(levelMatrix, pacMan);
-            this.ghostGen.GhostAnimators.Add("PacMan", new PacmanAnimator(this.pacMan));
-            this.ghostGen.GhostMovements.Add("PacMan", new PacmanInputHandler(this.pacMan, levelMatrix));
+            this.ghostGen.GhostAnimators.Add(nameof(PacMan), new PacmanAnimator(this.pacMan));
+            this.ghostGen.GhostMovements.Add(nameof(PacMan), new PacmanInputHandler(this.pacMan, levelMatrix));
             sound = new Sound(this);
             sound.Begin();
         }

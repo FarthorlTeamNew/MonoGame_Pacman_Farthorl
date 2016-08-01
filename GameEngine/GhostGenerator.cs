@@ -49,10 +49,10 @@ namespace GameEngine.Factories
             inky = new Inky(GameTexture.pacmanAndGhost, 0, 0, new Rectangle(0, 0, 32, 32));
             pinky = new Pinky(GameTexture.pacmanAndGhost, 0, 0, new Rectangle(0, 0, 32, 32));
 
-            ghosts.Add("Blinky", blinky);
-            ghosts.Add("Clyde", clyde);
-            ghosts.Add("Inky", inky);
-            ghosts.Add("Pinky", pinky);
+            ghosts.Add(nameof(Blinky), blinky);
+            ghosts.Add(nameof(Clyde), clyde);
+            ghosts.Add(nameof(Inky), inky);
+            ghosts.Add(nameof(Pinky), pinky);
 
             foreach (var kvp in ghosts)
             {
@@ -63,19 +63,19 @@ namespace GameEngine.Factories
 
         private Dictionary<string, Animator> GetGhostAnimators()
         {
-            ghostAnimators.Add("Blinky", new BlinkyAnimator(blinky));
-            ghostAnimators.Add("Clyde", new ClydeAnimator(clyde));
-            ghostAnimators.Add("Inky", new InkyAnimator(inky));
-            ghostAnimators.Add("Pinky", new PinkyAnimator(pinky));
+            ghostAnimators.Add(nameof(Blinky), new BlinkyAnimator(blinky));
+            ghostAnimators.Add(nameof(Clyde), new ClydeAnimator(clyde));
+            ghostAnimators.Add(nameof(Inky), new InkyAnimator(inky));
+            ghostAnimators.Add(nameof(Pinky), new PinkyAnimator(pinky));
             return ghostAnimators;
         }
 
         private Dictionary<string, IMovable> GetGhostMovements(Matrix levelMatrix, PacMan pacMan)
         {
-            ghostMovements.Add("Blinky", new GhostWeakRandomMovement(blinky, levelMatrix));
-            ghostMovements.Add("Clyde", new GhostGoodRandomMovement(clyde, levelMatrix));
-            ghostMovements.Add("Inky", new GhostHuntingRandomMovement(inky, levelMatrix, pacMan));
-            ghostMovements.Add("Pinky", new GhostHuntingRandomMovement(pinky, levelMatrix, pacMan));
+            ghostMovements.Add(nameof(Blinky), new GhostWeakRandomMovement(blinky, levelMatrix));
+            ghostMovements.Add(nameof(Clyde), new GhostGoodRandomMovement(clyde, levelMatrix));
+            ghostMovements.Add(nameof(Inky), new GhostHuntingRandomMovement(inky, levelMatrix, pacMan));
+            ghostMovements.Add(nameof(Pinky), new GhostHuntingRandomMovement(pinky, levelMatrix, pacMan));
             return ghostMovements;
         }
 
