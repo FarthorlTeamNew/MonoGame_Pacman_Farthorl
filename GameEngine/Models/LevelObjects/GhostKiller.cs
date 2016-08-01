@@ -12,6 +12,7 @@ namespace GameEngine.Models.LevelObjects
 
         public override void ReactOnCollision(PacMan pacman)
         {
+            pacman.CanEat = true;
             Engine.sound.PacManEatGhost();
         }
     }

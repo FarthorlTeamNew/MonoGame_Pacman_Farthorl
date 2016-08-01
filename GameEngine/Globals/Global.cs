@@ -8,7 +8,7 @@
         public static int GLOBAL_HEIGHT = 416;
         public static int XMax = 24;
         public static int YMax = 13;
-        public static int PacmanSpeed = 2;
+        public static int PacmanSpeed = 4;
         public static int DefaultGhostSpeed = 1;
     }
 }
