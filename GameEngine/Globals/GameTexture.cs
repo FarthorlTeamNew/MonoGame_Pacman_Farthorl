@@ -15,6 +15,7 @@
         public static Texture2D brick;
         public static Texture2D point;
         public static Texture2D ghostKiller;
+        public static Texture2D pacmanLose;
         public static List<Texture2D> fruitTexturesList;
 
         public static void LoadTextures(Game game)

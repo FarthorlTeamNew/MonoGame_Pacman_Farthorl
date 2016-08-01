@@ -131,7 +131,7 @@
                     break;
             }
 
-            this.Window.Title = $"Scores: {this.pacMan.Scores}   Left points:{this.levelMatrix.LeftPoints}  HEALTH:{this.pacMan.Health}";
+            this.Window.Title = $"Scores: {this.pacMan.Scores}   Left points:{this.levelMatrix.LeftPoints}  HEALTH:{this.pacMan.Health}  LIVES:{this.pacMan.Lives}";
             oldState = Keyboard.GetState();  // Update saved state.
         }
 
@@ -157,22 +157,33 @@
                         foreach (var kvp in ghostGen.GhostAnimators)
                         {
                             kvp.Value.Draw(this.spriteBatch);
+                           
                         }
 
                         if (this.levelMatrix.LeftPoints == 0) 
                         {
+                           
                             var texture = Content.Load<Texture2D>("PacManWin_image");
                             this.spriteBatch.Draw(texture, new Vector2(250, 100));
                             isLevelCompleated = true;
+                            
                         }
                         foreach (var ghost in ghostGen.Ghosts)
                         {
-                            if (ghost.Value.IsColliding(pacMan) && !pacMan.CanEat)
+                           
+                            if (ghost.Value.IsColliding(this.pacMan) && !this.pacMan.CanEat)
                             {
-                                var texture = Content.Load<Texture2D>("PacManWin_image");
-                                this.spriteBatch.Draw(texture, new Vector2(250, 100));
-                                isLevelCompleated = true;
+
+                               var texture = Content.Load<Texture2D>("PacManLose");
+                               this.spriteBatch.Draw(texture, new Vector2(250, 100));
+                                if (isLevelCompleated == false)
+                                {
+                                    this.pacMan.Lives--;
+                                    isLevelCompleated = true;
+                                    sound.Dead();
+                                }
                             }
+                            
                             else if (ghost.Value.IsColliding(pacMan) && pacMan.CanEat)
                             {
                                 ghostGen.GhostMovements.Remove(ghost.Key);

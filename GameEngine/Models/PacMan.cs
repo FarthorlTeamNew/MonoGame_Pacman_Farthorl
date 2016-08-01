@@ -14,6 +14,7 @@ namespace GameEngine.Models
             : base(texture, 0,  0, boundingBox)
         {
             canEat = false;
+           
         }
 
         public int Scores { get; set; } = 0;
@@ -21,5 +22,7 @@ namespace GameEngine.Models
         public int Health { get; set; } = 50;
 
         public bool CanEat { get; set; }
+
+        public int Lives { get; set; } = 3;
     }
 }
