@@ -1,39 +1,23 @@
-﻿using GameEngine.Models.LevelObjects;
-using GameEngine.Models.LevelObjects.Fruits;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
-namespace GameEngine.Factories
+﻿namespace GameEngine.Factories
 {
+    using System;
+    using System.Linq;
+    using System.Reflection;
+    using Models.LevelObjects;
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+
     public class FruitFactory
     {
+        private static Type[] types = Assembly.GetExecutingAssembly().GetTypes()
+       .Where(t => typeof(Fruit).IsAssignableFrom(t) && t != typeof(Fruit))
+       .ToArray();
+
         public Fruit CreateFruit(Texture2D texture)
         {
-            switch (texture.Name)
-            {
-                case @"FruitImages/Apple":
-                    return new Apple(texture, 0, 0, new Rectangle(0, 0, 32, 32));
-                    break;
-                case @"FruitImages/Banana":
-                    return new Banana(texture, 0, 0, new Rectangle(0, 0, 32, 32));
-                    break;
-                case @"FruitImages/Brezel":
-                    return new Brezel(texture, 0, 0, new Rectangle(0, 0, 32, 32));
-                    break;
-                case @"FruitImages/Cherry":
-                    return new Cherry(texture, 0, 0, new Rectangle(0, 0, 32, 32));
-                    break;
-                case @"FruitImages/Peach":
-                    return new Peach(texture, 0, 0, new Rectangle(0, 0, 32, 32));
-                    break;
-                case @"FruitImages/Pear":
-                    return new Pear(texture, 0, 0, new Rectangle(0, 0, 32, 32));
-                    break;
-                case @"FruitImages/Strawberry":
-                    return new Strawberry(texture, 0, 0, new Rectangle(0, 0, 32, 32));
-                    break;
-            }
-            return null;
-        }           
+            Type currentType = types.FirstOrDefault(t => texture.Name.Contains(t.Name));
+            Fruit fruit = (Fruit) Activator.CreateInstance(currentType, texture, 0, 0, new Rectangle(0, 0, 32, 32));
+            return fruit;
+        }
     }
 }
