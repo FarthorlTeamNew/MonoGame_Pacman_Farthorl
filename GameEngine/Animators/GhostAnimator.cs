@@ -14,7 +14,7 @@
         public Animation currentAnimation;
 
         public GhostAnimator(Ghost ghost)
-            :base(ghost)
+            : base(ghost)
         {
             this.BufferFrames();
             this.currentAnimation = this.animations.Find(x => x.Face == base.currentDirection);
@@ -28,41 +28,64 @@
 
         public override void UpdateAnimation(GameTime gameTime, Vector2 velocity)
         {
+            var direction = CalculateDirection(velocity);
             if (velocity != Vector2.Zero)
             {
-                bool movingHorizontally = Math.Abs(velocity.X) > Math.Abs(velocity.Y);
-                if (movingHorizontally)
+                switch (direction)
                 {
-                    if (velocity.X > 0)
-                    {
-                        currentAnimation = this.animations.Find(x => x.Face == Direction.Right);
+                    case Direction.Right:
+                        this.currentAnimation = this.animations.Find(x => x.Face == Direction.Right);
                         base.currentDirection = Direction.Right;
-                    }
-                    else
-                    {
-                        currentAnimation = this.animations.Find(x => x.Face == Direction.Left);
+                        break;
+
+                    case Direction.Left:
+                        this.currentAnimation = this.animations.Find(x => x.Face == Direction.Left);
                         base.currentDirection = Direction.Left;
-                    }
-                }
-                else
-                {
-                    if (velocity.Y > 0)
-                    {
-                        currentAnimation = this.animations.Find(x => x.Face == Direction.Down);
+                        break;
+
+                    case Direction.Down:
+                        this.currentAnimation = this.animations.Find(x => x.Face == Direction.Down);
                         base.currentDirection = Direction.Down;
-                    }
-                    else
-                    {
-                        currentAnimation = this.animations.Find(x => x.Face == Direction.Up);
+                        break;
+
+                    case Direction.Up:
+                        this.currentAnimation = this.animations.Find(x => x.Face == Direction.Up);
                         base.currentDirection = Direction.Up;
-                    }
+                        break;
+                    default:
+                        this.currentAnimation = this.animations.Find(x => x.Face == base.currentDirection);
+                        break;
                 }
-            }
-            else
-            {
-                this.currentAnimation = this.animations.Find(x => x.Face == base.currentDirection);
             }
             this.currentAnimation.Update(gameTime);
+        }
+
+        public Direction CalculateDirection(Vector2 velocity)
+        {
+            var random = new Random();
+            List<Direction> directions = new List<Direction>();
+
+            if (velocity != Vector2.Zero)
+            {
+                if (velocity.X > this.gameObject.X)
+                {
+                    directions.Add(Direction.Right);
+                }
+                if (velocity.X < this.gameObject.X)
+                {
+                    directions.Add(Direction.Left);
+                }
+                if (velocity.Y > this.defaultYcoord)
+                {
+                    directions.Add(Direction.Down);
+                }
+                if (velocity.Y < this.defaultYcoord)
+                {
+                    directions.Add(Direction.Up);
+                }
+            }
+            int randomIndex = random.Next(0, directions.Count - 1);
+            return directions[randomIndex];
         }
 
         public override void Draw(SpriteBatch spriteBatch)

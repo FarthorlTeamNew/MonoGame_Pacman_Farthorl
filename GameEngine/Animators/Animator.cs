@@ -14,7 +14,7 @@ namespace GameEngine.Animators
 
         public Animator(GameObject gameObject)
         {
-            currentDirection = Direction.Right;
+            currentDirection = Direction.Left;
             this.gameObject = gameObject;
             defaultXcoord = gameObject.X;
             defaultYcoord = gameObject.Y;
