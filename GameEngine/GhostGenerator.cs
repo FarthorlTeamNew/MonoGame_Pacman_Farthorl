@@ -29,7 +29,7 @@
             ghostMovements = new Dictionary<string, IMovable>();
 
             this.Ghosts = this.GetGhosts(levelMatrix);
-            this.GhostAnimators = this.GetGhostAnimators();
+            this.GhostAnimators = this.GetGhostAnimators(pacMan);
             this.GhostMovements = this.GetGhostMovements(levelMatrix, pacMan);
         }
 
@@ -39,10 +39,10 @@
 
         private Dictionary<string, Ghost> GetGhosts(Matrix levelMatrix)
         {
-            this.blinky = new Blinky(GameTexture.pacmanAndGhost, 0, 0, new Rectangle(0, 0, 32, 32));
-            this.clyde = new Clyde(GameTexture.pacmanAndGhost, 0, 0, new Rectangle(0, 0, 32, 32));
-            this.inky = new Inky(GameTexture.pacmanAndGhost, 0, 0, new Rectangle(0, 0, 32, 32));
-            this.pinky = new Pinky(GameTexture.pacmanAndGhost, 0, 0, new Rectangle(0, 0, 32, 32));
+            this.blinky = new Blinky(GameTexture.pacmanAndGhost, new Rectangle(0, 0, 32, 32));
+            this.clyde = new Clyde(GameTexture.pacmanAndGhost, new Rectangle(0, 0, 32, 32));
+            this.inky = new Inky(GameTexture.pacmanAndGhost, new Rectangle(0, 0, 32, 32));
+            this.pinky = new Pinky(GameTexture.pacmanAndGhost, new Rectangle(0, 0, 32, 32));
 
             this.ghosts.Add(nameof(Blinky), this.blinky);
             this.ghosts.Add(nameof(Clyde), this.clyde);
@@ -56,12 +56,13 @@
             return this.ghosts;
         }
 
-        private Dictionary<string, Animator> GetGhostAnimators()
+        private Dictionary<string, Animator> GetGhostAnimators(PacMan pacMan)
         {
             this.ghostAnimators.Add(nameof(Blinky), new BlinkyAnimator(this.blinky));
             this.ghostAnimators.Add(nameof(Clyde), new ClydeAnimator(this.clyde));
             this.ghostAnimators.Add(nameof(Inky), new InkyAnimator(this.inky));
             this.ghostAnimators.Add(nameof(Pinky), new PinkyAnimator(this.pinky));
+            this.ghostAnimators.Add(nameof(PacMan), new PacmanAnimator(pacMan));
             return this.ghostAnimators;
         }
 
@@ -71,6 +72,7 @@
             this.ghostMovements.Add(nameof(Clyde), new GhostGoodRandomMovement(this.clyde, levelMatrix));
             this.ghostMovements.Add(nameof(Inky), new GhostHuntingRandomMovement(this.inky, levelMatrix, pacMan));
             this.ghostMovements.Add(nameof(Pinky), new GhostHuntingRandomMovement(this.pinky, levelMatrix, pacMan));
+            this.ghostMovements.Add(nameof(PacMan), new PacmanInputHandler(pacMan, levelMatrix));
             return this.ghostMovements;
         }
 

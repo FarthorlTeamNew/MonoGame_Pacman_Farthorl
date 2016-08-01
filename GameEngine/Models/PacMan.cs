@@ -1,5 +1,4 @@
-﻿using GameEngine.Globals;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace GameEngine.Models
@@ -8,12 +7,10 @@ namespace GameEngine.Models
     {
         //not used now,but in future
         //private int speed = 5;
-        private bool canEat;
-
-        public PacMan(Texture2D texture, float x, float y, Rectangle boundingBox)
+        public PacMan(Texture2D texture, Rectangle boundingBox)
             : base(texture, 0,  0, boundingBox)
         {
-            canEat = false;
+            this.CanEat = false;
            
         }
 

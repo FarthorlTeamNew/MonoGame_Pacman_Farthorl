@@ -5,8 +5,8 @@ namespace GameEngine.Models.LevelObjects
 {
     public abstract class Fruit : LevelObject
     {
-        protected Fruit(Texture2D texture, float x, float y, Rectangle boundingBox)
-            : base(texture, x, y, boundingBox)
+        protected Fruit(Texture2D texture, Rectangle boundingBox)
+            : base(texture, 0, 0, boundingBox)
         {
         }
 

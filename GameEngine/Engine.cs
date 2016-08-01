@@ -1,7 +1,6 @@
 ﻿namespace GameEngine
 {
     using System;
-    using Animators;
     using Globals;
     using Handlers;
     using Microsoft.Xna.Framework;
@@ -9,7 +8,6 @@
     using Microsoft.Xna.Framework.Input;
     using Menu;
     using Models;
-    using Factories;
 
     public class Engine : Game
     {
@@ -37,11 +35,10 @@
         {
             sound = new Sound(this);
             GameTexture.LoadTextures(this);
-            this.pacMan = new PacMan(GameTexture.pacmanAndGhost, 0, 0, new Rectangle(0, 0, 32, 32));
+            this.pacMan = new PacMan(GameTexture.pacmanAndGhost, new Rectangle(0, 0, 32, 32));
             this.graphics.PreferredBackBufferWidth = Global.GLOBAL_WIDTH;
             this.graphics.PreferredBackBufferHeight = Global.GLOBAL_HEIGHT;
             this.levelMatrix = new Matrix();
-            //graphics.IsFullScreen = true; // set this to enable full screen
             this.graphics.ApplyChanges();
             keyPress = new KeyPress();
             oldState = Keyboard.GetState();
@@ -52,15 +49,12 @@
         protected override void LoadContent()
         {
             this.spriteBatch = new SpriteBatch(GraphicsDevice);
-            this.IsMouseVisible = true;
             this.butPlay = new CButton(GameTexture.playButton, this.graphics.GraphicsDevice);
             this.butPlay.SetPosition(new Vector2(300, 166));
             this.butExit = new CButton(GameTexture.exitButton, this.graphics.GraphicsDevice);
             this.butExit.SetPosition(new Vector2(300, 200));
             this.levelMatrix.InitializeMatrix(this.GraphicsDevice);
             this.ghostGen = new GhostGenerator(levelMatrix, pacMan);
-            this.ghostGen.GhostAnimators.Add(nameof(PacMan), new PacmanAnimator(this.pacMan));
-            this.ghostGen.GhostMovements.Add(nameof(PacMan), new PacmanInputHandler(this.pacMan, levelMatrix));
             sound = new Sound(this);
             sound.Begin();
         }
@@ -87,7 +81,6 @@
 
             switch (this.currentGameState)
             {
-
                 case GameState.MainMenu:
                     MouseState mouse = Mouse.GetState();
                     this.butPlay.Update(mouse); this.butExit.Update(mouse);
@@ -156,24 +149,19 @@
 
                         foreach (var kvp in ghostGen.GhostAnimators)
                         {
-                            kvp.Value.Draw(this.spriteBatch);
-                           
+                            kvp.Value.Draw(this.spriteBatch);                           
                         }
 
                         if (this.levelMatrix.LeftPoints == 0) 
-                        {
-                           
+                        {                          
                             var texture = Content.Load<Texture2D>("PacManWin_image");
                             this.spriteBatch.Draw(texture, new Vector2(250, 100));
-                            isLevelCompleated = true;
-                            
+                            isLevelCompleated = true;                          
                         }
                         foreach (var ghost in ghostGen.Ghosts)
-                        {
-                           
+                        {                         
                             if (ghost.Value.IsColliding(this.pacMan) && !this.pacMan.CanEat)
                             {
-
                                var texture = Content.Load<Texture2D>("PacManLose");
                                this.spriteBatch.Draw(texture, new Vector2(250, 100));
                                 if (isLevelCompleated == false)

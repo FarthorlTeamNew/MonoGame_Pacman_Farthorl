@@ -79,7 +79,7 @@ namespace GameEngine
 
             for (int i = 0; i < 4; i++)
             {
-                ghostKillers.Add(new GhostKiller(GameTexture.ghostKiller, 0, 0, new Rectangle(0, 0, 32, 32)));
+                ghostKillers.Add(new GhostKiller(GameTexture.ghostKiller, new Rectangle(0, 0, 32, 32)));
             }
 
             foreach (var killer in ghostKillers)

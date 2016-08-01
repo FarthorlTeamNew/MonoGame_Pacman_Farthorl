@@ -5,8 +5,8 @@ namespace GameEngine.Models.LevelObjects.Ghosts
 {
     public class Clyde : Ghost
     {
-        public Clyde(Texture2D texture, float x, float y, Rectangle boundingBox)
-            : base(texture, x, y, boundingBox)
+        public Clyde(Texture2D texture, Rectangle boundingBox)
+            : base(texture, boundingBox)
         {
 
         }

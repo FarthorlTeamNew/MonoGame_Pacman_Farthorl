@@ -3,11 +3,11 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameEngine.Models.LevelObjects.Fruits
 {
-    public partial class Peach : Fruit
+    public class Peach : Fruit
     {
         private const int PeachBonus = 16;
-        public Peach(Texture2D texture, float x, float y, Rectangle boundingBox)
-            : base(texture, x, y, boundingBox)
+        public Peach(Texture2D texture, Rectangle boundingBox)
+            : base(texture, boundingBox)
         {
             base.FruitBonus = PeachBonus;
         }
