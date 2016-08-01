@@ -64,7 +64,7 @@ namespace GameEngine
 
         private void LoadFruit()
         {
-            Texture2D[] fruitTextures = GameTexture.fruitArray;
+            List<Texture2D> fruitTextures = GameTexture.fruitTexturesList;
             FruitFactory factory = new FruitFactory();
             foreach (var fruitTexture in fruitTextures)
             {
@@ -88,14 +88,14 @@ namespace GameEngine
             }
         }
 
-        private void PlaceOnRandomXY(GameObject fruit)
+        private void PlaceOnRandomXY(GameObject edible)
         {
             string[] placeAvailable = AvailableXY().Split();
             int placeFruitX = int.Parse(placeAvailable[0]);
             int placeFruitY = int.Parse(placeAvailable[1]);
-            fruit.X = placeFruitX*Global.quad_Width;
-            fruit.Y = placeFruitY*Global.quad_Height;
-            fruit.UpdateBoundingBox();
+            edible.X = placeFruitX*Global.quad_Width;
+            edible.Y = placeFruitY*Global.quad_Height;
+            edible.UpdateBoundingBox();
         }
 
         private string AvailableXY()
