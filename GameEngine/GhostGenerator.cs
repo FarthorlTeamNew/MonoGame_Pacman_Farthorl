@@ -38,9 +38,9 @@ namespace GameEngine.Factories
             
         }
 
-        public Dictionary<string, Ghost> Ghosts { get; set; }
-        public Dictionary<string, Animator> GhostAnimators { get; set; }
-        public Dictionary<string, IMovable> GhostMovements { get; set; }
+        public Dictionary<string, Ghost> Ghosts { get; private set; }
+        public Dictionary<string, Animator> GhostAnimators { get; private set; }
+        public Dictionary<string, IMovable> GhostMovements { get; private set; }
 
         private Dictionary<string, Ghost> GetGhosts(Matrix levelMatrix)
         {
