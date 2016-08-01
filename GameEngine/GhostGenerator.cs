@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using GameEngine.Animators;
-using GameEngine.Animators.GhostAnimators;
-using GameEngine.Globals;
-using GameEngine.Handlers;
-using GameEngine.Interfaces;
-using GameEngine.Models;
-using GameEngine.Models.LevelObjects;
-using GameEngine.Models.LevelObjects.Ghosts;
-using Microsoft.Xna.Framework;
-
-namespace GameEngine.Factories
+﻿namespace GameEngine
 {
+    using System;
+    using System.Collections.Generic;
+    using Animators;
+    using Animators.GhostAnimators;
+    using Globals;
+    using Handlers;
+    using Interfaces;
+    using Models;
+    using Models.LevelObjects;
+    using Models.LevelObjects.Ghosts;
+    using Microsoft.Xna.Framework;
+
     public class GhostGenerator
     {
         private Dictionary<string, Ghost> ghosts;
@@ -33,50 +33,45 @@ namespace GameEngine.Factories
             this.GhostMovements = this.GetGhostMovements(levelMatrix, pacMan);
         }
 
-        public void LoadContent()
-        {
-            
-        }
-
         public Dictionary<string, Ghost> Ghosts { get; private set; }
         public Dictionary<string, Animator> GhostAnimators { get; private set; }
         public Dictionary<string, IMovable> GhostMovements { get; private set; }
 
         private Dictionary<string, Ghost> GetGhosts(Matrix levelMatrix)
         {
-            blinky = new Blinky(GameTexture.pacmanAndGhost, 0, 0, new Rectangle(0, 0, 32, 32));
-            clyde = new Clyde(GameTexture.pacmanAndGhost, 0, 0, new Rectangle(0, 0, 32, 32));
-            inky = new Inky(GameTexture.pacmanAndGhost, 0, 0, new Rectangle(0, 0, 32, 32));
-            pinky = new Pinky(GameTexture.pacmanAndGhost, 0, 0, new Rectangle(0, 0, 32, 32));
+            this.blinky = new Blinky(GameTexture.pacmanAndGhost, 0, 0, new Rectangle(0, 0, 32, 32));
+            this.clyde = new Clyde(GameTexture.pacmanAndGhost, 0, 0, new Rectangle(0, 0, 32, 32));
+            this.inky = new Inky(GameTexture.pacmanAndGhost, 0, 0, new Rectangle(0, 0, 32, 32));
+            this.pinky = new Pinky(GameTexture.pacmanAndGhost, 0, 0, new Rectangle(0, 0, 32, 32));
 
-            ghosts.Add(nameof(Blinky), blinky);
-            ghosts.Add(nameof(Clyde), clyde);
-            ghosts.Add(nameof(Inky), inky);
-            ghosts.Add(nameof(Pinky), pinky);
+            this.ghosts.Add(nameof(Blinky), this.blinky);
+            this.ghosts.Add(nameof(Clyde), this.clyde);
+            this.ghosts.Add(nameof(Inky), this.inky);
+            this.ghosts.Add(nameof(Pinky), this.pinky);
 
             foreach (var kvp in ghosts)
             {
-                PlaceOnRandomXY(kvp.Value, levelMatrix);
+                this.PlaceOnRandomXY(kvp.Value, levelMatrix);
             }
-            return ghosts;
+            return this.ghosts;
         }
 
         private Dictionary<string, Animator> GetGhostAnimators()
         {
-            ghostAnimators.Add(nameof(Blinky), new BlinkyAnimator(blinky));
-            ghostAnimators.Add(nameof(Clyde), new ClydeAnimator(clyde));
-            ghostAnimators.Add(nameof(Inky), new InkyAnimator(inky));
-            ghostAnimators.Add(nameof(Pinky), new PinkyAnimator(pinky));
-            return ghostAnimators;
+            this.ghostAnimators.Add(nameof(Blinky), new BlinkyAnimator(this.blinky));
+            this.ghostAnimators.Add(nameof(Clyde), new ClydeAnimator(this.clyde));
+            this.ghostAnimators.Add(nameof(Inky), new InkyAnimator(this.inky));
+            this.ghostAnimators.Add(nameof(Pinky), new PinkyAnimator(this.pinky));
+            return this.ghostAnimators;
         }
 
         private Dictionary<string, IMovable> GetGhostMovements(Matrix levelMatrix, PacMan pacMan)
         {
-            ghostMovements.Add(nameof(Blinky), new GhostWeakRandomMovement(blinky, levelMatrix));
-            ghostMovements.Add(nameof(Clyde), new GhostGoodRandomMovement(clyde, levelMatrix));
-            ghostMovements.Add(nameof(Inky), new GhostHuntingRandomMovement(inky, levelMatrix, pacMan));
-            ghostMovements.Add(nameof(Pinky), new GhostHuntingRandomMovement(pinky, levelMatrix, pacMan));
-            return ghostMovements;
+            this.ghostMovements.Add(nameof(Blinky), new GhostWeakRandomMovement(this.blinky, levelMatrix));
+            this.ghostMovements.Add(nameof(Clyde), new GhostGoodRandomMovement(this.clyde, levelMatrix));
+            this.ghostMovements.Add(nameof(Inky), new GhostHuntingRandomMovement(this.inky, levelMatrix, pacMan));
+            this.ghostMovements.Add(nameof(Pinky), new GhostHuntingRandomMovement(this.pinky, levelMatrix, pacMan));
+            return this.ghostMovements;
         }
 
         private void PlaceOnRandomXY(Ghost ghost, Matrix levelMatrix)
