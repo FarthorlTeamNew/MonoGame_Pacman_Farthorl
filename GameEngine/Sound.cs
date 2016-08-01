@@ -5,12 +5,12 @@ namespace GameEngine
 {
     public class Sound
     {
-        private SoundEffect soundPacManChomp;
-        private SoundEffect soundPacManDead;
-        private SoundEffect soundPaceatFruit;
-        private SoundEffect soundPacManBegin;
-        private SoundEffect soundPacmanEatghost;
-        private SoundBank soundBank;
+        private readonly SoundEffect soundPacManChomp;
+        private readonly SoundEffect soundPacManDead;
+        private readonly SoundEffect soundPaceatFruit;
+        private readonly SoundEffect soundPacManBegin;
+        private readonly SoundEffect soundPacmanEatghost;
+        private readonly SoundEffect ghostDies;
 
         public Sound(Game game)
         {
@@ -19,6 +19,7 @@ namespace GameEngine
             this.soundPaceatFruit = game.Content.Load<SoundEffect>("Sound/paceat");
             this.soundPacManDead = game.Content.Load<SoundEffect>("Sound/pacdead");
             this.soundPacManBegin = game.Content.Load<SoundEffect>("Sound/pacbegin");
+            this.ghostDies = game.Content.Load<SoundEffect>("Sound/pacghost");
         }
 
         public void Dead()
@@ -44,10 +45,9 @@ namespace GameEngine
         {
             this.soundPacmanEatghost.Play();
         }
-
-        public void Ghostmove()
+        public void GhostDies()
         {
-            this.soundBank.GetCue("Sound/pacghost").Play();
+            this.ghostDies.Play();
         }
     }
 }

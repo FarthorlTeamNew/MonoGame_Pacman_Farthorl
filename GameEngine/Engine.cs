@@ -174,6 +174,7 @@
                             
                             else if (ghost.Value.IsColliding(pacMan) && pacMan.CanEat)
                             {
+                                sound.GhostDies();
                                 ghostGen.GhostMovements.Remove(ghost.Key);
                                 ghostGen.GhostAnimators.Remove(ghost.Key);
                                 ghostGen.Ghosts.Remove(ghost.Key);
