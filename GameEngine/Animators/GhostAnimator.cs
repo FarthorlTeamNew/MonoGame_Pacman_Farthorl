@@ -29,32 +29,30 @@
         public override void UpdateAnimation(GameTime gameTime, Vector2 velocity)
         {
 
-            if (velocity != Vector2.Zero)
+
+            var direction = CalculateDirection(velocity);
+            switch (direction)
             {
-                var direction = CalculateDirection(velocity);
-                switch (direction)
-                {
-                    case Direction.Right:
-                        this.currentAnimation = this.animations.Find(x => x.Face == Direction.Right);
-                        base.currentDirection = Direction.Right;
-                        break;
+                case Direction.Right:
+                    this.currentAnimation = this.animations.Find(x => x.Face == Direction.Right);
+                    base.currentDirection = Direction.Right;
+                    break;
 
-                    case Direction.Left:
-                        this.currentAnimation = this.animations.Find(x => x.Face == Direction.Left);
-                        base.currentDirection = Direction.Left;
-                        break;
+                case Direction.Left:
+                    this.currentAnimation = this.animations.Find(x => x.Face == Direction.Left);
+                    base.currentDirection = Direction.Left;
+                    break;
 
-                    case Direction.Down:
-                        this.currentAnimation = this.animations.Find(x => x.Face == Direction.Down);
-                        base.currentDirection = Direction.Down;
-                        break;
+                case Direction.Down:
+                    this.currentAnimation = this.animations.Find(x => x.Face == Direction.Down);
+                    base.currentDirection = Direction.Down;
+                    break;
 
-                    case Direction.Up:
-                        this.currentAnimation = this.animations.Find(x => x.Face == Direction.Up);
-                        base.currentDirection = Direction.Up;
-                        break;
+                case Direction.Up:
+                    this.currentAnimation = this.animations.Find(x => x.Face == Direction.Up);
+                    base.currentDirection = Direction.Up;
+                    break;
 
-                }
             }
             this.currentAnimation.Update(gameTime);
         }
