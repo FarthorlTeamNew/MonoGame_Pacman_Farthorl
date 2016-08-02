@@ -132,9 +132,10 @@ namespace GameEngine
             pointsList.FirstOrDefault(x => x.IsColliding(pacMan))?.ReactOnCollision(pacMan);
             pointsList.Remove(pointsList.FirstOrDefault(x => x.IsColliding(pacMan)));
 
-            fruits.FirstOrDefault(x => x.IsColliding(pacMan))?.ReactOnCollision(pacMan);
-            fruits.FirstOrDefault(x => x.IsColliding(pacMan))?.ActivatePowerup(ghostGen);
-            fruits.Remove(fruits.FirstOrDefault(x => x.IsColliding(pacMan)));
+            Fruit fruitToEatActivateRemove = fruits.FirstOrDefault(x => x.IsColliding(pacMan));
+            fruitToEatActivateRemove?.ReactOnCollision(pacMan);
+            fruitToEatActivateRemove?.ActivatePowerup(ghostGen, pacMan);
+            fruits.Remove(fruitToEatActivateRemove);
 
             ghostKillers.FirstOrDefault(x => x.IsColliding(pacMan))?.ReactOnCollision(pacMan);
             ghostKillers.Remove(ghostKillers.FirstOrDefault(x => x.IsColliding(pacMan)));

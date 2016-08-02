@@ -13,7 +13,7 @@
             base.FruitBonus = AppleBonus;
         }
 
-        public override void ActivatePowerup(GhostGenerator ghostGen)
+        public override void ActivatePowerup(GhostGenerator ghostGen, PacMan pacMan)
         {
             ghostGen.GhostMovements[nameof(Inky)].DecreaseSpeed();
             ghostGen.GhostMovements[nameof(Clyde)].DecreaseSpeed();

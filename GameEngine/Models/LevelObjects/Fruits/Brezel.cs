@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace GameEngine.Models.LevelObjects.Fruits
@@ -12,9 +13,10 @@ namespace GameEngine.Models.LevelObjects.Fruits
             base.FruitBonus = BrezelBonus;
         }
 
-        public override void ActivatePowerup(GhostGenerator ghostGen)
+        public override void ActivatePowerup(GhostGenerator ghostGen, PacMan pacMan)
         {
-
+            pacMan.X = new Random().Next(2, 20) * 32;
+            pacMan.Y = new Random().Next(1, 10) * 32;
         }
     }
 }

@@ -12,7 +12,7 @@ namespace GameEngine.Models.LevelObjects.Fruits
             base.FruitBonus = PearBonus;
         }
 
-        public override void ActivatePowerup(GhostGenerator ghostGen)
+        public override void ActivatePowerup(GhostGenerator ghostGen, PacMan pacMan)
         {
 
         }

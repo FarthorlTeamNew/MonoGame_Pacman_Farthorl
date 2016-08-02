@@ -12,7 +12,7 @@ namespace GameEngine.Models.LevelObjects.Fruits
             base.FruitBonus = BananaBonus;
         }
 
-        public override void ActivatePowerup(GhostGenerator ghostGen)
+        public override void ActivatePowerup(GhostGenerator ghostGen, PacMan pacMan)
         {
             ghostGen.GhostMovements[nameof(PacMan)].DecreaseSpeed();
         }
