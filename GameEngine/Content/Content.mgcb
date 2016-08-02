@@ -49,3 +49,9 @@
 /processorParam:Quality=Best
 /build:Sound/pacman_chomp.wav
 
+#begin Sound/ScoresFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:Sound/ScoresFont.spritefont
+

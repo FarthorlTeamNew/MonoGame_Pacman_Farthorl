@@ -20,6 +20,7 @@
         private KeyPress keyPress;
         private KeyboardState oldState;
         private bool isLevelCompleated;
+        private SpriteFont font;
         GameState currentGameState = GameState.MainMenu;
         CButton butPlay;
         CButton butExit;
@@ -55,6 +56,7 @@
             this.butExit.SetPosition(new Vector2(300, 200));
             this.levelMatrix.InitializeMatrix(this.GraphicsDevice);
             this.ghostGen = new GhostGenerator(levelMatrix, pacMan);
+            //this.font = this.Content.Load<SpriteFont>("ScoresFont");
             sound = new Sound(this);
             sound.Begin();
         }
@@ -131,7 +133,7 @@
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Green);
-
+            
             this.spriteBatch.Begin();
             switch (this.currentGameState)
             {
@@ -143,6 +145,14 @@
                 case GameState.Options:
                     break;
                 case GameState.Playing:
+
+                    //Test scores background.. if you want delete it :)
+                   var test = this.Content.Load<Texture2D>("ScoresBackground");
+                    this.spriteBatch.Draw(test, new Vector2(0, 416));
+                    //this.spriteBatch.DrawString(this.font, "Hello World", new Vector2(20, 433), Color.Aqua);
+                
+                    //==================
+
                     if (this.pacMan.Health > 0)
                     {
                         this.levelMatrix.Draw(this.spriteBatch);

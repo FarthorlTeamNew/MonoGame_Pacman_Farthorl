@@ -161,11 +161,6 @@ namespace GameEngine
             {
                 spriteBatch.Draw(ghostKiller.Texture, ghostKiller.BoundingBox, Color.White);
             }
-        
-            var rect = new Texture2D(this.graphics.GraphicsDevice, 80, 80);
-            Vector2 coor = new Vector2(0, 416);
-            spriteBatch.Draw(rect, coor, Color.Black);
-  
         }
 
         private string[,] GetMatrixValues()
