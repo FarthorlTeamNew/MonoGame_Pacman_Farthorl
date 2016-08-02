@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using GameEngine.Factories;
@@ -20,6 +21,7 @@ namespace GameEngine
         private readonly List<PointObj> pointsList;
         private List<Fruit> fruits;
         private List<GhostKiller> ghostKillers;
+        private Stopwatch watch;
 
         public Matrix()
         {
@@ -27,6 +29,7 @@ namespace GameEngine
             pointsList = new List<PointObj>();
             fruits = new List<Fruit>();
             ghostKillers = new List<GhostKiller>();
+            this.watch = new Stopwatch();
         }
 
         public int LeftPoints
@@ -137,8 +140,19 @@ namespace GameEngine
             fruitToEatActivateRemove?.ActivatePowerup(ghostGen, pacMan);
             fruits.Remove(fruitToEatActivateRemove);
 
-            ghostKillers.FirstOrDefault(x => x.IsColliding(pacMan))?.ReactOnCollision(pacMan);
-            ghostKillers.Remove(ghostKillers.FirstOrDefault(x => x.IsColliding(pacMan)));
+            GhostKiller ghostKiller = ghostKillers.FirstOrDefault(x => x.IsColliding(pacMan));
+            ghostKiller?.ReactOnCollision(pacMan);
+            if (ghostKiller != null)
+            {
+                this.watch.Start();
+            }
+            if (this.watch.ElapsedMilliseconds > 5000)
+            {
+                pacMan.CanEat = false;
+                this.watch.Reset();
+                this.watch.Stop();
+            }
+            ghostKillers.Remove(ghostKiller);
         }
 
         public void Draw(SpriteBatch spriteBatch)

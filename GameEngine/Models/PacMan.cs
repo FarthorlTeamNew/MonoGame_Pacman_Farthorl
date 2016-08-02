@@ -11,7 +11,6 @@ namespace GameEngine.Models
             : base(texture, 0,  0, boundingBox)
         {
             this.CanEat = false;
-           
         }
 
         public int Scores { get; set; } = 0;

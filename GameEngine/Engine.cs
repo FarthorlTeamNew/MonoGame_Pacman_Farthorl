@@ -126,7 +126,7 @@
                     break;
             }
 
-            this.Window.Title = "PACMAN FARTHORL v.2.0";
+            this.Window.Title = "PACMAN FARTHORL v.2.0" + "     Can PacMan eat? : " + this.pacMan.CanEat;
             oldState = Keyboard.GetState();  // Update saved state.
         }
 
