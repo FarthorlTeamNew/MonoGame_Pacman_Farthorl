@@ -11,5 +11,10 @@ namespace GameEngine.Models.LevelObjects.Fruits
         {
             base.FruitBonus = BrezelBonus;
         }
+
+        public override void ActivatePowerup(GhostGenerator ghostGen)
+        {
+
+        }
     }
 }

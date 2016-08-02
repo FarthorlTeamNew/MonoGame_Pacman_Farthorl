@@ -8,7 +8,7 @@ namespace GameEngine.Handlers
     using System;
     using System.Collections.Generic;
 
-    class GhostGoodRandomMovement : ObjectMover, IMovable
+    public class GhostGoodRandomMovement : ObjectMover, IMovable
     {
         private Random random;
         List<Direction> possibleDirections;
@@ -160,6 +160,11 @@ namespace GameEngine.Handlers
             }
 
             return nextPointToMove;
+        }
+
+        public void IncreaseSpeed()
+        {
+            this.pixelMoved--;
         }
     }
 }

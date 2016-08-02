@@ -26,5 +26,7 @@ namespace GameEngine.Models.LevelObjects
                 pacMan.Health = 100;
             }
         }
+
+        public abstract void ActivatePowerup(GhostGenerator ghostGen);
     }
 }

@@ -103,7 +103,7 @@
                             var movedToPoint = ghostGen.GhostMovements[kvp.Key].Move(gameTime);
                             ghostGen.GhostAnimators[kvp.Key].UpdateAnimation(gameTime, movedToPoint);
                         }
-                        levelMatrix.Update(pacMan);
+                        levelMatrix.Update(pacMan, ghostGen);
                     }
                     else   // Wining Condition
                     {

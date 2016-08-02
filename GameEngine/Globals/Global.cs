@@ -9,6 +9,6 @@
         public static int XMax = 24;
         public static int YMax = 13;
         public static int PacmanSpeed = 4;
-        public static int DefaultGhostSpeed = 1;
+        public static int DefaultGhostSpeed = 2;
     }
 }

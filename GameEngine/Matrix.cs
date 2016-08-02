@@ -127,12 +127,13 @@ namespace GameEngine
             }
         }
 
-        public void Update(PacMan pacMan)
+        public void Update(PacMan pacMan, GhostGenerator ghostGen)
         {
             pointsList.FirstOrDefault(x => x.IsColliding(pacMan))?.ReactOnCollision(pacMan);
             pointsList.Remove(pointsList.FirstOrDefault(x => x.IsColliding(pacMan)));
 
             fruits.FirstOrDefault(x => x.IsColliding(pacMan))?.ReactOnCollision(pacMan);
+            fruits.FirstOrDefault(x => x.IsColliding(pacMan))?.ActivatePowerup(ghostGen);
             fruits.Remove(fruits.FirstOrDefault(x => x.IsColliding(pacMan)));
 
             ghostKillers.FirstOrDefault(x => x.IsColliding(pacMan))?.ReactOnCollision(pacMan);
@@ -160,7 +161,6 @@ namespace GameEngine
                 spriteBatch.Draw(ghostKiller.Texture, ghostKiller.BoundingBox, Color.White);
             }
         }
-
 
         private string[,] GetMatrixValues()
         {
