@@ -14,6 +14,7 @@ namespace GameEngine.Models.LevelObjects.Fruits
 
         public override void ActivatePowerup(GhostGenerator ghostGen)
         {
+            ghostGen.GhostMovements[nameof(PacMan)].DecreaseSpeed();
         }
     }
 }

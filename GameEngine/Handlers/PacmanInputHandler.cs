@@ -184,7 +184,7 @@ namespace GameEngine.Handlers
 
         public void DecreaseSpeed()
         {
-            this.pixelMoved++;
+            this.pixelMoved-=2;
         }
     }
 }
