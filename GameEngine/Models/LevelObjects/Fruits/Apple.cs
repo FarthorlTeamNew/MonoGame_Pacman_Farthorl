@@ -15,8 +15,10 @@
 
         public override void ActivatePowerup(GhostGenerator ghostGen, PacMan pacMan)
         {
-            ghostGen.GhostMovements[nameof(Inky)].DecreaseSpeed();
-            ghostGen.GhostMovements[nameof(Clyde)].DecreaseSpeed();
+            if(ghostGen.GhostMovements.ContainsKey(nameof(Inky)))
+                ghostGen.GhostMovements[nameof(Inky)].DecreaseSpeed();
+            if (ghostGen.GhostMovements.ContainsKey(nameof(Clyde)))
+                ghostGen.GhostMovements[nameof(Clyde)].DecreaseSpeed();
         }
     }
 }
