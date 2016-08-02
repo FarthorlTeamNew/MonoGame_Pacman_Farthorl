@@ -28,9 +28,10 @@
 
         public override void UpdateAnimation(GameTime gameTime, Vector2 velocity)
         {
-            var direction = CalculateDirection(velocity);
+
             if (velocity != Vector2.Zero)
             {
+                var direction = CalculateDirection(velocity);
                 switch (direction)
                 {
                     case Direction.Right:
@@ -52,9 +53,7 @@
                         this.currentAnimation = this.animations.Find(x => x.Face == Direction.Up);
                         base.currentDirection = Direction.Up;
                         break;
-                    default:
-                        this.currentAnimation = this.animations.Find(x => x.Face == base.currentDirection);
-                        break;
+
                 }
             }
             this.currentAnimation.Update(gameTime);
@@ -62,30 +61,30 @@
 
         public Direction CalculateDirection(Vector2 velocity)
         {
-            var random = new Random();
-            List<Direction> directions = new List<Direction>();
 
-            if (velocity != Vector2.Zero)
+            if (velocity.X < this.gameObject.X &&
+                !GameEngine.Matrix.IsHaveBrick(this.gameObject.QuadrantX - 1, this.gameObject.QuadrantY))
             {
-                if (velocity.X > this.gameObject.X)
-                {
-                    directions.Add(Direction.Right);
-                }
-                if (velocity.X < this.gameObject.X)
-                {
-                    directions.Add(Direction.Left);
-                }
-                if (velocity.Y > this.defaultYcoord)
-                {
-                    directions.Add(Direction.Down);
-                }
-                if (velocity.Y < this.defaultYcoord)
-                {
-                    directions.Add(Direction.Up);
-                }
+                return Direction.Left;
             }
-            int randomIndex = random.Next(0, directions.Count - 1);
-            return directions[randomIndex];
+            else if (velocity.X > this.gameObject.X &&
+              !GameEngine.Matrix.IsHaveBrick(this.gameObject.QuadrantX + 1, this.gameObject.QuadrantY))
+            {
+                return Direction.Right;
+            }
+            else if (velocity.Y < this.gameObject.Y &&
+              !GameEngine.Matrix.IsHaveBrick(this.gameObject.QuadrantX, this.gameObject.QuadrantY - 1))
+            {
+                return Direction.Up;
+            }
+            else if (velocity.Y > this.gameObject.Y &&
+                     !GameEngine.Matrix.IsHaveBrick(this.gameObject.QuadrantX, this.gameObject.QuadrantY + 1))
+            {
+                return Direction.Down;
+            }
+
+            return this.currentDirection;
+
         }
 
         public override void Draw(SpriteBatch spriteBatch)

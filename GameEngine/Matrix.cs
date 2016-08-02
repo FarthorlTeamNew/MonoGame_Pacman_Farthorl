@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using GameEngine.Factories;
 using GameEngine.Models;
 
@@ -16,8 +17,8 @@ namespace GameEngine
     {
         private string Level = @"DataFiles\Levels\Labirint.txt";
         public string[,] PathsMatrix = new string[Global.YMax, Global.XMax];
-        
-        private readonly List<Wall> bricksList;
+
+        private static List<Wall> bricksList;
         private readonly List<PointObj> pointsList;
         private List<Fruit> fruits;
         private List<GhostKiller> ghostKillers;
@@ -51,7 +52,7 @@ namespace GameEngine
 
                     if (quadrant == 1)
                     {
-                        Wall brick = new Wall(GameTexture.brick, x * Global.quad_Width, y * Global.quad_Height, new Rectangle(x * Global.quad_Width, y * Global.quad_Height, Global.quad_Width, Global.quad_Height));             
+                        Wall brick = new Wall(GameTexture.brick, x * Global.quad_Width, y * Global.quad_Height, new Rectangle(x * Global.quad_Width, y * Global.quad_Height, Global.quad_Width, Global.quad_Height));
                         bricksList.Add(brick);
                     }
                     else if (pointIndex == 1)
@@ -96,8 +97,8 @@ namespace GameEngine
             string[] placeAvailable = AvailableXY().Split();
             int placeFruitX = int.Parse(placeAvailable[0]);
             int placeFruitY = int.Parse(placeAvailable[1]);
-            edible.X = placeFruitX*Global.quad_Width;
-            edible.Y = placeFruitY*Global.quad_Height;
+            edible.X = placeFruitX * Global.quad_Width;
+            edible.Y = placeFruitY * Global.quad_Height;
             edible.UpdateBoundingBox();
         }
 
@@ -220,6 +221,16 @@ namespace GameEngine
             {
                 throw new FileLoadException("Level file didn't load!");
             }
+        }
+
+        public static bool IsHaveBrick(int quadrantX, int quadrantY)
+        {
+
+            if (bricksList.Count(b => b.QuadrantX == quadrantX && b.QuadrantY == quadrantY) > 0)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
