@@ -15,8 +15,8 @@
 
         public override void ActivatePowerup(GhostGenerator ghostGen)
         {
-            ghostGen.GhostMovements[nameof(Inky)].IncreaseSpeed();
-            ghostGen.GhostMovements[nameof(Clyde)].IncreaseSpeed();
+            ghostGen.GhostMovements[nameof(Inky)].DecreaseSpeed();
+            ghostGen.GhostMovements[nameof(Clyde)].DecreaseSpeed();
         }
     }
 }

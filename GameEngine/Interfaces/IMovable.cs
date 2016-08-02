@@ -6,6 +6,6 @@ namespace GameEngine.Interfaces
     {
         Vector2 Move(GameTime gameTime);
         void Reset();
-        void IncreaseSpeed();
+        void DecreaseSpeed();
     }
 }

@@ -162,7 +162,7 @@ namespace GameEngine.Handlers
             return nextPointToMove;
         }
 
-        public void IncreaseSpeed()
+        public void DecreaseSpeed()
         {
             this.pixelMoved--;
         }

@@ -182,7 +182,7 @@ namespace GameEngine.Handlers
             return desiredVelocity;
         }
 
-        public void IncreaseSpeed()
+        public void DecreaseSpeed()
         {
             this.pixelMoved++;
         }
