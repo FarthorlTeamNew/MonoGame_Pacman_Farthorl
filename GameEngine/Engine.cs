@@ -126,7 +126,7 @@
                     break;
             }
 
-            this.Window.Title = "PACMAN FARTHORL v.2.0" + "     Can PacMan eat? : " + this.pacMan.CanEat;
+            this.Window.Title = "PACMAN FARTHORL v.2.0" ;
             oldState = Keyboard.GetState();  // Update saved state.
         }
 
@@ -149,7 +149,7 @@
                     //Test scores background.. if you want delete it :)
                     var test = this.Content.Load<Texture2D>("ScoresBackground");
                     this.spriteBatch.Draw(test, new Vector2(0, 416));
-                    var scores= $"Scores: {this.pacMan.Scores}   Left points:{this.levelMatrix.LeftPoints}  HEALTH:{this.pacMan.Health}  LIVES:{this.pacMan.Lives}";
+                    var scores= $"Scores: {this.pacMan.Scores}   Left points:{this.levelMatrix.LeftPoints}  HEALTH:{this.pacMan.Health}  LIVES:{this.pacMan.Lives}      Can PacMan eat? :  {this.pacMan.CanEat}";
                     this.spriteBatch.DrawString(this.font, scores, new Vector2(15, 426), Color.Aqua);
                  
                     //==================
