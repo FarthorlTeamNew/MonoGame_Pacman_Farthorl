@@ -56,7 +56,7 @@
             this.butExit.SetPosition(new Vector2(300, 200));
             this.levelMatrix.InitializeMatrix(this.GraphicsDevice);
             this.ghostGen = new GhostGenerator(levelMatrix, pacMan);
-            //this.font = this.Content.Load<SpriteFont>("ScoresFont");
+            this.font = this.Content.Load<SpriteFont>("ScoresFont");
             sound = new Sound(this);
             sound.Begin();
         }
@@ -74,7 +74,7 @@
                     currentGameState = GameState.MainMenu;
                     Reset();
                 }
-                else if(currentGameState == GameState.MainMenu)
+                else if (currentGameState == GameState.MainMenu)
                 {
                     Exit();
                     return;
@@ -126,14 +126,14 @@
                     break;
             }
 
-            this.Window.Title = $"Scores: {this.pacMan.Scores}   Left points:{this.levelMatrix.LeftPoints}  HEALTH:{this.pacMan.Health}  LIVES:{this.pacMan.Lives}";
+            this.Window.Title = "PACMAN FARTHORL v.2.0";
             oldState = Keyboard.GetState();  // Update saved state.
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Green);
-            
+
             this.spriteBatch.Begin();
             switch (this.currentGameState)
             {
@@ -147,10 +147,11 @@
                 case GameState.Playing:
 
                     //Test scores background.. if you want delete it :)
-                   var test = this.Content.Load<Texture2D>("ScoresBackground");
+                    var test = this.Content.Load<Texture2D>("ScoresBackground");
                     this.spriteBatch.Draw(test, new Vector2(0, 416));
-                    //this.spriteBatch.DrawString(this.font, "Hello World", new Vector2(20, 433), Color.Aqua);
-                
+                    var scores= $"Scores: {this.pacMan.Scores}   Left points:{this.levelMatrix.LeftPoints}  HEALTH:{this.pacMan.Health}  LIVES:{this.pacMan.Lives}";
+                    this.spriteBatch.DrawString(this.font, scores, new Vector2(15, 426), Color.Aqua);
+                 
                     //==================
 
                     if (this.pacMan.Health > 0)
@@ -159,21 +160,21 @@
 
                         foreach (var kvp in ghostGen.GhostAnimators)
                         {
-                            kvp.Value.Draw(this.spriteBatch);                           
+                            kvp.Value.Draw(this.spriteBatch);
                         }
 
-                        if (this.levelMatrix.LeftPoints == 0) 
-                        {                          
+                        if (this.levelMatrix.LeftPoints == 0)
+                        {
                             var texture = Content.Load<Texture2D>("PacManWin_image");
                             this.spriteBatch.Draw(texture, new Vector2(250, 100));
-                            isLevelCompleated = true;                          
+                            isLevelCompleated = true;
                         }
                         foreach (var ghost in ghostGen.Ghosts)
-                        {                         
+                        {
                             if (ghost.Value.IsColliding(this.pacMan) && !this.pacMan.CanEat)
                             {
-                               var texture = Content.Load<Texture2D>("PacManLose");
-                               this.spriteBatch.Draw(texture, new Vector2(250, 100));
+                                var texture = Content.Load<Texture2D>("PacManLose");
+                                this.spriteBatch.Draw(texture, new Vector2(250, 100));
                                 if (isLevelCompleated == false)
                                 {
                                     this.pacMan.Lives--;
@@ -181,7 +182,7 @@
                                     sound.Dead();
                                 }
                             }
-                            
+
                             else if (ghost.Value.IsColliding(pacMan) && pacMan.CanEat)
                             {
                                 sound.GhostDies();
