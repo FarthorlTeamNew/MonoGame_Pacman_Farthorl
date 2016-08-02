@@ -1,4 +1,6 @@
-﻿namespace GameEngine.Animators
+﻿using GameEngine.Models;
+
+namespace GameEngine.Animators
 {
     using Globals;
     using Handlers;
@@ -28,8 +30,6 @@
 
         public override void UpdateAnimation(GameTime gameTime, Vector2 velocity)
         {
-
-
             var direction = CalculateDirection(velocity);
             switch (direction)
             {
@@ -59,26 +59,72 @@
 
         public Direction CalculateDirection(Vector2 velocity)
         {
+            if (velocity.X < this.gameObject.QuadrantX)
+            {
+                if (!GameEngine.Matrix.IsHaveBrick(this.gameObject.QuadrantX - 1, this.gameObject.QuadrantY))
+                {
+                    return Direction.Left;
+                }
+                else if (velocity.Y < this.gameObject.QuadrantY &&
+                    !GameEngine.Matrix.IsHaveBrick(this.gameObject.QuadrantX, this.gameObject.QuadrantY - 1))
+                {
+                    return Direction.Up;
+                }
+                else if (!GameEngine.Matrix.IsHaveBrick(this.gameObject.QuadrantX, this.gameObject.QuadrantY + 1))
+                {
+                    return Direction.Down;
+                }
+            }
 
-            if (velocity.X < this.gameObject.X &&
-                !GameEngine.Matrix.IsHaveBrick(this.gameObject.QuadrantX - 1, this.gameObject.QuadrantY))
+            if (velocity.X > this.gameObject.QuadrantX)
             {
-                return Direction.Left;
+                if (!GameEngine.Matrix.IsHaveBrick(this.gameObject.QuadrantX + 1, this.gameObject.QuadrantY))
+                {
+                    return Direction.Right;
+                }
+                else if (velocity.Y < this.gameObject.QuadrantY &&
+                    !GameEngine.Matrix.IsHaveBrick(this.gameObject.QuadrantX, this.gameObject.QuadrantY - 1))
+                {
+                    return Direction.Up;
+                }
+                else if (!GameEngine.Matrix.IsHaveBrick(this.gameObject.QuadrantX, this.gameObject.QuadrantY + 1))
+                {
+                    return Direction.Down;
+                }
             }
-            else if (velocity.X > this.gameObject.X &&
-              !GameEngine.Matrix.IsHaveBrick(this.gameObject.QuadrantX + 1, this.gameObject.QuadrantY))
+
+            if (velocity.Y < this.gameObject.QuadrantY)
             {
-                return Direction.Right;
+                if (!GameEngine.Matrix.IsHaveBrick(this.gameObject.QuadrantX, this.gameObject.QuadrantY - 1))
+                {
+                    return Direction.Up;
+                }
+                else if (velocity.X < this.gameObject.QuadrantX &&
+                    !GameEngine.Matrix.IsHaveBrick(this.gameObject.QuadrantX - 1, this.gameObject.QuadrantY))
+                {
+                    return Direction.Left;
+                }
+                else if (!GameEngine.Matrix.IsHaveBrick(this.gameObject.QuadrantX + 1, this.gameObject.QuadrantY))
+                {
+                    return Direction.Right;
+                }
             }
-            else if (velocity.Y < this.gameObject.Y &&
-              !GameEngine.Matrix.IsHaveBrick(this.gameObject.QuadrantX, this.gameObject.QuadrantY - 1))
+
+            if (velocity.Y > this.gameObject.QuadrantY)
             {
-                return Direction.Up;
-            }
-            else if (velocity.Y > this.gameObject.Y &&
-                     !GameEngine.Matrix.IsHaveBrick(this.gameObject.QuadrantX, this.gameObject.QuadrantY + 1))
-            {
-                return Direction.Down;
+                if (!GameEngine.Matrix.IsHaveBrick(this.gameObject.QuadrantX, this.gameObject.QuadrantY + 1))
+                {
+                    return Direction.Down;
+                }
+                else if (velocity.X < this.gameObject.QuadrantX &&
+                    !GameEngine.Matrix.IsHaveBrick(this.gameObject.QuadrantX - 1, this.gameObject.QuadrantY))
+                {
+                    return Direction.Left;
+                }
+                else if (!GameEngine.Matrix.IsHaveBrick(this.gameObject.QuadrantX + 1, this.gameObject.QuadrantY))
+                {
+                    return Direction.Right;
+                }
             }
 
             return this.currentDirection;

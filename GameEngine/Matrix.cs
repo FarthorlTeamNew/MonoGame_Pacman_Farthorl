@@ -187,7 +187,7 @@ namespace GameEngine
                     string inputLine;
                     while ((inputLine = fileMatrix.ReadLine()) != null)
                     {
-                        // Get values from the coordinates.txt example splitLine[0]
+                        // Get values from the Coordinates.txt example splitLine[0]
                         var splitLine = inputLine.Trim().Split('=');
 
                         //Get the position values for the 2D array example arrayXYValues[0]=1 arrayXYValues[0]=0 
