@@ -1,7 +1,6 @@
-﻿using GameEngine.Core;
-
-namespace GameEngine.Models.LevelObjects.Fruits
+﻿namespace GameEngine.Models.LevelObjects.Fruits
 {
+    using Core;
     using System;
     using Ghosts;
     using Microsoft.Xna.Framework;
@@ -13,7 +12,7 @@ namespace GameEngine.Models.LevelObjects.Fruits
         public Cherry(Texture2D texture, Rectangle boundingBox)
             : base(texture, boundingBox)
         {
-            base.FruitBonus = CherryBonus;
+            this.FruitBonus = CherryBonus;
         }
 
         public override void ActivatePowerup(GhostGenerator ghostGen, PacMan pacMan)

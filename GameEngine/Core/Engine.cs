@@ -1,15 +1,15 @@
-﻿using System;
-using GameEngine.Enums;
-using GameEngine.Globals;
-using GameEngine.Handlers;
-using GameEngine.Menu;
-using GameEngine.Models;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-
-namespace GameEngine.Core
+﻿namespace GameEngine.Core
 {
+    using System;
+    using Enums;
+    using Globals;
+    using Handlers;
+    using Menu;
+    using Models;
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+    using Microsoft.Xna.Framework.Input;
+
     public class Engine : Game
     {
         public static Sound sound;

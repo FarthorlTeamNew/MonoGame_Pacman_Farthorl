@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using GameEngine.Enums;
-
-namespace GameEngine.Utilities
+﻿namespace GameEngine.Utilities
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using Enums;
+    
     public static class Log
     {
         private static Dictionary<LogEnumerable, List<string>> logs;

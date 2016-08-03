@@ -1,9 +1,7 @@
-﻿using GameEngine.Enums;
-
-namespace GameEngine.Handlers
+﻿namespace GameEngine.Handlers
 {
     using Globals;
-    using Interfaces;
+    using Enums;
     using Models.LevelObjects;
     using Microsoft.Xna.Framework;
     using System;
@@ -19,21 +17,21 @@ namespace GameEngine.Handlers
             : base(gameObject, levelMatrix)
         {
             this.pacman = pacman;
-            pixelMoved = Global.DefaultGhostSpeed;
-            random = new Random(DateTime.Now.Millisecond);
-            possibleDirections = new List<Direction>();
+            this.pixelMoved = Global.DefaultGhostSpeed;
+            this.random = new Random(DateTime.Now.Millisecond);
+            this.possibleDirections = new List<Direction>();
         }
 
         private Direction SeePackman()
         {
             // watch left and right
-            if (gameObject.QuadrantY == pacman.QuadrantY)
+            if (this.gameObject.QuadrantY == this.pacman.QuadrantY)
             {
                 int distanceToSee = 1;
-                while (gameObject.QuadrantX - distanceToSee >= 0
-                    && obstacles[gameObject.QuadrantY, gameObject.QuadrantX - distanceToSee] != true)
+                while (this.gameObject.QuadrantX - distanceToSee >= 0
+                    && this.obstacles[this.gameObject.QuadrantY, this.gameObject.QuadrantX - distanceToSee] != true)
                 {
-                    if (gameObject.QuadrantX - distanceToSee == pacman.QuadrantX)
+                    if (this.gameObject.QuadrantX - distanceToSee == this.pacman.QuadrantX)
                     {
                         return Direction.Left;
                     }
@@ -41,10 +39,10 @@ namespace GameEngine.Handlers
                 }
 
                 distanceToSee = 1;
-                while (gameObject.QuadrantX + distanceToSee <= Global.XMax - 1
-                    && obstacles[gameObject.QuadrantY, gameObject.QuadrantX + distanceToSee] != true)
+                while (this.gameObject.QuadrantX + distanceToSee <= Global.XMax - 1
+                    && this.obstacles[this.gameObject.QuadrantY, this.gameObject.QuadrantX + distanceToSee] != true)
                 {
-                    if (gameObject.QuadrantX + distanceToSee == pacman.QuadrantX)
+                    if (this.gameObject.QuadrantX + distanceToSee == this.pacman.QuadrantX)
                     {
                         return Direction.Right;
                     }
@@ -53,13 +51,13 @@ namespace GameEngine.Handlers
             }
 
             // watch up and down
-            if (gameObject.QuadrantX == pacman.QuadrantX)
+            if (this.gameObject.QuadrantX == this.pacman.QuadrantX)
             {
                 int distanceToSee = 1;
-                while (gameObject.QuadrantY - distanceToSee >= 0
-                    && obstacles[gameObject.QuadrantY - distanceToSee, gameObject.QuadrantX] != true)
+                while (this.gameObject.QuadrantY - distanceToSee >= 0
+                    && this.obstacles[this.gameObject.QuadrantY - distanceToSee, this.gameObject.QuadrantX] != true)
                 {
-                    if (gameObject.QuadrantY - distanceToSee == pacman.QuadrantY)
+                    if (this.gameObject.QuadrantY - distanceToSee == this.pacman.QuadrantY)
                     {
                         return Direction.Up;
                     }
@@ -67,10 +65,10 @@ namespace GameEngine.Handlers
                 }
 
                 distanceToSee = 1;
-                while (gameObject.QuadrantY + distanceToSee <= Global.YMax - 1
-                    && obstacles[gameObject.QuadrantY + distanceToSee, gameObject.QuadrantX] != true)
+                while (this.gameObject.QuadrantY + distanceToSee <= Global.YMax - 1
+                    && this.obstacles[this.gameObject.QuadrantY + distanceToSee, this.gameObject.QuadrantX] != true)
                 {
-                    if (gameObject.QuadrantY + distanceToSee == pacman.QuadrantY)
+                    if (this.gameObject.QuadrantY + distanceToSee == this.pacman.QuadrantY)
                     {
                         return Direction.Down;
                     }
@@ -87,128 +85,128 @@ namespace GameEngine.Handlers
 
             // checks if ghost is can randomize direction if not going back
             // preferred left, right, front
-            if (currentDir == Direction.Up)
+            if (this.currentDir == Direction.Up)
             {
-                if (IsMovingLeftPossible() && bannedDirection != Direction.Left)
+                if (this.IsMovingLeftPossible() && bannedDirection != Direction.Left)
                 {
-                    possibleDirections.Add(Direction.Left);
+                    this.possibleDirections.Add(Direction.Left);
                 }
-                if (IsMovingRightPossible() && bannedDirection != Direction.Right)
+                if (this.IsMovingRightPossible() && bannedDirection != Direction.Right)
                 {
-                    possibleDirections.Add(Direction.Right);
+                    this.possibleDirections.Add(Direction.Right);
                 }
-                if (IsMovingUpPossible() && bannedDirection != Direction.Up)
+                if (this.IsMovingUpPossible() && bannedDirection != Direction.Up)
                 {
-                    possibleDirections.Add(Direction.Up);
+                    this.possibleDirections.Add(Direction.Up);
                 }
-                if (IsMovingDownPossible() && possibleDirections.Count == 0 && bannedDirection != Direction.Down) // go back
+                if (this.IsMovingDownPossible() && this.possibleDirections.Count == 0 && bannedDirection != Direction.Down) // go back
                 {
-                    currentDir = Direction.Down;
+                    this.currentDir = Direction.Down;
                     return;
                 }
-                else if (possibleDirections.Count == 0)
+                else if (this.possibleDirections.Count == 0)
                 {
-                    currentDir = Direction.None;
+                    this.currentDir = Direction.None;
                 }
             }
-            else if (currentDir == Direction.Down)
+            else if (this.currentDir == Direction.Down)
             {
-                if (IsMovingLeftPossible() && bannedDirection != Direction.Left)
+                if (this.IsMovingLeftPossible() && bannedDirection != Direction.Left)
                 {
-                    possibleDirections.Add(Direction.Left);
+                    this.possibleDirections.Add(Direction.Left);
                 }
-                if (IsMovingRightPossible() && bannedDirection != Direction.Right)
+                if (this.IsMovingRightPossible() && bannedDirection != Direction.Right)
                 {
-                    possibleDirections.Add(Direction.Right);
+                    this.possibleDirections.Add(Direction.Right);
                 }
-                if (IsMovingDownPossible() && bannedDirection != Direction.Down)
+                if (this.IsMovingDownPossible() && bannedDirection != Direction.Down)
                 {
-                    possibleDirections.Add(Direction.Down);
+                    this.possibleDirections.Add(Direction.Down);
                 }
-                if (IsMovingUpPossible() && possibleDirections.Count == 0 && bannedDirection != Direction.Up) // go back
+                if (this.IsMovingUpPossible() && this.possibleDirections.Count == 0 && bannedDirection != Direction.Up) // go back
                 {
-                    currentDir = Direction.Up;
+                    this.currentDir = Direction.Up;
                     return;
                 }
-                else if (possibleDirections.Count == 0)
+                else if (this.possibleDirections.Count == 0)
                 {
-                    currentDir = Direction.None;
-                    return;
-                }
-            }
-            else if (currentDir == Direction.Left)
-            {
-                if (IsMovingLeftPossible() && bannedDirection != Direction.Left)
-                {
-                    possibleDirections.Add(Direction.Left);
-                }
-                if (IsMovingDownPossible() && bannedDirection != Direction.Down)
-                {
-                    possibleDirections.Add(Direction.Down);
-                }
-                if (IsMovingUpPossible() && bannedDirection != Direction.Up)
-                {
-                    possibleDirections.Add(Direction.Up);
-                }
-                if (IsMovingRightPossible() && possibleDirections.Count == 0 && bannedDirection != Direction.Right) // go back
-                {
-                    currentDir = Direction.Right;
-                    return;
-                }
-                else if (possibleDirections.Count == 0)
-                {
-                    currentDir = Direction.None;
+                    this.currentDir = Direction.None;
                     return;
                 }
             }
-            else if (currentDir == Direction.Right)
+            else if (this.currentDir == Direction.Left)
             {
-                if (IsMovingRightPossible() && bannedDirection != Direction.Right)
+                if (this.IsMovingLeftPossible() && bannedDirection != Direction.Left)
                 {
-                    possibleDirections.Add(Direction.Right);
+                    this.possibleDirections.Add(Direction.Left);
                 }
-                if (IsMovingDownPossible() && bannedDirection != Direction.Down)
+                if (this.IsMovingDownPossible() && bannedDirection != Direction.Down)
                 {
-                    possibleDirections.Add(Direction.Down);
+                    this.possibleDirections.Add(Direction.Down);
                 }
-                if (IsMovingUpPossible() && bannedDirection != Direction.Up)
+                if (this.IsMovingUpPossible() && bannedDirection != Direction.Up)
                 {
-                    possibleDirections.Add(Direction.Up);
+                    this.possibleDirections.Add(Direction.Up);
                 }
-                if (IsMovingLeftPossible() && possibleDirections.Count == 0 && bannedDirection != Direction.Left) // go back
+                if (this.IsMovingRightPossible() && this.possibleDirections.Count == 0 && bannedDirection != Direction.Right) // go back
                 {
-                    currentDir = Direction.Left;
+                    this.currentDir = Direction.Right;
                     return;
                 }
-                else if (possibleDirections.Count == 0)
+                else if (this.possibleDirections.Count == 0)
                 {
-                    currentDir = Direction.None;
+                    this.currentDir = Direction.None;
                     return;
                 }
             }
-            else if (currentDir == Direction.None && bannedDirection == Direction.None)
+            else if (this.currentDir == Direction.Right)
             {
-                if (IsMovingLeftPossible())
+                if (this.IsMovingRightPossible() && bannedDirection != Direction.Right)
                 {
-                    possibleDirections.Add(Direction.Left);
+                    this.possibleDirections.Add(Direction.Right);
                 }
-                if (IsMovingDownPossible())
+                if (this.IsMovingDownPossible() && bannedDirection != Direction.Down)
                 {
-                    possibleDirections.Add(Direction.Down);
+                    this.possibleDirections.Add(Direction.Down);
                 }
-                if (IsMovingUpPossible())
+                if (this.IsMovingUpPossible() && bannedDirection != Direction.Up)
                 {
-                    possibleDirections.Add(Direction.Up);
+                    this.possibleDirections.Add(Direction.Up);
                 }
-                if (IsMovingRightPossible())
+                if (this.IsMovingLeftPossible() && this.possibleDirections.Count == 0 && bannedDirection != Direction.Left) // go back
                 {
-                    possibleDirections.Add(Direction.Right);
+                    this.currentDir = Direction.Left;
+                    return;
+                }
+                else if (this.possibleDirections.Count == 0)
+                {
+                    this.currentDir = Direction.None;
+                    return;
+                }
+            }
+            else if (this.currentDir == Direction.None && bannedDirection == Direction.None)
+            {
+                if (this.IsMovingLeftPossible())
+                {
+                    this.possibleDirections.Add(Direction.Left);
+                }
+                if (this.IsMovingDownPossible())
+                {
+                    this.possibleDirections.Add(Direction.Down);
+                }
+                if (this.IsMovingUpPossible())
+                {
+                    this.possibleDirections.Add(Direction.Up);
+                }
+                if (this.IsMovingRightPossible())
+                {
+                    this.possibleDirections.Add(Direction.Right);
                 }
             }
 
-            if (possibleDirections.Count > 0)
+            if (this.possibleDirections.Count > 0)
             {
-                ChooseRandomDirection();
+                this.ChooseRandomDirection();
             }
         }
 
@@ -216,27 +214,27 @@ namespace GameEngine.Handlers
         {
             if (this.possibleDirections.Count == 1)
             {
-                currentDir = this.possibleDirections[0];
+                this.currentDir = this.possibleDirections[0];
             }
             else
             {
-                Direction randomDir = (Direction)this.possibleDirections.ToArray().GetValue(random.Next(this.possibleDirections.Count));
-                currentDir = randomDir;
+                Direction randomDir = (Direction)this.possibleDirections.ToArray().GetValue(this.random.Next(this.possibleDirections.Count));
+                this.currentDir = randomDir;
             }
         }
 
         protected override Vector2 GetNextPointToMove()
         {
-            if (base.IsReadyToChangeQuadrant())
+            if (this.IsReadyToChangeQuadrant())
             {
-                Direction directionToPacman = SeePackman();
+                Direction directionToPacman = this.SeePackman();
                 if (directionToPacman != Direction.None )
                 {
-                    CalculateDirection(directionToPacman);
+                    this.CalculateDirection(directionToPacman);
                 }
                 else
                 {
-                    CalculateDirection(Direction.None);
+                    this.CalculateDirection(Direction.None);
                 }
             }
 
@@ -245,18 +243,18 @@ namespace GameEngine.Handlers
             {
                 case Direction.Up:
                     nextPointToMove.X = 0;
-                    nextPointToMove.Y = 0 - base.pixelMoved;
+                    nextPointToMove.Y = 0 - this.pixelMoved;
                     break;
                 case Direction.Down:
                     nextPointToMove.X = 0;
-                    nextPointToMove.Y = base.pixelMoved;
+                    nextPointToMove.Y = this.pixelMoved;
                     break;
                 case Direction.Left:
-                    nextPointToMove.X = 0 - base.pixelMoved;
+                    nextPointToMove.X = 0 - this.pixelMoved;
                     nextPointToMove.Y = 0;
                     break;
                 case Direction.Right:
-                    nextPointToMove.X = base.pixelMoved;
+                    nextPointToMove.X = this.pixelMoved;
                     nextPointToMove.Y = 0;
                     break;
                 case Direction.None:

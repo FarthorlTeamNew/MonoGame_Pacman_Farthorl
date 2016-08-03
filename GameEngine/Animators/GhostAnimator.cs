@@ -1,9 +1,6 @@
-﻿using GameEngine.Enums;
-
-namespace GameEngine.Animators
+﻿namespace GameEngine.Animators
 {
-    using Globals;
-    using Handlers;
+    using Enums;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using Models.LevelObjects;
@@ -15,17 +12,17 @@ namespace GameEngine.Animators
         protected List<Animation> animations = new List<Animation>();
         public Animation currentAnimation;
 
-        public GhostAnimator(Ghost ghost)
+        protected GhostAnimator(Ghost ghost)
             : base(ghost)
         {
             this.BufferFrames();
-            this.currentAnimation = this.animations.Find(x => x.Face == base.currentDirection);
+            this.currentAnimation = this.animations.Find(x => x.Face == this.currentDirection);
         }
 
         public Direction CurrentDirection
         {
-            get { return base.currentDirection; }
-            set { base.currentDirection = value; }
+            get { return this.currentDirection; }
+            set { this.currentDirection = value; }
         }
 
         public override void UpdateAnimation(GameTime gameTime, Vector2 velocity)
@@ -37,42 +34,42 @@ namespace GameEngine.Animators
                 {
                     if (velocity.X > 0)
                     {
-                        currentAnimation = this.animations.Find(x => x.Face == Direction.Right);
-                        base.currentDirection = Direction.Right;
+                        this.currentAnimation = this.animations.Find(x => x.Face == Direction.Right);
+                        this.currentDirection = Direction.Right;
                     }
                     else
                     {
-                        currentAnimation = this.animations.Find(x => x.Face == Direction.Left);
-                        base.currentDirection = Direction.Left;
+                        this.currentAnimation = this.animations.Find(x => x.Face == Direction.Left);
+                        this.currentDirection = Direction.Left;
                     }
                 }
                 else
                 {
                     if (velocity.Y > 0)
                     {
-                        currentAnimation = this.animations.Find(x => x.Face == Direction.Down);
-                        base.currentDirection = Direction.Down;
+                        this.currentAnimation = this.animations.Find(x => x.Face == Direction.Down);
+                        this.currentDirection = Direction.Down;
                     }
                     else
                     {
-                        currentAnimation = this.animations.Find(x => x.Face == Direction.Up);
-                        base.currentDirection = Direction.Up;
+                        this.currentAnimation = this.animations.Find(x => x.Face == Direction.Up);
+                        this.currentDirection = Direction.Up;
                     }
                 }
             }
             else
             {
-                this.currentAnimation = this.animations.Find(x => x.Face == base.currentDirection);
+                this.currentAnimation = this.animations.Find(x => x.Face == this.currentDirection);
             }
             this.currentAnimation.Update(gameTime);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            Vector2 topLeftPos = new Vector2(base.gameObject.X, base.gameObject.Y);
+            Vector2 topLeftPos = new Vector2(this.gameObject.X, this.gameObject.Y);
             Color tint = Color.White;
             var sourceRectangle = this.currentAnimation.CurrentRectangle;
-            spriteBatch.Draw(base.gameObject.Texture, topLeftPos, sourceRectangle, tint);
+            spriteBatch.Draw(this.gameObject.Texture, topLeftPos, sourceRectangle, tint);
 
         }
 

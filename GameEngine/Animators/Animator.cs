@@ -1,8 +1,6 @@
-﻿using GameEngine.Enums;
-
-namespace GameEngine.Animators
+﻿namespace GameEngine.Animators
 {
-    using Handlers;
+    using Enums;
     using Models;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
@@ -14,12 +12,12 @@ namespace GameEngine.Animators
         protected float defaultXcoord;
         protected float defaultYcoord;
 
-        public Animator(GameObject gameObject)
+        protected Animator(GameObject gameObject)
         {
-            currentDirection = Direction.Left;
+            this.currentDirection = Direction.Left;
             this.gameObject = gameObject;
-            defaultXcoord = gameObject.X;
-            defaultYcoord = gameObject.Y;
+            this.defaultXcoord = gameObject.X;
+            this.defaultYcoord = gameObject.Y;
         }
 
         public abstract void UpdateAnimation(GameTime gameTime, Vector2 velocity);
@@ -28,9 +26,9 @@ namespace GameEngine.Animators
 
         public virtual void Reset()
         {
-            currentDirection = Direction.Right;
-            gameObject.X = defaultXcoord;
-            gameObject.Y = defaultYcoord;
+            this.currentDirection = Direction.Right;
+            this.gameObject.X = this.defaultXcoord;
+            this.gameObject.Y = this.defaultYcoord;
         }
     }
 }

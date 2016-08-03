@@ -1,7 +1,7 @@
-﻿using GameEngine.Core;
-
-namespace GameEngine
+﻿namespace GameEngine
 {
+    using Core;
+
     public static class Startup
     {
         static void Main()

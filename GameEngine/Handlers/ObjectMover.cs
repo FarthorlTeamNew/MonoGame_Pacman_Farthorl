@@ -1,13 +1,12 @@
-﻿using GameEngine.Enums;
-using Microsoft.Xna.Framework;
-using Matrix = GameEngine.Core.Matrix;
-
-namespace GameEngine.Handlers
+﻿namespace GameEngine.Handlers
 {
-    using System;
     using Globals;
     using Interfaces;
     using Models;
+    using Enums;
+    using Microsoft.Xna.Framework;
+    using Matrix = Core.Matrix;
+
 
     public abstract class ObjectMover : IMovable
     {
@@ -19,31 +18,31 @@ namespace GameEngine.Handlers
         public ObjectMover(GameObject gameObject, Matrix levelMatrix)
         {
             this.gameObject = gameObject;
-            currentDir = Direction.Right;
-            obstacles = new bool[Global.YMax, Global.XMax];
+            this.currentDir = Direction.Right;
+            this.obstacles = new bool[Global.YMax, Global.XMax];
 
             for (int i = 0; i < Global.YMax; i++)
             {
                 for (int j = 0; j < Global.XMax; j++)
                 {
                     string obstical = levelMatrix.PathsMatrix[i, j].Trim().Split(',')[0];
-                    obstacles[i, j] = obstical == "1";
+                    this.obstacles[i, j] = obstical == "1";
                 }
             }
         }
 
         public virtual void Reset()
         {
-            currentDir = Direction.Right;
+            this.currentDir = Direction.Right;
         }
 
         protected virtual bool IsReadyToChangeQuadrant()
         {
-            if (gameObject.X % Global.quad_Width == 0
-                && gameObject.Y % Global.quad_Height == 0)
+            if (this.gameObject.X % Global.quad_Width == 0
+                && this.gameObject.Y % Global.quad_Height == 0)
             {
-                gameObject.QuadrantX = (int)gameObject.X / Global.quad_Width;
-                gameObject.QuadrantY = (int)gameObject.Y / Global.quad_Height;
+                this.gameObject.QuadrantX = (int) this.gameObject.X / Global.quad_Width;
+                this.gameObject.QuadrantY = (int) this.gameObject.Y / Global.quad_Height;
                 return true;
             }
 
@@ -67,8 +66,8 @@ namespace GameEngine.Handlers
 
         protected virtual bool IsMovingLeftPossible()
         {
-            if (gameObject.QuadrantX > 0
-               && obstacles[gameObject.QuadrantY, gameObject.QuadrantX - 1] == false)
+            if (this.gameObject.QuadrantX > 0
+               && this.obstacles[this.gameObject.QuadrantY, this.gameObject.QuadrantX - 1] == false)
             {
                 return true;
             }
@@ -77,8 +76,8 @@ namespace GameEngine.Handlers
 
         protected virtual bool IsMovingRightPossible()
         {
-            if (gameObject.QuadrantX < Global.XMax - 1
-               && obstacles[gameObject.QuadrantY, gameObject.QuadrantX + 1] == false)
+            if (this.gameObject.QuadrantX < Global.XMax - 1
+               && this.obstacles[this.gameObject.QuadrantY, this.gameObject.QuadrantX + 1] == false)
             {
                 return true;
             }
@@ -87,8 +86,8 @@ namespace GameEngine.Handlers
 
         protected virtual bool IsMovingUpPossible()
         {
-            if (gameObject.QuadrantY > 0
-               && obstacles[gameObject.QuadrantY - 1, gameObject.QuadrantX] == false)
+            if (this.gameObject.QuadrantY > 0
+               && this.obstacles[this.gameObject.QuadrantY - 1, this.gameObject.QuadrantX] == false)
             {
                 return true;
             }
@@ -97,8 +96,8 @@ namespace GameEngine.Handlers
 
         protected virtual bool IsMovingDownPossible()
         {
-            if (gameObject.QuadrantY < Global.YMax - 1
-               && obstacles[gameObject.QuadrantY + 1, gameObject.QuadrantX] == false)
+            if (this.gameObject.QuadrantY < Global.YMax - 1
+               && this.obstacles[this.gameObject.QuadrantY + 1, this.gameObject.QuadrantX] == false)
             {
                 return true;
             }

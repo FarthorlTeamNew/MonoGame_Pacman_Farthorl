@@ -1,7 +1,6 @@
-﻿using GameEngine.Core;
-
-namespace GameEngine.Models.LevelObjects.Fruits
+﻿namespace GameEngine.Models.LevelObjects.Fruits
 {
+    using Core;
     using System;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
@@ -12,7 +11,7 @@ namespace GameEngine.Models.LevelObjects.Fruits
         public Brezel(Texture2D texture, Rectangle boundingBox)
             : base(texture, boundingBox)
         {
-            base.FruitBonus = BrezelBonus;
+            this.FruitBonus = BrezelBonus;
         }
 
         public override void ActivatePowerup(GhostGenerator ghostGen, PacMan pacMan)

@@ -1,12 +1,10 @@
-﻿using GameEngine.Enums;
-
-namespace GameEngine.Animators
+﻿namespace GameEngine.Animators
 {
+    using Enums;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using Microsoft.Xna.Framework;
-    using Handlers;
 
     public class Animation
     {
@@ -40,7 +38,7 @@ namespace GameEngine.Animators
 
                 // See if we can find the frame
                 TimeSpan accumulatedTime = new TimeSpan();
-                foreach (var frame in frames)
+                foreach (var frame in this.frames)
                 {
                     if (accumulatedTime + frame.Duration >= this.timeIntoAnimation)
                     {
@@ -57,7 +55,7 @@ namespace GameEngine.Animators
                 // just in case timeIntoAnimation somehow exceeds Duration
                 if (currentFrame == null)
                 {
-                    currentFrame = frames.LastOrDefault();
+                    currentFrame = this.frames.LastOrDefault();
                 }
 
                 // If we found a frame, return its rectangle, otherwise
@@ -85,11 +83,10 @@ namespace GameEngine.Animators
 
         public void Update(GameTime gameTime)
         {
-            double secondsIntoAnimation =
-            timeIntoAnimation.TotalSeconds + gameTime.ElapsedGameTime.TotalSeconds;
+            double secondsIntoAnimation = this.timeIntoAnimation.TotalSeconds + gameTime.ElapsedGameTime.TotalSeconds;
             double remainder = secondsIntoAnimation % this.Duration.TotalSeconds;
 
-            timeIntoAnimation = TimeSpan.FromSeconds(remainder);
+            this.timeIntoAnimation = TimeSpan.FromSeconds(remainder);
         }
     }
 }

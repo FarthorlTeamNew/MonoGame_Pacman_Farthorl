@@ -1,12 +1,11 @@
-﻿using GameEngine.Globals;
-using GameEngine.Handlers;
-using GameEngine.Models.LevelObjects;
-using Microsoft.Xna.Framework;
-using System;
-using GameEngine.Enums;
-
-namespace GameEngine.Animators.GhostAnimators
+﻿namespace GameEngine.Animators.GhostAnimators
 {
+    using Globals;
+    using Models.LevelObjects;
+    using Microsoft.Xna.Framework;
+    using System;
+    using Enums;
+    
     public class BlinkyAnimator : GhostAnimator
     {
         public BlinkyAnimator(Ghost ghost) : base(ghost)

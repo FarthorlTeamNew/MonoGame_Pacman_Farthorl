@@ -1,17 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using GameEngine.Animators;
-using GameEngine.Animators.GhostAnimators;
-using GameEngine.Globals;
-using GameEngine.Handlers;
-using GameEngine.Interfaces;
-using GameEngine.Models;
-using GameEngine.Models.LevelObjects;
-using GameEngine.Models.LevelObjects.Ghosts;
-using Microsoft.Xna.Framework;
-
-namespace GameEngine.Core
+﻿namespace GameEngine.Core
 {
+    using System;
+    using System.Collections.Generic;
+    using Animators;
+    using Animators.GhostAnimators;
+    using Globals;
+    using Handlers;
+    using Interfaces;
+    using Models;
+    using Models.LevelObjects;
+    using Models.LevelObjects.Ghosts;
+    using Microsoft.Xna.Framework;
+
+
     public class GhostGenerator
     {
         private Dictionary<string, Ghost> ghosts;

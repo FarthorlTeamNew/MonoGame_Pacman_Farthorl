@@ -1,11 +1,9 @@
-﻿using GameEngine.Enums;
-
-namespace GameEngine.Handlers
+﻿namespace GameEngine.Handlers
 {
     using Microsoft.Xna.Framework.Input;
+    using Enums;
     using Microsoft.Xna.Framework;
     using Globals;
-    using Interfaces;
     using Models;
 
     public class PacmanInputHandler : ObjectMover
@@ -16,14 +14,14 @@ namespace GameEngine.Handlers
         public PacmanInputHandler(PacMan pacMan, Core.Matrix levelMatrix)
             :base(pacMan, levelMatrix)
         {
-            desiredDir = Direction.None;
-            pixelMoved = Global.PacmanSpeed;
+            this.desiredDir = Direction.None;
+            this.pixelMoved = Global.PacmanSpeed;
         }
 
         public override void Reset()
         {
-            currentDir = Direction.None;
-            desiredDir = Direction.None;
+            this.currentDir = Direction.None;
+            this.desiredDir = Direction.None;
         }
 
         private void GetInput()
@@ -34,19 +32,19 @@ namespace GameEngine.Handlers
             {
                 if (state.IsKeyDown(Keys.Down))
                 {
-                    desiredDir = Direction.Down;
+                    this.desiredDir = Direction.Down;
                 }
                 else if (state.IsKeyDown(Keys.Up))
                 {
-                    desiredDir = Direction.Up;
+                    this.desiredDir = Direction.Up;
                 }
                 else if (state.IsKeyDown(Keys.Left))
                 {
-                    desiredDir = Direction.Left;
+                    this.desiredDir = Direction.Left;
                 }
                 else if (state.IsKeyDown(Keys.Right))
                 {
-                    desiredDir = Direction.Right;
+                    this.desiredDir = Direction.Right;
                 }
             }
         }
@@ -59,19 +57,19 @@ namespace GameEngine.Handlers
             {
                 if (state.IsKeyDown(Keys.Down))
                 {
-                    desiredDir = Direction.Up;
+                    this.desiredDir = Direction.Up;
                 }
                 else if (state.IsKeyDown(Keys.Up))
                 {
-                    desiredDir = Direction.Down;
+                    this.desiredDir = Direction.Down;
                 }
                 else if (state.IsKeyDown(Keys.Left))
                 {
-                    desiredDir = Direction.Right;
+                    this.desiredDir = Direction.Right;
                 }
                 else if (state.IsKeyDown(Keys.Right))
                 {
-                    desiredDir = Direction.Left;
+                    this.desiredDir = Direction.Left;
                 }
             }
         }
@@ -85,75 +83,75 @@ namespace GameEngine.Handlers
             else
             {
                 //Change directio to Up
-                if (desiredDir == Direction.Up
-                    && gameObject.Y > Global.quad_Height / 2
-                    && (this.gameObject.Y - pixelMoved >= this.gameObject.QuadrantY * Global.quad_Height
-                    || obstacles[gameObject.QuadrantY - 1, gameObject.QuadrantX] == false))
+                if (this.desiredDir == Direction.Up
+                    && this.gameObject.Y > Global.quad_Height / 2
+                    && (this.gameObject.Y - this.pixelMoved >= this.gameObject.QuadrantY * Global.quad_Height
+                    || this.obstacles[this.gameObject.QuadrantY - 1, this.gameObject.QuadrantX] == false))
                 {
                     this.currentDir = this.desiredDir;
                 }
                 //Change directio to Down
-                else if (desiredDir == Direction.Down
-                    && gameObject.Y < (((Global.YMax - 1) * Global.quad_Height) - (Global.quad_Height / 2))
-                    && (this.gameObject.Y + pixelMoved <= this.gameObject.QuadrantY * Global.quad_Height
-                    || obstacles[gameObject.QuadrantY + 1, gameObject.QuadrantX] == false))
+                else if (this.desiredDir == Direction.Down
+                    && this.gameObject.Y < (((Global.YMax - 1) * Global.quad_Height) - (Global.quad_Height / 2))
+                    && (this.gameObject.Y + this.pixelMoved <= this.gameObject.QuadrantY * Global.quad_Height
+                    || this.obstacles[this.gameObject.QuadrantY + 1, this.gameObject.QuadrantX] == false))
                 {
-                    currentDir = desiredDir;
+                    this.currentDir = this.desiredDir;
                 }
                 //Change directio to Left
-                else if (desiredDir == Direction.Left
+                else if (this.desiredDir == Direction.Left
                     && this.gameObject.X > Global.quad_Width / 2
-                    && (this.gameObject.X - pixelMoved >= this.gameObject.QuadrantX * Global.quad_Width
-                    || obstacles[gameObject.QuadrantY, gameObject.QuadrantX - 1] == false))
+                    && (this.gameObject.X - this.pixelMoved >= this.gameObject.QuadrantX * Global.quad_Width
+                    || this.obstacles[this.gameObject.QuadrantY, this.gameObject.QuadrantX - 1] == false))
                 {
-                    currentDir = desiredDir;
+                    this.currentDir = this.desiredDir;
                 }
                 //Change directio to Right
-                else if (desiredDir == Direction.Right
+                else if (this.desiredDir == Direction.Right
                     && this.gameObject.X < ((Global.XMax - 1) * Global.quad_Width) - (Global.quad_Width / 2)
-                    && (this.gameObject.X + pixelMoved <= this.gameObject.QuadrantX * Global.quad_Width
-                    || obstacles[gameObject.QuadrantY, gameObject.QuadrantX + 1] == false))
+                    && (this.gameObject.X + this.pixelMoved <= this.gameObject.QuadrantX * Global.quad_Width
+                    || this.obstacles[this.gameObject.QuadrantY, this.gameObject.QuadrantX + 1] == false))
                 {
-                    currentDir = desiredDir;
+                    this.currentDir = this.desiredDir;
                 }
                 else
                 {
-                    CheckForStopMoving();
+                    this.CheckForStopMoving();
                 }
             }
         }
 
         private void CheckForStopMoving()
         {
-            if (currentDir == Direction.Up
-                && (gameObject.QuadrantY == 0
-                || obstacles[gameObject.QuadrantY - 1, gameObject.QuadrantX] == true))
+            if (this.currentDir == Direction.Up
+                && (this.gameObject.QuadrantY == 0
+                || this.obstacles[this.gameObject.QuadrantY - 1, this.gameObject.QuadrantX] == true))
             {
-                currentDir = Direction.None;
+                this.currentDir = Direction.None;
             }
-            else if (currentDir == Direction.Down
-                && (gameObject.QuadrantY == (Global.YMax - 1)
-                || obstacles[gameObject.QuadrantY + 1, gameObject.QuadrantX] == true))
+            else if (this.currentDir == Direction.Down
+                && (this.gameObject.QuadrantY == (Global.YMax - 1)
+                || this.obstacles[this.gameObject.QuadrantY + 1, this.gameObject.QuadrantX] == true))
             {
-                currentDir = Direction.None;
+                this.currentDir = Direction.None;
             }
-            else if (currentDir == Direction.Left
-                && (gameObject.QuadrantX == 0
-                || obstacles[gameObject.QuadrantY, gameObject.QuadrantX - 1] == true))
+            else if (this.currentDir == Direction.Left
+                && (this.gameObject.QuadrantX == 0
+                || this.obstacles[this.gameObject.QuadrantY, this.gameObject.QuadrantX - 1] == true))
             {
-                currentDir = Direction.None;
+                this.currentDir = Direction.None;
             }
-            else if (currentDir == Direction.Right
-               && (gameObject.QuadrantX == (Global.XMax - 1)
-               || obstacles[gameObject.QuadrantY, gameObject.QuadrantX + 1] == true))
+            else if (this.currentDir == Direction.Right
+               && (this.gameObject.QuadrantX == (Global.XMax - 1)
+               || this.obstacles[this.gameObject.QuadrantY, this.gameObject.QuadrantX + 1] == true))
             {
-                currentDir = Direction.None;
+                this.currentDir = Direction.None;
             }
         }
 
         protected override bool IsReadyToChangeQuadrant()
         {
-            if (this.currentDir == Direction.Up && desiredDir == Direction.Down ||
+            if (this.currentDir == Direction.Up && this.desiredDir == Direction.Down ||
                this.currentDir == Direction.Down && this.desiredDir == Direction.Up ||
                this.currentDir == Direction.Right && this.desiredDir == Direction.Left ||
                this.currentDir == Direction.Left && this.desiredDir == Direction.Right)
@@ -161,11 +159,11 @@ namespace GameEngine.Handlers
                 return true; //Change direction immediately if the changed direction is opposite(back)
             }
 
-            if (gameObject.X % Global.quad_Width == 0
-                && gameObject.Y % Global.quad_Height == 0)
+            if (this.gameObject.X % Global.quad_Width == 0
+                && this.gameObject.Y % Global.quad_Height == 0)
             {
-                gameObject.QuadrantX = (int)gameObject.X / 32;
-                gameObject.QuadrantY = (int)gameObject.Y / 32;
+                this.gameObject.QuadrantX = (int) this.gameObject.X / 32;
+                this.gameObject.QuadrantY = (int) this.gameObject.Y / 32;
                 return true;
             }
 
@@ -174,18 +172,18 @@ namespace GameEngine.Handlers
 
         protected override Vector2 GetNextPointToMove()
         {
-            if (movementTypeNormal)
+            if (this.movementTypeNormal)
             {
-                GetInput(); // listens for key pressed
+                this.GetInput(); // listens for key pressed
             }
-            else if (!movementTypeNormal)
+            else if (!this.movementTypeNormal)
             {
-                GetDrunkInput();
+                this.GetDrunkInput();
             }
 
-            if (IsReadyToChangeQuadrant())
+            if (this.IsReadyToChangeQuadrant())
             {
-                CalculateDirection(Direction.None);
+                this.CalculateDirection(Direction.None);
             }
 
             Vector2 desiredVelocity = new Vector2();
@@ -193,18 +191,18 @@ namespace GameEngine.Handlers
             {
                 case Direction.Up:
                     desiredVelocity.X = 0;
-                    desiredVelocity.Y = 0 - base.pixelMoved; // this magic number is velocity(pixels per gameTime) and he must devide 32(Global.quad_Width) with reminder 0
+                    desiredVelocity.Y = 0 - this.pixelMoved; // this magic number is velocity(pixels per gameTime) and he must devide 32(Global.quad_Width) with reminder 0
                     break;
                 case Direction.Down:
                     desiredVelocity.X = 0;
-                    desiredVelocity.Y = base.pixelMoved;
+                    desiredVelocity.Y = this.pixelMoved;
                     break;
                 case Direction.Left:
-                    desiredVelocity.X = 0 - base.pixelMoved;
+                    desiredVelocity.X = 0 - this.pixelMoved;
                     desiredVelocity.Y = 0;
                     break;
                 case Direction.Right:
-                    desiredVelocity.X = base.pixelMoved;
+                    desiredVelocity.X = this.pixelMoved;
                     desiredVelocity.Y = 0;
                     break;
                 case Direction.None:
@@ -223,11 +221,11 @@ namespace GameEngine.Handlers
 
         public override void GetDrunkThenRehab()
         {
-            if (movementTypeNormal)
+            if (this.movementTypeNormal)
             {
                 this.movementTypeNormal = false;
             }
-            else if (!movementTypeNormal)
+            else if (!this.movementTypeNormal)
             {
                 this.movementTypeNormal = true;
             }
