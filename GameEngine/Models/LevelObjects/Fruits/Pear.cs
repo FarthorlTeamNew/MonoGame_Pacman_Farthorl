@@ -1,4 +1,6 @@
-﻿namespace GameEngine.Models.LevelObjects.Fruits
+﻿using GameEngine.Models.LevelObjects.Ghosts;
+
+namespace GameEngine.Models.LevelObjects.Fruits
 {
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
@@ -14,7 +16,14 @@
 
         public override void ActivatePowerup(GhostGenerator ghostGen, PacMan pacMan)
         {
-
+            if (ghostGen.Ghosts.ContainsKey(nameof(Clyde)))
+            {
+                ghostGen.Ghosts[nameof(Clyde)].GimmeFood();
+            }
+            if (ghostGen.Ghosts.ContainsKey(nameof(Pinky)))
+            {
+                ghostGen.Ghosts[nameof(Pinky)].GimmeFood();
+            }            
         }
     }
 }
