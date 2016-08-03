@@ -1,4 +1,6 @@
-﻿namespace GameEngine.Handlers
+﻿using GameEngine.Enums;
+
+namespace GameEngine.Handlers
 {
     using Globals;
     using Interfaces;
@@ -12,7 +14,7 @@
         private PacMan pacman;
         private Random random;
 
-        public GhostWeakRandomMovement(Ghost blinky, GameEngine.Matrix levelMatrix, PacMan pacman)
+        public GhostWeakRandomMovement(Ghost blinky, Core.Matrix levelMatrix, PacMan pacman)
             :base(blinky, levelMatrix)
         {
             this.pacman = pacman;

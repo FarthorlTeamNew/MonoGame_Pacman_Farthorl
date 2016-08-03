@@ -1,17 +1,17 @@
-﻿namespace GameEngine
-{
-    using System;
-    using System.Collections.Generic;
-    using Animators;
-    using Animators.GhostAnimators;
-    using Globals;
-    using Handlers;
-    using Interfaces;
-    using Models;
-    using Models.LevelObjects;
-    using Models.LevelObjects.Ghosts;
-    using Microsoft.Xna.Framework;
+﻿using System;
+using System.Collections.Generic;
+using GameEngine.Animators;
+using GameEngine.Animators.GhostAnimators;
+using GameEngine.Globals;
+using GameEngine.Handlers;
+using GameEngine.Interfaces;
+using GameEngine.Models;
+using GameEngine.Models.LevelObjects;
+using GameEngine.Models.LevelObjects.Ghosts;
+using Microsoft.Xna.Framework;
 
+namespace GameEngine.Core
+{
     public class GhostGenerator
     {
         private Dictionary<string, Ghost> ghosts;
@@ -24,9 +24,9 @@
 
         public GhostGenerator(Matrix levelMatrix, PacMan pacMan)
         {
-            ghosts = new Dictionary<string, Ghost>();
-            ghostAnimators = new Dictionary<string, Animator>();
-            ghostMovements = new Dictionary<string, IMovable>();
+            this.ghosts = new Dictionary<string, Ghost>();
+            this.ghostAnimators = new Dictionary<string, Animator>();
+            this.ghostMovements = new Dictionary<string, IMovable>();
 
             this.Ghosts = this.GetGhosts(levelMatrix);
             this.GhostAnimators = this.GetGhostAnimators(pacMan);
@@ -49,7 +49,7 @@
             this.ghosts.Add(nameof(Inky), this.inky);
             this.ghosts.Add(nameof(Pinky), this.pinky);
 
-            foreach (var kvp in ghosts)
+            foreach (var kvp in this.ghosts)
             {
                 this.PlaceOnRandomXY(kvp.Value, levelMatrix);
             }
@@ -78,7 +78,7 @@
 
         private void PlaceOnRandomXY(Ghost ghost, Matrix levelMatrix)
         {
-            string[] placeAvailable = AvailableXY(levelMatrix).Split();
+            string[] placeAvailable = this.AvailableXY(levelMatrix).Split();
             int placeGhostX = int.Parse(placeAvailable[0]);
             int placeGhostY = int.Parse(placeAvailable[1]);
             ghost.X = placeGhostX * Global.quad_Width;

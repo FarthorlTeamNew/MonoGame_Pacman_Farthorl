@@ -1,4 +1,6 @@
-﻿namespace GameEngine.Animators
+﻿using GameEngine.Enums;
+
+namespace GameEngine.Animators
 {
     using Handlers;
     using Models;

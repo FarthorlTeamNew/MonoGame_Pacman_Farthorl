@@ -1,4 +1,6 @@
-﻿namespace GameEngine.Handlers
+﻿using GameEngine.Enums;
+
+namespace GameEngine.Handlers
 {
     using Microsoft.Xna.Framework.Input;
     using Microsoft.Xna.Framework;
@@ -11,7 +13,7 @@
         private Direction desiredDir;
         private bool movementTypeNormal = true;
 
-        public PacmanInputHandler(PacMan pacMan, GameEngine.Matrix levelMatrix)
+        public PacmanInputHandler(PacMan pacMan, Core.Matrix levelMatrix)
             :base(pacMan, levelMatrix)
         {
             desiredDir = Direction.None;

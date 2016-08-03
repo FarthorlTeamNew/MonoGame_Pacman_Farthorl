@@ -1,4 +1,4 @@
-﻿namespace GameEngine.Enumerables
+﻿namespace GameEngine.Enums
 {
     public enum LogEnumerable
     {

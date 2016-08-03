@@ -1,10 +1,10 @@
-﻿namespace GameEngine
-{
-    using Globals;
-    using Microsoft.Xna.Framework;
-    using Microsoft.Xna.Framework.Graphics;
-    using Models;
+﻿using GameEngine.Globals;
+using GameEngine.Models;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
+namespace GameEngine.Core
+{
     public static class ScoreBoard
     {
         public static void LoadBoard(PacMan pacMan, SpriteBatch spriteBatch, Game game, SpriteFont font, Matrix levelMatrix)

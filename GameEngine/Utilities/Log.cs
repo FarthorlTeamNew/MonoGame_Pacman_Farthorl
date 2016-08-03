@@ -1,11 +1,11 @@
-﻿namespace GameEngine.Handlers
-{
-    using GameEngine.Enumerables;
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using GameEngine.Enums;
 
+namespace GameEngine.Utilities
+{
     public static class Log
     {
         private static Dictionary<LogEnumerable, List<string>> logs;

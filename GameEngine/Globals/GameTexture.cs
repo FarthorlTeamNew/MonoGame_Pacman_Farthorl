@@ -9,6 +9,8 @@
     {
         public static Texture2D MainMenu;
         public static Texture2D PlayButton;
+        public static Texture2D OptionsButton;
+        public static Texture2D Instruction;
         public static Texture2D ExitButton;
         public static Texture2D PacmanOpenSprite;
         public static Texture2D PacmanAndGhost;
@@ -22,6 +24,8 @@
         {
             MainMenu = game.Content.Load<Texture2D>("MenuImages/MainMenu");
             PlayButton = game.Content.Load<Texture2D>("MenuImages/PlayGame");
+            OptionsButton = game.Content.Load<Texture2D>("MenuImages/instructionbutton");
+            Instruction = game.Content.Load<Texture2D>("MenuImages/instructions");
             ExitButton = game.Content.Load<Texture2D>("MenuImages/Exit");
 
             PacmanAndGhost = game.Content.Load<Texture2D>("PacManSprite_sheets");

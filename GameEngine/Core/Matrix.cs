@@ -1,21 +1,19 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using GameEngine.Factories;
+using GameEngine.Globals;
+using GameEngine.Models;
+using GameEngine.Models.LevelObjects;
+using GameEngine.Models.LevelObjects.Fruits;
 using GameEngine.Models.LevelObjects.Ghosts;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
-namespace GameEngine
+namespace GameEngine.Core
 {
-    using Globals;
-    using Models.LevelObjects;
-    using Microsoft.Xna.Framework;
-    using Microsoft.Xna.Framework.Graphics;
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.IO;
-    using System.Linq;
-    using Factories;
-    using Models;
-    using Models.LevelObjects.Fruits;
-
     public class Matrix
     {
         private string Level = @"DataFiles\Levels\Labirint.txt";
@@ -29,9 +27,9 @@ namespace GameEngine
         public Matrix()
         {
             bricksList = new List<Wall>();
-            pointsList = new List<PointObj>();
-            fruits = new List<Fruit>();
-            ghostKillers = new List<GhostKiller>();
+            this.pointsList = new List<PointObj>();
+            this.fruits = new List<Fruit>();
+            this.ghostKillers = new List<GhostKiller>();
             Global.GhostKillerTimer = new Stopwatch();
             Global.PeachTimer = new Stopwatch();
             Global.HungryGhosts = new Stopwatch();
@@ -44,13 +42,13 @@ namespace GameEngine
 
         public void InitializeMatrix(GraphicsDevice graphicsDevice)
         {
-            PathsMatrix = GetMatrixValues();
+            this.PathsMatrix = this.GetMatrixValues();
 
             for (int y = 0; y < Global.YMax; y++)
             {
                 for (int x = 0; x < Global.XMax; x++)
                 {
-                    var elements = PathsMatrix[y, x].Trim().Split(',');
+                    var elements = this.PathsMatrix[y, x].Trim().Split(',');
                     int quadrant = int.Parse(elements[0]);
                     int pointIndex = int.Parse(elements[1]);
 
@@ -62,7 +60,7 @@ namespace GameEngine
                     else if (pointIndex == 1)
                     {
                         PointObj point = new PointObj(GameTexture.Point, x * Global.quad_Width, y * Global.quad_Height, new Rectangle(x * Global.quad_Width, y * Global.quad_Height, Global.quad_Width, Global.quad_Height));
-                        pointsList.Add(point);
+                        this.pointsList.Add(point);
                     }
                 }
             }
@@ -77,19 +75,19 @@ namespace GameEngine
             foreach (var fruitTexture in fruitTextures)
             {
                 Fruit fruit = factory.CreateFruit(fruitTexture);
-                PlaceOnRandomXY(fruit);
-                fruits.Add(fruit);
+                this.PlaceOnRandomXY(fruit);
+                this.fruits.Add(fruit);
             }
             for (int i = 0; i < 4; i++)
             {
-                ghostKillers.Add(new GhostKiller(GameTexture.GhostKiller, new Rectangle(0, 0, 32, 32)));
-                PlaceOnRandomXY(ghostKillers[i]); 
+                this.ghostKillers.Add(new GhostKiller(GameTexture.GhostKiller, new Rectangle(0, 0, 32, 32)));
+                this.PlaceOnRandomXY(this.ghostKillers[i]); 
             }
         }
 
         private void PlaceOnRandomXY(GameObject edible)
         {
-            string[] placeAvailable = AvailableXY().Split();
+            string[] placeAvailable = this.AvailableXY().Split();
             int placeFruitX = int.Parse(placeAvailable[0]);
             int placeFruitY = int.Parse(placeAvailable[1]);
             edible.X = placeFruitX * Global.quad_Width;
@@ -103,11 +101,11 @@ namespace GameEngine
             {
                 int tryX = new Random(DateTime.Now.Millisecond).Next(1, Global.XMax - 1);
                 int tryY = new Random(DateTime.Now.Millisecond).Next(1, Global.YMax - 1);
-                var elements = PathsMatrix[tryY, tryX].Trim().Split(',');
+                var elements = this.PathsMatrix[tryY, tryX].Trim().Split(',');
                 int placeAvailable = int.Parse(elements[1]);
                 if (placeAvailable == 1)
                 {
-                    PathsMatrix[tryY, tryX] = "0,0";
+                    this.PathsMatrix[tryY, tryX] = "0,0";
                     return $"{tryX} {tryY}";
                 }
             }
@@ -116,27 +114,27 @@ namespace GameEngine
         private void RemovePoints()
         {
             // Remove points that have fruit placed on top of them
-            foreach (var fruit in fruits)
+            foreach (var fruit in this.fruits)
             {
-                pointsList.Remove(pointsList.FirstOrDefault(p => p.IsColliding(fruit)));
+                this.pointsList.Remove(this.pointsList.FirstOrDefault(p => p.IsColliding(fruit)));
             }
-            foreach (var ghostKiller in ghostKillers)
+            foreach (var ghostKiller in this.ghostKillers)
             {
-                pointsList.Remove(pointsList.FirstOrDefault(p => p.IsColliding(ghostKiller)));
+                this.pointsList.Remove(this.pointsList.FirstOrDefault(p => p.IsColliding(ghostKiller)));
             }
         }
 
         public void Update(PacMan pacMan, GhostGenerator ghostGen)
         {
-            pointsList.FirstOrDefault(x => x.IsColliding(pacMan))?.ReactOnCollision(pacMan);
-            pointsList.Remove(pointsList.FirstOrDefault(x => x.IsColliding(pacMan)));
+            this.pointsList.FirstOrDefault(x => x.IsColliding(pacMan))?.ReactOnCollision(pacMan);
+            this.pointsList.Remove(this.pointsList.FirstOrDefault(x => x.IsColliding(pacMan)));
 
-            Fruit fruitToEatActivateRemove = fruits.FirstOrDefault(x => x.IsColliding(pacMan));
+            Fruit fruitToEatActivateRemove = this.fruits.FirstOrDefault(x => x.IsColliding(pacMan));
             if (fruitToEatActivateRemove != null)
             {
                 fruitToEatActivateRemove.ReactOnCollision(pacMan);
                 fruitToEatActivateRemove.ActivatePowerup(ghostGen, pacMan);
-                fruits.Remove(fruitToEatActivateRemove);
+                this.fruits.Remove(fruitToEatActivateRemove);
                 if (fruitToEatActivateRemove is Peach)
                 {
                     Global.PeachTimer.Start();
@@ -160,11 +158,11 @@ namespace GameEngine
                 Global.HungryGhosts.Stop();
             }
 
-            GhostKiller ghostKiller = ghostKillers.FirstOrDefault(x => x.IsColliding(pacMan));            
+            GhostKiller ghostKiller = this.ghostKillers.FirstOrDefault(x => x.IsColliding(pacMan));            
             if (ghostKiller != null)
             {
                 ghostKiller.ReactOnCollision(pacMan);
-                ghostKillers.Remove(ghostKiller);
+                this.ghostKillers.Remove(ghostKiller);
                 Global.GhostKillerTimer.Reset();
                 Global.GhostKillerTimer.Start();
             }
@@ -174,11 +172,11 @@ namespace GameEngine
                 Global.GhostKillerTimer.Reset();
                 Global.GhostKillerTimer.Stop();
             }
-            foreach (var point in pointsList)
+            foreach (var point in this.pointsList)
             {
                 if (ghostGen.Ghosts.Where(g => g.Value.Hungry).Any(x => x.Value.IsColliding(point)))
                 {
-                    pointsList.Remove(point);
+                    this.pointsList.Remove(point);
                     break;
                 }
             }
@@ -191,16 +189,16 @@ namespace GameEngine
                 spriteBatch.Draw(brick.Texture, brick.BoundingBox, Color.White);
             }
 
-            foreach (var point in pointsList)
+            foreach (var point in this.pointsList)
             {
                 spriteBatch.Draw(point.Texture, point.BoundingBox, Color.White);
             }
-            foreach (var fruit in fruits)
+            foreach (var fruit in this.fruits)
             {
                 spriteBatch.Draw(fruit.Texture, fruit.BoundingBox, Color.White);
             }
 
-            foreach (var ghostKiller in ghostKillers)
+            foreach (var ghostKiller in this.ghostKillers)
             {
                 spriteBatch.Draw(ghostKiller.Texture, ghostKiller.BoundingBox, Color.White);
             }
@@ -210,7 +208,7 @@ namespace GameEngine
         {
             try
             {
-                using (var fileMatrix = new StreamReader(Level))
+                using (var fileMatrix = new StreamReader(this.Level))
                 {
                     string inputLine;
                     while ((inputLine = fileMatrix.ReadLine()) != null)
@@ -240,10 +238,10 @@ namespace GameEngine
                             continue;
                         }
                         //Add element data in to the specific point in the 2D array
-                        PathsMatrix[arrayY, arrayX] = arrayValue;
+                        this.PathsMatrix[arrayY, arrayX] = arrayValue;
                     }
                 }
-                return PathsMatrix;
+                return this.PathsMatrix;
             }
             catch (Exception)
             {

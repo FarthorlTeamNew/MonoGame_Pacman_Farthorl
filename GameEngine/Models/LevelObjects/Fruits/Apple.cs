@@ -1,4 +1,6 @@
-﻿namespace GameEngine.Models.LevelObjects.Fruits
+﻿using GameEngine.Core;
+
+namespace GameEngine.Models.LevelObjects.Fruits
 {
     using Ghosts;
     using Microsoft.Xna.Framework;

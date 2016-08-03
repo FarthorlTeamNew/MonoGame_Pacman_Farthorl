@@ -1,4 +1,6 @@
-﻿namespace GameEngine.Handlers
+﻿using GameEngine.Enums;
+
+namespace GameEngine.Handlers
 {
     using Globals;
     using Interfaces;
@@ -13,7 +15,7 @@
         private Random random;
         List<Direction> possibleDirections;
 
-        public GhostGoodRandomMovement(Ghost gameObject, GameEngine.Matrix levelMatrix, PacMan pacman)
+        public GhostGoodRandomMovement(Ghost gameObject, Core.Matrix levelMatrix, PacMan pacman)
             : base(gameObject, levelMatrix)
         {
             this.pacman = pacman;

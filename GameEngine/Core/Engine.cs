@@ -1,14 +1,15 @@
-﻿namespace GameEngine
-{
-    using System;
-    using Globals;
-    using Handlers;
-    using Microsoft.Xna.Framework;
-    using Microsoft.Xna.Framework.Graphics;
-    using Microsoft.Xna.Framework.Input;
-    using Menu;
-    using Models;
+﻿using System;
+using GameEngine.Enums;
+using GameEngine.Globals;
+using GameEngine.Handlers;
+using GameEngine.Menu;
+using GameEngine.Models;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
+namespace GameEngine.Core
+{
     public class Engine : Game
     {
         public static Sound sound;
@@ -23,6 +24,7 @@
         private SpriteFont font;
         GameState currentGameState = GameState.MainMenu;
         CButton butPlay;
+        CButton butOptions;
         CButton butExit;
 
         public Engine()
@@ -41,21 +43,23 @@
             this.graphics.PreferredBackBufferHeight = Global.GLOBAL_HEIGHT;
             this.levelMatrix = new Matrix();
             this.graphics.ApplyChanges();
-            keyPress = new KeyPress();
-            oldState = Keyboard.GetState();
-            isLevelCompleated = false;
+            this.keyPress = new KeyPress();
+            this.oldState = Keyboard.GetState();
+            this.isLevelCompleated = false;
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
-            this.spriteBatch = new SpriteBatch(GraphicsDevice);
+            this.spriteBatch = new SpriteBatch(this.GraphicsDevice);
             this.butPlay = new CButton(GameTexture.PlayButton, this.graphics.GraphicsDevice);
             this.butPlay.SetPosition(new Vector2(300, 166));
             this.butExit = new CButton(GameTexture.ExitButton, this.graphics.GraphicsDevice);
-            this.butExit.SetPosition(new Vector2(300, 200));
+            this.butExit.SetPosition(new Vector2(300, 235));
+            this.butOptions = new CButton(GameTexture.OptionsButton, this.graphics.GraphicsDevice);
+            this.butOptions.SetPosition(new Vector2(300, 200));
             this.levelMatrix.InitializeMatrix(this.GraphicsDevice);
-            this.ghostGen = new GhostGenerator(levelMatrix, pacMan);
+            this.ghostGen = new GhostGenerator(this.levelMatrix, this.pacMan);
             this.font = this.Content.Load<SpriteFont>("ScoresFont");
             sound = new Sound(this);
             sound.Begin();
@@ -67,16 +71,16 @@
 
         protected override void Update(GameTime gameTime)
         {
-            if (keyPress.IsPressedKey(Keys.Escape, oldState))
+            if (this.keyPress.IsPressedKey(Keys.Escape, this.oldState))
             {
-                if (currentGameState == GameState.Playing)
+                if (this.currentGameState == GameState.Playing)
                 {
-                    currentGameState = GameState.MainMenu;
-                    Reset();
+                    this.currentGameState = GameState.MainMenu;
+                    this.Reset();
                 }
-                else if (currentGameState == GameState.MainMenu)
+                else if (this.currentGameState == GameState.MainMenu)
                 {
-                    Exit();
+                    this.Exit();
                     return;
                 }
             }
@@ -85,27 +89,33 @@
             {
                 case GameState.MainMenu:
                     MouseState mouse = Mouse.GetState();
-                    this.butPlay.Update(mouse); this.butExit.Update(mouse);
+                    this.butPlay.Update(mouse); this.butExit.Update(mouse); this.butOptions.Update(mouse);
                     if (this.butPlay.isClicked || this.keyPress.IsPressedKey(Keys.Space, this.oldState))
                     {
                         //graphics.IsFullScreen = true; // set this to enable full screen
                         //this.graphics.ApplyChanges();
                         this.currentGameState = GameState.Playing;
-                        this.butPlay.isClicked = false; // BugFix - revert back to be ready for next click if we go in menu
+                        this.butPlay.isClicked = false; 
                     }
                     if (this.butExit.isClicked) this.currentGameState = GameState.Exit;
+                    if (this.butOptions.isClicked) this.currentGameState = GameState.Options;
                     break;
                 case GameState.Options:
+                    if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+                    {
+                        this.currentGameState = GameState.MainMenu;
+                        this.butOptions.isClicked = false;
+                    }
                     break;
                 case GameState.Playing:
-                    if (!isLevelCompleated)
+                    if (!this.isLevelCompleated)
                     {
-                        foreach (var kvp in ghostGen.GhostMovements)
+                        foreach (var kvp in this.ghostGen.GhostMovements)
                         {
-                            var movedToPoint = ghostGen.GhostMovements[kvp.Key].Move(gameTime);
-                            ghostGen.GhostAnimators[kvp.Key].UpdateAnimation(gameTime, movedToPoint);
+                            var movedToPoint = this.ghostGen.GhostMovements[kvp.Key].Move(gameTime);
+                            this.ghostGen.GhostAnimators[kvp.Key].UpdateAnimation(gameTime, movedToPoint);
                         }
-                        levelMatrix.Update(pacMan, ghostGen);
+                        this.levelMatrix.Update(this.pacMan, this.ghostGen);
                     }
                     else   // Wining Condition
                     {
@@ -127,12 +137,12 @@
             }
 
             this.Window.Title = "PACMAN FARTHORL v.2.0";
-            oldState = Keyboard.GetState();  // Update saved state.
+            this.oldState = Keyboard.GetState();  // Update saved state.
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Green);
+            this.GraphicsDevice.Clear(Color.Green);
 
             this.spriteBatch.Begin();
             switch (this.currentGameState)
@@ -141,8 +151,10 @@
                     this.spriteBatch.Draw(GameTexture.MainMenu, new Rectangle(0, 0, Global.GLOBAL_WIDTH, Global.GLOBAL_HEIGHT), Color.White);
                     this.butPlay.Draw(this.spriteBatch);
                     this.butExit.Draw(this.spriteBatch);
+                    this.butOptions.Draw(this.spriteBatch);
                     break;
                 case GameState.Options:
+                    this.spriteBatch.Draw(GameTexture.Instruction, new Rectangle(0, 0, Global.GLOBAL_WIDTH, Global.GLOBAL_HEIGHT), Color.White);
                     break;
                 case GameState.Playing:
 
@@ -155,44 +167,44 @@
                     {
                         this.levelMatrix.Draw(this.spriteBatch);
 
-                        foreach (var kvp in ghostGen.GhostAnimators)
+                        foreach (var kvp in this.ghostGen.GhostAnimators)
                         {
                             kvp.Value.Draw(this.spriteBatch);
                         }
 
                         if (this.levelMatrix.LeftPoints == 0)
                         {
-                            var texture = Content.Load<Texture2D>("PacManWin_image");
+                            var texture = this.Content.Load<Texture2D>("PacManWin_image");
                             this.spriteBatch.Draw(texture, new Vector2(250, 100));
-                            isLevelCompleated = true;
+                            this.isLevelCompleated = true;
                         }
-                        foreach (var ghost in ghostGen.Ghosts)
+                        foreach (var ghost in this.ghostGen.Ghosts)
                         {
                             if (ghost.Value.IsColliding(this.pacMan) && !this.pacMan.CanEat)
                             {
-                                var texture = Content.Load<Texture2D>("PacManLose");
+                                var texture = this.Content.Load<Texture2D>("PacManLose");
                                 this.spriteBatch.Draw(texture, new Vector2(250, 100));
-                                if (isLevelCompleated == false)
+                                if (this.isLevelCompleated == false)
                                 {
                                     this.pacMan.Lives--;
-                                    isLevelCompleated = true;
+                                    this.isLevelCompleated = true;
                                     sound.Dead();
                                 }
                             }
 
-                            else if (ghost.Value.IsColliding(pacMan) && pacMan.CanEat)
+                            else if (ghost.Value.IsColliding(this.pacMan) && this.pacMan.CanEat)
                             {
                                 sound.GhostDies();
-                                ghostGen.GhostMovements.Remove(ghost.Key);
-                                ghostGen.GhostAnimators.Remove(ghost.Key);
-                                ghostGen.Ghosts.Remove(ghost.Key);
+                                this.ghostGen.GhostMovements.Remove(ghost.Key);
+                                this.ghostGen.GhostAnimators.Remove(ghost.Key);
+                                this.ghostGen.Ghosts.Remove(ghost.Key);
                                 break;
                             }
                         }
                     }
                     break;
                 case GameState.Exit:
-                    Environment.Exit(0);
+                   Environment.Exit(0);
                     break;
             }
             this.spriteBatch.End();

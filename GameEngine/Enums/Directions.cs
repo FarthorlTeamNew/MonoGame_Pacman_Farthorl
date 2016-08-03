@@ -1,4 +1,4 @@
-﻿namespace GameEngine.Handlers
+﻿namespace GameEngine.Enums
 {
     public enum Direction
     {

@@ -4,6 +4,7 @@ using GameEngine.Models.LevelObjects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using GameEngine.Enums;
 
 namespace GameEngine.Animators.GhostAnimators
 {

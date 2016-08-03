@@ -1,4 +1,6 @@
-﻿namespace GameEngine.Models.LevelObjects
+﻿using GameEngine.Core;
+
+namespace GameEngine.Models.LevelObjects
 {
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework;

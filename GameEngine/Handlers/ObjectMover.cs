@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GameEngine.Enums;
+using Microsoft.Xna.Framework;
+using Matrix = GameEngine.Core.Matrix;
 
 namespace GameEngine.Handlers
 {

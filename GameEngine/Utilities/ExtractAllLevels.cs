@@ -1,7 +1,8 @@
-﻿namespace FarthorlPacMan.States
+﻿using System.Collections.Generic;
+using System.IO;
+
+namespace GameEngine.Utilities
 {
-    using System.Collections.Generic;
-    using System.IO;
     public class ExtractAllLevels
     {
         private const string LevelFolder = @"DataFiles\Levels";

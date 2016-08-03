@@ -1,4 +1,6 @@
-﻿namespace GameEngine
+﻿using GameEngine.Core;
+
+namespace GameEngine
 {
     public static class Startup
     {
