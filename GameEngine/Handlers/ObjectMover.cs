@@ -2,10 +2,12 @@
 
 namespace GameEngine.Handlers
 {
+    using System;
     using Globals;
+    using Interfaces;
     using Models;
 
-    public abstract class ObjectMover
+    public abstract class ObjectMover : IMovable
     {
         protected GameObject gameObject;
         protected Direction currentDir;
@@ -100,5 +102,9 @@ namespace GameEngine.Handlers
             }
             return false;
         }
+
+        public abstract void DecreaseSpeed();
+
+        public abstract void GetDrunkThenRehab();
     }
 }

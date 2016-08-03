@@ -7,7 +7,7 @@
     using System;
     using System.Collections.Generic;
 
-    public class GhostGoodRandomMovement : ObjectMover, IMovable
+    public class GhostGoodRandomMovement : ObjectMover
     {
         private Random random;
         List<Direction> possibleDirections;
@@ -161,12 +161,12 @@
             return nextPointToMove;
         }
 
-        public void DecreaseSpeed()
+        public override void DecreaseSpeed()
         {
             this.pixelMoved--;
         }
 
-        public void GetDrunkThenRehab()
+        public override void GetDrunkThenRehab()
         {
         }
     }

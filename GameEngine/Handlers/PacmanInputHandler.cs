@@ -6,7 +6,7 @@
     using Interfaces;
     using Models;
 
-    public class PacmanInputHandler : ObjectMover, IMovable
+    public class PacmanInputHandler : ObjectMover
     {
         private Direction desiredDir;
         private bool movementTypeNormal = true;
@@ -214,12 +214,12 @@
             return desiredVelocity;
         }
 
-        public void DecreaseSpeed()
+        public override void DecreaseSpeed()
         {
             this.pixelMoved-=2;
         }
 
-        public void GetDrunkThenRehab()
+        public override void GetDrunkThenRehab()
         {
             if (movementTypeNormal)
             {

@@ -6,7 +6,7 @@
     using Models.LevelObjects;
     using System;
 
-    class GhostWeakRandomMovement : ObjectMover, IMovable
+    class GhostWeakRandomMovement : ObjectMover
     {
         private Random random;
 
@@ -145,12 +145,12 @@
 
             return nextPointToMove;
         }
-        public void DecreaseSpeed()
+        public override void DecreaseSpeed()
         {
             this.pixelMoved--;
         }
 
-        public void GetDrunkThenRehab()
+        public override void GetDrunkThenRehab()
         {
         }
     }
