@@ -29,8 +29,8 @@
         public static void LoadTextures(Game game)
         {
             MainMenu = game.Content.Load<Texture2D>("MenuImages/MainMenu");
-            PlayButton = game.Content.Load<Texture2D>("MenuImages/PlayGame");
-            HardPlayGame = game.Content.Load<Texture2D>("MenuImages/PlayGame");
+            PlayButton = game.Content.Load<Texture2D>("MenuImages/playEasy");
+            HardPlayGame = game.Content.Load<Texture2D>("MenuImages/playHard");
             OptionsButton = game.Content.Load<Texture2D>("MenuImages/instructionbutton");
             Instruction = game.Content.Load<Texture2D>("MenuImages/instructions");
             ExitButton = game.Content.Load<Texture2D>("MenuImages/Exit");

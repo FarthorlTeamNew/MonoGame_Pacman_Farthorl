@@ -56,7 +56,7 @@ namespace GameEngine.Core
             this.spriteBatch = new SpriteBatch(this.GraphicsDevice);
             this.butEasyPlay = new CButton(GameTexture.PlayButton, this.graphics.GraphicsDevice);
             this.butEasyPlay.SetPosition(new Vector2(300, 166));
-            this.butHardPlay = new CButton(GameTexture.PlayButton, this.graphics.GraphicsDevice);
+            this.butHardPlay = new CButton(GameTexture.HardPlayGame, this.graphics.GraphicsDevice);
             this.butHardPlay.SetPosition(new Vector2(300, 200));
             this.butOptions = new CButton(GameTexture.OptionsButton, this.graphics.GraphicsDevice);
             this.butOptions.SetPosition(new Vector2(300, 234));
