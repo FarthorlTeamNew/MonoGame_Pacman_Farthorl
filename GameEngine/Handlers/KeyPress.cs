@@ -1,16 +1,8 @@
 ﻿using Microsoft.Xna.Framework.Input;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace GameEngine.Handlers
 {
     public class KeyPress
     {
-        
-
         public bool IsPressedKey(Keys key, KeyboardState oldState)
         {
             KeyboardState newState = Keyboard.GetState();

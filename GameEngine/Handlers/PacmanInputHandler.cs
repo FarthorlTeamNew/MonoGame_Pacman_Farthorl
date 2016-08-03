@@ -1,8 +1,7 @@
-﻿using Microsoft.Xna.Framework;
-
-namespace GameEngine.Handlers
+﻿namespace GameEngine.Handlers
 {
     using Microsoft.Xna.Framework.Input;
+    using Microsoft.Xna.Framework;
     using Globals;
     using Interfaces;
     using Models;
@@ -10,8 +9,9 @@ namespace GameEngine.Handlers
     public class PacmanInputHandler : ObjectMover, IMovable
     {
         private Direction desiredDir;
+        private bool movementTypeNormal = true;
 
-        public PacmanInputHandler(PacMan pacMan, Matrix levelMatrix)
+        public PacmanInputHandler(PacMan pacMan, GameEngine.Matrix levelMatrix)
             :base(pacMan, levelMatrix)
         {
             desiredDir = Direction.None;
@@ -45,6 +45,31 @@ namespace GameEngine.Handlers
                 else if (state.IsKeyDown(Keys.Right))
                 {
                     desiredDir = Direction.Right;
+                }
+            }
+        }
+
+        private void GetDrunkInput()
+        {
+            KeyboardState state = Keyboard.GetState();
+
+            if (state.GetPressedKeys().Length == 1)
+            {
+                if (state.IsKeyDown(Keys.Down))
+                {
+                    desiredDir = Direction.Up;
+                }
+                else if (state.IsKeyDown(Keys.Up))
+                {
+                    desiredDir = Direction.Down;
+                }
+                else if (state.IsKeyDown(Keys.Left))
+                {
+                    desiredDir = Direction.Right;
+                }
+                else if (state.IsKeyDown(Keys.Right))
+                {
+                    desiredDir = Direction.Left;
                 }
             }
         }
@@ -147,7 +172,14 @@ namespace GameEngine.Handlers
 
         protected override Vector2 GetNextPointToMove()
         {
-            GetInput(); // listens for key pressed
+            if (movementTypeNormal)
+            {
+                GetInput(); // listens for key pressed
+            }
+            else if (!movementTypeNormal)
+            {
+                GetDrunkInput();
+            }
 
             if (IsReadyToChangeQuadrant())
             {
@@ -185,6 +217,18 @@ namespace GameEngine.Handlers
         public void DecreaseSpeed()
         {
             this.pixelMoved-=2;
+        }
+
+        public void GetDrunkThenRehab()
+        {
+            if (movementTypeNormal)
+            {
+                this.movementTypeNormal = false;
+            }
+            else if (!movementTypeNormal)
+            {
+                this.movementTypeNormal = true;
+            }
         }
     }
 }

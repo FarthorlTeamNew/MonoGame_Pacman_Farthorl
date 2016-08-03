@@ -1,10 +1,9 @@
-﻿using Microsoft.Xna.Framework;
-
-namespace GameEngine.Handlers
+﻿namespace GameEngine.Handlers
 {
     using Globals;
     using Interfaces;
     using Models.LevelObjects;
+    using Microsoft.Xna.Framework;
     using System;
     using System.Collections.Generic;
 
@@ -13,7 +12,7 @@ namespace GameEngine.Handlers
         private Random random;
         List<Direction> possibleDirections;
 
-        public GhostGoodRandomMovement(Ghost gameObject, Matrix levelMatrix)
+        public GhostGoodRandomMovement(Ghost gameObject, GameEngine.Matrix levelMatrix)
             : base(gameObject, levelMatrix)
         {
             pixelMoved = Global.DefaultGhostSpeed;
@@ -165,6 +164,10 @@ namespace GameEngine.Handlers
         public void DecreaseSpeed()
         {
             this.pixelMoved--;
+        }
+
+        public void GetDrunkThenRehab()
+        {
         }
     }
 }

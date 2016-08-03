@@ -14,7 +14,7 @@ namespace GameEngine.Models.LevelObjects.Fruits
 
         public override void ActivatePowerup(GhostGenerator ghostGen, PacMan pacMan)
         {
-
+            ghostGen.GhostMovements[nameof(PacMan)].GetDrunkThenRehab();
         }
     }
 }

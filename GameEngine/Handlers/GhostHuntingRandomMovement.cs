@@ -1,10 +1,9 @@
-﻿using Microsoft.Xna.Framework;
-
-namespace GameEngine.Handlers
+﻿namespace GameEngine.Handlers
 {
     using Globals;
     using Interfaces;
     using Models;
+    using Microsoft.Xna.Framework;
     using Models.LevelObjects;
     using System;
     using System.Collections.Generic;
@@ -15,7 +14,7 @@ namespace GameEngine.Handlers
         private Random random;
         List<Direction> possibleDirections;
 
-        public GhostHuntingRandomMovement(Ghost gameObject, Matrix levelMatrix, PacMan pacman)
+        public GhostHuntingRandomMovement(Ghost gameObject, GameEngine.Matrix levelMatrix, PacMan pacman)
             :base(gameObject, levelMatrix)
         {
             this.pacman = pacman;
@@ -303,6 +302,11 @@ namespace GameEngine.Handlers
         public void DecreaseSpeed()
         {
             this.pixelMoved--;
+        }
+
+        public void GetDrunkThenRehab()
+        {
+            throw new NotImplementedException();
         }
     }
 }

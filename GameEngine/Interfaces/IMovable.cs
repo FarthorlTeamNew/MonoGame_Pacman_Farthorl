@@ -7,5 +7,6 @@ namespace GameEngine.Interfaces
         Vector2 Move(GameTime gameTime);
         void Reset();
         void DecreaseSpeed();
+        void GetDrunkThenRehab();
     }
 }

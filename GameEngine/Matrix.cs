@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using GameEngine.Factories;
 using GameEngine.Models;
+using GameEngine.Models.LevelObjects.Fruits;
 
 namespace GameEngine
 {
@@ -21,7 +22,8 @@ namespace GameEngine
         private readonly List<PointObj> pointsList;
         private List<Fruit> fruits;
         private List<GhostKiller> ghostKillers;
-        private Stopwatch watch;
+        private Stopwatch ghostKillerWatch;
+        private Stopwatch fruitWatch;
 
         public Matrix()
         {
@@ -29,7 +31,8 @@ namespace GameEngine
             pointsList = new List<PointObj>();
             fruits = new List<Fruit>();
             ghostKillers = new List<GhostKiller>();
-            this.watch = new Stopwatch();
+            this.ghostKillerWatch = new Stopwatch();
+            this.fruitWatch = new Stopwatch();
         }
 
         public int LeftPoints
@@ -127,22 +130,36 @@ namespace GameEngine
             pointsList.Remove(pointsList.FirstOrDefault(x => x.IsColliding(pacMan)));
 
             Fruit fruitToEatActivateRemove = fruits.FirstOrDefault(x => x.IsColliding(pacMan));
-            fruitToEatActivateRemove?.ReactOnCollision(pacMan);
-            fruitToEatActivateRemove?.ActivatePowerup(ghostGen, pacMan);
-            fruits.Remove(fruitToEatActivateRemove);
+            if (fruitToEatActivateRemove != null)
+            {
+                fruitToEatActivateRemove.ReactOnCollision(pacMan);
+                fruitToEatActivateRemove.ActivatePowerup(ghostGen, pacMan);
+                fruits.Remove(fruitToEatActivateRemove);
+                if (fruitToEatActivateRemove is Peach)
+                {
+                    this.fruitWatch.Start();
+                }
+            }
+            if (this.fruitWatch.ElapsedMilliseconds > 5000)
+            {
+                ghostGen.GhostMovements[nameof(PacMan)].GetDrunkThenRehab();
+                this.fruitWatch.Reset();
+                this.fruitWatch.Stop();
+            }
 
             GhostKiller ghostKiller = ghostKillers.FirstOrDefault(x => x.IsColliding(pacMan));            
             if (ghostKiller != null)
             {
                 ghostKiller.ReactOnCollision(pacMan);
                 ghostKillers.Remove(ghostKiller);
-                this.watch.Start();
+                this.ghostKillerWatch.Reset();
+                this.ghostKillerWatch.Start();
             }
-            if (this.watch.ElapsedMilliseconds > 5000)
+            if (this.ghostKillerWatch.ElapsedMilliseconds > 5000)
             {
                 pacMan.CanEat = false;
-                this.watch.Reset();
-                this.watch.Stop();
+                this.ghostKillerWatch.Reset();
+                this.ghostKillerWatch.Stop();
             }
         }
 
