@@ -52,7 +52,7 @@
     <Compile Include="Globals\Global.cs" />
     <Compile Include="Handlers\GhostGoodRandomMovement.cs" />
     <Compile Include="Handlers\GhostWeakRandomMovement.cs" />
-    <Compile Include="Handlers\Direction.cs" />
+    <Compile Include="Enums\Directions.cs" />
     <Compile Include="Handlers\ObjectMover.cs" />
     <Compile Include="Handlers\GhostHuntingRandomMovement.cs" />
     <Compile Include="Handlers\KeyPress.cs" />
@@ -63,7 +63,7 @@
     <Compile Include="Interfaces\IMovable.cs" />
     <Compile Include="Matrix.cs" />
     <Compile Include="Menu\CButton.cs" />
-    <Compile Include="Menu\GameState.cs" />
+    <Compile Include="Enums\GameState.cs" />
     <Compile Include="Globals\GameTexture.cs" />
     <Compile Include="Models\LevelObjects\Fruits\Apple.cs" />
     <Compile Include="Models\LevelObjects\Fruits\Banana.cs" />
