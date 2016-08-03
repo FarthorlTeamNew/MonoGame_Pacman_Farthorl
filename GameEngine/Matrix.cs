@@ -22,8 +22,6 @@
         private readonly List<PointObj> pointsList;
         private readonly List<Fruit> fruits;
         private readonly List<GhostKiller> ghostKillers;
-        private readonly Stopwatch ghostKillerWatch;
-        private readonly Stopwatch fruitWatch;
 
         public Matrix()
         {
@@ -31,8 +29,8 @@
             pointsList = new List<PointObj>();
             fruits = new List<Fruit>();
             ghostKillers = new List<GhostKiller>();
-            this.ghostKillerWatch = new Stopwatch();
-            this.fruitWatch = new Stopwatch();
+            Global.GhostKillerTimer = new Stopwatch();
+            Global.PeachTimer = new Stopwatch();
         }
 
         public int LeftPoints
@@ -137,14 +135,14 @@
                 fruits.Remove(fruitToEatActivateRemove);
                 if (fruitToEatActivateRemove is Peach)
                 {
-                    this.fruitWatch.Start();
+                    Global.PeachTimer.Start();
                 }
             }
-            if (this.fruitWatch.ElapsedMilliseconds > 5000)
+            if (Global.PeachTimer.ElapsedMilliseconds > 5000)
             {
                 ghostGen.GhostMovements[nameof(PacMan)].GetDrunkThenRehab();
-                this.fruitWatch.Reset();
-                this.fruitWatch.Stop();
+                Global.PeachTimer.Reset();
+                Global.PeachTimer.Stop();
             }
 
             GhostKiller ghostKiller = ghostKillers.FirstOrDefault(x => x.IsColliding(pacMan));            
@@ -152,14 +150,14 @@
             {
                 ghostKiller.ReactOnCollision(pacMan);
                 ghostKillers.Remove(ghostKiller);
-                this.ghostKillerWatch.Reset();
-                this.ghostKillerWatch.Start();
+                Global.GhostKillerTimer.Reset();
+                Global.GhostKillerTimer.Start();
             }
-            if (this.ghostKillerWatch.ElapsedMilliseconds > 5000)
+            if (Global.GhostKillerTimer.ElapsedMilliseconds > 5000)
             {
                 pacMan.CanEat = false;
-                this.ghostKillerWatch.Reset();
-                this.ghostKillerWatch.Stop();
+                Global.GhostKillerTimer.Reset();
+                Global.GhostKillerTimer.Stop();
             }
         }
 

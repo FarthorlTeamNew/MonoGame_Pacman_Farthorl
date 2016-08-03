@@ -1,5 +1,7 @@
 ﻿namespace GameEngine.Globals
 {
+    using System.Diagnostics;
+
     public static class Global
     {
         public static int quad_Width = 32;
@@ -10,5 +12,7 @@
         public static int YMax = 13;
         public static int PacmanSpeed = 4;
         public static int DefaultGhostSpeed = 2;
+        public static Stopwatch GhostKillerTimer;
+        public static Stopwatch PeachTimer;
     }
 }
