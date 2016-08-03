@@ -5,12 +5,11 @@
     using System.IO;
     using System.Linq;
     using Enums;
-    
+
     public static class Log
     {
         private static Dictionary<LogEnumerable, List<string>> logs;
         private static DateTime dateTimeStamp;
-
 
         static Log()
         {
@@ -27,7 +26,8 @@
                 logs[inLog].Add(input);
 
             }
-            else {
+            else
+            {
                 List<string> list = new List<string>();
                 list.Add(input);
                 logs.Add(inLog, list);
@@ -57,7 +57,7 @@
                 catch (Exception)
                 {
 
-                    throw new FileLoadException("The logs cannot be saved in to the log files!");
+                    throw new FileLoadException($"The logs cannot be saved in to the log file {log.Key}!");
                 }
 
             }

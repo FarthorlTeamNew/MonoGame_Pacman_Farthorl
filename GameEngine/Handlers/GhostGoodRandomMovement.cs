@@ -82,6 +82,106 @@
         protected override void CalculateDirection(Direction bannedDirection)
         {
             this.possibleDirections.Clear();
+            if (Global.difficulty == DifficultyEnumerable.Easy)
+            {
+                this.EasyGame(bannedDirection);
+            }
+
+            if (Global.difficulty == DifficultyEnumerable.Hard)
+            {
+                this.HardGame();
+            }
+        }
+
+
+        private void HardGame()
+        {
+            // checks if ghost is can randomize direction if not going back
+            // preferred left, right, front
+            if (this.pacman.QuadrantX < this.gameObject.QuadrantX)
+            {
+                if (Core.Matrix.IsThereABrick(this.gameObject.QuadrantX - 1, this.gameObject.QuadrantY) == false)
+                {
+                    this.currentDir = Direction.Left;
+                    return;
+                }
+                else if (this.pacman.QuadrantY < this.gameObject.QuadrantY &&
+                    Core.Matrix.IsThereABrick(this.gameObject.QuadrantX, this.gameObject.QuadrantY - 1) == false)
+                {
+                    this.currentDir = Direction.Up;
+                    return;
+                }
+                else if (!Core.Matrix.IsThereABrick(this.gameObject.QuadrantX, this.gameObject.QuadrantY + 1))
+                {
+                    this.currentDir = Direction.Down;
+                    return;
+                }
+            }
+
+            if (this.pacman.QuadrantX > this.gameObject.QuadrantX)
+            {
+                if (!Core.Matrix.IsThereABrick(this.gameObject.QuadrantX + 1, this.gameObject.QuadrantY))
+                {
+                    this.currentDir = Direction.Right;
+                    return;
+                }
+                else if (this.pacman.QuadrantY < this.gameObject.QuadrantY &&
+                    !Core.Matrix.IsThereABrick(this.gameObject.QuadrantX, this.gameObject.QuadrantY - 1))
+                {
+                    this.currentDir = Direction.Up;
+                    return;
+                }
+                else if (!Core.Matrix.IsThereABrick(this.gameObject.QuadrantX, this.gameObject.QuadrantY + 1))
+                {
+                    this.currentDir = Direction.Down;
+                    return;
+                }
+            }
+
+            if (this.pacman.QuadrantY < this.gameObject.QuadrantY)
+            {
+                if (!Core.Matrix.IsThereABrick(this.gameObject.QuadrantX, this.gameObject.QuadrantY - 1))
+                {
+                    this.currentDir = Direction.Up;
+                    return;
+                }
+                else if (this.pacman.QuadrantX < this.gameObject.QuadrantX &&
+                    !Core.Matrix.IsThereABrick(this.gameObject.QuadrantX - 1, this.gameObject.QuadrantY))
+                {
+                    this.currentDir = Direction.Left;
+                    return;
+                }
+                else if (!Core.Matrix.IsThereABrick(this.gameObject.QuadrantX + 1, this.gameObject.QuadrantY))
+                {
+                    this.currentDir = Direction.Right;
+                    return;
+                }
+            }
+
+            if (this.pacman.QuadrantY > this.gameObject.QuadrantY)
+            {
+                if (!Core.Matrix.IsThereABrick(this.gameObject.QuadrantX, this.gameObject.QuadrantY + 1))
+                {
+                    this.currentDir = Direction.Down;
+                    return;
+                }
+                else if (this.pacman.QuadrantX < this.gameObject.QuadrantX &&
+                    !Core.Matrix.IsThereABrick(this.gameObject.QuadrantX - 1, this.gameObject.QuadrantY))
+                {
+                    this.currentDir = Direction.Left;
+                    return;
+                }
+                else if (!Core.Matrix.IsThereABrick(this.gameObject.QuadrantX + 1, this.gameObject.QuadrantY))
+                {
+                    this.currentDir = Direction.Right;
+                    return;
+                }
+            }
+        }
+
+        private void EasyGame(Direction bannedDirection)
+        {
+            this.possibleDirections.Clear();
 
             // checks if ghost is can randomize direction if not going back
             // preferred left, right, front
@@ -227,16 +327,26 @@
         {
             if (this.IsReadyToChangeQuadrant())
             {
-                Direction directionToPacman = this.SeePackman();
-                if (directionToPacman != Direction.None )
+                if (Global.difficulty == DifficultyEnumerable.Easy)
                 {
-                    this.CalculateDirection(directionToPacman);
+                    Direction directionToPacman = this.SeePackman();
+                    if (directionToPacman != Direction.None)
+                    {
+                        this.CalculateDirection(directionToPacman);
+                    }
+                    else
+                    {
+                        this.CalculateDirection(Direction.None);
+                    }
                 }
-                else
+
+                if (Global.difficulty == DifficultyEnumerable.Hard)
                 {
                     this.CalculateDirection(Direction.None);
                 }
+
             }
+
 
             Vector2 nextPointToMove = new Vector2();
             switch (this.currentDir)

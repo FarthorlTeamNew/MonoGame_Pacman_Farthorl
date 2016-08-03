@@ -47,10 +47,11 @@
     <Compile Include="Animators\GhostAnimators\InkyAnimator.cs" />
     <Compile Include="Animators\GhostAnimators\PinkyAnimator.cs" />
     <Compile Include="Animators\PacmanAnimator.cs" />
+    <Compile Include="Enums\DifficultyEnumerable.cs" />
     <Compile Include="Enums\LogEnumerable.cs" />
     <Compile Include="Factories\FruitFactory.cs" />
     <Compile Include="Core\GhostGenerator.cs" />
-    <Compile Include="Globals\Global.cs" />
+    <Compile Include="Factories\Global.cs" />
     <Compile Include="Handlers\GhostGoodRandomMovement.cs" />
     <Compile Include="Handlers\GhostWeakRandomMovement.cs" />
     <Compile Include="Enums\Directions.cs" />

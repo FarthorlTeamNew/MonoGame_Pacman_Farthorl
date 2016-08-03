@@ -22,7 +22,8 @@
         private KeyboardState oldState;
         private bool isLevelCompleated;
         GameState currentGameState = GameState.MainMenu;
-        CButton butPlay;
+        CButton butEasyPlay;
+        CButton butHardPlay;
         CButton butOptions;
         CButton butExit;
 
@@ -51,16 +52,18 @@
         protected override void LoadContent()
         {
             this.spriteBatch = new SpriteBatch(this.GraphicsDevice);
-            this.butPlay = new CButton(GameTexture.PlayButton, this.graphics.GraphicsDevice);
-            this.butPlay.SetPosition(new Vector2(300, 166));
-            this.butExit = new CButton(GameTexture.ExitButton, this.graphics.GraphicsDevice);
-            this.butExit.SetPosition(new Vector2(300, 235));
+            this.butEasyPlay = new CButton(GameTexture.PlayButton, this.graphics.GraphicsDevice);
+            this.butEasyPlay.SetPosition(new Vector2(300, 166));
+            this.butHardPlay = new CButton(GameTexture.PlayButton, this.graphics.GraphicsDevice);
+            this.butHardPlay.SetPosition(new Vector2(300, 200));
             this.butOptions = new CButton(GameTexture.OptionsButton, this.graphics.GraphicsDevice);
-            this.butOptions.SetPosition(new Vector2(300, 200));
+            this.butOptions.SetPosition(new Vector2(300, 234));
+            this.butExit = new CButton(GameTexture.ExitButton, this.graphics.GraphicsDevice);
+            this.butExit.SetPosition(new Vector2(300, 268));
             this.levelMatrix.InitializeMatrix(this.GraphicsDevice);
             this.ghostGen = new GhostGenerator(this.levelMatrix, this.pacMan);
             sound = new Sound(this);
-        
+
         }
 
         protected override void UnloadContent()
@@ -87,14 +90,24 @@
             {
                 case GameState.MainMenu:
                     MouseState mouse = Mouse.GetState();
-                    this.butPlay.Update(mouse); this.butExit.Update(mouse); this.butOptions.Update(mouse);
-                    if (this.butPlay.isClicked || this.keyPress.IsPressedKey(Keys.Space, this.oldState))
+                    this.butEasyPlay.Update(mouse); this.butHardPlay.Update(mouse); this.butExit.Update(mouse); this.butOptions.Update(mouse);
+                    if (this.butEasyPlay.isClicked || this.keyPress.IsPressedKey(Keys.Space, this.oldState))
                     {
                         sound.Begin();
                         //graphics.IsFullScreen = true; // set this to enable full screen
                         //this.graphics.ApplyChanges();
+                        Global.difficulty = DifficultyEnumerable.Easy;
                         this.currentGameState = GameState.Playing;
-                        this.butPlay.isClicked = false; 
+                        this.butEasyPlay.isClicked = false;
+                    }
+                    if (this.butHardPlay.isClicked || this.keyPress.IsPressedKey(Keys.Space, this.oldState))
+                    {
+                        sound.Begin();
+                        //graphics.IsFullScreen = true; // set this to enable full screen
+                        //this.graphics.ApplyChanges();
+                        Global.difficulty = DifficultyEnumerable.Hard;
+                        this.currentGameState = GameState.Playing;
+                        this.butEasyPlay.isClicked = false;
                     }
                     if (this.butExit.isClicked) this.currentGameState = GameState.Exit;
                     if (this.butOptions.isClicked) this.currentGameState = GameState.Options;
@@ -148,7 +161,8 @@
             {
                 case GameState.MainMenu:
                     this.spriteBatch.Draw(GameTexture.MainMenu, new Rectangle(0, 0, Global.GLOBAL_WIDTH, Global.GLOBAL_HEIGHT), Color.White);
-                    this.butPlay.Draw(this.spriteBatch);
+                    this.butEasyPlay.Draw(this.spriteBatch);
+                    this.butHardPlay.Draw(this.spriteBatch);
                     this.butExit.Draw(this.spriteBatch);
                     this.butOptions.Draw(this.spriteBatch);
                     break;
@@ -158,7 +172,7 @@
                 case GameState.Playing:
 
                     //Test scores background.. if you want delete it :)
-                    ScoreBoard.LoadBoard(this.pacMan,this.spriteBatch,this,this.levelMatrix);
+                    ScoreBoard.LoadBoard(this.pacMan, this.spriteBatch, this, this.levelMatrix);
 
                     //==================
 
@@ -205,7 +219,7 @@
                     }
                     break;
                 case GameState.Exit:
-                   Environment.Exit(0);
+                    Environment.Exit(0);
                     break;
             }
             this.spriteBatch.End();
