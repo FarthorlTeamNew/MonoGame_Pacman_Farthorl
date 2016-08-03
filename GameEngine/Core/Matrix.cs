@@ -1,4 +1,7 @@
-﻿namespace GameEngine.Core
+﻿using GameEngine.Enums;
+using GameEngine.Utilities;
+
+namespace GameEngine.Core
 {
     using System;
     using System.Collections.Generic;
@@ -262,7 +265,8 @@
 
         public static bool IsThereABrick(int quadrantX, int quadrantY)
         {
-            if (bricksList.Any(b => b.X / Global.quad_Width == quadrantX && b.Y / Global.quad_Height == quadrantY))
+            if (bricksList.Any(b => b.X / Global.quad_Width == quadrantX && b.Y / Global.quad_Height == quadrantY) ||
+                quadrantX < 0 || quadrantX > Global.XMax || quadrantY < 0 || quadrantY > Global.YMax)
             {
                 return true;
             }

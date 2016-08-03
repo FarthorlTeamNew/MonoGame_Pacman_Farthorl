@@ -146,7 +146,7 @@
                     base.Update(gameTime);
                     break;
                 case GameState.Exit:
-                    Log.LogOnExist();
+                    Log.SaveLogOnExist();
                     break;
             }
 

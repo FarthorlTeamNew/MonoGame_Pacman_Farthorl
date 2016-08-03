@@ -1,4 +1,6 @@
-﻿namespace GameEngine.Utilities
+﻿using System.Threading.Tasks;
+
+namespace GameEngine.Utilities
 {
     using System;
     using System.Collections.Generic;
@@ -9,17 +11,15 @@
     public static class Log
     {
         private static Dictionary<LogEnumerable, List<string>> logs;
-        private static DateTime dateTimeStamp;
 
         static Log()
         {
             logs = new Dictionary<LogEnumerable, List<string>>();
-            dateTimeStamp = new DateTime();
         }
 
         public static void AddToLog(string input, LogEnumerable inLog)
         {
-            input = dateTimeStamp.Date + " : " + input;
+            input = DateTime.Now + " : " + input;
 
             if (logs.Keys.Contains(inLog))
             {
@@ -33,30 +33,49 @@
                 logs.Add(inLog, list);
             }
 
-            if (logs.Keys.Count >= 10)
+            if (logs.Sum(l => l.Value.Count) >= 300)
             {
                 SaveLoggedLogs();
             }
         }
 
-        public static void LogOnExist()
+        public static async void SaveLogOnExist()
         {
-            SaveLoggedLogs();
+            await SaveLoggedLogs();
         }
 
-        private static void SaveLoggedLogs()
+        private static async Task SaveLoggedLogs()
         {
-            var currentDirectory = Directory.GetCurrentDirectory();
+            var currentDirectory = Directory.GetCurrentDirectory() + @"\DataFiles\Logs\";
             foreach (var log in logs)
             {
                 try
                 {
-                    using (StreamWriter writer = new StreamWriter(currentDirectory + @"\DataFile\" + log.Key + ".log"))
+                    var file = currentDirectory + log.Key + ".log";
+
+                    if (!File.Exists(file))
                     {
-                        foreach (var item in logs[log.Key])
+                        // Create a file to write to.
+                        using (StreamWriter sw = File.CreateText(file))
                         {
-                            writer.WriteLine(item);
+                            foreach (var value in logs[log.Key])
+                            {
+                                sw.WriteLine(value);
+                            }
                         }
+                        logs.Clear();
+                    }
+                    else
+                    {
+                        File.Delete(file);
+                        using (StreamWriter sw = File.CreateText(file))
+                        {
+                            foreach (var value in logs[log.Key])
+                            {
+                                sw.WriteLine(value);
+                            }
+                        }
+                        logs.Clear();
                     }
                 }
                 catch (Exception)
@@ -66,8 +85,6 @@
                 }
 
             }
-
-            logs.Clear();
         }
     }
 }

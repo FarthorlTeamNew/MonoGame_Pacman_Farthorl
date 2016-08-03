@@ -52,7 +52,7 @@
     <Compile Include="Factories\FruitFactory.cs" />
     <Compile Include="Core\GhostGenerator.cs" />
     <Compile Include="Globals\Global.cs" />
-    <Compile Include="Handlers\GhostGoodRandomMovement.cs" />
+    <Compile Include="Handlers\private void HardGame%28%29.cs" />
     <Compile Include="Handlers\GhostWeakRandomMovement.cs" />
     <Compile Include="Enums\Directions.cs" />
     <Compile Include="Utilities\Log.cs" />
