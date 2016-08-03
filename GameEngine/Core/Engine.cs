@@ -21,7 +21,6 @@
         private KeyPress keyPress;
         private KeyboardState oldState;
         private bool isLevelCompleated;
-        private SpriteFont font;
         GameState currentGameState = GameState.MainMenu;
         CButton butPlay;
         CButton butOptions;
@@ -60,7 +59,6 @@
             this.butOptions.SetPosition(new Vector2(300, 200));
             this.levelMatrix.InitializeMatrix(this.GraphicsDevice);
             this.ghostGen = new GhostGenerator(this.levelMatrix, this.pacMan);
-            this.font = this.Content.Load<SpriteFont>("ScoresFont");
             sound = new Sound(this);
             sound.Begin();
         }
@@ -159,7 +157,7 @@
                 case GameState.Playing:
 
                     //Test scores background.. if you want delete it :)
-                    ScoreBoard.LoadBoard(this.pacMan,this.spriteBatch,this,this.font,this.levelMatrix);
+                    ScoreBoard.LoadBoard(this.pacMan,this.spriteBatch,this,this.levelMatrix);
 
                     //==================
 
@@ -174,16 +172,14 @@
 
                         if (this.levelMatrix.LeftPoints == 0)
                         {
-                            var texture = this.Content.Load<Texture2D>("PacManWin_image");
-                            this.spriteBatch.Draw(texture, new Vector2(250, 100));
+                            this.spriteBatch.Draw(GameTexture.WinPic, new Vector2(250, 100));
                             this.isLevelCompleated = true;
                         }
                         foreach (var ghost in this.ghostGen.Ghosts)
                         {
                             if (ghost.Value.IsColliding(this.pacMan) && !this.pacMan.CanEat)
                             {
-                                var texture = this.Content.Load<Texture2D>("PacManLose");
-                                this.spriteBatch.Draw(texture, new Vector2(250, 100));
+                                this.spriteBatch.Draw(GameTexture.LosePic, new Vector2(250, 100));
                                 if (this.isLevelCompleated == false)
                                 {
                                     this.pacMan.Lives--;
@@ -212,17 +208,7 @@
         }
         private void Reset()
         {
-            //isLevelCompleated = false;
-            //this.pacMan.Scores = 0;
-            //this.pacMan.Health = 50;
             this.Initialize();
-            //foreach (var kvp in ghostGen.GhostMovements)
-            //{
-            //    ghostGen.GhostMovements[kvp.Key].Reset();
-            //    ghostGen.GhostAnimators[kvp.Key].Reset();
-            //}        
-            //this.levelMatrix = new Matrix();
-            //this.levelMatrix.InitializeMatrix(this.GraphicsDevice);
         }
     }
 }

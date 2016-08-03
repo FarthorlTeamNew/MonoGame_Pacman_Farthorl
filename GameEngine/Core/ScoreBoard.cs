@@ -7,7 +7,7 @@
 
     public static class ScoreBoard
     {
-        public static void LoadBoard(PacMan pacMan, SpriteBatch spriteBatch, Game game, SpriteFont font, Matrix levelMatrix)
+        public static void LoadBoard(PacMan pacMan, SpriteBatch spriteBatch, Game game, Matrix levelMatrix)
         {
             var scoreBackground = game.Content.Load<Texture2D>("ScoresBackground");
 
@@ -26,7 +26,7 @@
                 scores += $"| Sobering up in : {5 - Global.PeachTimer.ElapsedMilliseconds / 1000} ";
             }
 
-            spriteBatch.DrawString(font, scores, new Vector2(15, 426), Color.Aqua);
+            spriteBatch.DrawString(GameTexture.Font, scores, new Vector2(15, 426), Color.Aqua);
         }
     }
 }

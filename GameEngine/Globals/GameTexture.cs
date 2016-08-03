@@ -12,13 +12,17 @@
         public static Texture2D OptionsButton;
         public static Texture2D Instruction;
         public static Texture2D ExitButton;
+        public static SpriteFont Font;
         public static Texture2D PacmanOpenSprite;
         public static Texture2D PacmanAndGhost;
         public static Texture2D Brick;
         public static Texture2D Point;
         public static Texture2D GhostKiller;
         public static Texture2D PacmanLose;
+        public static Texture2D WinPic;
+        public static Texture2D LosePic;
         public static List<Texture2D> FruitTexturesList;
+
 
         public static void LoadTextures(Game game)
         {
@@ -27,6 +31,9 @@
             OptionsButton = game.Content.Load<Texture2D>("MenuImages/instructionbutton");
             Instruction = game.Content.Load<Texture2D>("MenuImages/instructions");
             ExitButton = game.Content.Load<Texture2D>("MenuImages/Exit");
+            Font = game.Content.Load<SpriteFont>("ScoresFont");
+            WinPic = game.Content.Load<Texture2D>("PacManWin_image");
+            LosePic = game.Content.Load<Texture2D>("PacManLose");
 
             PacmanAndGhost = game.Content.Load<Texture2D>("PacManSprite_sheets");
             Brick = game.Content.Load<Texture2D>("brick.png");
@@ -36,6 +43,7 @@
             List<string> allFruits = new List<string>();
             FruitTexturesList = new List<Texture2D>();
             allFruits = ExtractAllFruitImagePaths();
+
             foreach (var fruitTexturePath in allFruits)
             {
                 FruitTexturesList.Add(game.Content.Load<Texture2D>(fruitTexturePath));
