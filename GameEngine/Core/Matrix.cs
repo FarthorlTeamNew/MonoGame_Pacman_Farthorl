@@ -169,6 +169,7 @@
             if (Global.GhostKillerTimer.ElapsedMilliseconds > 5000)
             {
                 pacMan.CanEat = false;
+                pacMan.Texture = GameTexture.PacmanAndGhost;
                 Global.GhostKillerTimer.Reset();
                 Global.GhostKillerTimer.Stop();
             }
@@ -180,6 +181,17 @@
                     break;
                 }
             }
+            foreach (var ghost in ghostGen.Ghosts)
+            {
+                if (ghost.Value.Texture == GameTexture.GhostAsPokemon && ghost.Value.GhostTransformingTimer.ElapsedMilliseconds > 10000)
+                {
+                    ghost.Value.Texture = GameTexture.PacmanAndGhost;
+                    ghost.Value.CanKillPakman = true;
+                    ghost.Value.GhostTransformingTimer.Reset();
+                    ghost.Value.GhostTransformingTimer.Stop();
+                }
+            }
+
         }
 
         public void Draw(SpriteBatch spriteBatch)

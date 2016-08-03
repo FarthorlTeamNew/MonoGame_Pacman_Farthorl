@@ -15,6 +15,8 @@
         public static SpriteFont Font;
         public static Texture2D PacmanOpenSprite;
         public static Texture2D PacmanAndGhost;
+        public static Texture2D PacmanPokeball;
+        public static Texture2D GhostAsPokemon;
         public static Texture2D Brick;
         public static Texture2D Point;
         public static Texture2D GhostKiller;
@@ -36,6 +38,8 @@
             LosePic = game.Content.Load<Texture2D>("PacManLose");
 
             PacmanAndGhost = game.Content.Load<Texture2D>("PacManSprite_sheets");
+            PacmanPokeball = game.Content.Load<Texture2D>("Pokemons/pokeball");
+            GhostAsPokemon = game.Content.Load<Texture2D>("Pokemons/Pika");
             Brick = game.Content.Load<Texture2D>("brick.png");
             Point = game.Content.Load<Texture2D>("Point");
             GhostKiller = game.Content.Load<Texture2D>("GhostKiller");

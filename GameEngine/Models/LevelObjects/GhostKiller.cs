@@ -1,6 +1,7 @@
 ﻿namespace GameEngine.Models.LevelObjects
 {
     using Core;
+    using Globals;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
 
@@ -14,6 +15,7 @@
         public override void ReactOnCollision(PacMan pacman)
         {
             pacman.CanEat = true;
+            pacman.Texture = GameTexture.PacmanPokeball;
             Engine.sound.PacManEatGhost();
         }
     }

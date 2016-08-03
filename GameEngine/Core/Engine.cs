@@ -178,7 +178,7 @@
                         }
                         foreach (var ghost in this.ghostGen.Ghosts)
                         {
-                            if (ghost.Value.IsColliding(this.pacMan) && !this.pacMan.CanEat)
+                            if (ghost.Value.IsColliding(this.pacMan) && !this.pacMan.CanEat && ghost.Value.CanKillPakman)
                             {
                                 this.spriteBatch.Draw(GameTexture.LosePic, new Vector2(250, 100));
                                 if (this.isLevelCompleated == false)
@@ -192,9 +192,13 @@
                             else if (ghost.Value.IsColliding(this.pacMan) && this.pacMan.CanEat)
                             {
                                 sound.GhostDies();
-                                this.ghostGen.GhostMovements.Remove(ghost.Key);
-                                this.ghostGen.GhostAnimators.Remove(ghost.Key);
-                                this.ghostGen.Ghosts.Remove(ghost.Key);
+                                ghost.Value.Texture = GameTexture.GhostAsPokemon;
+                                ghost.Value.CanKillPakman = false;
+                                ghost.Value.StartTransformingToGhost();
+                                
+                                //this.ghostGen.GhostMovements.Remove(ghost.Key);
+                                //this.ghostGen.GhostAnimators.Remove(ghost.Key);
+                                //this.ghostGen.Ghosts.Remove(ghost.Key);
                                 break;
                             }
                         }

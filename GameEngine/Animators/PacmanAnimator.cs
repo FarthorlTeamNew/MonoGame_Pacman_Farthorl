@@ -70,8 +70,16 @@
             Vector2 topLeftPos = new Vector2(this.gameObject.X, this.gameObject.Y);
             Color tint = Color.White;
             var sourceRectangle = this.currentAnimation.CurrentRectangle;
-            spriteBatch.Draw(this.gameObject.Texture, topLeftPos, sourceRectangle, tint);
-
+            if (this.gameObject.Texture == GameTexture.PacmanPokeball)
+            {
+                sourceRectangle.X = 0;
+                sourceRectangle.Y = 0;
+                spriteBatch.Draw(this.gameObject.Texture, topLeftPos, sourceRectangle, tint);
+            }
+            else
+            {
+                spriteBatch.Draw(this.gameObject.Texture, topLeftPos, sourceRectangle, tint);
+            }
         }
 
         public override void BufferFrames()
