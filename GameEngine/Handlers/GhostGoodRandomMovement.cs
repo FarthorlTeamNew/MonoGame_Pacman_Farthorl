@@ -20,7 +20,7 @@
             possibleDirections = new List<Direction>();
         }
 
-        protected override void CalculateDirection()
+        protected override void CalculateDirection(Direction bannedDirection)
         {
             this.possibleDirections.Clear();
             // checks if ghost is can randomize direction if not going back
@@ -130,7 +130,7 @@
         {
             if (base.IsReadyToChangeQuadrant())
             {
-                CalculateDirection();
+                CalculateDirection(Direction.None);
             }
 
             Vector2 nextPointToMove = new Vector2();

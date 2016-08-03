@@ -74,7 +74,7 @@
             }
         }
 
-        protected override void CalculateDirection()
+        protected override void CalculateDirection(Direction bannedDirection)
         {
             if (this.desiredDir == this.currentDir)
             {
@@ -183,7 +183,7 @@
 
             if (IsReadyToChangeQuadrant())
             {
-                CalculateDirection();
+                CalculateDirection(Direction.None);
             }
 
             Vector2 desiredVelocity = new Vector2();

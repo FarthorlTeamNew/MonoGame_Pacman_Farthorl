@@ -17,7 +17,7 @@
             random = new Random(DateTime.Now.Millisecond);
         }
 
-        protected override void CalculateDirection()
+        protected override void CalculateDirection(Direction bannedDirection)
         {
             // checks if ghost is finishing his current direction to the end then randomize to the left, right or back
             // preferred left and right
@@ -115,7 +115,7 @@
         {
             if (base.IsReadyToChangeQuadrant())
             {
-                CalculateDirection();
+                CalculateDirection(Direction.None);
             }
 
             Vector2 nextPointToMove = new Vector2();

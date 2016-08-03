@@ -48,7 +48,7 @@ namespace GameEngine.Handlers
             return false;
         }
 
-        protected abstract void CalculateDirection();
+        protected abstract void CalculateDirection(Direction bannedDirection);
 
         protected abstract Vector2 GetNextPointToMove();
 

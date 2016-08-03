@@ -23,101 +23,119 @@
             pixelMoved = Global.DefaultGhostSpeed;
         }
 
-        protected override void CalculateDirection()
+        protected override void CalculateDirection(Direction bannedDirection)
         {
             this.possibleDirections.Clear();
-
-            if (SeePackman())
-            {
-                return;
-            }
+            
             // checks if ghost is can randomize direction if not going back
             // preferred left, right, front
             if (currentDir == Direction.Up)
             {
-                if (IsMovingLeftPossible())
+                if (IsMovingLeftPossible() && bannedDirection != Direction.Left)
                 {
                     possibleDirections.Add(Direction.Left);
                 }
-                if (IsMovingRightPossible())
+                if (IsMovingRightPossible() && bannedDirection != Direction.Right)
                 {
                     possibleDirections.Add(Direction.Right);
                 }
-                if (IsMovingUpPossible())
+                if (IsMovingUpPossible() && bannedDirection != Direction.Up)
                 {
                     possibleDirections.Add(Direction.Up);
                 }
-                if (possibleDirections.Count == 0) // go back
+                if (possibleDirections.Count == 0 && bannedDirection == Direction.None) // go back
                 {
                     currentDir = Direction.Down;
                     return;
                 }
+                else if(possibleDirections.Count == 0)
+                {
+                    currentDir = Direction.None;
+                }
             }
             else if (currentDir == Direction.Down)
             {
-                if (IsMovingLeftPossible())
+                if (IsMovingLeftPossible() && bannedDirection != Direction.Left)
                 {
                     possibleDirections.Add(Direction.Left);
                 }
-                if (IsMovingRightPossible())
+                if (IsMovingRightPossible() && bannedDirection != Direction.Right)
                 {
                     possibleDirections.Add(Direction.Right);
                 }
-                if (IsMovingDownPossible())
+                if (IsMovingDownPossible() && bannedDirection != Direction.Down)
                 {
                     possibleDirections.Add(Direction.Down);
                 }
-                if (possibleDirections.Count == 0) // go back
+                if (possibleDirections.Count == 0 && bannedDirection == Direction.None) // go back
                 {
                     currentDir = Direction.Up;
+                    return;
+                }
+                else if(possibleDirections.Count == 0)
+                {
+                    currentDir = Direction.None;
                     return;
                 }
             }
             else if (currentDir == Direction.Left)
             {
-                if (IsMovingLeftPossible())
+                if (IsMovingLeftPossible() && bannedDirection != Direction.Left)
                 {
                     possibleDirections.Add(Direction.Left);
                 }
-                if (IsMovingDownPossible())
+                if (IsMovingDownPossible() && bannedDirection != Direction.Down)
                 {
                     possibleDirections.Add(Direction.Down);
                 }
-                if (IsMovingUpPossible())
+                if (IsMovingUpPossible() && bannedDirection != Direction.Up)
                 {
                     possibleDirections.Add(Direction.Up);
                 }
-                if (possibleDirections.Count == 0) // go back
+                if (possibleDirections.Count == 0 && bannedDirection == Direction.None) // go back
                 {
                     currentDir = Direction.Right;
+                    return;
+                }
+                else if (possibleDirections.Count == 0)
+                {
+                    currentDir = Direction.None;
                     return;
                 }
             }
             else if (currentDir == Direction.Right)
             {
-                if (IsMovingRightPossible())
+                if (IsMovingRightPossible() && bannedDirection != Direction.Right)
                 {
                     possibleDirections.Add(Direction.Right);
                 }
-                if (IsMovingDownPossible())
+                if (IsMovingDownPossible() && bannedDirection != Direction.Down)
                 {
                     possibleDirections.Add(Direction.Down);
                 }
-                if (IsMovingUpPossible())
+                if (IsMovingUpPossible() && bannedDirection != Direction.Up)
                 {
                     possibleDirections.Add(Direction.Up);
                 }
-                if (possibleDirections.Count == 0) // go back
+                if (possibleDirections.Count == 0 && bannedDirection == Direction.None) // go back
                 {
                     currentDir = Direction.Left;
                     return;
                 }
+                else if (possibleDirections.Count == 0)
+                {
+                    currentDir = Direction.None;
+                    return;
+                }
             }
 
-            ChooseRandomDirection();
+            if (possibleDirections.Count > 0)
+            {
+                ChooseRandomDirection();
+            }
         }
 
-        private bool SeePackman()
+        private Direction SeePackman()
         {
             // watch left and right
             if(gameObject.QuadrantY == pacman.QuadrantY)
@@ -128,8 +146,7 @@
                 {
                     if (gameObject.QuadrantX - distanceToSee == pacman.QuadrantX)
                     {
-                        this.currentDir = Direction.Left;
-                        return true;
+                        return Direction.Left;
                     }
                     distanceToSee++;
                 }
@@ -140,8 +157,7 @@
                 {
                     if (gameObject.QuadrantX + distanceToSee == pacman.QuadrantX)
                     {
-                        this.currentDir = Direction.Right;
-                        return true;
+                        return Direction.Right;
                     }
                     distanceToSee++;
                 }
@@ -156,8 +172,7 @@
                 {
                     if (gameObject.QuadrantY - distanceToSee == pacman.QuadrantY)
                     {
-                        this.currentDir = Direction.Up;
-                        return true;
+                        return Direction.Up;
                     }
                     distanceToSee++;
                 }
@@ -168,14 +183,13 @@
                 {
                     if (gameObject.QuadrantY + distanceToSee == pacman.QuadrantY)
                     {
-                        this.currentDir = Direction.Down;
-                        return true;
+                        return Direction.Down;
                     }
                     distanceToSee++;
                 }
             }
 
-            return false;
+            return Direction.None;
         }
 
         private void TurnBackImmediatelyIfSeePackman()
@@ -266,10 +280,52 @@
         {
             if (IsReadyToChangeQuadrant())
             {
-                CalculateDirection();
+                Direction directionToPacman = SeePackman();
+                if (directionToPacman != Direction.None)
+                {
+                    if (pacman.CanEat)
+                    {
+                        switch (directionToPacman)
+                        {
+                            case Direction.Up: CalculateDirection(Direction.Up);
+                                break;
+                            case Direction.Down: CalculateDirection(Direction.Down);
+                                break;
+                            case Direction.Left: CalculateDirection(Direction.Left);
+                                break;
+                            case Direction.Right: CalculateDirection(Direction.Right);
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        switch (directionToPacman)
+                        {
+                            case Direction.Up:
+                                currentDir = Direction.Up;
+                                break;
+                            case Direction.Down:
+                                currentDir = Direction.Down;
+                                break;
+                            case Direction.Left:
+                                currentDir = Direction.Left;
+                                break;
+                            case Direction.Right:
+                                currentDir = Direction.Right;
+                                break;
+                        }
+                    }
+                }
+                else
+                {
+                    CalculateDirection(Direction.None);
+                }
             }
 
-            TurnBackImmediatelyIfSeePackman();
+            if (!this.pacman.CanEat)
+            {
+                TurnBackImmediatelyIfSeePackman();
+            }
 
             Vector2 nextPointToMove = new Vector2();
             switch (this.currentDir)
