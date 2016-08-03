@@ -1,9 +1,11 @@
 ﻿namespace GameEngine.Animators
 {
+    using Globals;
     using Handlers;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using Models.LevelObjects;
+    using System;
     using System.Collections.Generic;
 
     public abstract class GhostAnimator : Animator
@@ -27,104 +29,63 @@
         public override void UpdateAnimation(GameTime gameTime, Vector2 velocity)
         {
             var direction = CalculateDirection(velocity);
-            switch (direction)
+            if (velocity != Vector2.Zero)
             {
-                case Direction.Right:
-                    this.currentAnimation = this.animations.Find(x => x.Face == Direction.Right);
-                    base.currentDirection = Direction.Right;
-                    break;
+                switch (direction)
+                {
+                    case Direction.Right:
+                        this.currentAnimation = this.animations.Find(x => x.Face == Direction.Right);
+                        base.currentDirection = Direction.Right;
+                        break;
 
-                case Direction.Left:
-                    this.currentAnimation = this.animations.Find(x => x.Face == Direction.Left);
-                    base.currentDirection = Direction.Left;
-                    break;
+                    case Direction.Left:
+                        this.currentAnimation = this.animations.Find(x => x.Face == Direction.Left);
+                        base.currentDirection = Direction.Left;
+                        break;
 
-                case Direction.Down:
-                    this.currentAnimation = this.animations.Find(x => x.Face == Direction.Down);
-                    base.currentDirection = Direction.Down;
-                    break;
+                    case Direction.Down:
+                        this.currentAnimation = this.animations.Find(x => x.Face == Direction.Down);
+                        base.currentDirection = Direction.Down;
+                        break;
 
-                case Direction.Up:
-                    this.currentAnimation = this.animations.Find(x => x.Face == Direction.Up);
-                    base.currentDirection = Direction.Up;
-                    break;
-
+                    case Direction.Up:
+                        this.currentAnimation = this.animations.Find(x => x.Face == Direction.Up);
+                        base.currentDirection = Direction.Up;
+                        break;
+                    default:
+                        this.currentAnimation = this.animations.Find(x => x.Face == base.currentDirection);
+                        break;
+                }
             }
             this.currentAnimation.Update(gameTime);
         }
 
         public Direction CalculateDirection(Vector2 velocity)
         {
-            if (velocity.X < this.gameObject.QuadrantX)
+            var random = new Random();
+            List<Direction> directions = new List<Direction>();
+
+            if (velocity != Vector2.Zero)
             {
-                if (!GameEngine.Matrix.IsThereABrick(this.gameObject.QuadrantX - 1, this.gameObject.QuadrantY))
+                if (velocity.X > this.gameObject.X)
                 {
-                    return Direction.Left;
+                    directions.Add(Direction.Right);
                 }
-                else if (velocity.Y < this.gameObject.QuadrantY &&
-                    !GameEngine.Matrix.IsThereABrick(this.gameObject.QuadrantX, this.gameObject.QuadrantY - 1))
+                if (velocity.X < this.gameObject.X)
                 {
-                    return Direction.Up;
+                    directions.Add(Direction.Left);
                 }
-                else if (!GameEngine.Matrix.IsThereABrick(this.gameObject.QuadrantX, this.gameObject.QuadrantY + 1))
+                if (velocity.Y > this.defaultYcoord)
                 {
-                    return Direction.Down;
+                    directions.Add(Direction.Down);
+                }
+                if (velocity.Y < this.defaultYcoord)
+                {
+                    directions.Add(Direction.Up);
                 }
             }
-
-            if (velocity.X > this.gameObject.QuadrantX)
-            {
-                if (!GameEngine.Matrix.IsThereABrick(this.gameObject.QuadrantX + 1, this.gameObject.QuadrantY))
-                {
-                    return Direction.Right;
-                }
-                else if (velocity.Y < this.gameObject.QuadrantY &&
-                    !GameEngine.Matrix.IsThereABrick(this.gameObject.QuadrantX, this.gameObject.QuadrantY - 1))
-                {
-                    return Direction.Up;
-                }
-                else if (!GameEngine.Matrix.IsThereABrick(this.gameObject.QuadrantX, this.gameObject.QuadrantY + 1))
-                {
-                    return Direction.Down;
-                }
-            }
-
-            if (velocity.Y < this.gameObject.QuadrantY)
-            {
-                if (!GameEngine.Matrix.IsThereABrick(this.gameObject.QuadrantX, this.gameObject.QuadrantY - 1))
-                {
-                    return Direction.Up;
-                }
-                else if (velocity.X < this.gameObject.QuadrantX &&
-                    !GameEngine.Matrix.IsThereABrick(this.gameObject.QuadrantX - 1, this.gameObject.QuadrantY))
-                {
-                    return Direction.Left;
-                }
-                else if (!GameEngine.Matrix.IsThereABrick(this.gameObject.QuadrantX + 1, this.gameObject.QuadrantY))
-                {
-                    return Direction.Right;
-                }
-            }
-
-            if (velocity.Y > this.gameObject.QuadrantY)
-            {
-                if (!GameEngine.Matrix.IsThereABrick(this.gameObject.QuadrantX, this.gameObject.QuadrantY + 1))
-                {
-                    return Direction.Down;
-                }
-                else if (velocity.X < this.gameObject.QuadrantX &&
-                    !GameEngine.Matrix.IsThereABrick(this.gameObject.QuadrantX - 1, this.gameObject.QuadrantY))
-                {
-                    return Direction.Left;
-                }
-                else if (!GameEngine.Matrix.IsThereABrick(this.gameObject.QuadrantX + 1, this.gameObject.QuadrantY))
-                {
-                    return Direction.Right;
-                }
-            }
-
-            return this.currentDirection;
-
+            int randomIndex = random.Next(0, directions.Count - 1);
+            return directions[randomIndex];
         }
 
         public override void Draw(SpriteBatch spriteBatch)
