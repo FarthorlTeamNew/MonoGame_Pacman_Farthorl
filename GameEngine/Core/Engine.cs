@@ -90,13 +90,13 @@
             {
                 case GameState.MainMenu:
                     MouseState mouse = Mouse.GetState();
-                    this.butEasyPlay.Update(mouse); this.butExit.Update(mouse); this.butOptions.Update(mouse);
+                    this.butEasyPlay.Update(mouse); this.butHardPlay.Update(mouse); this.butExit.Update(mouse); this.butOptions.Update(mouse);
                     if (this.butEasyPlay.isClicked || this.keyPress.IsPressedKey(Keys.Space, this.oldState))
                     {
                         sound.Begin();
                         //graphics.IsFullScreen = true; // set this to enable full screen
                         //this.graphics.ApplyChanges();
-                        Global.difficulty=DifficultyEnumerable.Easy;
+                        Global.difficulty = DifficultyEnumerable.Easy;
                         this.currentGameState = GameState.Playing;
                         this.butEasyPlay.isClicked = false;
                     }
@@ -162,6 +162,7 @@
                 case GameState.MainMenu:
                     this.spriteBatch.Draw(GameTexture.MainMenu, new Rectangle(0, 0, Global.GLOBAL_WIDTH, Global.GLOBAL_HEIGHT), Color.White);
                     this.butEasyPlay.Draw(this.spriteBatch);
+                    this.butHardPlay.Draw(this.spriteBatch);
                     this.butExit.Draw(this.spriteBatch);
                     this.butOptions.Draw(this.spriteBatch);
                     break;
