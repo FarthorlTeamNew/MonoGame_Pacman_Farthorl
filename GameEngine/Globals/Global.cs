@@ -14,5 +14,6 @@
         public static int DefaultGhostSpeed = 2;
         public static Stopwatch GhostKillerTimer;
         public static Stopwatch PeachTimer;
+        public static Stopwatch HungryGhosts;
     }
 }

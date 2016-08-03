@@ -1,4 +1,7 @@
-﻿namespace GameEngine
+﻿using System.Runtime.CompilerServices;
+using GameEngine.Models.LevelObjects.Ghosts;
+
+namespace GameEngine
 {
     using Globals;
     using Models.LevelObjects;
@@ -31,6 +34,7 @@
             ghostKillers = new List<GhostKiller>();
             Global.GhostKillerTimer = new Stopwatch();
             Global.PeachTimer = new Stopwatch();
+            Global.HungryGhosts = new Stopwatch();
         }
 
         public int LeftPoints
@@ -137,12 +141,23 @@
                 {
                     Global.PeachTimer.Start();
                 }
+                if (fruitToEatActivateRemove is Pear)
+                {
+                    Global.HungryGhosts.Start();
+                }
             }
             if (Global.PeachTimer.ElapsedMilliseconds > 5000)
             {
                 ghostGen.GhostMovements[nameof(PacMan)].GetDrunkThenRehab();
                 Global.PeachTimer.Reset();
                 Global.PeachTimer.Stop();
+            }
+            if (Global.HungryGhosts.ElapsedMilliseconds > 4000 && ghostGen.Ghosts.ContainsKey(nameof(Clyde)) && ghostGen.Ghosts.ContainsKey(nameof(Pinky)))
+            {
+                ghostGen.Ghosts[nameof(Clyde)].EnoughIsEnough();
+                ghostGen.Ghosts[nameof(Pinky)].EnoughIsEnough();
+                Global.HungryGhosts.Reset();
+                Global.HungryGhosts.Stop();
             }
 
             GhostKiller ghostKiller = ghostKillers.FirstOrDefault(x => x.IsColliding(pacMan));            
@@ -158,6 +173,14 @@
                 pacMan.CanEat = false;
                 Global.GhostKillerTimer.Reset();
                 Global.GhostKillerTimer.Stop();
+            }
+            foreach (var point in pointsList)
+            {
+                if (ghostGen.Ghosts.Where(g => g.Value.Hungry).Any(x => x.Value.IsColliding(point)))
+                {
+                    pointsList.Remove(point);
+                    break;
+                }
             }
         }
 
