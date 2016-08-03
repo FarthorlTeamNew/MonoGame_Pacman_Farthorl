@@ -145,7 +145,6 @@
                     base.Update(gameTime);
                     break;
                 case GameState.Exit:
-                    Log.SaveLogOnExist();
                     break;
             }
             this.oldState = Keyboard.GetState();  // Update saved state.

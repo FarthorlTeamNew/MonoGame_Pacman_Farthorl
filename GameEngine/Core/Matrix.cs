@@ -242,8 +242,9 @@ namespace GameEngine.Core
                             arrayX = int.Parse(arrayXyValues[0]);
                             arrayY = int.Parse(arrayXyValues[1]);
                         }
-                        catch (Exception)
+                        catch (Exception exception)
                         {
+                            Log.AddToLog(exception.Message, LogEnumerable.Errors);
                             throw new ArgumentException("Cannot convert string to integer");
                         }
 
@@ -257,8 +258,9 @@ namespace GameEngine.Core
                 }
                 return this.PathsMatrix;
             }
-            catch (Exception)
+            catch (Exception exception)
             {
+                Log.AddToLog(exception.Message, LogEnumerable.Errors);
                 throw new FileLoadException("Level file didn't load!");
             }
         }
