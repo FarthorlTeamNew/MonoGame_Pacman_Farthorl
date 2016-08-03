@@ -47,14 +47,14 @@
     <Compile Include="Animators\GhostAnimators\InkyAnimator.cs" />
     <Compile Include="Animators\GhostAnimators\PinkyAnimator.cs" />
     <Compile Include="Animators\PacmanAnimator.cs" />
-    <Compile Include="Enumerables\LogEnumerable.cs" />
+    <Compile Include="Enums\LogEnumerable.cs" />
     <Compile Include="Factories\FruitFactory.cs" />
-    <Compile Include="GhostGenerator.cs" />
+    <Compile Include="Core\GhostGenerator.cs" />
     <Compile Include="Globals\Global.cs" />
     <Compile Include="Handlers\GhostGoodRandomMovement.cs" />
     <Compile Include="Handlers\GhostWeakRandomMovement.cs" />
     <Compile Include="Enums\Directions.cs" />
-    <Compile Include="Handlers\Log.cs" />
+    <Compile Include="Utilities\Log.cs" />
     <Compile Include="Handlers\ObjectMover.cs" />
     <Compile Include="Handlers\GhostHuntingRandomMovement.cs" />
     <Compile Include="Handlers\KeyPress.cs" />
@@ -63,7 +63,7 @@
     <Compile Include="Utilities\ExtractAllLevels.cs" />
     <Compile Include="Interfaces\IGameObject.cs" />
     <Compile Include="Interfaces\IMovable.cs" />
-    <Compile Include="Matrix.cs" />
+    <Compile Include="Core\Matrix.cs" />
     <Compile Include="Menu\CButton.cs" />
     <Compile Include="Enums\GameState.cs" />
     <Compile Include="Globals\GameTexture.cs" />
