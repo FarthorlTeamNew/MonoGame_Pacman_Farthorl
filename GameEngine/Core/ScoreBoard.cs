@@ -17,9 +17,13 @@
                 $"Left points: {levelMatrix.LeftPoints}  " +
                 $"Health: {pacMan.Health}  " +
                 $"Lives: {pacMan.Lives}      ";
-            if (pacMan.CanEat)
+            if (Global.GhostKillerTimer.ElapsedMilliseconds != 0)
             {
-                scores += $"Eat Ghosts : {5 - Global.GhostKillerTimer.ElapsedMilliseconds/1000}";
+                scores += $"| Eat Ghosts : {5 - Global.GhostKillerTimer.ElapsedMilliseconds / 1000} ";
+            }
+            if (Global.PeachTimer.ElapsedMilliseconds != 0)
+            {
+                scores += $"| Sobering up in : {5 - Global.PeachTimer.ElapsedMilliseconds / 1000} ";
             }
 
             spriteBatch.DrawString(font, scores, new Vector2(15, 426), Color.Aqua);
