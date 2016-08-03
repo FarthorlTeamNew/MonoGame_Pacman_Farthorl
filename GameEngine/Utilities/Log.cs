@@ -39,6 +39,11 @@
             }
         }
 
+        public static void LogOnExist()
+        {
+            SaveLoggedLogs();
+        }
+
         private static void SaveLoggedLogs()
         {
             var currentDirectory = Directory.GetCurrentDirectory();

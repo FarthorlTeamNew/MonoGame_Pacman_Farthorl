@@ -16,7 +16,7 @@
         public CButton(Texture2D newTexture, GraphicsDevice graphics)
         {
             this.texture = newTexture;
-            this.size = new Vector2(graphics.Viewport.Width / 5 , graphics.Viewport.Height /18);
+            this.size = new Vector2(graphics.Viewport.Width / 5, graphics.Viewport.Height / 18);
         }
 
         bool down;
@@ -42,7 +42,7 @@
             }
         }
 
-        public  void SetPosition(Vector2 newPositon)
+        public void SetPosition(Vector2 newPositon)
         {
             this.position = newPositon;
         }

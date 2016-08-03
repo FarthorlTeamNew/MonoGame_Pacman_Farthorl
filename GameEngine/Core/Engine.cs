@@ -1,4 +1,6 @@
-﻿namespace GameEngine.Core
+﻿using GameEngine.Utilities;
+
+namespace GameEngine.Core
 {
     using System;
     using Enums;
@@ -145,6 +147,7 @@
                     base.Update(gameTime);
                     break;
                 case GameState.Exit:
+                    Log.LogOnExist();
                     break;
             }
 
@@ -223,7 +226,7 @@
                     break;
             }
             this.spriteBatch.End();
-            base.Draw(gameTime);
+            //base.Draw(gameTime);
         }
         private void Reset()
         {
