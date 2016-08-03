@@ -18,5 +18,7 @@ namespace GameEngine.Globals
         public static Stopwatch PeachTimer;
         public static Stopwatch HungryGhosts;
         public static DifficultyEnumerable difficulty;
+        public static int TimePokeball = 7000;
+        public static int TimePikachu = 13000;
     }
 }
