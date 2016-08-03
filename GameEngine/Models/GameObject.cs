@@ -30,7 +30,7 @@
         public Texture2D Texture
         {
             get { return this.texture; }
-            protected set { this.texture = value; }
+            set { this.texture = value; }
         }
 
         public Rectangle BoundingBox
