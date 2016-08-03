@@ -1,13 +1,9 @@
-﻿using GameEngine.Models;
-
-namespace GameEngine.Animators
+﻿namespace GameEngine.Animators
 {
-    using Globals;
     using Handlers;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using Models.LevelObjects;
-    using System;
     using System.Collections.Generic;
 
     public abstract class GhostAnimator : Animator
@@ -61,16 +57,16 @@ namespace GameEngine.Animators
         {
             if (velocity.X < this.gameObject.QuadrantX)
             {
-                if (!GameEngine.Matrix.IsHaveBrick(this.gameObject.QuadrantX - 1, this.gameObject.QuadrantY))
+                if (!GameEngine.Matrix.IsThereABrick(this.gameObject.QuadrantX - 1, this.gameObject.QuadrantY))
                 {
                     return Direction.Left;
                 }
                 else if (velocity.Y < this.gameObject.QuadrantY &&
-                    !GameEngine.Matrix.IsHaveBrick(this.gameObject.QuadrantX, this.gameObject.QuadrantY - 1))
+                    !GameEngine.Matrix.IsThereABrick(this.gameObject.QuadrantX, this.gameObject.QuadrantY - 1))
                 {
                     return Direction.Up;
                 }
-                else if (!GameEngine.Matrix.IsHaveBrick(this.gameObject.QuadrantX, this.gameObject.QuadrantY + 1))
+                else if (!GameEngine.Matrix.IsThereABrick(this.gameObject.QuadrantX, this.gameObject.QuadrantY + 1))
                 {
                     return Direction.Down;
                 }
@@ -78,16 +74,16 @@ namespace GameEngine.Animators
 
             if (velocity.X > this.gameObject.QuadrantX)
             {
-                if (!GameEngine.Matrix.IsHaveBrick(this.gameObject.QuadrantX + 1, this.gameObject.QuadrantY))
+                if (!GameEngine.Matrix.IsThereABrick(this.gameObject.QuadrantX + 1, this.gameObject.QuadrantY))
                 {
                     return Direction.Right;
                 }
                 else if (velocity.Y < this.gameObject.QuadrantY &&
-                    !GameEngine.Matrix.IsHaveBrick(this.gameObject.QuadrantX, this.gameObject.QuadrantY - 1))
+                    !GameEngine.Matrix.IsThereABrick(this.gameObject.QuadrantX, this.gameObject.QuadrantY - 1))
                 {
                     return Direction.Up;
                 }
-                else if (!GameEngine.Matrix.IsHaveBrick(this.gameObject.QuadrantX, this.gameObject.QuadrantY + 1))
+                else if (!GameEngine.Matrix.IsThereABrick(this.gameObject.QuadrantX, this.gameObject.QuadrantY + 1))
                 {
                     return Direction.Down;
                 }
@@ -95,16 +91,16 @@ namespace GameEngine.Animators
 
             if (velocity.Y < this.gameObject.QuadrantY)
             {
-                if (!GameEngine.Matrix.IsHaveBrick(this.gameObject.QuadrantX, this.gameObject.QuadrantY - 1))
+                if (!GameEngine.Matrix.IsThereABrick(this.gameObject.QuadrantX, this.gameObject.QuadrantY - 1))
                 {
                     return Direction.Up;
                 }
                 else if (velocity.X < this.gameObject.QuadrantX &&
-                    !GameEngine.Matrix.IsHaveBrick(this.gameObject.QuadrantX - 1, this.gameObject.QuadrantY))
+                    !GameEngine.Matrix.IsThereABrick(this.gameObject.QuadrantX - 1, this.gameObject.QuadrantY))
                 {
                     return Direction.Left;
                 }
-                else if (!GameEngine.Matrix.IsHaveBrick(this.gameObject.QuadrantX + 1, this.gameObject.QuadrantY))
+                else if (!GameEngine.Matrix.IsThereABrick(this.gameObject.QuadrantX + 1, this.gameObject.QuadrantY))
                 {
                     return Direction.Right;
                 }
@@ -112,16 +108,16 @@ namespace GameEngine.Animators
 
             if (velocity.Y > this.gameObject.QuadrantY)
             {
-                if (!GameEngine.Matrix.IsHaveBrick(this.gameObject.QuadrantX, this.gameObject.QuadrantY + 1))
+                if (!GameEngine.Matrix.IsThereABrick(this.gameObject.QuadrantX, this.gameObject.QuadrantY + 1))
                 {
                     return Direction.Down;
                 }
                 else if (velocity.X < this.gameObject.QuadrantX &&
-                    !GameEngine.Matrix.IsHaveBrick(this.gameObject.QuadrantX - 1, this.gameObject.QuadrantY))
+                    !GameEngine.Matrix.IsThereABrick(this.gameObject.QuadrantX - 1, this.gameObject.QuadrantY))
                 {
                     return Direction.Left;
                 }
-                else if (!GameEngine.Matrix.IsHaveBrick(this.gameObject.QuadrantX + 1, this.gameObject.QuadrantY))
+                else if (!GameEngine.Matrix.IsThereABrick(this.gameObject.QuadrantX + 1, this.gameObject.QuadrantY))
                 {
                     return Direction.Right;
                 }

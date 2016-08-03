@@ -20,10 +20,10 @@
 
         private static List<Wall> bricksList;
         private readonly List<PointObj> pointsList;
-        private List<Fruit> fruits;
-        private List<GhostKiller> ghostKillers;
-        private Stopwatch ghostKillerWatch;
-        private Stopwatch fruitWatch;
+        private readonly List<Fruit> fruits;
+        private readonly List<GhostKiller> ghostKillers;
+        private readonly Stopwatch ghostKillerWatch;
+        private readonly Stopwatch fruitWatch;
 
         public Matrix()
         {
@@ -230,14 +230,9 @@
             }
         }
 
-        public static bool IsHaveBrick(int quadrantX, int quadrantY)
+        public static bool IsThereABrick(int quadrantX, int quadrantY)
         {
-
-            if (bricksList.Count(b => b.QuadrantX == quadrantX && b.QuadrantY == quadrantY) > 0)
-            {
-                return true;
-            }
-            return false;
+            return bricksList.Count(b => b.QuadrantX == quadrantX && b.QuadrantY == quadrantY) > 0;
         }
     }
 }
