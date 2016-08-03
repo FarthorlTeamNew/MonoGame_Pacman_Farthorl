@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using GameEngine.Factories;
 using GameEngine.Models;
 
@@ -73,22 +72,13 @@ namespace GameEngine
             foreach (var fruitTexture in fruitTextures)
             {
                 Fruit fruit = factory.CreateFruit(fruitTexture);
+                PlaceOnRandomXY(fruit);
                 fruits.Add(fruit);
             }
-
-            foreach (var fruit in fruits)
-            {
-                PlaceOnRandomXY(fruit);
-            }
-
             for (int i = 0; i < 4; i++)
             {
                 ghostKillers.Add(new GhostKiller(GameTexture.ghostKiller, new Rectangle(0, 0, 32, 32)));
-            }
-
-            foreach (var killer in ghostKillers)
-            {
-                PlaceOnRandomXY(killer);
+                PlaceOnRandomXY(ghostKillers[i]); 
             }
         }
 
@@ -141,10 +131,11 @@ namespace GameEngine
             fruitToEatActivateRemove?.ActivatePowerup(ghostGen, pacMan);
             fruits.Remove(fruitToEatActivateRemove);
 
-            GhostKiller ghostKiller = ghostKillers.FirstOrDefault(x => x.IsColliding(pacMan));
-            ghostKiller?.ReactOnCollision(pacMan);
+            GhostKiller ghostKiller = ghostKillers.FirstOrDefault(x => x.IsColliding(pacMan));            
             if (ghostKiller != null)
             {
+                ghostKiller.ReactOnCollision(pacMan);
+                ghostKillers.Remove(ghostKiller);
                 this.watch.Start();
             }
             if (this.watch.ElapsedMilliseconds > 5000)
@@ -153,7 +144,6 @@ namespace GameEngine
                 this.watch.Reset();
                 this.watch.Stop();
             }
-            ghostKillers.Remove(ghostKiller);
         }
 
         public void Draw(SpriteBatch spriteBatch)
