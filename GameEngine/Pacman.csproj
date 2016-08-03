@@ -57,6 +57,7 @@
     <Compile Include="Handlers\GhostHuntingRandomMovement.cs" />
     <Compile Include="Handlers\KeyPress.cs" />
     <Compile Include="Handlers\PacmanInputHandler.cs" />
+    <Compile Include="Core\ScoreBoard.cs" />
     <Compile Include="Utilities\ExtractAllLevels.cs" />
     <Compile Include="Interfaces\IGameObject.cs" />
     <Compile Include="Interfaces\IMovable.cs" />
@@ -69,7 +70,7 @@
     <Compile Include="Models\LevelObjects\Fruits\Brezel.cs" />
     <Compile Include="Models\LevelObjects\Fruits\Cherry.cs" />
     <Compile Include="Models\LevelObjects\Fruit.cs" />
-    <Compile Include="Engine.cs" />
+    <Compile Include="Core\Engine.cs" />
     <Compile Include="Models\GameObject.cs" />
     <Compile Include="Models\LevelObjects\Ghost.cs" />
     <Compile Include="Models\LevelObjects\GhostKiller.cs" />
