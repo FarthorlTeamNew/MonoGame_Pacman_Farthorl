@@ -53,8 +53,6 @@
     <Compile Include="Handlers\GhostGoodRandomMovement.cs" />
     <Compile Include="Handlers\GhostWeakRandomMovement.cs" />
     <Compile Include="Handlers\Direction.cs" />
-    <Compile Include="Handlers\Log.cs" />
-    <Compile Include="Handlers\LogsEnumerable.cs" />
     <Compile Include="Handlers\ObjectMover.cs" />
     <Compile Include="Handlers\GhostHuntingRandomMovement.cs" />
     <Compile Include="Handlers\KeyPress.cs" />
