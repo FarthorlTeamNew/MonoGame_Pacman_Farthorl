@@ -60,7 +60,7 @@
             this.levelMatrix.InitializeMatrix(this.GraphicsDevice);
             this.ghostGen = new GhostGenerator(this.levelMatrix, this.pacMan);
             sound = new Sound(this);
-            sound.Begin();
+        
         }
 
         protected override void UnloadContent()
@@ -90,6 +90,7 @@
                     this.butPlay.Update(mouse); this.butExit.Update(mouse); this.butOptions.Update(mouse);
                     if (this.butPlay.isClicked || this.keyPress.IsPressedKey(Keys.Space, this.oldState))
                     {
+                        sound.Begin();
                         //graphics.IsFullScreen = true; // set this to enable full screen
                         //this.graphics.ApplyChanges();
                         this.currentGameState = GameState.Playing;
