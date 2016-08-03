@@ -64,7 +64,6 @@
             this.levelMatrix.InitializeMatrix(this.GraphicsDevice);
             this.ghostGen = new GhostGenerator(this.levelMatrix, this.pacMan);
             sound = new Sound(this);
-
         }
 
         protected override void UnloadContent()
@@ -149,8 +148,6 @@
                     Log.SaveLogOnExist();
                     break;
             }
-
-            this.Window.Title = "PACMAN FARTHORL v.2.0";
             this.oldState = Keyboard.GetState();  // Update saved state.
         }
 
