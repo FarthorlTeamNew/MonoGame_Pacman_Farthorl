@@ -1,18 +1,18 @@
-﻿using GameEngine.Globals;
-using GameEngine.Models.LevelObjects;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using GameEngine.Factories;
-using GameEngine.Models;
-using GameEngine.Models.LevelObjects.Fruits;
-
-namespace GameEngine
+﻿namespace GameEngine
 {
+    using Globals;
+    using Models.LevelObjects;
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.IO;
+    using System.Linq;
+    using Factories;
+    using Models;
+    using Models.LevelObjects.Fruits;
+
     public class Matrix
     {
         private string Level = @"DataFiles\Levels\Labirint.txt";

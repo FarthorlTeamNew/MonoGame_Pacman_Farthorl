@@ -306,7 +306,6 @@
 
         public void GetDrunkThenRehab()
         {
-            throw new NotImplementedException();
         }
     }
 }
