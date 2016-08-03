@@ -1,8 +1,8 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
-namespace GameEngine.Models.LevelObjects.Fruits
+﻿namespace GameEngine.Models.LevelObjects.Fruits
 {
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+
     public class Pear : Fruit
     {
         private const int PearBonus = 17;

@@ -1,9 +1,9 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
-namespace GameEngine.Models.LevelObjects.Fruits
+﻿namespace GameEngine.Models.LevelObjects.Fruits
 {
+    using System;
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+
     public class Brezel : Fruit
     {
         private const int BrezelBonus = 12;

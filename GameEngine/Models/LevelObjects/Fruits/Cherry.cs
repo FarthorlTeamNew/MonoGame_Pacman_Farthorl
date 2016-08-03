@@ -1,10 +1,10 @@
-﻿using System;
-using GameEngine.Models.LevelObjects.Ghosts;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
-namespace GameEngine.Models.LevelObjects.Fruits
+﻿namespace GameEngine.Models.LevelObjects.Fruits
 {
+    using System;
+    using Ghosts;
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+
     public class Cherry : Fruit
     {
         private const int CherryBonus = 14;

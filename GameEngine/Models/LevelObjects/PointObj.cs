@@ -1,8 +1,8 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
-namespace GameEngine.Models.LevelObjects
+﻿namespace GameEngine.Models.LevelObjects
 {
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+
     public class PointObj :LevelObject
     {
         public PointObj(Texture2D texture ,float x, float y, Rectangle boundingBox)

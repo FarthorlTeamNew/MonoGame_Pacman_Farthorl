@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Xna.Framework;
-using GameEngine.Handlers;
-
-namespace GameEngine.Animators
+﻿namespace GameEngine.Animators
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Microsoft.Xna.Framework;
+    using Handlers;
+
     public class Animation
     {
         List<AnimationFrame> frames = new List<AnimationFrame>();

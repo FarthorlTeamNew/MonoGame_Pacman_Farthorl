@@ -1,7 +1,7 @@
-﻿using Microsoft.Xna.Framework;
-
-namespace GameEngine.Interfaces
+﻿namespace GameEngine.Interfaces
 {
+    using Microsoft.Xna.Framework;
+
     public interface IMovable
     {
         Vector2 Move(GameTime gameTime);

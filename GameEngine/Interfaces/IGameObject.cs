@@ -1,7 +1,7 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-
-namespace GameEngine.Interfaces
+﻿namespace GameEngine.Interfaces
 {
+    using Microsoft.Xna.Framework.Graphics;
+
     public interface IGameObject
     {
         Texture2D Texture { get; }

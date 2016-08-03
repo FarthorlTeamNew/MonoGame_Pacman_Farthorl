@@ -54,12 +54,12 @@
 
                     if (quadrant == 1)
                     {
-                        Wall brick = new Wall(GameTexture.brick, x * Global.quad_Width, y * Global.quad_Height, new Rectangle(x * Global.quad_Width, y * Global.quad_Height, Global.quad_Width, Global.quad_Height));
+                        Wall brick = new Wall(GameTexture.Brick, x * Global.quad_Width, y * Global.quad_Height, new Rectangle(x * Global.quad_Width, y * Global.quad_Height, Global.quad_Width, Global.quad_Height));
                         bricksList.Add(brick);
                     }
                     else if (pointIndex == 1)
                     {
-                        PointObj point = new PointObj(GameTexture.point, x * Global.quad_Width, y * Global.quad_Height, new Rectangle(x * Global.quad_Width, y * Global.quad_Height, Global.quad_Width, Global.quad_Height));
+                        PointObj point = new PointObj(GameTexture.Point, x * Global.quad_Width, y * Global.quad_Height, new Rectangle(x * Global.quad_Width, y * Global.quad_Height, Global.quad_Width, Global.quad_Height));
                         pointsList.Add(point);
                     }
                 }
@@ -70,7 +70,7 @@
 
         private void LoadFruit()
         {
-            List<Texture2D> fruitTextures = GameTexture.fruitTexturesList;
+            List<Texture2D> fruitTextures = GameTexture.FruitTexturesList;
             FruitFactory factory = new FruitFactory();
             foreach (var fruitTexture in fruitTextures)
             {
@@ -80,7 +80,7 @@
             }
             for (int i = 0; i < 4; i++)
             {
-                ghostKillers.Add(new GhostKiller(GameTexture.ghostKiller, new Rectangle(0, 0, 32, 32)));
+                ghostKillers.Add(new GhostKiller(GameTexture.GhostKiller, new Rectangle(0, 0, 32, 32)));
                 PlaceOnRandomXY(ghostKillers[i]); 
             }
         }

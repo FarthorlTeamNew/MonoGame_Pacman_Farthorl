@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace GameEngine
+﻿namespace GameEngine
 {
     public static class Startup
     {

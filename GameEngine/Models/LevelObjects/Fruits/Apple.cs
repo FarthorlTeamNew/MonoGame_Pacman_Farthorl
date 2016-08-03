@@ -3,6 +3,7 @@
     using Ghosts;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
+
     public class Apple :Fruit
     {
         private const int AppleBonus = 10;

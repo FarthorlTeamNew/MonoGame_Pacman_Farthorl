@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using GameEngine.Globals;
-using GameEngine.Models;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using GameEngine.Handlers;
-
-namespace GameEngine.Animators
+﻿namespace GameEngine.Animators
 {
+    using System;
+    using System.Collections.Generic;
+    using Globals;
+    using Models;
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+    using Handlers;
     public class PacmanAnimator : Animator
     {
         List<Animation> animations = new List<Animation>();

@@ -1,8 +1,7 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-
-namespace GameEngine
+﻿namespace GameEngine
 {
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Audio;
     public class Sound
     {
         private readonly SoundEffect soundPacManChomp;

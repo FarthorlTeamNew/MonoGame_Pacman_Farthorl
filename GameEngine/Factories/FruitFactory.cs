@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-
-namespace GameEngine.Factories
+﻿namespace GameEngine.Factories
 {
     using System;
     using System.Linq;

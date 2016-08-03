@@ -7,35 +7,35 @@
 
     public class GameTexture
     {
-        public static Texture2D mainMenu;
-        public static Texture2D playButton;
-        public static Texture2D exitButton;
-        public static Texture2D pacmanOpenSprite;
-        public static Texture2D pacmanAndGhost;
-        public static Texture2D brick;
-        public static Texture2D point;
-        public static Texture2D ghostKiller;
-        public static Texture2D pacmanLose;
-        public static List<Texture2D> fruitTexturesList;
+        public static Texture2D MainMenu;
+        public static Texture2D PlayButton;
+        public static Texture2D ExitButton;
+        public static Texture2D PacmanOpenSprite;
+        public static Texture2D PacmanAndGhost;
+        public static Texture2D Brick;
+        public static Texture2D Point;
+        public static Texture2D GhostKiller;
+        public static Texture2D PacmanLose;
+        public static List<Texture2D> FruitTexturesList;
 
         public static void LoadTextures(Game game)
         {
-            mainMenu = game.Content.Load<Texture2D>("MenuImages/MainMenu");
-            playButton = game.Content.Load<Texture2D>("MenuImages/PlayGame");
-            exitButton = game.Content.Load<Texture2D>("MenuImages/Exit");
+            MainMenu = game.Content.Load<Texture2D>("MenuImages/MainMenu");
+            PlayButton = game.Content.Load<Texture2D>("MenuImages/PlayGame");
+            ExitButton = game.Content.Load<Texture2D>("MenuImages/Exit");
+
+            PacmanAndGhost = game.Content.Load<Texture2D>("PacManSprite_sheets");
+            Brick = game.Content.Load<Texture2D>("brick.png");
+            Point = game.Content.Load<Texture2D>("Point");
+            GhostKiller = game.Content.Load<Texture2D>("GhostKiller");
 
             List<string> allFruits = new List<string>();
-            fruitTexturesList = new List<Texture2D>();
+            FruitTexturesList = new List<Texture2D>();
             allFruits = ExtractAllFruitImagePaths();
             foreach (var fruitTexturePath in allFruits)
             {
-                fruitTexturesList.Add(game.Content.Load<Texture2D>(fruitTexturePath));
-            }
-            
-            pacmanAndGhost = game.Content.Load<Texture2D>("PacManSprite_sheets");
-            brick = game.Content.Load<Texture2D>("brick.png");
-            point = game.Content.Load<Texture2D>("Point");
-            ghostKiller = game.Content.Load<Texture2D>("GhostKiller");
+                FruitTexturesList.Add(game.Content.Load<Texture2D>(fruitTexturePath));
+            }        
         }
 
         private static List<string> ExtractAllFruitImagePaths()

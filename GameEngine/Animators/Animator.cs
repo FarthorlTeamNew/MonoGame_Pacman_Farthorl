@@ -1,10 +1,10 @@
-﻿using GameEngine.Handlers;
-using GameEngine.Models;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
-namespace GameEngine.Animators
+﻿namespace GameEngine.Animators
 {
+    using Handlers;
+    using Models;
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+
     public abstract class Animator
     {
         protected GameObject gameObject;

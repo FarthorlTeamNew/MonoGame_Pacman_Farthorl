@@ -1,6 +1,6 @@
 ﻿namespace GameEngine.Models
 {
-    using GameEngine.Interfaces;
+    using Interfaces;
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework;
 

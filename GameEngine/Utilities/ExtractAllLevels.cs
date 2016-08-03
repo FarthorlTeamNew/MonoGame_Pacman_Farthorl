@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FarthorlPacMan.States
+﻿namespace FarthorlPacMan.States
 {
+    using System.Collections.Generic;
+    using System.IO;
     public class ExtractAllLevels
     {
         private const string LevelFolder = @"DataFiles\Levels";

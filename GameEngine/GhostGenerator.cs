@@ -39,10 +39,10 @@
 
         private Dictionary<string, Ghost> GetGhosts(Matrix levelMatrix)
         {
-            this.blinky = new Blinky(GameTexture.pacmanAndGhost, new Rectangle(0, 0, 32, 32));
-            this.clyde = new Clyde(GameTexture.pacmanAndGhost, new Rectangle(0, 0, 32, 32));
-            this.inky = new Inky(GameTexture.pacmanAndGhost, new Rectangle(0, 0, 32, 32));
-            this.pinky = new Pinky(GameTexture.pacmanAndGhost, new Rectangle(0, 0, 32, 32));
+            this.blinky = new Blinky(GameTexture.PacmanAndGhost, new Rectangle(0, 0, 32, 32));
+            this.clyde = new Clyde(GameTexture.PacmanAndGhost, new Rectangle(0, 0, 32, 32));
+            this.inky = new Inky(GameTexture.PacmanAndGhost, new Rectangle(0, 0, 32, 32));
+            this.pinky = new Pinky(GameTexture.PacmanAndGhost, new Rectangle(0, 0, 32, 32));
 
             this.ghosts.Add(nameof(Blinky), this.blinky);
             this.ghosts.Add(nameof(Clyde), this.clyde);

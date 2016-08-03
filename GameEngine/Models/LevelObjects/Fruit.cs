@@ -1,8 +1,8 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
-
-namespace GameEngine.Models.LevelObjects
+﻿namespace GameEngine.Models.LevelObjects
 {
+    using Microsoft.Xna.Framework.Graphics;
+    using Microsoft.Xna.Framework;
+
     public abstract class Fruit : LevelObject
     {
         protected Fruit(Texture2D texture, Rectangle boundingBox)

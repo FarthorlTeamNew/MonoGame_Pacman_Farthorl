@@ -1,8 +1,8 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
-namespace GameEngine.Models.LevelObjects
+﻿namespace GameEngine.Models.LevelObjects
 {
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+
     public class GhostKiller : LevelObject
     {
         public GhostKiller(Texture2D texture, Rectangle boundingBox) 

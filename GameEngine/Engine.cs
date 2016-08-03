@@ -36,7 +36,7 @@
         {
             sound = new Sound(this);
             GameTexture.LoadTextures(this);
-            this.pacMan = new PacMan(GameTexture.pacmanAndGhost, new Rectangle(0, 0, 32, 32));
+            this.pacMan = new PacMan(GameTexture.PacmanAndGhost, new Rectangle(0, 0, 32, 32));
             this.graphics.PreferredBackBufferWidth = Global.GLOBAL_WIDTH;
             this.graphics.PreferredBackBufferHeight = Global.GLOBAL_HEIGHT;
             this.levelMatrix = new Matrix();
@@ -50,9 +50,9 @@
         protected override void LoadContent()
         {
             this.spriteBatch = new SpriteBatch(GraphicsDevice);
-            this.butPlay = new CButton(GameTexture.playButton, this.graphics.GraphicsDevice);
+            this.butPlay = new CButton(GameTexture.PlayButton, this.graphics.GraphicsDevice);
             this.butPlay.SetPosition(new Vector2(300, 166));
-            this.butExit = new CButton(GameTexture.exitButton, this.graphics.GraphicsDevice);
+            this.butExit = new CButton(GameTexture.ExitButton, this.graphics.GraphicsDevice);
             this.butExit.SetPosition(new Vector2(300, 200));
             this.levelMatrix.InitializeMatrix(this.GraphicsDevice);
             this.ghostGen = new GhostGenerator(levelMatrix, pacMan);
@@ -138,7 +138,7 @@
             switch (this.currentGameState)
             {
                 case GameState.MainMenu:
-                    this.spriteBatch.Draw(GameTexture.mainMenu, new Rectangle(0, 0, Global.GLOBAL_WIDTH, Global.GLOBAL_HEIGHT), Color.White);
+                    this.spriteBatch.Draw(GameTexture.MainMenu, new Rectangle(0, 0, Global.GLOBAL_WIDTH, Global.GLOBAL_HEIGHT), Color.White);
                     this.butPlay.Draw(this.spriteBatch);
                     this.butExit.Draw(this.spriteBatch);
                     break;
