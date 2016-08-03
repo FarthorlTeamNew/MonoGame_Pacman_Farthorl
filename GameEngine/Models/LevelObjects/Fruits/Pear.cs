@@ -1,9 +1,8 @@
-﻿using GameEngine.Models.LevelObjects.Ghosts;
-
-namespace GameEngine.Models.LevelObjects.Fruits
+﻿namespace GameEngine.Models.LevelObjects.Fruits
 {
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
+    using Ghosts;
 
     public class Pear : Fruit
     {
