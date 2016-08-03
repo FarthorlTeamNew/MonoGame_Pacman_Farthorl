@@ -10,80 +10,44 @@ namespace GameEngine.Utilities
 
     public static class Log
     {
-        private static Dictionary<LogEnumerable, List<string>> logs;
 
-        static Log()
-        {
-            logs = new Dictionary<LogEnumerable, List<string>>();
-        }
-
-        public static void AddToLog(string input, LogEnumerable inLog)
+        public static async void AddToLog(string input, LogEnumerable inLog)
         {
             input = DateTime.Now + " : " + input;
 
-            if (logs.Keys.Contains(inLog))
-            {
-                logs[inLog].Add(input);
+            await SaveLoggedLogs(input, inLog);
 
-            }
-            else
-            {
-                List<string> list = new List<string>();
-                list.Add(input);
-                logs.Add(inLog, list);
-            }
-
-            if (logs.Sum(l => l.Value.Count) >= 300)
-            {
-                SaveLoggedLogs();
-            }
         }
 
-        public static async void SaveLogOnExist()
-        {
-            await SaveLoggedLogs();
-        }
-
-        private static async Task SaveLoggedLogs()
+        private static async Task SaveLoggedLogs(string input, LogEnumerable inLog)
         {
             var currentDirectory = Directory.GetCurrentDirectory() + @"\DataFiles\Logs\";
-            foreach (var log in logs)
+
+            try
             {
-                try
-                {
-                    var file = currentDirectory + log.Key + ".log";
+                var file = currentDirectory + inLog + ".log";
 
-                    if (!File.Exists(file))
+                if (!File.Exists(file))
+                {
+                    // Create a file to write to.
+                    using (StreamWriter sw = File.CreateText(file))
                     {
-                        // Create a file to write to.
-                        using (StreamWriter sw = File.CreateText(file))
-                        {
-                            foreach (var value in logs[log.Key])
-                            {
-                                sw.WriteLine(value);
-                            }
-                        }
-                        logs.Clear();
-                    }
-                    else
-                    {
-                        File.Delete(file);
-                        using (StreamWriter sw = File.CreateText(file))
-                        {
-                            foreach (var value in logs[log.Key])
-                            {
-                                sw.WriteLine(value);
-                            }
-                        }
-                        logs.Clear();
+                        sw.WriteLine(input);
                     }
                 }
-                catch (Exception)
+                else
                 {
+                    using (StreamWriter sw = File.AppendText(file))
+                    {
+                        sw.WriteLine(input);
+                    }
 
-                    throw new FileLoadException($"The logs cannot be saved in to the log file {log.Key}!");
                 }
+            }
+            catch (Exception)
+            {
 
+                throw new FileLoadException($"The logs cannot be saved in to the log file {inLog}!");
             }
         }
     }
