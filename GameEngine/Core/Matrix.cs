@@ -144,13 +144,13 @@
                     Global.HungryGhosts.Start();
                 }
             }
-            if (Global.PeachTimer.ElapsedMilliseconds > 5000)
+            if (Global.PeachTimer.ElapsedMilliseconds > Global.TimeDrunk)
             {
                 ghostGen.GhostMovements[nameof(PacMan)].GetDrunkThenRehab();
                 Global.PeachTimer.Reset();
                 Global.PeachTimer.Stop();
             }
-            if (Global.HungryGhosts.ElapsedMilliseconds > 4000 && ghostGen.Ghosts.ContainsKey(nameof(Clyde)) && ghostGen.Ghosts.ContainsKey(nameof(Pinky)))
+            if (Global.HungryGhosts.ElapsedMilliseconds > Global.TimeHungryGhosts && ghostGen.Ghosts.ContainsKey(nameof(Clyde)) && ghostGen.Ghosts.ContainsKey(nameof(Pinky)))
             {
                 ghostGen.Ghosts[nameof(Clyde)].EnoughIsEnough();
                 ghostGen.Ghosts[nameof(Pinky)].EnoughIsEnough();
@@ -191,7 +191,6 @@
                     ghost.Value.GhostTransformingTimer.Stop();
                 }
             }
-
         }
 
         public void Draw(SpriteBatch spriteBatch)

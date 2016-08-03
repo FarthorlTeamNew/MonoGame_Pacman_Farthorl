@@ -1,6 +1,4 @@
-﻿using GameEngine.Utilities;
-
-namespace GameEngine.Core
+﻿namespace GameEngine.Core
 {
     using System;
     using Enums;
@@ -11,6 +9,7 @@ namespace GameEngine.Core
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
+    using Utilities;
 
     public class Engine : Game
     {
@@ -98,7 +97,7 @@ namespace GameEngine.Core
                         sound.Begin();
                         //graphics.IsFullScreen = true; // set this to enable full screen
                         //this.graphics.ApplyChanges();
-                        Global.difficulty = DifficultyEnumerable.Easy;
+                        Global.Difficulty = DifficultyEnumerable.Easy;
                         this.currentGameState = GameState.Playing;
                         this.butEasyPlay.isClicked = false;
                     }
@@ -107,7 +106,7 @@ namespace GameEngine.Core
                         sound.Begin();
                         //graphics.IsFullScreen = true; // set this to enable full screen
                         //this.graphics.ApplyChanges();
-                        Global.difficulty = DifficultyEnumerable.Hard;
+                        Global.Difficulty = DifficultyEnumerable.Hard;
                         this.currentGameState = GameState.Playing;
                         this.butEasyPlay.isClicked = false;
                     }

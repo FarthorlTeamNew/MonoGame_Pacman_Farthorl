@@ -1,6 +1,7 @@
 ﻿namespace GameEngine.Globals
 {
     using System.Diagnostics;
+    using Enums;
 
     public static class Global
     {
@@ -15,5 +16,10 @@
         public static Stopwatch GhostKillerTimer;
         public static Stopwatch PeachTimer;
         public static Stopwatch HungryGhosts;
+        public static DifficultyEnumerable Difficulty;
+        public static int TimePokeball = 7000;
+        public static int TimePikachu = 13000;
+        public static int TimeDrunk = 5000;
+        public static int TimeHungryGhosts = 4000;
     }
 }

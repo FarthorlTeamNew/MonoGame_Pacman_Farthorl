@@ -82,12 +82,12 @@
         protected override void CalculateDirection(Direction bannedDirection)
         {
             this.possibleDirections.Clear();
-            if (Global.difficulty == DifficultyEnumerable.Easy)
+            if (Global.Difficulty == DifficultyEnumerable.Easy)
             {
                 this.EasyGame(bannedDirection);
             }
 
-            if (Global.difficulty == DifficultyEnumerable.Hard)
+            if (Global.Difficulty == DifficultyEnumerable.Hard)
             {
                 this.HardGame();
             }
@@ -327,7 +327,7 @@
         {
             if (this.IsReadyToChangeQuadrant())
             {
-                if (Global.difficulty == DifficultyEnumerable.Easy)
+                if (Global.Difficulty == DifficultyEnumerable.Easy)
                 {
                     Direction directionToPacman = this.SeePackman();
                     if (directionToPacman != Direction.None)
@@ -340,7 +340,7 @@
                     }
                 }
 
-                if (Global.difficulty == DifficultyEnumerable.Hard)
+                if (Global.Difficulty == DifficultyEnumerable.Hard)
                 {
                     this.CalculateDirection(Direction.None);
                 }
