@@ -81,7 +81,7 @@
             for (int i = 0; i < 4; i++)
             {
                 this.ghostKillers.Add(new GhostKiller(GameTexture.GhostKiller, new Rectangle(0, 0, 32, 32)));
-                this.PlaceOnRandomXY(this.ghostKillers[i]); 
+                this.PlaceOnRandomXY(this.ghostKillers[i]);
             }
         }
 
@@ -158,7 +158,7 @@
                 Global.HungryGhosts.Stop();
             }
 
-            GhostKiller ghostKiller = this.ghostKillers.FirstOrDefault(x => x.IsColliding(pacMan));            
+            GhostKiller ghostKiller = this.ghostKillers.FirstOrDefault(x => x.IsColliding(pacMan));
             if (ghostKiller != null)
             {
                 ghostKiller.ReactOnCollision(pacMan);
@@ -251,7 +251,11 @@
 
         public static bool IsThereABrick(int quadrantX, int quadrantY)
         {
-            return bricksList.Count(b => b.QuadrantX == quadrantX && b.QuadrantY == quadrantY) > 0;
+            if (bricksList.Any(b => b.X / Global.quad_Width == quadrantX && b.Y / Global.quad_Height == quadrantY))
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

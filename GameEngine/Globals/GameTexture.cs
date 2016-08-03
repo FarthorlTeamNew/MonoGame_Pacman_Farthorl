@@ -9,6 +9,7 @@
     {
         public static Texture2D MainMenu;
         public static Texture2D PlayButton;
+        public static Texture2D HardPlayGame;
         public static Texture2D OptionsButton;
         public static Texture2D Instruction;
         public static Texture2D ExitButton;
@@ -23,11 +24,11 @@
         public static Texture2D LosePic;
         public static List<Texture2D> FruitTexturesList;
 
-
         public static void LoadTextures(Game game)
         {
             MainMenu = game.Content.Load<Texture2D>("MenuImages/MainMenu");
             PlayButton = game.Content.Load<Texture2D>("MenuImages/PlayGame");
+            HardPlayGame = game.Content.Load<Texture2D>("MenuImages/PlayGame");
             OptionsButton = game.Content.Load<Texture2D>("MenuImages/instructionbutton");
             Instruction = game.Content.Load<Texture2D>("MenuImages/instructions");
             ExitButton = game.Content.Load<Texture2D>("MenuImages/Exit");
@@ -47,7 +48,7 @@
             foreach (var fruitTexturePath in allFruits)
             {
                 FruitTexturesList.Add(game.Content.Load<Texture2D>(fruitTexturePath));
-            }        
+            }
         }
 
         private static List<string> ExtractAllFruitImagePaths()
