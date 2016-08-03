@@ -43,7 +43,7 @@
                 {
                     possibleDirections.Add(Direction.Up);
                 }
-                if (possibleDirections.Count == 0 && bannedDirection == Direction.None) // go back
+                if (IsMovingDownPossible() && possibleDirections.Count == 0 && bannedDirection != Direction.Down) // go back
                 {
                     currentDir = Direction.Down;
                     return;
@@ -67,7 +67,7 @@
                 {
                     possibleDirections.Add(Direction.Down);
                 }
-                if (possibleDirections.Count == 0 && bannedDirection == Direction.None) // go back
+                if (IsMovingUpPossible() && possibleDirections.Count == 0 && bannedDirection != Direction.Up) // go back
                 {
                     currentDir = Direction.Up;
                     return;
@@ -92,7 +92,7 @@
                 {
                     possibleDirections.Add(Direction.Up);
                 }
-                if (possibleDirections.Count == 0 && bannedDirection == Direction.None) // go back
+                if (IsMovingRightPossible() && possibleDirections.Count == 0 && bannedDirection != Direction.Right) // go back
                 {
                     currentDir = Direction.Right;
                     return;
@@ -117,7 +117,7 @@
                 {
                     possibleDirections.Add(Direction.Up);
                 }
-                if (possibleDirections.Count == 0 && bannedDirection == Direction.None) // go back
+                if (IsMovingLeftPossible() && possibleDirections.Count == 0 && bannedDirection != Direction.Left) // go back
                 {
                     currentDir = Direction.Left;
                     return;
@@ -126,6 +126,25 @@
                 {
                     currentDir = Direction.None;
                     return;
+                }
+            }
+            else if (currentDir == Direction.None && bannedDirection == Direction.None)
+            {
+                if (IsMovingLeftPossible())
+                {
+                    possibleDirections.Add(Direction.Left);
+                }
+                if (IsMovingDownPossible())
+                {
+                    possibleDirections.Add(Direction.Down);
+                }
+                if (IsMovingUpPossible())
+                {
+                    possibleDirections.Add(Direction.Up);
+                }
+                if (IsMovingRightPossible())
+                {
+                    possibleDirections.Add(Direction.Right);
                 }
             }
 

@@ -68,8 +68,8 @@
 
         private Dictionary<string, IMovable> GetGhostMovements(Matrix levelMatrix, PacMan pacMan)
         {
-            this.ghostMovements.Add(nameof(Blinky), new GhostWeakRandomMovement(this.blinky, levelMatrix));
-            this.ghostMovements.Add(nameof(Clyde), new GhostGoodRandomMovement(this.clyde, levelMatrix));
+            this.ghostMovements.Add(nameof(Blinky), new GhostGoodRandomMovement(this.blinky, levelMatrix, pacMan));
+            this.ghostMovements.Add(nameof(Clyde), new GhostGoodRandomMovement(this.clyde, levelMatrix, pacMan));
             this.ghostMovements.Add(nameof(Inky), new GhostHuntingRandomMovement(this.inky, levelMatrix, pacMan));
             this.ghostMovements.Add(nameof(Pinky), new GhostHuntingRandomMovement(this.pinky, levelMatrix, pacMan));
             this.ghostMovements.Add(nameof(PacMan), new PacmanInputHandler(pacMan, levelMatrix));

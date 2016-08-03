@@ -3,18 +3,78 @@
     using Globals;
     using Interfaces;
     using Microsoft.Xna.Framework;
+    using Models;
     using Models.LevelObjects;
     using System;
 
     class GhostWeakRandomMovement : ObjectMover
     {
+        private PacMan pacman;
         private Random random;
 
-        public GhostWeakRandomMovement(Ghost blinky, GameEngine.Matrix levelMatrix)
+        public GhostWeakRandomMovement(Ghost blinky, GameEngine.Matrix levelMatrix, PacMan pacman)
             :base(blinky, levelMatrix)
         {
+            this.pacman = pacman;
             pixelMoved = Global.DefaultGhostSpeed;
             random = new Random(DateTime.Now.Millisecond);
+        }
+
+        private Direction SeePackman()
+        {
+            // watch left and right
+            if (gameObject.QuadrantY == pacman.QuadrantY)
+            {
+                int distanceToSee = 1;
+                while (gameObject.QuadrantX - distanceToSee >= 0
+                    && obstacles[gameObject.QuadrantY, gameObject.QuadrantX - distanceToSee] != true)
+                {
+                    if (gameObject.QuadrantX - distanceToSee == pacman.QuadrantX)
+                    {
+                        return Direction.Left;
+                    }
+                    distanceToSee++;
+                }
+
+                distanceToSee = 1;
+                while (gameObject.QuadrantX + distanceToSee <= Global.XMax - 1
+                    && obstacles[gameObject.QuadrantY, gameObject.QuadrantX + distanceToSee] != true)
+                {
+                    if (gameObject.QuadrantX + distanceToSee == pacman.QuadrantX)
+                    {
+                        return Direction.Right;
+                    }
+                    distanceToSee++;
+                }
+            }
+
+            // watch up and down
+            if (gameObject.QuadrantX == pacman.QuadrantX)
+            {
+                int distanceToSee = 1;
+                while (gameObject.QuadrantY - distanceToSee >= 0
+                    && obstacles[gameObject.QuadrantY - distanceToSee, gameObject.QuadrantX] != true)
+                {
+                    if (gameObject.QuadrantY - distanceToSee == pacman.QuadrantY)
+                    {
+                        return Direction.Up;
+                    }
+                    distanceToSee++;
+                }
+
+                distanceToSee = 1;
+                while (gameObject.QuadrantY + distanceToSee <= Global.YMax - 1
+                    && obstacles[gameObject.QuadrantY + distanceToSee, gameObject.QuadrantX] != true)
+                {
+                    if (gameObject.QuadrantY + distanceToSee == pacman.QuadrantY)
+                    {
+                        return Direction.Down;
+                    }
+                    distanceToSee++;
+                }
+            }
+
+            return Direction.None;
         }
 
         protected override void CalculateDirection(Direction bannedDirection)
@@ -115,7 +175,15 @@
         {
             if (base.IsReadyToChangeQuadrant())
             {
-                CalculateDirection(Direction.None);
+                Direction directionToPacman = SeePackman();
+                if (directionToPacman != Direction.None)
+                {
+                    CalculateDirection(directionToPacman);
+                }
+                else
+                {
+                    CalculateDirection(Direction.None);
+                }
             }
 
             Vector2 nextPointToMove = new Vector2();
