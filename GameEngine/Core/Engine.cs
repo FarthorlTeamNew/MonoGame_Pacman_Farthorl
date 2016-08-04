@@ -204,13 +204,18 @@
                             else if (ghost.Value.IsColliding(this.pacMan) && this.pacMan.CanEat)
                             {
                                 sound.GhostDies();
-                                ghost.Value.Texture = GameTexture.GhostAsPokemon;
-                                ghost.Value.CanKillPakman = false;
-                                ghost.Value.StartTransformingToGhost();
-                                
-                                //this.ghostGen.GhostMovements.Remove(ghost.Key);
-                                //this.ghostGen.GhostAnimators.Remove(ghost.Key);
-                                //this.ghostGen.Ghosts.Remove(ghost.Key);
+                                if (Global.Difficulty == DifficultyEnumerable.Easy)
+                                {
+                                    this.ghostGen.GhostMovements.Remove(ghost.Key);
+                                    this.ghostGen.GhostAnimators.Remove(ghost.Key);
+                                    this.ghostGen.Ghosts.Remove(ghost.Key);
+                                }
+                                else
+                                {
+                                    ghost.Value.Texture = GameTexture.GhostAsPokemon;
+                                    ghost.Value.CanKillPakman = false;
+                                    ghost.Value.StartTransformingToGhost();
+                                }
                                 break;
                             }
                         }

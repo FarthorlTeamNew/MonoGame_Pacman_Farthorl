@@ -1,22 +1,17 @@
-﻿using System.Threading.Tasks;
-
-namespace GameEngine.Utilities
+﻿namespace GameEngine.Utilities
 {
     using System;
-    using System.Collections.Generic;
     using System.IO;
-    using System.Linq;
     using Enums;
+    using System.Threading.Tasks;
 
     public static class Log
     {
-
         public static async void AddToLog(string input, LogEnumerable inLog)
         {
             input = DateTime.Now + " : " + input;
 
             await SaveLoggedLogs(input, inLog);
-
         }
 
         private static async Task SaveLoggedLogs(string input, LogEnumerable inLog)

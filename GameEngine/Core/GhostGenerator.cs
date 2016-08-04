@@ -12,7 +12,6 @@
     using Models.LevelObjects.Ghosts;
     using Microsoft.Xna.Framework;
 
-
     public class GhostGenerator
     {
         private Dictionary<string, Ghost> ghosts;

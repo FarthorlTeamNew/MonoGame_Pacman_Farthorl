@@ -1,7 +1,4 @@
-﻿using GameEngine.Enums;
-using GameEngine.Utilities;
-
-namespace GameEngine.Core
+﻿namespace GameEngine.Core
 {
     using System;
     using System.Collections.Generic;
@@ -16,10 +13,12 @@ namespace GameEngine.Core
     using Models.LevelObjects.Ghosts;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
+    using Enums;
+    using Utilities;
 
     public class Matrix
     {
-        private string Level = @"DataFiles\Levels\Labirint.txt";
+        private string Level = Global.LevelPath;
         public string[,] PathsMatrix = new string[Global.YMax, Global.XMax];
 
         private static List<Wall> bricksList;
@@ -153,10 +152,16 @@ namespace GameEngine.Core
                 Global.PeachTimer.Reset();
                 Global.PeachTimer.Stop();
             }
-            if (Global.HungryGhosts.ElapsedMilliseconds > Global.TimeHungryGhosts && ghostGen.Ghosts.ContainsKey(nameof(Clyde)) && ghostGen.Ghosts.ContainsKey(nameof(Pinky)))
+            if (Global.HungryGhosts.ElapsedMilliseconds > Global.TimeHungryGhosts && ghostGen.Ghosts.ContainsKey(nameof(Pinky)))
             {
-                ghostGen.Ghosts[nameof(Clyde)].EnoughIsEnough();
-                ghostGen.Ghosts[nameof(Pinky)].EnoughIsEnough();
+                if (ghostGen.Ghosts.ContainsKey(nameof(Clyde)))
+                {
+                    ghostGen.Ghosts[nameof(Clyde)].EnoughIsEnough();
+                }
+                if (ghostGen.Ghosts.ContainsKey(nameof(Pinky)))
+                {
+                    ghostGen.Ghosts[nameof(Pinky)].EnoughIsEnough();
+                }
                 Global.HungryGhosts.Reset();
                 Global.HungryGhosts.Stop();
             }

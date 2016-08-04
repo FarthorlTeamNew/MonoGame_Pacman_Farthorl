@@ -5,21 +5,22 @@
 
     public static class Global
     {
-        public static int quad_Width = 32;
-        public static int quad_Height = 32;
-        public static int GLOBAL_WIDTH = 768;
-        public static int GLOBAL_HEIGHT = 455;
-        public static int XMax = 24;
-        public static int YMax = 13;
-        public static int PacmanSpeed = 4;
-        public static int DefaultGhostSpeed = 2;
+        public const string LevelPath = @"DataFiles\Levels\Labirint.txt";
+        public const int quad_Width = 32;
+        public const int quad_Height = 32;
+        public const int GLOBAL_WIDTH = 768;
+        public const int GLOBAL_HEIGHT = 455;
+        public const int XMax = 24;
+        public const int YMax = 13;
+        public const int PacmanSpeed = 4;
+        public const int DefaultGhostSpeed = 2;
+        public const int TimePokeball = 7000;
+        public const int TimePikachu = 13000;
+        public const int TimeDrunk = 5000;
+        public const int TimeHungryGhosts = 4000;
         public static Stopwatch GhostKillerTimer;
         public static Stopwatch PeachTimer;
         public static Stopwatch HungryGhosts;
         public static DifficultyEnumerable Difficulty;
-        public static int TimePokeball = 7000;
-        public static int TimePikachu = 13000;
-        public static int TimeDrunk = 5000;
-        public static int TimeHungryGhosts = 4000;
     }
 }
