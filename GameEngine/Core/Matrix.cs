@@ -74,12 +74,20 @@
         {
             List<Texture2D> fruitTextures = GameTexture.FruitTexturesList;
             FruitFactory factory = new FruitFactory();
-            foreach (var fruitTexture in fruitTextures)
+            try
             {
-                Fruit fruit = factory.CreateFruit(fruitTexture);
-                this.PlaceOnRandomXY(fruit);
-                this.fruits.Add(fruit);
+                foreach (var fruitTexture in fruitTextures)
+                {
+                    Fruit fruit = factory.CreateFruit(fruitTexture);
+                    this.PlaceOnRandomXY(fruit);
+                    this.fruits.Add(fruit);
+                }
             }
+            catch (Exception e)
+            {
+                Log.AddToLog(e.Message, LogEnumerable.Errors);
+            }     
+
             for (int i = 0; i < 4; i++)
             {
                 this.ghostKillers.Add(new GhostKiller(GameTexture.GhostKiller, new Rectangle(0, 0, 32, 32)));

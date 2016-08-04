@@ -6,9 +6,6 @@
     using Models.LevelObjects;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
-    using System.IO;
-    using Enums;
-    using Utilities;
 
     public class FruitFactory
     {
@@ -24,10 +21,9 @@
                 Fruit fruit = (Fruit)Activator.CreateInstance(currentType, texture, new Rectangle(0, 0, 32, 32));
                 return fruit;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                Log.AddToLog(e.Message, LogEnumerable.Errors);
-                throw new FileLoadException("Fruit picture or class not found. Check /Content/FruitImages folder, and make sure the new fruit inherits the base class!");
+                throw new ArgumentNullException("Fruit picture or class not found. Check /Content/FruitImages folder, and make sure the new fruit inherits the base class!");
             }
         }
     }
