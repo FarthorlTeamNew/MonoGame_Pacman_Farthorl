@@ -96,8 +96,7 @@
 
         private void HardGame()
         {
-            // checks if ghost is can randomize direction if not going back
-            // preferred left, right, front
+            //Looks where is PacMan and goes directly to him
             if (this.pacman.QuadrantX < this.gameObject.QuadrantX)
             {
                 if (Core.Matrix.IsThereABrick(this.gameObject.QuadrantX - 1, this.gameObject.QuadrantY) == false)
@@ -323,7 +322,7 @@
             }
         }
 
-        protected override Vector2 GetNextPointToMove()
+        protected override Vector2 GetNextPointToMove(Vector2 nextPointToMove)
         {
             if (this.IsReadyToChangeQuadrant())
             {
@@ -347,8 +346,6 @@
 
             }
 
-
-            Vector2 nextPointToMove = new Vector2();
             switch (this.currentDir)
             {
                 case Direction.Up:

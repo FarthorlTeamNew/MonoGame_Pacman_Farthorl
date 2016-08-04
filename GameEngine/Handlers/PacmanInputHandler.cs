@@ -170,7 +170,7 @@
             return false;
         }
 
-        protected override Vector2 GetNextPointToMove()
+        protected override Vector2 GetNextPointToMove(Vector2 desiredVelocity)
         {
             if (this.movementTypeNormal)
             {
@@ -185,8 +185,6 @@
             {
                 this.CalculateDirection(Direction.None);
             }
-
-            Vector2 desiredVelocity = new Vector2();
             switch (this.currentDir)
             {
                 case Direction.Up:

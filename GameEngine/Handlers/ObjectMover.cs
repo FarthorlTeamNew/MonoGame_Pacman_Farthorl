@@ -51,11 +51,11 @@
 
         protected abstract void CalculateDirection(Direction bannedDirection);
 
-        protected abstract Vector2 GetNextPointToMove();
+        protected abstract Vector2 GetNextPointToMove(Vector2 vector);
 
         public virtual Vector2 Move(GameTime gameTime)
         {
-            var nextPointToMove = this.GetNextPointToMove();
+            var nextPointToMove = this.GetNextPointToMove(new Vector2());
 
             this.gameObject.X += nextPointToMove.X /** (float)gameTime.ElapsedGameTime.TotalSeconds*/;
             this.gameObject.Y += nextPointToMove.Y /** (float)gameTime.ElapsedGameTime.TotalSeconds*/;
