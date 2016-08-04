@@ -47,7 +47,7 @@
 
             List<string> allFruits = new List<string>();
             FruitTexturesList = new List<Texture2D>();
-            allFruits = ExtractAllFruitImagePaths();
+            allFruits = ExtractAllFruitImagePaths(new List<string>());
 
             foreach (var fruitTexturePath in allFruits)
             {
@@ -55,10 +55,9 @@
             }
         }
 
-        private static List<string> ExtractAllFruitImagePaths()
+        private static List<string> ExtractAllFruitImagePaths(List<string> fruits)
         {
             const string fruitImagesFolder = @"Content/FruitImages";
-            List<string> fruits = new List<string>();
             if (!Directory.Exists(fruitImagesFolder))
             {
                 throw new DirectoryNotFoundException("Invalid path of level directory!");
