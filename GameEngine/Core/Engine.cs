@@ -206,9 +206,12 @@
                                 sound.GhostDies();
                                 if (Global.Difficulty == DifficultyEnumerable.Easy)
                                 {
-                                    this.ghostGen.GhostMovements.Remove(ghost.Key);
-                                    this.ghostGen.GhostAnimators.Remove(ghost.Key);
-                                    this.ghostGen.Ghosts.Remove(ghost.Key);
+                                    ghost.Value.Texture = GameTexture.GhostAsPokemon;
+                                    ghost.Value.CanKillPakman = false;
+                                    ghost.Value.StartTransformingToGhost();
+                                    //this.ghostGen.GhostMovements.Remove(ghost.Key);
+                                    //this.ghostGen.GhostAnimators.Remove(ghost.Key);
+                                    //this.ghostGen.Ghosts.Remove(ghost.Key);
                                 }
                                 else
                                 {
