@@ -13,7 +13,7 @@
         private Random random;
 
         public GhostWeakRandomMovement(Ghost blinky, Core.Matrix levelMatrix, PacMan pacman)
-            : base(blinky, levelMatrix)
+            :base(blinky, levelMatrix)
         {
             this.pacman = pacman;
             this.pixelMoved = Global.DefaultGhostSpeed;
@@ -171,7 +171,7 @@
             }
         }
 
-        protected override Vector2 GetNextPointToMove(Vector2 nextPointToMove)
+        protected override Vector2 GetNextPointToMove()
         {
             if (this.IsReadyToChangeQuadrant())
             {
@@ -186,6 +186,7 @@
                 }
             }
 
+            Vector2 nextPointToMove = new Vector2();
             switch (this.currentDir)
             {
                 case Direction.Up:

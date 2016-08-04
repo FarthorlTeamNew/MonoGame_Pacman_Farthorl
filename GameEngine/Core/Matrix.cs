@@ -25,7 +25,6 @@
         private readonly List<PointObj> pointsList;
         private readonly List<Fruit> fruits;
         private readonly List<GhostKiller> ghostKillers;
-        private Random random;
 
         public Matrix()
         {
@@ -36,7 +35,6 @@
             Global.GhostKillerTimer = new Stopwatch();
             Global.PeachTimer = new Stopwatch();
             Global.HungryGhosts = new Stopwatch();
-            this.random = new Random(DateTime.Now.Millisecond);
         }
 
         public int LeftPoints
@@ -68,12 +66,14 @@
                     }
                 }
             }
-            this.LoadFruit(new List<Texture2D>(), new FruitFactory());
+            this.LoadFruit();
             this.RemovePoints();
         }
 
-        private void LoadFruit(List<Texture2D> fruitTextures, FruitFactory factory)
+        private void LoadFruit()
         {
+            List<Texture2D> fruitTextures = GameTexture.FruitTexturesList;
+            FruitFactory factory = new FruitFactory();
             try
             {
                 foreach (var fruitTexture in fruitTextures)
@@ -86,7 +86,7 @@
             catch (Exception e)
             {
                 Log.AddToLog(e.Message, LogEnumerable.Errors);
-            }
+            }     
 
             for (int i = 0; i < 4; i++)
             {
@@ -109,8 +109,8 @@
         {
             while (true)
             {
-                int tryX = random.Next(1, Global.XMax - 1);
-                int tryY = random.Next(1, Global.YMax - 1);
+                int tryX = new Random(DateTime.Now.Millisecond).Next(1, Global.XMax - 1);
+                int tryY = new Random(DateTime.Now.Millisecond).Next(1, Global.YMax - 1);
                 var elements = this.PathsMatrix[tryY, tryX].Trim().Split(',');
                 int placeAvailable = int.Parse(elements[1]);
                 if (placeAvailable == 1)

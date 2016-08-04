@@ -21,11 +21,9 @@
         private Ghost clyde;
         private Ghost inky;
         private Ghost pinky;
-        private Random random;
 
         public GhostGenerator(Matrix levelMatrix, PacMan pacMan)
         {
-            this.random = new Random(DateTime.Now.Millisecond);
             this.ghosts = new Dictionary<string, Ghost>();
             this.ghostAnimators = new Dictionary<string, Animator>();
             this.ghostMovements = new Dictionary<string, IMovable>();
@@ -92,8 +90,8 @@
         {
             while (true)
             {
-                int tryX = this.random.Next(3, Global.XMax - 1);
-                int tryY = this.random.Next(3, Global.YMax - 1);
+                int tryX = new Random(DateTime.Now.Millisecond).Next(3, Global.XMax - 1);
+                int tryY = new Random(DateTime.Now.Millisecond).Next(3, Global.YMax - 1);
                 var elements = levelMatrix.PathsMatrix[tryY, tryX].Trim().Split(',');
                 if (int.Parse(elements[1]) == 1)
                 {

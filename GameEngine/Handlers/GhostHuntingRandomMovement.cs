@@ -15,7 +15,7 @@
         List<Direction> possibleDirections;
 
         public GhostHuntingRandomMovement(Ghost gameObject, Core.Matrix levelMatrix, PacMan pacman)
-            : base(gameObject, levelMatrix)
+            :base(gameObject, levelMatrix)
         {
             this.pacman = pacman;
             this.random = new Random(DateTime.Now.Millisecond);
@@ -26,7 +26,7 @@
         protected override void CalculateDirection(Direction bannedDirection)
         {
             this.possibleDirections.Clear();
-
+            
             // checks if ghost is can randomize direction if not going back
             // preferred left, right, front
             if (this.currentDir == Direction.Up)
@@ -48,7 +48,7 @@
                     this.currentDir = Direction.Down;
                     return;
                 }
-                else if (this.possibleDirections.Count == 0)
+                else if(this.possibleDirections.Count == 0)
                 {
                     this.currentDir = Direction.None;
                 }
@@ -72,7 +72,7 @@
                     this.currentDir = Direction.Up;
                     return;
                 }
-                else if (this.possibleDirections.Count == 0)
+                else if(this.possibleDirections.Count == 0)
                 {
                     this.currentDir = Direction.None;
                     return;
@@ -157,10 +157,10 @@
         private Direction SeePackman()
         {
             // watch left and right
-            if (this.gameObject.QuadrantY == this.pacman.QuadrantY)
+            if(this.gameObject.QuadrantY == this.pacman.QuadrantY)
             {
                 int distanceToSee = 1;
-                while (this.gameObject.QuadrantX - distanceToSee >= 0
+                while (this.gameObject.QuadrantX - distanceToSee >= 0 
                     && this.obstacles[this.gameObject.QuadrantY, this.gameObject.QuadrantX - distanceToSee] != true)
                 {
                     if (this.gameObject.QuadrantX - distanceToSee == this.pacman.QuadrantX)
@@ -295,7 +295,7 @@
             }
         }
 
-        protected override Vector2 GetNextPointToMove(Vector2 nextPointToMove)
+        protected override Vector2 GetNextPointToMove()
         {
             if (this.IsReadyToChangeQuadrant())
             {
@@ -350,6 +350,7 @@
                 this.TurnBackImmediatelyIfSeePackman();
             }
 
+            Vector2 nextPointToMove = new Vector2();
             switch (this.currentDir)
             {
                 case Direction.Up:

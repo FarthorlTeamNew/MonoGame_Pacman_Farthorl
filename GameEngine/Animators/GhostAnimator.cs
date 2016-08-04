@@ -67,11 +67,9 @@
             this.currentAnimation.Update(gameTime);
         }
 
-        public override void Draw(SpriteBatch spriteBatch, Vector2 vector)
+        public override void Draw(SpriteBatch spriteBatch)
         {
-            vector.X = this.gameObject.X;
-            vector.Y = this.gameObject.Y;
-            Vector2 topLeftPos = vector;
+            Vector2 topLeftPos = new Vector2(this.gameObject.X, this.gameObject.Y);
             Color tint = Color.White;
             var sourceRectangle = this.currentAnimation.CurrentRectangle;
             
