@@ -21,7 +21,7 @@
         }
 
         public abstract void UpdateAnimation(GameTime gameTime, Vector2 velocity);
-        public abstract void Draw(SpriteBatch spriteBatch);
+        public abstract void Draw(SpriteBatch spriteBatch, Vector2 vector);
         public abstract void BufferFrames();
 
         public virtual void Reset()

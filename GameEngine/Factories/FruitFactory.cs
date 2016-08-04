@@ -1,4 +1,7 @@
-﻿namespace GameEngine.Factories
+﻿using GameEngine.Enums;
+using GameEngine.Utilities;
+
+namespace GameEngine.Factories
 {
     using System;
     using System.Linq;
@@ -21,8 +24,9 @@
                 Fruit fruit = (Fruit)Activator.CreateInstance(currentType, texture, new Rectangle(0, 0, 32, 32));
                 return fruit;
             }
-            catch (Exception)
+            catch (Exception exception)
             {
+                Log.AddToLog(exception.Message, LogEnumerable.Errors);
                 throw new ArgumentNullException("Fruit picture or class not found. Check /Content/FruitImages folder, and make sure the new fruit inherits the base class!");
             }
         }

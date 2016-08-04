@@ -14,7 +14,7 @@
         public Animation currentAnimation;
 
         public PacmanAnimator(PacMan pacMan)
-            :base(pacMan)
+            : base(pacMan)
         {
             this.BufferFrames();
             this.currentAnimation = this.animations.Find(x => x.Face == this.currentDirection);
@@ -65,9 +65,11 @@
             this.currentAnimation.Update(gameTime);
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch, Vector2 vector)
         {
-            Vector2 topLeftPos = new Vector2(this.gameObject.X, this.gameObject.Y);
+            vector.X = this.gameObject.X;
+            vector.Y = this.gameObject.Y;
+            Vector2 topLeftPos = vector;
             Color tint = Color.White;
             var sourceRectangle = this.currentAnimation.CurrentRectangle;
             if (this.gameObject.Texture == GameTexture.PacmanPokeball)

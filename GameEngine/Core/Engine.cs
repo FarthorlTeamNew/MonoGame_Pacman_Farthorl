@@ -66,10 +66,6 @@
             sound = new Sound(this);
         }
 
-        protected override void UnloadContent()
-        {
-        }
-
         protected override void Update(GameTime gameTime)
         {
             if (this.keyPress.IsPressedKey(Keys.Escape, this.oldState))
@@ -180,7 +176,7 @@
 
                         foreach (var kvp in this.ghostGen.GhostAnimators)
                         {
-                            kvp.Value.Draw(this.spriteBatch);
+                            kvp.Value.Draw(this.spriteBatch, new Vector2());
                         }
 
                         if (this.levelMatrix.LeftPoints == 0)
@@ -226,7 +222,6 @@
                     break;
             }
             this.spriteBatch.End();
-            //base.Draw(gameTime);
         }
         private void Reset()
         {
