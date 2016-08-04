@@ -157,8 +157,7 @@
             if (Global.PeachTimer.ElapsedMilliseconds > Global.TimeDrunk)
             {
                 ghostGen.GhostMovements[nameof(PacMan)].GetDrunkThenRehab();
-                Global.PeachTimer.Reset();
-                Global.PeachTimer.Stop();
+                ResetStopTimer(Global.PeachTimer);
             }
             if (Global.HungryGhosts.ElapsedMilliseconds > Global.TimeHungryGhosts && ghostGen.Ghosts.ContainsKey(nameof(Pinky)))
             {
@@ -170,8 +169,7 @@
                 {
                     ghostGen.Ghosts[nameof(Pinky)].EnoughIsEnough();
                 }
-                Global.HungryGhosts.Reset();
-                Global.HungryGhosts.Stop();
+                ResetStopTimer(Global.HungryGhosts);
             }
 
             GhostKiller ghostKiller = this.ghostKillers.FirstOrDefault(x => x.IsColliding(pacMan));
@@ -186,8 +184,7 @@
             {
                 pacMan.CanEat = false;
                 pacMan.Texture = GameTexture.PacmanAndGhost;
-                Global.GhostKillerTimer.Reset();
-                Global.GhostKillerTimer.Stop();
+                ResetStopTimer(Global.GhostKillerTimer);
             }
             foreach (var point in this.pointsList)
             {
@@ -203,10 +200,15 @@
                 {
                     ghost.Value.Texture = GameTexture.PacmanAndGhost;
                     ghost.Value.CanKillPakman = true;
-                    ghost.Value.GhostTransformingTimer.Reset();
-                    ghost.Value.GhostTransformingTimer.Stop();
+                    ResetStopTimer(ghost.Value.GhostTransformingTimer);
                 }
             }
+        }
+
+        private static void ResetStopTimer(Stopwatch timer)
+        {
+            timer.Reset();
+            timer.Stop();
         }
 
         public void Draw(SpriteBatch spriteBatch)

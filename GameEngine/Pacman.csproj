@@ -205,7 +205,6 @@
     <Content Include="DataFiles\Levels\Labirint2.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Icon.ico" />
     <Content Include="PacMan.ico" />
   </ItemGroup>
   <ItemGroup>

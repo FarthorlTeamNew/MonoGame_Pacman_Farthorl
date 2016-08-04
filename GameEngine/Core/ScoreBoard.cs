@@ -20,12 +20,12 @@
                 $"Lives: {pacMan.Lives}      ";
             if (Global.GhostKillerTimer.ElapsedMilliseconds != 0)
             {
-                scores += $"| Eat Ghosts : {Global.TimePokeball/1000 - Global.GhostKillerTimer.ElapsedMilliseconds / 1000}:" +
+                scores += $"| Eat Ghosts : {Global.TimePokeball/1000 - 1- Global.GhostKillerTimer.ElapsedMilliseconds / 1000}:" +
                           $"{1000 - Global.GhostKillerTimer.ElapsedMilliseconds % 1000} ";
             }
             if (Global.PeachTimer.ElapsedMilliseconds != 0)
             {
-                scores += $"| Sobering up in : {Global.TimeDrunk/1000 - Global.PeachTimer.ElapsedMilliseconds / 1000}:{1000 - Global.PeachTimer.ElapsedMilliseconds % 1000} ";
+                scores += $"| Sobering up in : {Global.TimeDrunk/1000 - 1 - Global.PeachTimer.ElapsedMilliseconds / 1000}:{1000 - Global.PeachTimer.ElapsedMilliseconds % 1000} ";
             }
 
             spriteBatch.DrawString(GameTexture.Font, scores, new Vector2(15, 426), Color.Aqua);

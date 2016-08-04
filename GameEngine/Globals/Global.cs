@@ -5,7 +5,7 @@
 
     public static class Global
     {
-        public const string LevelPath = @"DataFiles\Levels\Labirint.txt";
+        public const string LevelPath = @"DataFiles\Levels\Labirint2.txt";
         public const int quad_Width = 32;
         public const int quad_Height = 32;
         public const int GLOBAL_WIDTH = 768;
