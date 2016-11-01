@@ -17,7 +17,7 @@
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private PacMan pacMan;
-        private GhostGenerator ghostGen;
+        private ModelGenerator modelGenerator;
         private Matrix levelMatrix;
         private KeyPress keyPress;
         private KeyboardState oldState;
@@ -39,9 +39,9 @@
         {
             sound = new Sound(this);
             GameTexture.LoadTextures(this);
-            this.pacMan = new PacMan(GameTexture.PacmanAndGhost, new Rectangle(0, 0, 32, 32));
-            this.graphics.PreferredBackBufferWidth = Global.GLOBAL_WIDTH;
-            this.graphics.PreferredBackBufferHeight = Global.GLOBAL_HEIGHT;
+            this.pacMan = new PacMan(GameTexture.PacmanAndGhost, new Rectangle(0, 0, Global.quad_Width, Global.quad_Height));
+            this.graphics.PreferredBackBufferWidth = Global.Screen_Width;
+            this.graphics.PreferredBackBufferHeight = Global.Screen_Height;
             this.levelMatrix = new Matrix();
             this.graphics.ApplyChanges();
             this.keyPress = new KeyPress();
@@ -62,7 +62,7 @@
             this.butExit = new CButton(GameTexture.ExitButton, this.graphics.GraphicsDevice);
             this.butExit.SetPosition(new Vector2(300, 268));
             this.levelMatrix.InitializeMatrix(this.GraphicsDevice);
-            this.ghostGen = new GhostGenerator(this.levelMatrix, this.pacMan);
+            this.modelGenerator = new ModelGenerator(this.levelMatrix, this.pacMan);
             sound = new Sound(this);
         }
 
@@ -89,28 +89,7 @@
             switch (this.currentGameState)
             {
                 case GameState.MainMenu:
-                    MouseState mouse = Mouse.GetState();
-                    this.butEasyPlay.Update(mouse); this.butHardPlay.Update(mouse); this.butExit.Update(mouse); this.butOptions.Update(mouse);
-                    if (this.butEasyPlay.isClicked || this.keyPress.IsPressedKey(Keys.Space, this.oldState))
-                    {
-                        sound.Begin();
-                        //graphics.IsFullScreen = true; // set this to enable full screen
-                        //this.graphics.ApplyChanges();
-                        Global.Difficulty = DifficultyEnumerable.Easy;
-                        this.currentGameState = GameState.Playing;
-                        this.butEasyPlay.isClicked = false;
-                    }
-                    if (this.butHardPlay.isClicked || this.keyPress.IsPressedKey(Keys.Space, this.oldState))
-                    {
-                        sound.Begin();
-                        //graphics.IsFullScreen = true; // set this to enable full screen
-                        //this.graphics.ApplyChanges();
-                        Global.Difficulty = DifficultyEnumerable.Hard;
-                        this.currentGameState = GameState.Playing;
-                        this.butEasyPlay.isClicked = false;
-                    }
-                    if (this.butExit.isClicked) this.currentGameState = GameState.Exit;
-                    if (this.butOptions.isClicked) this.currentGameState = GameState.Options;
+                    MainMenuState();
                     break;
                 case GameState.Options:
                     if (Keyboard.GetState().IsKeyDown(Keys.Escape))
@@ -120,34 +99,65 @@
                     }
                     break;
                 case GameState.Playing:
-                    if (!this.isLevelCompleated)
-                    {
-                        foreach (var kvp in this.ghostGen.GhostMovements)
-                        {
-                            var movedToPoint = this.ghostGen.GhostMovements[kvp.Key].Move(gameTime);
-                            this.ghostGen.GhostAnimators[kvp.Key].UpdateAnimation(gameTime, movedToPoint);
-                        }
-                        this.levelMatrix.Update(this.pacMan, this.ghostGen);
-                    }
-                    else   // Wining Condition
-                    {
-                        if (Keyboard.GetState().IsKeyDown(Keys.Space))
-                        {
-                            this.Reset();
-                        }
-                        else if (Keyboard.GetState().IsKeyDown(Keys.Enter))
-                        {
-                            this.Exit();
-                            using (var game = new Engine())
-                                game.Run();
-                        }
-                    }
-                    base.Update(gameTime);
+                    PlayingState(gameTime);
                     break;
                 case GameState.Exit:
                     break;
             }
             this.oldState = Keyboard.GetState();  // Update saved state.
+        }
+
+        private void MainMenuState()
+        {
+            MouseState mouse = Mouse.GetState();
+            this.butEasyPlay.Update(mouse); this.butHardPlay.Update(mouse); this.butExit.Update(mouse); this.butOptions.Update(mouse);
+            if (this.butEasyPlay.isClicked || this.keyPress.IsPressedKey(Keys.Space, this.oldState))
+            {
+                sound.Begin();
+                //graphics.IsFullScreen = true; // set this to enable full screen
+                //this.graphics.ApplyChanges();
+                Global.Difficulty = DifficultyEnumerable.Easy;
+                this.currentGameState = GameState.Playing;
+                this.butEasyPlay.isClicked = false;
+            }
+            if (this.butHardPlay.isClicked || this.keyPress.IsPressedKey(Keys.Space, this.oldState))
+            {
+                sound.Begin();
+                //graphics.IsFullScreen = true; // set this to enable full screen
+                //this.graphics.ApplyChanges();
+                Global.Difficulty = DifficultyEnumerable.Hard;
+                this.currentGameState = GameState.Playing;
+                this.butEasyPlay.isClicked = false;
+            }
+            if (this.butExit.isClicked) this.currentGameState = GameState.Exit;
+            if (this.butOptions.isClicked) this.currentGameState = GameState.Options;
+        }
+
+        private void PlayingState(GameTime gameTime)
+        {
+            if (!this.isLevelCompleated)
+            {
+                foreach (var kvp in this.modelGenerator.MovableModels)
+                {
+                    var movedToPoint = this.modelGenerator.MovableModels[kvp.Key].Move(gameTime);
+                    this.modelGenerator.AnimationModels[kvp.Key].UpdateAnimation(gameTime, movedToPoint);
+                }
+                this.levelMatrix.Update(this.pacMan, this.modelGenerator);
+            }
+            else   // Wining Condition
+            {
+                if (Keyboard.GetState().IsKeyDown(Keys.Space))
+                {
+                    this.Reset();
+                }
+                else if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+                {
+                    this.Exit();
+                    using (var game = new Engine())
+                        game.Run();
+                }
+            }
+            base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
@@ -158,14 +168,14 @@
             switch (this.currentGameState)
             {
                 case GameState.MainMenu:
-                    this.spriteBatch.Draw(GameTexture.MainMenu, new Rectangle(0, 0, Global.GLOBAL_WIDTH, Global.GLOBAL_HEIGHT), Color.White);
+                    this.spriteBatch.Draw(GameTexture.MainMenu, new Rectangle(0, 0, Global.Screen_Width, Global.Screen_Height), Color.White);
                     this.butEasyPlay.Draw(this.spriteBatch);
                     this.butHardPlay.Draw(this.spriteBatch);
                     this.butExit.Draw(this.spriteBatch);
                     this.butOptions.Draw(this.spriteBatch);
                     break;
                 case GameState.Options:
-                    this.spriteBatch.Draw(GameTexture.Instruction, new Rectangle(0, 0, Global.GLOBAL_WIDTH, Global.GLOBAL_HEIGHT), Color.White);
+                    this.spriteBatch.Draw(GameTexture.Instruction, new Rectangle(0, 0, Global.Screen_Width, Global.Screen_Height), Color.White);
                     break;
                 case GameState.Playing:
 
@@ -178,7 +188,7 @@
                     {
                         this.levelMatrix.Draw(this.spriteBatch);
 
-                        foreach (var kvp in this.ghostGen.GhostAnimators)
+                        foreach (var kvp in this.modelGenerator.AnimationModels)
                         {
                             kvp.Value.Draw(this.spriteBatch);
                         }
@@ -188,7 +198,7 @@
                             this.spriteBatch.Draw(GameTexture.WinPic, new Vector2(250, 100));
                             this.isLevelCompleated = true;
                         }
-                        foreach (var ghost in this.ghostGen.Ghosts)
+                        foreach (var ghost in this.modelGenerator.Ghosts)
                         {
                             if (ghost.Value.IsColliding(this.pacMan) && !this.pacMan.CanEat && ghost.Value.CanKillPakman)
                             {
