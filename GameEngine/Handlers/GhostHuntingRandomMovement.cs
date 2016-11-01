@@ -7,6 +7,7 @@
     using Models.LevelObjects;
     using System;
     using System.Collections.Generic;
+    using Interfaces;
 
     class GhostHuntingRandomMovement : ObjectMover
     {
@@ -23,7 +24,7 @@
             this.pixelMoved = Global.DefaultGhostSpeed;
         }
 
-        protected override void CalculateDirection(Direction bannedDirection)
+        protected override void CalculateDirection(Direction directionToAvoid)
         {
             this.possibleDirections.Clear();
             
@@ -31,19 +32,19 @@
             // preferred left, right, front
             if (this.currentDir == Direction.Up)
             {
-                if (this.IsMovingLeftPossible() && bannedDirection != Direction.Left)
+                if (this.IsMovingLeftPossible() && directionToAvoid != Direction.Left)
                 {
                     this.possibleDirections.Add(Direction.Left);
                 }
-                if (this.IsMovingRightPossible() && bannedDirection != Direction.Right)
+                if (this.IsMovingRightPossible() && directionToAvoid != Direction.Right)
                 {
                     this.possibleDirections.Add(Direction.Right);
                 }
-                if (this.IsMovingUpPossible() && bannedDirection != Direction.Up)
+                if (this.IsMovingUpPossible() && directionToAvoid != Direction.Up)
                 {
                     this.possibleDirections.Add(Direction.Up);
                 }
-                if (this.IsMovingDownPossible() && this.possibleDirections.Count == 0 && bannedDirection != Direction.Down) // go back
+                if (this.IsMovingDownPossible() && this.possibleDirections.Count == 0 && directionToAvoid != Direction.Down) // go back
                 {
                     this.currentDir = Direction.Down;
                     return;
@@ -55,19 +56,19 @@
             }
             else if (this.currentDir == Direction.Down)
             {
-                if (this.IsMovingLeftPossible() && bannedDirection != Direction.Left)
+                if (this.IsMovingLeftPossible() && directionToAvoid != Direction.Left)
                 {
                     this.possibleDirections.Add(Direction.Left);
                 }
-                if (this.IsMovingRightPossible() && bannedDirection != Direction.Right)
+                if (this.IsMovingRightPossible() && directionToAvoid != Direction.Right)
                 {
                     this.possibleDirections.Add(Direction.Right);
                 }
-                if (this.IsMovingDownPossible() && bannedDirection != Direction.Down)
+                if (this.IsMovingDownPossible() && directionToAvoid != Direction.Down)
                 {
                     this.possibleDirections.Add(Direction.Down);
                 }
-                if (this.IsMovingUpPossible() && this.possibleDirections.Count == 0 && bannedDirection != Direction.Up) // go back
+                if (this.IsMovingUpPossible() && this.possibleDirections.Count == 0 && directionToAvoid != Direction.Up) // go back
                 {
                     this.currentDir = Direction.Up;
                     return;
@@ -80,19 +81,19 @@
             }
             else if (this.currentDir == Direction.Left)
             {
-                if (this.IsMovingLeftPossible() && bannedDirection != Direction.Left)
+                if (this.IsMovingLeftPossible() && directionToAvoid != Direction.Left)
                 {
                     this.possibleDirections.Add(Direction.Left);
                 }
-                if (this.IsMovingDownPossible() && bannedDirection != Direction.Down)
+                if (this.IsMovingDownPossible() && directionToAvoid != Direction.Down)
                 {
                     this.possibleDirections.Add(Direction.Down);
                 }
-                if (this.IsMovingUpPossible() && bannedDirection != Direction.Up)
+                if (this.IsMovingUpPossible() && directionToAvoid != Direction.Up)
                 {
                     this.possibleDirections.Add(Direction.Up);
                 }
-                if (this.IsMovingRightPossible() && this.possibleDirections.Count == 0 && bannedDirection != Direction.Right) // go back
+                if (this.IsMovingRightPossible() && this.possibleDirections.Count == 0 && directionToAvoid != Direction.Right) // go back
                 {
                     this.currentDir = Direction.Right;
                     return;
@@ -105,19 +106,19 @@
             }
             else if (this.currentDir == Direction.Right)
             {
-                if (this.IsMovingRightPossible() && bannedDirection != Direction.Right)
+                if (this.IsMovingRightPossible() && directionToAvoid != Direction.Right)
                 {
                     this.possibleDirections.Add(Direction.Right);
                 }
-                if (this.IsMovingDownPossible() && bannedDirection != Direction.Down)
+                if (this.IsMovingDownPossible() && directionToAvoid != Direction.Down)
                 {
                     this.possibleDirections.Add(Direction.Down);
                 }
-                if (this.IsMovingUpPossible() && bannedDirection != Direction.Up)
+                if (this.IsMovingUpPossible() && directionToAvoid != Direction.Up)
                 {
                     this.possibleDirections.Add(Direction.Up);
                 }
-                if (this.IsMovingLeftPossible() && this.possibleDirections.Count == 0 && bannedDirection != Direction.Left) // go back
+                if (this.IsMovingLeftPossible() && this.possibleDirections.Count == 0 && directionToAvoid != Direction.Left) // go back
                 {
                     this.currentDir = Direction.Left;
                     return;
@@ -128,7 +129,7 @@
                     return;
                 }
             }
-            else if (this.currentDir == Direction.None && bannedDirection == Direction.None)
+            else if (this.currentDir == Direction.None && directionToAvoid == Direction.None)
             {
                 if (this.IsMovingLeftPossible())
                 {
@@ -150,7 +151,7 @@
 
             if (this.possibleDirections.Count > 0)
             {
-                this.ChooseRandomDirection();
+                this.ChooseRandomDirectionFromPossible();
             }
         }
 
@@ -282,7 +283,7 @@
             }
         }
 
-        private void ChooseRandomDirection()
+        private void ChooseRandomDirectionFromPossible()
         {
             if (this.possibleDirections.Count == 1)
             {
@@ -300,52 +301,35 @@
             if (this.IsReadyToChangeQuadrant())
             {
                 Direction directionToPacman = this.SeePackman();
-                if (directionToPacman != Direction.None)
+
+                if (this.pacman.CanEat) // run away
                 {
-                    if (this.pacman.CanEat)
-                    {
-                        switch (directionToPacman)
-                        {
-                            case Direction.Up:
-                                this.CalculateDirection(Direction.Up);
-                                break;
-                            case Direction.Down:
-                                this.CalculateDirection(Direction.Down);
-                                break;
-                            case Direction.Left:
-                                this.CalculateDirection(Direction.Left);
-                                break;
-                            case Direction.Right:
-                                this.CalculateDirection(Direction.Right);
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        switch (directionToPacman)
-                        {
-                            case Direction.Up:
-                                this.currentDir = Direction.Up;
-                                break;
-                            case Direction.Down:
-                                this.currentDir = Direction.Down;
-                                break;
-                            case Direction.Left:
-                                this.currentDir = Direction.Left;
-                                break;
-                            case Direction.Right:
-                                this.currentDir = Direction.Right;
-                                break;
-                        }
-                    }
+                    this.CalculateDirection(directionToPacman);
                 }
-                else
+                else // catch him
                 {
-                    this.CalculateDirection(Direction.None);
+                    switch (directionToPacman)
+                    {
+                        case Direction.Up:
+                            this.currentDir = Direction.Up;
+                            break;
+                        case Direction.Down:
+                            this.currentDir = Direction.Down;
+                            break;
+                        case Direction.Left:
+                            this.currentDir = Direction.Left;
+                            break;
+                        case Direction.Right:
+                            this.currentDir = Direction.Right;
+                            break;
+                        default:
+                            this.CalculateDirection(Direction.None);
+                            break;
+                    }
                 }
             }
 
-            if (!this.pacman.CanEat)
+            if (!this.pacman.CanEat) // catch him immediately
             {
                 this.TurnBackImmediatelyIfSeePackman();
             }
@@ -383,7 +367,7 @@
             this.pixelMoved--;
         }
 
-        public override void GetDrunkThenRehab()
+        public override void DrunkMovement()
         {
         }
     }
