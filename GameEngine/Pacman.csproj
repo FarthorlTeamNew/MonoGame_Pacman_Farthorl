@@ -121,6 +121,8 @@
     <Content Include="Content\FruitImages\Pear.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\FruitImages\newIcons\RedSnail.jpg" />
+    <Content Include="Content\FruitImages\newIcons\YellowSnail.jpg" />
     <Content Include="Content\FruitImages\Strawberry.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
