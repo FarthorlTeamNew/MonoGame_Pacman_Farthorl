@@ -1,8 +1,9 @@
 ﻿namespace GameEngine.Handlers
 {
+    using Interfaces;
     using Microsoft.Xna.Framework.Input;
 
-    public class KeyPress
+    public class KeyPress : IKeyPress
     {
         public bool IsPressedKey(Keys key, KeyboardState oldState)
         {

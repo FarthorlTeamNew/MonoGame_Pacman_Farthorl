@@ -49,7 +49,7 @@
             return false;
         }
 
-        protected abstract void CalculateDirection(Direction bannedDirection);
+        protected abstract void CalculateDirection(Direction directionToAvoid);
 
         protected abstract Vector2 GetNextPointToMove();
 
@@ -106,6 +106,6 @@
 
         public abstract void DecreaseSpeed();
 
-        public abstract void GetDrunkThenRehab();
+        public abstract void DrunkMovement();
     }
 }

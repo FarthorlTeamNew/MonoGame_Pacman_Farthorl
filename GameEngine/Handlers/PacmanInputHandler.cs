@@ -74,7 +74,7 @@
             }
         }
 
-        protected override void CalculateDirection(Direction bannedDirection)
+        protected override void CalculateDirection(Direction directionToAvoid)
         {
             if (this.desiredDir == this.currentDir)
             {
@@ -162,8 +162,8 @@
             if (this.gameObject.X % Global.quad_Width == 0
                 && this.gameObject.Y % Global.quad_Height == 0)
             {
-                this.gameObject.QuadrantX = (int) this.gameObject.X / 32;
-                this.gameObject.QuadrantY = (int) this.gameObject.Y / 32;
+                this.gameObject.QuadrantX = (int) this.gameObject.X / Global.quad_Width;
+                this.gameObject.QuadrantY = (int) this.gameObject.Y / Global.quad_Height;
                 return true;
             }
 
@@ -174,7 +174,7 @@
         {
             if (this.movementTypeNormal)
             {
-                this.GetInput(); // listens for key pressed
+                this.GetInput(); // listen for key pressed
             }
             else if (!this.movementTypeNormal)
             {
@@ -191,7 +191,7 @@
             {
                 case Direction.Up:
                     desiredVelocity.X = 0;
-                    desiredVelocity.Y = 0 - this.pixelMoved; // this magic number is velocity(pixels per gameTime) and he must devide 32(Global.quad_Width) with reminder 0
+                    desiredVelocity.Y = 0 - this.pixelMoved; // this magic number is velocity(pixels per gameTime) and he must devide Global.quad_Width with remainder 0
                     break;
                 case Direction.Down:
                     desiredVelocity.X = 0;
@@ -219,7 +219,7 @@
             this.pixelMoved-=2;
         }
 
-        public override void GetDrunkThenRehab()
+        public override void DrunkMovement()
         {
             if (this.movementTypeNormal)
             {

@@ -4,6 +4,7 @@
     using System;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
+    using Globals;
 
     public class Brezel : Fruit
     {
@@ -14,10 +15,10 @@
             this.FruitBonus = BrezelBonus;
         }
 
-        public override void ActivatePowerup(GhostGenerator ghostGen, PacMan pacMan)
+        public override void ActivatePowerup(ModelGenerator ghostGen, PacMan pacMan)
         {
-            pacMan.X = new Random().Next(2, 20) * 32;
-            pacMan.Y = new Random().Next(1, 10) * 32;
+            pacMan.X = new Random().Next(2, 20) * Global.quad_Width;
+            pacMan.Y = new Random().Next(1, 10) * Global.quad_Height;
         }
     }
 }

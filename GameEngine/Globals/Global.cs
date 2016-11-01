@@ -8,8 +8,8 @@
         public const string LevelPath = @"DataFiles\Levels\Labirint2.txt";
         public const int quad_Width = 32;
         public const int quad_Height = 32;
-        public const int GLOBAL_WIDTH = 768;
-        public const int GLOBAL_HEIGHT = 455;
+        public const int Screen_Width = 768;
+        public const int Screen_Height = 455;
         public const int XMax = 24;
         public const int YMax = 13;
         public const int PacmanSpeed = 4;

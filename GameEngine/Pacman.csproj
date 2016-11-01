@@ -50,11 +50,11 @@
     <Compile Include="Enums\DifficultyEnumerable.cs" />
     <Compile Include="Enums\LogEnumerable.cs" />
     <Compile Include="Factories\FruitFactory.cs" />
-    <Compile Include="Core\GhostGenerator.cs" />
+    <Compile Include="Core\ModelGenerator.cs" />
     <Compile Include="Globals\Global.cs" />
-    <Compile Include="Handlers\GhostGoodRandomMovement.cs" />
-    <Compile Include="Handlers\GhostWeakRandomMovement.cs" />
+    <Compile Include="Handlers\GhostRandomMovement.cs" />
     <Compile Include="Enums\Directions.cs" />
+    <Compile Include="Interfaces\IKeyPress.cs" />
     <Compile Include="Utilities\Log.cs" />
     <Compile Include="Handlers\ObjectMover.cs" />
     <Compile Include="Handlers\GhostHuntingRandomMovement.cs" />

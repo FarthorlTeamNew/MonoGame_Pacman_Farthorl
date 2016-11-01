@@ -5,6 +5,7 @@
     using Ghosts;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
+    using Globals;
 
     public class Cherry : Fruit
     {
@@ -15,19 +16,19 @@
             this.FruitBonus = CherryBonus;
         }
 
-        public override void ActivatePowerup(GhostGenerator ghostGen, PacMan pacMan)
+        public override void ActivatePowerup(ModelGenerator ghostGen, PacMan pacMan)
         {
             if (ghostGen.Ghosts.ContainsKey(nameof(Blinky)))
             {
-                ghostGen.Ghosts[nameof(Blinky)].X = new Random().Next(3, 5) * 32;
-                ghostGen.Ghosts[nameof(Blinky)].Y = new Random().Next(2, 4) * 32;
-                ghostGen.GhostMovements[nameof(Blinky)].Reset();
+                ghostGen.Ghosts[nameof(Blinky)].X = new Random().Next(3, 5) * Global.quad_Width;
+                ghostGen.Ghosts[nameof(Blinky)].Y = new Random().Next(2, 4) * Global.quad_Height;
+                ghostGen.MovableModels[nameof(Blinky)].Reset();
             }
             if (ghostGen.Ghosts.ContainsKey(nameof(Pinky)))
             {
-                ghostGen.Ghosts[nameof(Pinky)].X = new Random().Next(17, 21) * 32;
-                ghostGen.Ghosts[nameof(Pinky)].Y = new Random().Next(8, 11) * 32;
-                ghostGen.GhostMovements[nameof(Pinky)].Reset();
+                ghostGen.Ghosts[nameof(Pinky)].X = new Random().Next(17, 21) * Global.quad_Width;
+                ghostGen.Ghosts[nameof(Pinky)].Y = new Random().Next(8, 11) * Global.quad_Height;
+                ghostGen.MovableModels[nameof(Pinky)].Reset();
             }
         }
     }

@@ -13,7 +13,7 @@
             this.FruitBonus = StrawberryBonus;
         }
 
-        public override void ActivatePowerup(GhostGenerator ghostGen, PacMan pacMan)
+        public override void ActivatePowerup(ModelGenerator ghostGen, PacMan pacMan)
         {
         }
     }

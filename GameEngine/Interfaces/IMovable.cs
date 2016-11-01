@@ -7,6 +7,6 @@
         Vector2 Move(GameTime gameTime);
         void Reset();
         void DecreaseSpeed();
-        void GetDrunkThenRehab();
+        void DrunkMovement();
     }
 }

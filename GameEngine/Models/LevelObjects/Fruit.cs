@@ -27,6 +27,6 @@
             Engine.sound.PacManEatGhost();
         }
 
-        public abstract void ActivatePowerup(GhostGenerator ghostGen, PacMan pacMan);
+        public abstract void ActivatePowerup(ModelGenerator ghostGen, PacMan pacMan);
     }
 }

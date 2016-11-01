@@ -13,9 +13,9 @@
             this.FruitBonus = BananaBonus;
         }
 
-        public override void ActivatePowerup(GhostGenerator ghostGen, PacMan pacMan)
+        public override void ActivatePowerup(ModelGenerator ghostGen, PacMan pacMan)
         {
-            ghostGen.GhostMovements[nameof(PacMan)].DecreaseSpeed();
+            ghostGen.MovableModels[nameof(PacMan)].DecreaseSpeed();
         }
     }
 }

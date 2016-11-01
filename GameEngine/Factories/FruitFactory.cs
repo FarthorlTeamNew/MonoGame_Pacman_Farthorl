@@ -6,6 +6,7 @@
     using Models.LevelObjects;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
+    using Globals;
 
     public class FruitFactory
     {
@@ -18,7 +19,7 @@
             try
             {
                 Type currentType = types.FirstOrDefault(t => texture.Name.EndsWith(t.Name));
-                Fruit fruit = (Fruit)Activator.CreateInstance(currentType, texture, new Rectangle(0, 0, 32, 32));
+                Fruit fruit = (Fruit)Activator.CreateInstance(currentType, texture, new Rectangle(0, 0, Global.quad_Width, Global.quad_Height));
                 return fruit;
             }
             catch (Exception)

@@ -90,7 +90,7 @@
 
             for (int i = 0; i < 4; i++)
             {
-                this.ghostKillers.Add(new GhostKiller(GameTexture.GhostKiller, new Rectangle(0, 0, 32, 32)));
+                this.ghostKillers.Add(new GhostKiller(GameTexture.GhostKiller, new Rectangle(0, 0, Global.quad_Width, Global.quad_Height)));
                 this.PlaceOnRandomXY(this.ghostKillers[i]);
             }
         }
@@ -134,7 +134,7 @@
             }
         }
 
-        public void Update(PacMan pacMan, GhostGenerator ghostGen)
+        public void Update(PacMan pacMan, ModelGenerator ghostGen)
         {
             this.pointsList.FirstOrDefault(x => x.IsColliding(pacMan))?.ReactOnCollision(pacMan);
             this.pointsList.Remove(this.pointsList.FirstOrDefault(x => x.IsColliding(pacMan)));
@@ -156,7 +156,7 @@
             }
             if (Global.PeachTimer.ElapsedMilliseconds > Global.TimeDrunk)
             {
-                ghostGen.GhostMovements[nameof(PacMan)].GetDrunkThenRehab();
+                ghostGen.MovableModels[nameof(PacMan)].DrunkMovement();
                 ResetStopTimer(Global.PeachTimer);
             }
             if (Global.HungryGhosts.ElapsedMilliseconds > Global.TimeHungryGhosts && ghostGen.Ghosts.ContainsKey(nameof(Pinky)))

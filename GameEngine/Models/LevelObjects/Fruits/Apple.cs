@@ -15,12 +15,12 @@
             this.FruitBonus = AppleBonus;
         }
 
-        public override void ActivatePowerup(GhostGenerator ghostGen, PacMan pacMan)
+        public override void ActivatePowerup(ModelGenerator ghostGen, PacMan pacMan)
         {
-            if(ghostGen.GhostMovements.ContainsKey(nameof(Inky)))
-                ghostGen.GhostMovements[nameof(Inky)].DecreaseSpeed();
-            if (ghostGen.GhostMovements.ContainsKey(nameof(Clyde)))
-                ghostGen.GhostMovements[nameof(Clyde)].DecreaseSpeed();
+            if(ghostGen.MovableModels.ContainsKey(nameof(Inky)))
+                ghostGen.MovableModels[nameof(Inky)].DecreaseSpeed();
+            if (ghostGen.MovableModels.ContainsKey(nameof(Clyde)))
+                ghostGen.MovableModels[nameof(Clyde)].DecreaseSpeed();
         }
     }
 }
