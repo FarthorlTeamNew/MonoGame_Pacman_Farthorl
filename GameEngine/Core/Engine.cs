@@ -22,11 +22,11 @@
         private KeyPress keyPress;
         private KeyboardState oldState;
         private bool isLevelCompleated;
-        GameState currentGameState = GameState.MainMenu;
-        CButton butEasyPlay;
-        CButton butHardPlay;
-        CButton butOptions;
-        CButton butExit;
+        private GameState currentGameState = GameState.MainMenu;
+        private CButton butEasyPlay;
+        private CButton butHardPlay;
+        private CButton butOptions;
+        private CButton butExit;
 
         public Engine()
         {
@@ -111,7 +111,8 @@
         {
             MouseState mouse = Mouse.GetState();
             this.butEasyPlay.Update(mouse); this.butHardPlay.Update(mouse); this.butExit.Update(mouse); this.butOptions.Update(mouse);
-            if (this.butEasyPlay.isClicked || this.keyPress.IsPressedKey(Keys.Space, this.oldState))
+            if (this.butEasyPlay.isClicked || this.keyPress.IsPressedKey(Keys.Space, this.oldState)
+                || this.keyPress.IsPressedKey(Keys.E, this.oldState))
             {
                 sound.Begin();
                 //graphics.IsFullScreen = true; // set this to enable full screen
@@ -120,7 +121,7 @@
                 this.currentGameState = GameState.Playing;
                 this.butEasyPlay.isClicked = false;
             }
-            if (this.butHardPlay.isClicked || this.keyPress.IsPressedKey(Keys.Space, this.oldState))
+            if (this.butHardPlay.isClicked || this.keyPress.IsPressedKey(Keys.H, this.oldState))
             {
                 sound.Begin();
                 //graphics.IsFullScreen = true; // set this to enable full screen
