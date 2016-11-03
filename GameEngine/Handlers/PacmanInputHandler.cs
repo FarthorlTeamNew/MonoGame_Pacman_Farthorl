@@ -1,4 +1,4 @@
-﻿namespace GameEngine.Handlers
+﻿namespace Pacman.Handlers
 {
     using Microsoft.Xna.Framework.Input;
     using Enums;

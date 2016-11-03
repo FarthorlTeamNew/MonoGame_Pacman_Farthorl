@@ -1,4 +1,4 @@
-﻿namespace GameEngine.Handlers
+﻿namespace Pacman.Handlers
 {
     using Globals;
     using Enums;

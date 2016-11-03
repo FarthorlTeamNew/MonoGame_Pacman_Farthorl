@@ -1,4 +1,4 @@
-﻿namespace GameEngine.Interfaces
+﻿namespace Pacman.Interfaces
 {
     using Microsoft.Xna.Framework.Graphics;
 

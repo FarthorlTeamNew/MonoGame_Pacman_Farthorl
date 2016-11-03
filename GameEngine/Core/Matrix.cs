@@ -1,4 +1,4 @@
-﻿namespace GameEngine.Core
+﻿namespace Pacman.Core
 {
     using System;
     using System.Collections.Generic;
@@ -15,11 +15,12 @@
     using Microsoft.Xna.Framework.Graphics;
     using Enums;
     using Utilities;
+    using Pacman.Interfaces;
 
-    public class Matrix
+    public class Matrix : IMatrix
     {
         private string Level = Global.LevelPath;
-        public string[,] PathsMatrix = new string[Global.YMax, Global.XMax];
+        private string[,] pathsMatrix = new string[Global.YMax, Global.XMax];
 
         private static List<Wall> bricksList;
         private readonly List<PointObj> pointsList;
@@ -40,6 +41,13 @@
         public int LeftPoints
         {
             get { return this.pointsList.Count; }
+        }
+
+        public string[,] PathsMatrix
+        {
+            get{ return pathsMatrix; }
+
+            set{ pathsMatrix = value; }
         }
 
         public void InitializeMatrix(GraphicsDevice graphicsDevice)

@@ -1,4 +1,4 @@
-﻿namespace GameEngine
+﻿namespace Pacman
 {
     using Core;
 

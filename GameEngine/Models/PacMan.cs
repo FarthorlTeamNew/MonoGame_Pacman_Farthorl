@@ -1,4 +1,4 @@
-﻿namespace GameEngine.Models
+﻿namespace Pacman.Models
 {
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
@@ -8,6 +8,11 @@
         //private int speed = 5;
         public PacMan(Texture2D texture, Rectangle boundingBox)
             : base(texture, 0,  0, boundingBox)
+        {
+            this.CanEat = false;
+        }
+
+        public PacMan() : base()
         {
             this.CanEat = false;
         }

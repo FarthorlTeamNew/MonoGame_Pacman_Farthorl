@@ -1,4 +1,4 @@
-﻿namespace GameEngine.Factories
+﻿namespace Pacman.Factories
 {
     using System;
     using System.Linq;

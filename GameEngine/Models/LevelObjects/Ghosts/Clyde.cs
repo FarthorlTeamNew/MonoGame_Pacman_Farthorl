@@ -1,4 +1,4 @@
-﻿namespace GameEngine.Models.LevelObjects.Ghosts
+﻿namespace Pacman.Models.LevelObjects.Ghosts
 {
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;

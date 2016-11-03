@@ -1,4 +1,4 @@
-﻿namespace GameEngine.Animators.GhostAnimators
+﻿namespace Pacman.Animators.GhostAnimators
 {
     using Globals;
     using Models.LevelObjects;

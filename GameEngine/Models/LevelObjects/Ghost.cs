@@ -1,9 +1,9 @@
-﻿namespace GameEngine.Models.LevelObjects
+﻿namespace Pacman.Models.LevelObjects
 {
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework;
-    using System;
     using System.Diagnostics;
+
     public abstract class Ghost : LevelObject
     {
         public Stopwatch GhostTransformingTimer;
@@ -15,6 +15,8 @@
             this.CanKillPakman = true;
             this.GhostTransformingTimer = new Stopwatch();
         }
+
+        protected Ghost(): base() { } // is it right to have constructor for test purpose
 
         public override void ReactOnCollision(PacMan pacMan)
         {      
@@ -39,7 +41,5 @@
         {
             this.GhostTransformingTimer.Start();
         }
-
-
     }
 }

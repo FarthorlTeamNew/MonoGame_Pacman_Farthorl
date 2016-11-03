@@ -1,4 +1,4 @@
-﻿namespace GameEngine.Handlers
+﻿namespace Pacman.Handlers
 {
     using Globals;
     using Models;
@@ -9,13 +9,13 @@
     using System.Collections.Generic;
     using Interfaces;
 
-    class GhostHuntingRandomMovement : ObjectMover
+    public class GhostHuntingRandomMovement : ObjectMover
     {
         private PacMan pacman;
         private Random random;
-        List<Direction> possibleDirections;
+        private List<Direction> possibleDirections;
 
-        public GhostHuntingRandomMovement(Ghost gameObject, Core.Matrix levelMatrix, PacMan pacman)
+        public GhostHuntingRandomMovement(Ghost gameObject, IMatrix levelMatrix, PacMan pacman)
             :base(gameObject, levelMatrix)
         {
             this.pacman = pacman;

@@ -1,4 +1,4 @@
-﻿namespace GameEngine.Enums
+﻿namespace Pacman.Enums
 {
     public enum LogEnumerable
     {

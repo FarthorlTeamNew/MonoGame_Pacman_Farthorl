@@ -1,4 +1,4 @@
-﻿namespace GameEngine.Menu
+﻿namespace Pacman.Menu
 {
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;

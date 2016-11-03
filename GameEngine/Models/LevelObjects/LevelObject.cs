@@ -1,4 +1,4 @@
-﻿namespace GameEngine.Models.LevelObjects
+﻿namespace Pacman.Models.LevelObjects
 {
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
@@ -9,6 +9,8 @@
             :base(texture, x, y, boundingBox)
         {
         }
+
+        protected LevelObject() : base() { }
 
         public virtual Rectangle GetBoundingBox()
         {

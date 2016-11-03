@@ -1,4 +1,4 @@
-﻿namespace GameEngine.Core
+﻿namespace Pacman.Core
 {
     using Globals;
     using Models;

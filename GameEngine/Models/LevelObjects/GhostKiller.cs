@@ -1,4 +1,4 @@
-﻿namespace GameEngine.Models.LevelObjects
+﻿namespace Pacman.Models.LevelObjects
 {
     using Core;
     using Globals;

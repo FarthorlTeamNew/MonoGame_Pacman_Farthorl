@@ -1,4 +1,4 @@
-﻿namespace GameEngine.Models.LevelObjects.Fruits
+﻿namespace Pacman.Models.LevelObjects.Fruits
 {
     using Core;
     using System;

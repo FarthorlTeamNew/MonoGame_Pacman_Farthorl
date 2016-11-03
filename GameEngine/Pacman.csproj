@@ -9,8 +9,8 @@
     <ProjectGuid>{A2A0D825-1074-4851-A6E7-09F8B7FF6AF9}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GameEngine</RootNamespace>
-    <AssemblyName>GameEngine</AssemblyName>
+    <RootNamespace>Pacman</RootNamespace>
+    <AssemblyName>Pacman</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MonoGamePlatform>Windows</MonoGamePlatform>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
@@ -55,6 +55,7 @@
     <Compile Include="Handlers\GhostRandomMovement.cs" />
     <Compile Include="Enums\Directions.cs" />
     <Compile Include="Interfaces\IKeyPress.cs" />
+    <Compile Include="Interfaces\IMatrix.cs" />
     <Compile Include="Utilities\Log.cs" />
     <Compile Include="Handlers\ObjectMover.cs" />
     <Compile Include="Handlers\GhostHuntingRandomMovement.cs" />

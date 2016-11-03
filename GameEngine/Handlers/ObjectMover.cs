@@ -1,12 +1,10 @@
-﻿namespace GameEngine.Handlers
+﻿namespace Pacman.Handlers
 {
     using Globals;
     using Interfaces;
     using Models;
     using Enums;
     using Microsoft.Xna.Framework;
-    using Matrix = Core.Matrix;
-
 
     public abstract class ObjectMover : IMovable
     {
@@ -15,7 +13,12 @@
         protected bool[,] obstacles;
         protected int pixelMoved; //inicialize how many pixels will move per iteration
 
-        public ObjectMover(GameObject gameObject, Matrix levelMatrix)
+        public int PixelMoved
+        {
+            get { return pixelMoved; }
+        }
+
+        public ObjectMover(GameObject gameObject, IMatrix levelMatrix)
         {
             this.gameObject = gameObject;
             this.currentDir = Direction.Right;

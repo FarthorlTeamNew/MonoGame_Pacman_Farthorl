@@ -1,4 +1,4 @@
-﻿namespace GameEngine.Globals
+﻿namespace Pacman.Globals
 {
     using System.Collections.Generic;
     using System.IO;

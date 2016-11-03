@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Input;
 
-namespace GameEngine.Interfaces
+namespace Pacman.Interfaces
 {
     public interface IKeyPress
     {

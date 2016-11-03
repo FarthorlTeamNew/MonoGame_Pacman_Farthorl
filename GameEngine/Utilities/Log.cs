@@ -1,4 +1,4 @@
-﻿namespace GameEngine.Utilities
+﻿namespace Pacman.Utilities
 {
     using System;
     using System.IO;

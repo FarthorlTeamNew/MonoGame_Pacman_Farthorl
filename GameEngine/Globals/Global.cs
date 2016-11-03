@@ -1,4 +1,4 @@
-﻿namespace GameEngine.Globals
+﻿namespace Pacman.Globals
 {
     using System.Diagnostics;
     using Enums;

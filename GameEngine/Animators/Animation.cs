@@ -1,4 +1,4 @@
-﻿namespace GameEngine.Animators
+﻿namespace Pacman.Animators
 {
     using Enums;
     using System;

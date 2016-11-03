@@ -1,4 +1,4 @@
-﻿namespace GameEngine.Globals
+﻿namespace Pacman.Globals
 {
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Audio;
