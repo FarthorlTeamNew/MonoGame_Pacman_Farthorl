@@ -1,0 +1,10 @@
+﻿- Improved pathfinding with increased difficulty
+- make a factory class for the fruit
+- add automatic level change
+- create abstract class for ghost, with different colours (maybe different abilities)
+- maybe add a game menu to select different skins for the ghosts (add all kind of interesting skins - spongebob, some kind of animals
+- implement the logging of errors
+- better structured classes, and classes organized in appropriate folders
+
+Implement enum wherever possible, and use Parse/TryParse instead of simple strings
+Use reflections to get all the fruit classes and create their instances without using any strings
