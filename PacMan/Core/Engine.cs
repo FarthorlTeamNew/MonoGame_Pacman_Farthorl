@@ -1,4 +1,6 @@
-﻿namespace Pacman.Core
+﻿using Pacman.Data;
+
+namespace Pacman.Core
 {
     using System;
     using Enums;
