@@ -51,6 +51,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\201611201452525_InitialCreate.cs" />
+    <Compile Include="Migrations\201611201452525_InitialCreate.Designer.cs">
+      <DependentUpon>201611201452525_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611202110025_addUserModel.cs" />
+    <Compile Include="Migrations\201611202110025_addUserModel.Designer.cs">
+      <DependentUpon>201611202110025_addUserModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611202111298_changeEntities.cs" />
+    <Compile Include="Migrations\201611202111298_changeEntities.Designer.cs">
+      <DependentUpon>201611202111298_changeEntities.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PacmanContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -63,6 +76,17 @@
       <Project>{e2252858-2cef-4442-b7ec-4661fa692929}</Project>
       <Name>Pacman.Models</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201611201452525_InitialCreate.resx">
+      <DependentUpon>201611201452525_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611202110025_addUserModel.resx">
+      <DependentUpon>201611202110025_addUserModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611202111298_changeEntities.resx">
+      <DependentUpon>201611202111298_changeEntities.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
