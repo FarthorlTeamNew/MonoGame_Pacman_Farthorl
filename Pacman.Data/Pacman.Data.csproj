@@ -63,6 +63,10 @@
     <Compile Include="Migrations\201611202111298_changeEntities.Designer.cs">
       <DependentUpon>201611202111298_changeEntities.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611211307248_updateCitiesAndCountry.cs" />
+    <Compile Include="Migrations\201611211307248_updateCitiesAndCountry.Designer.cs">
+      <DependentUpon>201611211307248_updateCitiesAndCountry.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PacmanContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -86,6 +90,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611202111298_changeEntities.resx">
       <DependentUpon>201611202111298_changeEntities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611211307248_updateCitiesAndCountry.resx">
+      <DependentUpon>201611211307248_updateCitiesAndCountry.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
