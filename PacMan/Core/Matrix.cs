@@ -15,7 +15,7 @@
     using Microsoft.Xna.Framework.Graphics;
     using Enums;
     using Utilities;
-    using Pacman.Interfaces;
+    using global::Pacman.Interfaces;
 
     public class Matrix : IMatrix
     {

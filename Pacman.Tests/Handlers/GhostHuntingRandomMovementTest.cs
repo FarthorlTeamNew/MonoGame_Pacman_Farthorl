@@ -7,12 +7,12 @@
     [TestClass]
     public class GhostHuntingRandomMovementTest
     {
-        Pacman.Handlers.GhostHuntingRandomMovement randMovement;
+        global::Pacman.Handlers.GhostHuntingRandomMovement randMovement;
 
         [TestInitialize]
         public void Test()
         {
-            var ghostMock = new Mock<Pacman.Models.LevelObjects.Ghost>();
+            var ghostMock = new Mock<Models.LevelObjects.Ghost>();
             var matrixMock = new Mock<IMatrix>();
 
             string[,] fakeMatrix = new string[Globals.Global.YMax, Globals.Global.XMax];
@@ -24,8 +24,8 @@
                 }
             }
             matrixMock.SetupGet(m=>m.PathsMatrix).Returns(fakeMatrix);
-            
-            randMovement = new Pacman.Handlers.GhostHuntingRandomMovement(
+
+            randMovement = new global::Pacman.Handlers.GhostHuntingRandomMovement(
                 ghostMock.Object, matrixMock.Object, new Models.PacMan());
         }
 

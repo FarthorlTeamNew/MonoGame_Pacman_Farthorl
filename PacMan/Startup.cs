@@ -1,5 +1,7 @@
-﻿using Pacman.Data;
+﻿using System;
+using Pacman.Data;
 using Pacman.Models;
+using System.Windows.Forms;
 
 namespace Pacman
 {
@@ -7,12 +9,18 @@ namespace Pacman
 
     public static class Startup
     {
-        
-        static void Main()
+        [STAThread]
+        public static void Main()
         {
-          
+            //Application.EnableVisualStyles();
+            //Application.SetCompatibleTextRenderingDefault(false);
+            //Application.Run(new Forms.Pacman());
+
             using (var game = new Engine())
+            {
                 game.Run();
+            }
+
         }
     }
 }
