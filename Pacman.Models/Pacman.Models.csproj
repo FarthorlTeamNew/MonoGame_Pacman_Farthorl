@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Anecdote.cs" />
     <Compile Include="Attributes\Email.cs" />
     <Compile Include="Attributes\Password.cs" />
     <Compile Include="City.cs" />

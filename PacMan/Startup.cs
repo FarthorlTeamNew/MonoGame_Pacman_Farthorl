@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Pacman.Data;
 using Pacman.Models;
 using System.Windows.Forms;
@@ -14,13 +16,13 @@ namespace Pacman
         {
             //Application.EnableVisualStyles();
             //Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new Forms.Pacman());
-
+            //Application.Run(new Forms.Login());
             using (var game = new Engine())
             {
                 game.Run();
             }
-
         }
+
+       
     }
 }

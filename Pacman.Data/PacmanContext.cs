@@ -17,6 +17,7 @@ namespace Pacman.Data
         public DbSet<City> Cities { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Anecdote> Anecdotes { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

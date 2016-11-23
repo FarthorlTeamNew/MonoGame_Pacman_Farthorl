@@ -71,11 +71,23 @@
     <Compile Include="Enums\LogEnumerable.cs" />
     <Compile Include="Factories\FruitFactory.cs" />
     <Compile Include="Core\ModelGenerator.cs" />
-    <Compile Include="Forms\Pacman.cs">
+    <Compile Include="Forms\Login.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Pacman.Designer.cs">
-      <DependentUpon>Pacman.cs</DependentUpon>
+    <Compile Include="Forms\Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\PacmanMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PacmanMenu.Designer.cs">
+      <DependentUpon>PacmanMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Register.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Register.Designer.cs">
+      <DependentUpon>Register.cs</DependentUpon>
     </Compile>
     <Compile Include="Globals\Global.cs" />
     <Compile Include="Handlers\GhostRandomMovement.cs" />
@@ -286,8 +298,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Forms\Pacman.resx">
-      <DependentUpon>Pacman.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Register.resx">
+      <DependentUpon>Register.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
