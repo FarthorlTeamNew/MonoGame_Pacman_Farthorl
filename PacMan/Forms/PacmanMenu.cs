@@ -16,5 +16,10 @@ namespace Pacman.Forms
         {
             InitializeComponent();
         }
+
+        private void PacmanMenu_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

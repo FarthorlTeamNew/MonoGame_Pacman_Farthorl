@@ -43,6 +43,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,13 +53,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataBridge.cs" />
-    <Compile Include="Migrations\201611212000543_InitialCreate.cs" />
-    <Compile Include="Migrations\201611212000543_InitialCreate.Designer.cs">
-      <DependentUpon>201611212000543_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201611252008525_changeModels.cs" />
+    <Compile Include="Migrations\201611252008525_changeModels.Designer.cs">
+      <DependentUpon>201611252008525_changeModels.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201611232111575_addAnecdoteTable.cs" />
-    <Compile Include="Migrations\201611232111575_addAnecdoteTable.Designer.cs">
-      <DependentUpon>201611232111575_addAnecdoteTable.cs</DependentUpon>
+    <Compile Include="Migrations\201611252010260_createTable.cs" />
+    <Compile Include="Migrations\201611252010260_createTable.Designer.cs">
+      <DependentUpon>201611252010260_createTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PacmanContext.cs" />
@@ -76,11 +77,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201611212000543_InitialCreate.resx">
-      <DependentUpon>201611212000543_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201611252008525_changeModels.resx">
+      <DependentUpon>201611252008525_changeModels.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611232111575_addAnecdoteTable.resx">
-      <DependentUpon>201611232111575_addAnecdoteTable.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201611252010260_createTable.resx">
+      <DependentUpon>201611252010260_createTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

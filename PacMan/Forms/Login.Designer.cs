@@ -28,22 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.Username = new System.Windows.Forms.TextBox();
             this.LabelUsername = new System.Windows.Forms.Label();
             this.Password = new System.Windows.Forms.TextBox();
             this.LabelPassword = new System.Windows.Forms.Label();
             this.LoginButton = new System.Windows.Forms.Button();
             this.RegisterButton = new System.Windows.Forms.Button();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // Username
             // 
             this.Username.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Username.Location = new System.Drawing.Point(16, 32);
+            this.Username.Location = new System.Drawing.Point(12, 32);
             this.Username.Name = "Username";
-            this.Username.Size = new System.Drawing.Size(343, 26);
+            this.Username.Size = new System.Drawing.Size(310, 26);
             this.Username.TabIndex = 0;
             this.Username.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Username.Validating += new System.ComponentModel.CancelEventHandler(this.Username_Validating);
+            this.Username.Validated += new System.EventHandler(this.Username_Validated);
             // 
             // LabelUsername
             // 
@@ -61,7 +66,7 @@
             this.Password.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Password.Location = new System.Drawing.Point(16, 96);
             this.Password.Name = "Password";
-            this.Password.Size = new System.Drawing.Size(343, 26);
+            this.Password.Size = new System.Drawing.Size(306, 26);
             this.Password.TabIndex = 2;
             this.Password.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Password.UseSystemPasswordChar = true;
@@ -85,10 +90,11 @@
             this.LoginButton.ForeColor = System.Drawing.Color.Blue;
             this.LoginButton.Location = new System.Drawing.Point(16, 138);
             this.LoginButton.Name = "LoginButton";
-            this.LoginButton.Size = new System.Drawing.Size(343, 37);
+            this.LoginButton.Size = new System.Drawing.Size(306, 37);
             this.LoginButton.TabIndex = 4;
             this.LoginButton.Text = "Login";
             this.LoginButton.UseVisualStyleBackColor = false;
+            this.LoginButton.Click += new System.EventHandler(this.LoginButton_Click);
             // 
             // RegisterButton
             // 
@@ -97,11 +103,15 @@
             this.RegisterButton.ForeColor = System.Drawing.Color.Blue;
             this.RegisterButton.Location = new System.Drawing.Point(16, 181);
             this.RegisterButton.Name = "RegisterButton";
-            this.RegisterButton.Size = new System.Drawing.Size(343, 37);
+            this.RegisterButton.Size = new System.Drawing.Size(306, 37);
             this.RegisterButton.TabIndex = 5;
             this.RegisterButton.Text = "Register";
             this.RegisterButton.UseVisualStyleBackColor = true;
             this.RegisterButton.Click += new System.EventHandler(this.RegisterButton_Click);
+            // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
             // 
             // Login
             // 
@@ -120,6 +130,7 @@
             this.Name = "Login";
             this.ShowIcon = false;
             this.Text = "Login";
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -133,5 +144,6 @@
         private System.Windows.Forms.Label LabelPassword;
         private System.Windows.Forms.Button LoginButton;
         private System.Windows.Forms.Button RegisterButton;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }
