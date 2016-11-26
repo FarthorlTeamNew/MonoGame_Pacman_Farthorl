@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Register));
             this.FirstNameLabel = new System.Windows.Forms.Label();
             this.FirstName = new System.Windows.Forms.TextBox();
             this.LastName = new System.Windows.Forms.TextBox();
@@ -39,14 +40,16 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.Cities = new System.Windows.Forms.ComboBox();
-            this.Email = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.AnecdoteTimer = new System.Windows.Forms.Timer(this.components);
             this.Anecdote = new System.Windows.Forms.RichTextBox();
+            this.RegButton = new System.Windows.Forms.Button();
+            this.ClearButton = new System.Windows.Forms.Button();
+            this.ConfirmPasword = new Pacman.Menu.PlaceHolderTextBox();
+            this.Password = new Pacman.Menu.PlaceHolderTextBox();
+            this.Username = new Pacman.Menu.PlaceHolderTextBox();
             this.SuspendLayout();
             // 
             // FirstNameLabel
@@ -118,7 +121,6 @@
             this.Countries.Size = new System.Drawing.Size(226, 28);
             this.Countries.TabIndex = 8;
             this.Countries.SelectedIndexChanged += new System.EventHandler(this.Countries_SelectedIndexChanged);
-            this.Countries.SelectedValueChanged += new System.EventHandler(this.Countries_SelectedValueChanged);
             // 
             // label3
             // 
@@ -151,17 +153,6 @@
             this.Cities.Size = new System.Drawing.Size(226, 28);
             this.Cities.TabIndex = 10;
             // 
-            // Email
-            // 
-            this.Email.AccessibleDescription = "";
-            this.Email.AccessibleName = "";
-            this.Email.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Email.Location = new System.Drawing.Point(149, 212);
-            this.Email.Name = "Email";
-            this.Email.Size = new System.Drawing.Size(226, 26);
-            this.Email.TabIndex = 13;
-            this.Email.Tag = "";
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -172,18 +163,6 @@
             this.label5.TabIndex = 12;
             this.label5.Text = "E-mail:";
             // 
-            // textBox1
-            // 
-            this.textBox1.AccessibleDescription = "";
-            this.textBox1.AccessibleName = "";
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox1.Location = new System.Drawing.Point(149, 244);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(226, 26);
-            this.textBox1.TabIndex = 15;
-            this.textBox1.Tag = "";
-            this.textBox1.UseSystemPasswordChar = true;
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -193,18 +172,6 @@
             this.label6.Size = new System.Drawing.Size(82, 20);
             this.label6.TabIndex = 14;
             this.label6.Text = "Password:";
-            // 
-            // textBox2
-            // 
-            this.textBox2.AccessibleDescription = "";
-            this.textBox2.AccessibleName = "";
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox2.Location = new System.Drawing.Point(149, 276);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(226, 26);
-            this.textBox2.TabIndex = 17;
-            this.textBox2.Tag = "";
-            this.textBox2.UseSystemPasswordChar = true;
             // 
             // label7
             // 
@@ -230,23 +197,85 @@
             this.Anecdote.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Anecdote.Location = new System.Drawing.Point(392, 9);
             this.Anecdote.Name = "Anecdote";
-            this.Anecdote.Size = new System.Drawing.Size(278, 364);
+            this.Anecdote.Size = new System.Drawing.Size(280, 365);
             this.Anecdote.TabIndex = 19;
             this.Anecdote.Text = "";
             this.Anecdote.MouseLeave += new System.EventHandler(this.Anecdote_MouseLeave);
             this.Anecdote.MouseHover += new System.EventHandler(this.Anecdote_MouseHover);
             // 
+            // RegButton
+            // 
+            this.RegButton.Enabled = false;
+            this.RegButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.RegButton.Location = new System.Drawing.Point(149, 308);
+            this.RegButton.Name = "RegButton";
+            this.RegButton.Size = new System.Drawing.Size(138, 30);
+            this.RegButton.TabIndex = 20;
+            this.RegButton.Text = "Register";
+            this.RegButton.UseVisualStyleBackColor = true;
+            this.RegButton.Click += new System.EventHandler(this.RegButton_Click);
+            // 
+            // ClearButton
+            // 
+            this.ClearButton.AccessibleRole = System.Windows.Forms.AccessibleRole.TitleBar;
+            this.ClearButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ClearButton.Location = new System.Drawing.Point(293, 308);
+            this.ClearButton.Name = "ClearButton";
+            this.ClearButton.Size = new System.Drawing.Size(82, 30);
+            this.ClearButton.TabIndex = 24;
+            this.ClearButton.Text = "Clear";
+            this.ClearButton.UseVisualStyleBackColor = true;
+            this.ClearButton.Click += new System.EventHandler(this.ClearButton_Click);
+            // 
+            // ConfirmPasword
+            // 
+            this.ConfirmPasword.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Italic);
+            this.ConfirmPasword.ForeColor = System.Drawing.Color.Gray;
+            this.ConfirmPasword.Location = new System.Drawing.Point(149, 276);
+            this.ConfirmPasword.Name = "ConfirmPasword";
+            this.ConfirmPasword.PlaceHolderText = "Please confirm password";
+            this.ConfirmPasword.Size = new System.Drawing.Size(226, 26);
+            this.ConfirmPasword.TabIndex = 23;
+            this.ConfirmPasword.Text = "Please confirm password";
+            this.ConfirmPasword.TextChanged += new System.EventHandler(this.ConfirmPasword_TextChanged);
+            // 
+            // Password
+            // 
+            this.Password.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Italic);
+            this.Password.ForeColor = System.Drawing.Color.Gray;
+            this.Password.Location = new System.Drawing.Point(149, 244);
+            this.Password.Name = "Password";
+            this.Password.PlaceHolderText = "Please enter password";
+            this.Password.Size = new System.Drawing.Size(226, 26);
+            this.Password.TabIndex = 22;
+            this.Password.Text = "Please enter password";
+            this.Password.TextChanged += new System.EventHandler(this.Password_TextChanged);
+            // 
+            // Username
+            // 
+            this.Username.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Italic);
+            this.Username.ForeColor = System.Drawing.Color.Gray;
+            this.Username.Location = new System.Drawing.Point(149, 212);
+            this.Username.Name = "Username";
+            this.Username.PlaceHolderText = "Please enter valid E-mail";
+            this.Username.Size = new System.Drawing.Size(226, 26);
+            this.Username.TabIndex = 21;
+            this.Username.Text = "Please enter valid E-mail";
+            this.Username.TextChanged += new System.EventHandler(this.Username_TextChanged);
+            // 
             // Register
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(682, 385);
+            this.ClientSize = new System.Drawing.Size(684, 386);
+            this.Controls.Add(this.ClearButton);
+            this.Controls.Add(this.ConfirmPasword);
+            this.Controls.Add(this.Password);
+            this.Controls.Add(this.Username);
+            this.Controls.Add(this.RegButton);
             this.Controls.Add(this.Anecdote);
-            this.Controls.Add(this.textBox2);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.Email);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.Cities);
@@ -258,10 +287,14 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.FirstName);
             this.Controls.Add(this.FirstNameLabel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(700, 425);
+            this.MinimumSize = new System.Drawing.Size(700, 425);
             this.Name = "Register";
-            this.Text = "Pacman";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Hello New User";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Register_FormClosed);
-            this.Load += new System.EventHandler(this.Pacman_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -278,13 +311,15 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox Cities;
-        private System.Windows.Forms.TextBox Email;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Timer AnecdoteTimer;
         private System.Windows.Forms.RichTextBox Anecdote;
+        private System.Windows.Forms.Button RegButton;
+        private Menu.PlaceHolderTextBox Username;
+        private Menu.PlaceHolderTextBox Password;
+        private Menu.PlaceHolderTextBox ConfirmPasword;
+        private System.Windows.Forms.Button ClearButton;
     }
 }

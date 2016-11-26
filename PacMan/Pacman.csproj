@@ -94,6 +94,9 @@
     <Compile Include="Enums\Directions.cs" />
     <Compile Include="Interfaces\IKeyPress.cs" />
     <Compile Include="Interfaces\IMatrix.cs" />
+    <Compile Include="Menu\PlaceHolderTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -306,6 +309,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Register.resx">
       <DependentUpon>Register.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menu\PlaceHolderTextBox.resx">
+      <DependentUpon>PlaceHolderTextBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

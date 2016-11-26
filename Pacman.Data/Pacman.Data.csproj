@@ -53,14 +53,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataBridge.cs" />
-    <Compile Include="Migrations\201611252008525_changeModels.cs" />
-    <Compile Include="Migrations\201611252008525_changeModels.Designer.cs">
-      <DependentUpon>201611252008525_changeModels.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201611252010260_createTable.cs" />
-    <Compile Include="Migrations\201611252010260_createTable.Designer.cs">
-      <DependentUpon>201611252010260_createTable.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PacmanContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -75,14 +67,6 @@
       <Project>{e2252858-2cef-4442-b7ec-4661fa692929}</Project>
       <Name>Pacman.Models</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201611252008525_changeModels.resx">
-      <DependentUpon>201611252008525_changeModels.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611252010260_createTable.resx">
-      <DependentUpon>201611252010260_createTable.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

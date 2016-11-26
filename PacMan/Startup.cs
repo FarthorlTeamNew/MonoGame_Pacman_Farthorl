@@ -14,13 +14,13 @@ namespace Pacman
         [STAThread]
         public static void Main()
         {
-            //Application.EnableVisualStyles();
-            //Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new Forms.Login());
-            using (var game = new Engine())
-            {
-                game.Run();
-            }
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new Forms.Login());
+            //using (var game = new Engine())
+            //{
+            //    game.Run();
+            //}
         }
 
        
