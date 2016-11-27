@@ -1,6 +1,6 @@
 ﻿namespace Pacman.Forms
 {
-    partial class Register
+    partial class RegisterUpdate
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Register));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RegisterUpdate));
             this.FirstNameLabel = new System.Windows.Forms.Label();
             this.FirstName = new System.Windows.Forms.TextBox();
             this.LastName = new System.Windows.Forms.TextBox();
@@ -211,7 +211,6 @@
             this.RegButton.Name = "RegButton";
             this.RegButton.Size = new System.Drawing.Size(138, 30);
             this.RegButton.TabIndex = 20;
-            this.RegButton.Text = "Register";
             this.RegButton.UseVisualStyleBackColor = true;
             this.RegButton.Click += new System.EventHandler(this.RegButton_Click);
             // 
@@ -263,7 +262,7 @@
             this.Username.Text = "Please enter valid E-mail";
             this.Username.TextChanged += new System.EventHandler(this.Username_TextChanged);
             // 
-            // Register
+            // RegisterUpdate
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -291,10 +290,11 @@
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(700, 425);
             this.MinimumSize = new System.Drawing.Size(700, 425);
-            this.Name = "Register";
+            this.Name = "RegisterUpdate";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Hello New User";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Register_FormClosed);
+            this.Load += new System.EventHandler(this.RegisterUpdate_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

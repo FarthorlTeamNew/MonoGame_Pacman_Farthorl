@@ -31,5 +31,12 @@ namespace Pacman.Forms
                 game.Run();
             }
         }
+
+        private void UpdateButton_Click(object sender, EventArgs e)
+        {
+            var profileUpdate = new RegisterUpdate(Enums.FormEnumerable.Update);
+            Hide();
+            profileUpdate.Show();
+        }
     }
 }

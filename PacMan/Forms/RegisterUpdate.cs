@@ -8,20 +8,22 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Pacman.Data;
+using Pacman.Enums;
 using Pacman.Models;
 using Pacman.Models.Attributes;
 
 namespace Pacman.Forms
 {
-    public partial class Register : Form
+    public partial class RegisterUpdate : Form
     {
-        private PacmanContext context = new PacmanContext();
         private List<Country> coutries;
         private List<City> cities;
-        public Register()
+        private FormEnumerable formType;
+        public RegisterUpdate(Enums.FormEnumerable formType)
         {
             this.coutries = new List<Country>();
             this.cities = new List<City>();
+            this.formType = formType;
             InitializeComponent();
             this.coutries.AddRange(DataBridge.GetAllCountries());
             this.cities.AddRange(DataBridge.GetAllCities());
@@ -30,7 +32,17 @@ namespace Pacman.Forms
 
         private void Register_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Application.Exit();
+            if (DataBridge.UserIsLogin())
+            {
+                var menu = new PacmanMenu();
+                Hide();
+                menu.Show();
+            }
+            else
+            {
+                Application.Exit();
+            }
+
         }
 
         private void Countries_SelectedIndexChanged(object sender, EventArgs e)
@@ -84,24 +96,40 @@ namespace Pacman.Forms
                 var password = this.Password.Text;
 
 
-                if (DataBridge.CheckEmail(email))
+                if (this.formType==FormEnumerable.Register && DataBridge.CheckIsEmailExist(email))
                 {
                     this.Username.BackColor = Color.LightCoral;
                     MessageBox.Show("Has existing User with the entered email");
                 }
                 else
                 {
-                    try
+                    if (this.formType==FormEnumerable.Register)
                     {
-                        DataBridge.RegisterUser(firstName, lastName, burthDate, countryId, cityId, email, password, false, User.Roles.user);
-                    }
-                    catch (Exception)
-                    {
+                        try
+                        {
+                            DataBridge.RegisterUser(firstName, lastName, burthDate, countryId, cityId, email, password, false, User.Roles.user);
+                        }
+                        catch (Exception)
+                        {
 
-                        MessageBox.Show("something wrong...Please try again");
+                            MessageBox.Show("something wrong...Please try again");
+                        }
                     }
+
+                    if (this.formType==FormEnumerable.Update)
+                    {
+                        try
+                        {
+                            DataBridge.UpdateUser(firstName, lastName, burthDate, countryId, cityId, email, password, false, User.Roles.user);
+                        }
+                        catch (Exception)
+                        {
+
+                            MessageBox.Show("...something wrong...Please try again");
+                        }
+                    }
+                  
                 }
-
             }
             else
             {
@@ -148,8 +176,8 @@ namespace Pacman.Forms
             if (email.IsValid(this.Username.Text) &&
                 pass.IsValid(this.Password.Text) &&
                 pass.IsValid(this.ConfirmPasword.Text) &&
-                this.Password.Text!=this.Password.PlaceHolderText &&
-                this.ConfirmPasword.Text!=this.ConfirmPasword.PlaceHolderText)
+                this.Password.Text != this.Password.PlaceHolderText &&
+                this.ConfirmPasword.Text != this.ConfirmPasword.PlaceHolderText)
             {
                 this.RegButton.Enabled = true;
             }
@@ -208,6 +236,30 @@ namespace Pacman.Forms
             this.Username.Clear();
             this.Password.Clear();
             this.ConfirmPasword.Clear();
+        }
+
+        private void RegisterUpdate_Load(object sender, EventArgs e)
+        {
+            if (this.formType == FormEnumerable.Register)
+            {
+                this.RegButton.Text = "Register";
+            }
+
+            if (this.formType == FormEnumerable.Update)
+            {
+                this.RegButton.Text = "Update";
+                this.Username.Enabled = false;
+                User user = DataBridge.GetUserData();
+                this.Countries.Items.AddRange(DataBridge.GetAllCountries().ToArray());
+                this.FirstName.Text = user.FirstName;
+                this.LastName.Text = user.LastName;
+                if (user.BurthDate != null) this.BurthDate.Value = (DateTime)user.BurthDate;
+                this.Countries.Text = user.Country.Name;
+
+                this.Cities.Items.AddRange(DataBridge.GetAllCities().Where(c => c.Country.Name == this.Countries.Text).ToArray());
+                this.Cities.Text = user.City.Name;
+                this.Username.Text = user.Email;
+            }
         }
     }
 }

@@ -24,7 +24,7 @@ namespace Pacman.Forms
 
         private void RegisterButton_Click(object sender, EventArgs e)
         {
-            var register = new Register();
+            var register = new RegisterUpdate(Enums.FormEnumerable.Register);
             Hide();
             register.Show();
 
