@@ -13,9 +13,10 @@
         private static PacmanContext context = new PacmanContext();
         private static Random random = new Random();
         private static User user = new User();
+        private static string userEmail = "";
         private static ICollection<Country> countries;
         private static ICollection<City> cities;
-        private static string userSession;
+        private static string userSessionId;
         private static bool userIsLogin = false;
 
         public static IQueryable<string> GetAllCountriesName()
@@ -113,8 +114,8 @@
                         }
                         user.Country = GetAllCountries().FirstOrDefault(c => c.Id == (int)sqlCommand.Parameters["@countryId"].Value);
                         user.City = GetAllCities().FirstOrDefault(c => c.Id == (int)sqlCommand.Parameters["@cityId"].Value);
-                        user.Email = username;
-                        user.SessionId = (string)sqlCommand.Parameters["@sessionId"].Value;
+                        userEmail = username;
+                        userSessionId = (string)sqlCommand.Parameters["@sessionId"].Value;
                         user.Id = (int)sqlCommand.Parameters["@userId"].Value;
                         userIsLogin = true;
 
@@ -160,11 +161,11 @@
                     var countries = GetAllCountries();
                     var cities = GetAllCities();
                     userIsLogin = true;
-                    user.SessionId = sessionId;
+                    userSessionId = sessionId;
                     user.FirstName = firstName;
                     user.LastName = lastName;
                     user.BurthDate = burthDate;
-                    user.Email = email;
+                    userEmail = email;
                     user.Country = countries.FirstOrDefault(c => c.Id == countryId);
                     user.City = cities.FirstOrDefault(c => c.Id == cityId);
                 }
@@ -189,7 +190,7 @@
             var passwordParameter = new SqlParameter { ParameterName = "@password", SqlDbType = SqlDbType.NVarChar, Value = Hash(password) };
             var isDeleteParameter = new SqlParameter { ParameterName = "@isDelete", SqlDbType = SqlDbType.Bit, Value = isDelete };
             var roleParameter = new SqlParameter { ParameterName = "@role", SqlDbType = SqlDbType.Int, Value = (int)role };
-            var sessionIdParameter = new SqlParameter { ParameterName = "@sessionId", SqlDbType = SqlDbType.VarChar, Value = user.SessionId };
+            var sessionIdParameter = new SqlParameter { ParameterName = "@sessionId", SqlDbType = SqlDbType.VarChar, Value = userSessionId };
             var returnSession = new SqlParameter { ParameterName = "@returnSession", SqlDbType = SqlDbType.VarChar, Value = "", Direction = ParameterDirection.Output };
 
             var results = context.Database.SqlQuery<string>("exec @returnSession= updateUser " +
@@ -210,11 +211,11 @@
                     var countries = GetAllCountries();
                     var cities = GetAllCities();
                     userIsLogin = true;
-                    user.SessionId = sessionId;
+                    userSessionId = sessionId;
                     user.FirstName = firstName;
                     user.LastName = lastName;
                     user.BurthDate = burthDate;
-                    user.Email = email;
+                    userEmail = email;
                     user.Country = countries.FirstOrDefault(c => c.Id == countryId);
                     user.City = cities.FirstOrDefault(c => c.Id == cityId);
                 }
@@ -257,6 +258,11 @@
         public static User GetUserData()
         {
             return user;
+        }
+
+        public static string GetUserEmail()
+        {
+            return userEmail;
         }
 
         //Hash the password with SHA256 algoritm, before save into the User object

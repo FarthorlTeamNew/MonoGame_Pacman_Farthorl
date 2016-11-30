@@ -108,6 +108,13 @@ namespace Pacman.Forms
                         try
                         {
                             DataBridge.RegisterUser(firstName, lastName, burthDate, countryId, cityId, email, password, false, User.Roles.user);
+                            if (DataBridge.UserIsLogin())
+                            {
+                                PacmanMenu gameMenu = new PacmanMenu();
+                                Hide();
+                                gameMenu.Show();
+
+                            }
                         }
                         catch (Exception)
                         {
@@ -258,7 +265,7 @@ namespace Pacman.Forms
 
                 this.Cities.Items.AddRange(DataBridge.GetAllCities().Where(c => c.Country.Name == this.Countries.Text).ToArray());
                 this.Cities.Text = user.City.Name;
-                this.Username.Text = user.Email;
+                this.Username.Text = DataBridge.GetUserEmail();
             }
         }
     }

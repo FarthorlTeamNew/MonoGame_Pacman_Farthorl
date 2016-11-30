@@ -35,8 +35,8 @@
             this.LoginButton = new System.Windows.Forms.Button();
             this.RegisterButton = new System.Windows.Forms.Button();
             this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.Timer = new System.Windows.Forms.Timer(this.components);
             this.Password = new Pacman.Menu.PlaceHolderTextBox();
+            this.Timer = new System.Windows.Forms.Timer(this.components);
             this.Username = new Pacman.Menu.PlaceHolderTextBox();
             this.SuspendLayout();
             // 
@@ -98,10 +98,6 @@
             this.ToolTip.ShowAlways = true;
             this.ToolTip.StripAmpersands = true;
             // 
-            // Timer
-            // 
-            this.Timer.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
             // Password
             // 
             this.Password.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Italic);
@@ -116,6 +112,10 @@
         " symbols are not requared.\r\n-Uppercase symbol are not requeared.\r\n-Special chara" +
         "cter are not requared.");
             this.Password.TextChanged += new System.EventHandler(this.Password_TextChanged_1);
+            // 
+            // Timer
+            // 
+            this.Timer.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Username
             // 
@@ -149,6 +149,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Hello Guest";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Login_FormClosed);
+            this.Load += new System.EventHandler(this.Login_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

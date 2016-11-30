@@ -14,9 +14,13 @@ namespace Pacman.Data
         {
         }
 
+        public DbSet<User> Users { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<Anecdote> Anecdotes { get; set; }
+        public DbSet<Level> Levels { get; set; }
+        public DbSet<LevelCoordinates> LevelCoordinateses { get; set; }
+        public DbSet<Statistic> Statistics { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
