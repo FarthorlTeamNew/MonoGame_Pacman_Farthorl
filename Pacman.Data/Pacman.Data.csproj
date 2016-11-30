@@ -56,19 +56,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataBridge.cs" />
-    <Compile Include="Migrations\201611301938043_changeModels.cs" />
-    <Compile Include="Migrations\201611301938043_changeModels.Designer.cs">
-      <DependentUpon>201611301938043_changeModels.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201611302012294_changeEntity.cs" />
-    <Compile Include="Migrations\201611302012294_changeEntity.Designer.cs">
-      <DependentUpon>201611302012294_changeEntity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201611302034391_updateModels.cs" />
-    <Compile Include="Migrations\201611302034391_updateModels.Designer.cs">
-      <DependentUpon>201611302034391_updateModels.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PacmanContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -85,17 +72,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201611301938043_changeModels.resx">
-      <DependentUpon>201611301938043_changeModels.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611302012294_changeEntity.resx">
-      <DependentUpon>201611302012294_changeEntity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611302034391_updateModels.resx">
-      <DependentUpon>201611302034391_updateModels.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
