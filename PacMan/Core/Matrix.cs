@@ -158,10 +158,8 @@ namespace Pacman.Core
                 int tryY = new Random(DateTime.Now.Millisecond).Next(1, Global.YMax - 1);
 
                 var coordinates = this.level.LevelCoordinates.FirstOrDefault(coordinate => coordinate.QuadrantX == tryX && coordinate.QuadrantY == tryY);
-                if (coordinates != null && coordinates.isPoint)
+                if (coordinates != null && coordinates.isPoint && this.fruits.Count(f => f.X == tryX * Global.quad_Width && f.Y == tryY * Global.quad_Width) == 0)
                 {
-                    coordinates.isWall = false;
-                    coordinates.isPoint = false;
                     return $"{tryX} {tryY}";
                 }
 

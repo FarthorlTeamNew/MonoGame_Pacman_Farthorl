@@ -70,19 +70,16 @@ namespace Pacman.Core
 
         private string AvailableXY(Matrix levelMatrix)
         {
-            while (true)
+          var gostCoordinates = this.ghosts.Select(g => g.Value);
+          while (true)
             {
                 int tryX = new Random(DateTime.Now.Millisecond).Next(3, Global.XMax - 1);
                 int tryY = new Random(DateTime.Now.Millisecond).Next(3, Global.YMax - 1);
                 var pointQuadrant = levelMatrix.Level.LevelCoordinates.FirstOrDefault(coordinate=>coordinate.QuadrantX==tryX && coordinate.QuadrantY==tryY);
-                if (pointQuadrant != null && pointQuadrant.isPoint)
+                
+                if (pointQuadrant != null && pointQuadrant.isPoint && gostCoordinates.Count(g => g.X == tryX * Global.quad_Width && g.Y == tryY * Global.quad_Height) == 0)
                 {
-                    levelMatrix.Level.LevelCoordinates.FirstOrDefault(
-                        coordinate => coordinate.QuadrantX == tryX && coordinate.QuadrantY == tryY).isWall = false;
-                    levelMatrix.Level.LevelCoordinates.FirstOrDefault(
-                        coordinate => coordinate.QuadrantX == tryX && coordinate.QuadrantY == tryY).isPoint = false;
-
-                    return $"{tryX} {tryY}";
+                   return $"{tryX} {tryY}";
                 }
 
                 //The old version of the code
