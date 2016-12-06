@@ -56,23 +56,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataBridge.cs" />
-    <Compile Include="Migrations\201612052035314_updateDatabase.cs" />
-    <Compile Include="Migrations\201612052035314_updateDatabase.Designer.cs">
-      <DependentUpon>201612052035314_updateDatabase.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612052046351_updateDatabase1.cs" />
-    <Compile Include="Migrations\201612052046351_updateDatabase1.Designer.cs">
-      <DependentUpon>201612052046351_updateDatabase1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612052053236_updateDatabase2.cs" />
-    <Compile Include="Migrations\201612052053236_updateDatabase2.Designer.cs">
-      <DependentUpon>201612052053236_updateDatabase2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612052106254_updateDatabase3.cs" />
-    <Compile Include="Migrations\201612052106254_updateDatabase3.Designer.cs">
-      <DependentUpon>201612052106254_updateDatabase3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PacmanContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -89,20 +72,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201612052035314_updateDatabase.resx">
-      <DependentUpon>201612052035314_updateDatabase.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612052046351_updateDatabase1.resx">
-      <DependentUpon>201612052046351_updateDatabase1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612052053236_updateDatabase2.resx">
-      <DependentUpon>201612052053236_updateDatabase2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612052106254_updateDatabase3.resx">
-      <DependentUpon>201612052106254_updateDatabase3.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
