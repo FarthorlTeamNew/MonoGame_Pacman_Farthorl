@@ -1,4 +1,6 @@
-﻿namespace Pacman.Core
+﻿using System.Linq;
+
+namespace Pacman.Core
 {
     using System;
     using System.Collections.Generic;
@@ -72,12 +74,24 @@
             {
                 int tryX = new Random(DateTime.Now.Millisecond).Next(3, Global.XMax - 1);
                 int tryY = new Random(DateTime.Now.Millisecond).Next(3, Global.YMax - 1);
-                var elements = levelMatrix.PathsMatrix[tryY, tryX].Trim().Split(',');
-                if (int.Parse(elements[1]) == 1)
+                var pointQuadrant = levelMatrix.Level.LevelCoordinates.FirstOrDefault(coordinate=>coordinate.QuadrantX==tryX && coordinate.QuadrantY==tryY);
+                if (pointQuadrant != null && pointQuadrant.isPoint)
                 {
-                    levelMatrix.PathsMatrix[tryY, tryX] = "0,0";
+                    levelMatrix.Level.LevelCoordinates.FirstOrDefault(
+                        coordinate => coordinate.QuadrantX == tryX && coordinate.QuadrantY == tryY).isWall = false;
+                    levelMatrix.Level.LevelCoordinates.FirstOrDefault(
+                        coordinate => coordinate.QuadrantX == tryX && coordinate.QuadrantY == tryY).isPoint = false;
+
                     return $"{tryX} {tryY}";
                 }
+
+                //The old version of the code
+                //var elements = levelMatrix.PathsMatrix[tryY, tryX].Trim().Split(',');
+                //if (int.Parse(elements[1]) == 1)
+                //{
+                //    levelMatrix.PathsMatrix[tryY, tryX] = "0,0";
+                //    return $"{tryX} {tryY}";
+                //}
             }
         }
 

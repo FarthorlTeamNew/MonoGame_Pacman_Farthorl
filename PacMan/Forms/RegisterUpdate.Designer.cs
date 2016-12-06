@@ -72,6 +72,7 @@
             this.FirstName.Size = new System.Drawing.Size(226, 26);
             this.FirstName.TabIndex = 2;
             this.FirstName.Tag = "";
+            this.FirstName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FirstName_KeyDown);
             // 
             // LastName
             // 
@@ -83,6 +84,7 @@
             this.LastName.Size = new System.Drawing.Size(226, 26);
             this.LastName.TabIndex = 4;
             this.LastName.Tag = "";
+            this.LastName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.LastName_KeyDown);
             // 
             // label1
             // 
@@ -237,6 +239,7 @@
             this.ConfirmPasword.TabIndex = 23;
             this.ConfirmPasword.Text = "Please confirm password";
             this.ConfirmPasword.TextChanged += new System.EventHandler(this.ConfirmPasword_TextChanged);
+            this.ConfirmPasword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ConfirmPasword_KeyDown);
             // 
             // Password
             // 
@@ -249,6 +252,7 @@
             this.Password.TabIndex = 22;
             this.Password.Text = "Please enter password";
             this.Password.TextChanged += new System.EventHandler(this.Password_TextChanged);
+            this.Password.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Password_KeyDown);
             // 
             // Username
             // 
@@ -261,6 +265,7 @@
             this.Username.TabIndex = 21;
             this.Username.Text = "Please enter valid E-mail";
             this.Username.TextChanged += new System.EventHandler(this.Username_TextChanged);
+            this.Username.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Username_KeyDown);
             // 
             // RegisterUpdate
             // 

@@ -6,11 +6,10 @@ namespace Pacman.Models
 {
     public class Level
     {
-        private ICollection<LevelCoordinates> coordinates;
-        private ICollection<User> users; 
+        private ICollection<LevelCoordinate> coordinates;
         public Level()
         {
-            this.coordinates = new HashSet<LevelCoordinates>();
+            this.coordinates = new HashSet<LevelCoordinate>();
         }
 
         [Key]
@@ -25,17 +24,10 @@ namespace Pacman.Models
 
         public int? NumbersOfFruit { get; set; }
 
-        public ICollection<LevelCoordinates> LevelCoordinates
+        public virtual ICollection<LevelCoordinate> LevelCoordinates
         {
             get { return this.coordinates; }
             set { this.coordinates = value; }
         }
-
-        public ICollection<User> Users {
-            get { return this.users; }
-            set { this.users = value; }
-        }
-
-
     }
 }

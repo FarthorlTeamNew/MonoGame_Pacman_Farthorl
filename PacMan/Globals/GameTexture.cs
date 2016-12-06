@@ -28,15 +28,9 @@
 
         public static void LoadTextures(Game game)
         {
-            MainMenu = game.Content.Load<Texture2D>("MenuImages/MainMenu");
-            PlayButton = game.Content.Load<Texture2D>("MenuImages/playEasy");
-            HardPlayGame = game.Content.Load<Texture2D>("MenuImages/playHard");
-            OptionsButton = game.Content.Load<Texture2D>("MenuImages/instructionbutton");
-            Instruction = game.Content.Load<Texture2D>("MenuImages/instructions");
-            ExitButton = game.Content.Load<Texture2D>("MenuImages/Exit");
-            Font = game.Content.Load<SpriteFont>("ScoresFont");
-            WinPic = game.Content.Load<Texture2D>("PacManWin_image");
-            LosePic = game.Content.Load<Texture2D>("PacManLose");
+           Font = game.Content.Load<SpriteFont>("ScoresFont");
+           WinPic = game.Content.Load<Texture2D>("PacManWin_image");
+           LosePic = game.Content.Load<Texture2D>("PacManLose");
 
             PacmanAndGhost = game.Content.Load<Texture2D>("PacManSprite_sheets");
             PacmanPokeball = game.Content.Load<Texture2D>("Pokemons/pokeball");

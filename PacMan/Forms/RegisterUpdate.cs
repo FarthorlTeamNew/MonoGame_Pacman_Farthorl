@@ -25,8 +25,8 @@ namespace Pacman.Forms
             this.cities = new List<City>();
             this.formType = formType;
             InitializeComponent();
-            this.coutries.AddRange(DataBridge.GetAllCountries());
-            this.cities.AddRange(DataBridge.GetAllCities());
+            this.coutries.AddRange(DataBridge.AllCountries);
+            this.cities.AddRange(DataBridge.GetAllCities);
             this.Countries.Items.AddRange(this.coutries.Select(c => c.Name).ToArray());
         }
 
@@ -96,14 +96,14 @@ namespace Pacman.Forms
                 var password = this.Password.Text;
 
 
-                if (this.formType==FormEnumerable.Register && DataBridge.CheckIsEmailExist(email))
+                if (this.formType == FormEnumerable.Register && DataBridge.CheckIsEmailExist(email))
                 {
                     this.Username.BackColor = Color.LightCoral;
                     MessageBox.Show("Has existing User with the entered email");
                 }
                 else
                 {
-                    if (this.formType==FormEnumerable.Register)
+                    if (this.formType == FormEnumerable.Register)
                     {
                         try
                         {
@@ -123,7 +123,7 @@ namespace Pacman.Forms
                         }
                     }
 
-                    if (this.formType==FormEnumerable.Update)
+                    if (this.formType == FormEnumerable.Update)
                     {
                         try
                         {
@@ -135,7 +135,7 @@ namespace Pacman.Forms
                             MessageBox.Show("...something wrong...Please try again");
                         }
                     }
-                  
+
                 }
             }
             else
@@ -257,15 +257,130 @@ namespace Pacman.Forms
                 this.RegButton.Text = "Update";
                 this.Username.Enabled = false;
                 User user = DataBridge.GetUserData();
-                this.Countries.Items.AddRange(DataBridge.GetAllCountries().ToArray());
+                this.Countries.Items.AddRange(DataBridge.AllCountries.ToArray());
                 this.FirstName.Text = user.FirstName;
                 this.LastName.Text = user.LastName;
                 if (user.BurthDate != null) this.BurthDate.Value = (DateTime)user.BurthDate;
                 this.Countries.Text = user.Country.Name;
 
-                this.Cities.Items.AddRange(DataBridge.GetAllCities().Where(c => c.Country.Name == this.Countries.Text).ToArray());
+                this.Cities.Items.AddRange(DataBridge.GetAllCities.Where(c => c.Country.Name == this.Countries.Text).ToArray());
                 this.Cities.Text = user.City.Name;
                 this.Username.Text = DataBridge.GetUserEmail();
+            }
+        }
+
+        private void FirstName_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue == 13)
+            {
+                if (string.IsNullOrEmpty(this.LastName.Text))
+                {
+                    this.ActiveControl = this.LastName;
+                }
+                else if (string.IsNullOrEmpty(this.Username.Text) || this.Username.Text == this.Username.PlaceHolderText)
+                {
+                    this.ActiveControl = this.Username;
+                }
+                else if (string.IsNullOrEmpty(this.Password.Text) || this.Password.Text == this.Password.PlaceHolderText)
+                {
+                    this.ActiveControl = this.Password;
+                }
+                else if (string.IsNullOrEmpty(this.ConfirmPasword.Text) || this.ConfirmPasword.Text == this.ConfirmPasword.PlaceHolderText)
+                {
+                    this.ActiveControl = this.ConfirmPasword;
+                }
+                else if (this.RegButton.Enabled)
+                {
+                    RegButton_Click(sender, e);
+                }
+            }
+        }
+
+        private void LastName_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue == 13)
+            {
+                if (string.IsNullOrEmpty(this.Username.Text) || this.Username.Text == this.Username.PlaceHolderText)
+                {
+                    this.ActiveControl = this.Username;
+                }
+                else if (string.IsNullOrEmpty(this.Password.Text) || this.Password.Text == this.Password.PlaceHolderText)
+                {
+                    this.ActiveControl = this.Password;
+                }
+                else if (string.IsNullOrEmpty(this.ConfirmPasword.Text) || this.ConfirmPasword.Text == this.ConfirmPasword.PlaceHolderText)
+                {
+                    this.ActiveControl = this.ConfirmPasword;
+                }
+                else if (this.RegButton.Enabled)
+                {
+                    RegButton_Click(sender, e);
+                }
+            }
+        }
+
+        private void Username_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue == 13)
+            {
+                if (string.IsNullOrEmpty(this.Password.Text) || this.Password.Text == this.Password.PlaceHolderText)
+                {
+                    this.ActiveControl = this.Password;
+                }
+                else if (string.IsNullOrEmpty(this.ConfirmPasword.Text) || this.ConfirmPasword.Text == this.ConfirmPasword.PlaceHolderText)
+                {
+                    this.ActiveControl = this.ConfirmPasword;
+                }
+                else if (this.RegButton.Enabled)
+                {
+                    RegButton_Click(sender, e);
+                }
+            }
+        }
+
+        private void Password_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue == 13)
+            {
+                if (string.IsNullOrEmpty(this.ConfirmPasword.Text) || this.ConfirmPasword.Text == this.ConfirmPasword.PlaceHolderText)
+                {
+                    this.ActiveControl = this.ConfirmPasword;
+                }
+                else if (this.RegButton.Enabled)
+                {
+                    RegButton_Click(sender, e);
+                }
+            }
+        }
+
+        private void ConfirmPasword_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue == 13)
+            {
+                if (string.IsNullOrEmpty(this.FirstName.Text))
+                {
+                    this.ActiveControl = this.FirstName;
+                }
+                else if (string.IsNullOrEmpty(this.LastName.Text))
+                {
+                    this.ActiveControl = this.LastName;
+                }
+                else if (string.IsNullOrEmpty(this.Username.Text) || this.Username.Text == this.Username.PlaceHolderText)
+                {
+                    this.ActiveControl = this.Username;
+                }
+                else if (string.IsNullOrEmpty(this.Password.Text) || this.Password.Text == this.Password.PlaceHolderText)
+                {
+                    this.ActiveControl = this.Password;
+                }
+                else if (string.IsNullOrEmpty(this.ConfirmPasword.Text) || this.ConfirmPasword.Text == this.ConfirmPasword.PlaceHolderText)
+                {
+                    this.ActiveControl = this.ConfirmPasword;
+                }
+                else if (this.RegButton.Enabled)
+                {
+                    RegButton_Click(sender, e);
+                }
             }
         }
     }

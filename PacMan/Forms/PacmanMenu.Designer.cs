@@ -29,26 +29,28 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PacmanMenu));
-            this.StartGame = new System.Windows.Forms.Button();
+            this.StartEasyGame = new System.Windows.Forms.Button();
             this.UpdateButton = new System.Windows.Forms.Button();
+            this.LevelsComboBox = new System.Windows.Forms.ComboBox();
+            this.StartHardGame = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // StartGame
+            // StartEasyGame
             // 
-            this.StartGame.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.StartGame.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.StartGame.Location = new System.Drawing.Point(12, 106);
-            this.StartGame.Name = "StartGame";
-            this.StartGame.Size = new System.Drawing.Size(153, 32);
-            this.StartGame.TabIndex = 0;
-            this.StartGame.Text = "Start New Game";
-            this.StartGame.UseVisualStyleBackColor = true;
-            this.StartGame.Click += new System.EventHandler(this.button1_Click);
+            this.StartEasyGame.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.StartEasyGame.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.StartEasyGame.Location = new System.Drawing.Point(12, 40);
+            this.StartEasyGame.Name = "StartEasyGame";
+            this.StartEasyGame.Size = new System.Drawing.Size(170, 32);
+            this.StartEasyGame.TabIndex = 0;
+            this.StartEasyGame.Text = "Start Game Normal";
+            this.StartEasyGame.UseVisualStyleBackColor = true;
+            this.StartEasyGame.Click += new System.EventHandler(this.StartNormalButton_Click);
             // 
             // UpdateButton
             // 
             this.UpdateButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.UpdateButton.Location = new System.Drawing.Point(419, 106);
+            this.UpdateButton.Location = new System.Drawing.Point(419, 6);
             this.UpdateButton.Name = "UpdateButton";
             this.UpdateButton.Size = new System.Drawing.Size(153, 32);
             this.UpdateButton.TabIndex = 1;
@@ -56,16 +58,42 @@
             this.UpdateButton.UseVisualStyleBackColor = true;
             this.UpdateButton.Click += new System.EventHandler(this.UpdateButton_Click);
             // 
+            // LevelsComboBox
+            // 
+            this.LevelsComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.LevelsComboBox.FormattingEnabled = true;
+            this.LevelsComboBox.ItemHeight = 20;
+            this.LevelsComboBox.Location = new System.Drawing.Point(12, 6);
+            this.LevelsComboBox.Name = "LevelsComboBox";
+            this.LevelsComboBox.Size = new System.Drawing.Size(340, 28);
+            this.LevelsComboBox.TabIndex = 2;
+            this.LevelsComboBox.Tag = "Select game level";
+            this.LevelsComboBox.Text = "Select game level";
+            // 
+            // StartHardGame
+            // 
+            this.StartHardGame.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.StartHardGame.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.StartHardGame.Location = new System.Drawing.Point(182, 40);
+            this.StartHardGame.Name = "StartHardGame";
+            this.StartHardGame.Size = new System.Drawing.Size(170, 32);
+            this.StartHardGame.TabIndex = 3;
+            this.StartHardGame.Text = "Start Game Hard";
+            this.StartHardGame.UseVisualStyleBackColor = true;
+            this.StartHardGame.Click += new System.EventHandler(this.StartHardGame_Click);
+            // 
             // PacmanMenu
             // 
-            this.AcceptButton = this.StartGame;
+            this.AcceptButton = this.StartEasyGame;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(584, 261);
+            this.Controls.Add(this.StartHardGame);
+            this.Controls.Add(this.LevelsComboBox);
             this.Controls.Add(this.UpdateButton);
-            this.Controls.Add(this.StartGame);
+            this.Controls.Add(this.StartEasyGame);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -75,13 +103,16 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Farthorl Pacman Game";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.PacmanMenu_FormClosed);
+            this.Load += new System.EventHandler(this.PacmanMenu_Load);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button StartGame;
+        private System.Windows.Forms.Button StartEasyGame;
         private System.Windows.Forms.Button UpdateButton;
+        private System.Windows.Forms.ComboBox LevelsComboBox;
+        private System.Windows.Forms.Button StartHardGame;
     }
 }

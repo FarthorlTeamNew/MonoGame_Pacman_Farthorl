@@ -111,7 +111,8 @@
             this.ToolTip.SetToolTip(this.Password, "Please enter valid password.\r\n-minimum 6 symbols.\r\n-maximum 50 symbols.\r\n-Special" +
         " symbols are not requared.\r\n-Uppercase symbol are not requeared.\r\n-Special chara" +
         "cter are not requared.");
-            this.Password.TextChanged += new System.EventHandler(this.Password_TextChanged_1);
+            this.Password.TextChanged += new System.EventHandler(this.Password_TextChanged);
+            this.Password.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Password_KeyDown);
             // 
             // Timer
             // 
@@ -128,6 +129,7 @@
             this.Username.TabIndex = 6;
             this.Username.Text = "Please enter valid email";
             this.Username.TextChanged += new System.EventHandler(this.Username_TextChanged_1);
+            this.Username.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Username_KeyDown);
             // 
             // Login
             // 

@@ -1,4 +1,7 @@
-﻿namespace Pacman.Data
+﻿using System.Data.Entity;
+using System.Runtime.CompilerServices;
+
+namespace Pacman.Data
 {
     using System;
     using System.Collections.Generic;
@@ -13,39 +16,30 @@
         private static PacmanContext context = new PacmanContext();
         private static Random random = new Random();
         private static User user = new User();
-        private static string userEmail = "";
+        private static Statistic statistic= new Statistic();
         private static ICollection<Country> countries;
         private static ICollection<City> cities;
+        private static ICollection<Level> levels;
+        private static string userEmail;
         private static string userSessionId;
         private static bool userIsLogin = false;
 
-        public static IQueryable<string> GetAllCountriesName()
+        public static IQueryable<string> AllCountriesName
         {
-
-            return context.Countries.Select(c => c.Name);
-
-
-        }
-
-        public static ICollection<Country> GetAllCountries()
-        {
-            if (countries == null)
+            get
             {
-                countries = context.Countries.ToList();
-            }
-            return countries;
+                if (countries == null)
+                {
+                    countries = context.Countries.ToList();
+                }
 
+                return countries.Select(c => c.Name) as IQueryable<string>;
+            }
         }
 
-        public static ICollection<City> GetAllCities()
-        {
-            if (cities == null)
-            {
-                cities = context.Cities.ToList();
-            }
-            return cities;
+        public static ICollection<Country> AllCountries => countries ?? (countries = context.Countries.ToList());
 
-        }
+        public static ICollection<City> GetAllCities => cities ?? (cities = context.Cities.ToList());
 
         public static ICollection<City> GetCitiesByCountryName(string countryName)
         {
@@ -112,8 +106,8 @@
                         {
                             user.BurthDate = null;
                         }
-                        user.Country = GetAllCountries().FirstOrDefault(c => c.Id == (int)sqlCommand.Parameters["@countryId"].Value);
-                        user.City = GetAllCities().FirstOrDefault(c => c.Id == (int)sqlCommand.Parameters["@cityId"].Value);
+                        user.Country = AllCountries.FirstOrDefault(c => c.Id == (int)sqlCommand.Parameters["@countryId"].Value);
+                        user.City = GetAllCities.FirstOrDefault(c => c.Id == (int)sqlCommand.Parameters["@cityId"].Value);
                         userEmail = username;
                         userSessionId = (string)sqlCommand.Parameters["@sessionId"].Value;
                         user.Id = (int)sqlCommand.Parameters["@userId"].Value;
@@ -158,8 +152,8 @@
                 var sessionId = results.FirstOrDefault();
                 if (!string.IsNullOrEmpty(sessionId) && sessionId.Length == 64)
                 {
-                    var countries = GetAllCountries();
-                    var cities = GetAllCities();
+                    var countries = AllCountries;
+                    var cities = GetAllCities;
                     userIsLogin = true;
                     userSessionId = sessionId;
                     user.FirstName = firstName;
@@ -208,8 +202,8 @@
                 var sessionId = results.FirstOrDefault();
                 if (!string.IsNullOrEmpty(sessionId) && sessionId.Length == 64)
                 {
-                    var countries = GetAllCountries();
-                    var cities = GetAllCities();
+                    var countries = AllCountries;
+                    var cities = GetAllCities;
                     userIsLogin = true;
                     userSessionId = sessionId;
                     user.FirstName = firstName;
@@ -223,7 +217,7 @@
             }
             catch (Exception e)
             {
-                throw;
+                throw new DataException(e.Message);
             }
         }
         public static bool CheckIsEmailExist(string email)
@@ -263,6 +257,38 @@
         public static string GetUserEmail()
         {
             return userEmail;
+        }
+
+        public static ICollection<Level> GetAllLevels()
+        {
+            return levels ?? (levels = context.Levels.ToList());
+        }
+
+        public static Level GetLevelByName(string levelName)
+        {
+            var levels = GetAllLevels();
+
+            return levels.FirstOrDefault(level => level.Name == levelName);
+        }
+
+        public static void StartNewGame(string levelName)
+        {
+            statistic.Level = levels.FirstOrDefault(level => level.Name == levelName);
+            statistic.UserId = user.Id; //Important Do not change
+            statistic.StartGame = DateTime.Now;
+            context.Statistics.Add(statistic);
+            context.SaveChanges();
+        }
+
+        public static void EndGame()
+        {
+           if (statistic!=null)
+            {
+                statistic.EndGame=DateTime.Now;
+                statistic.Duration = statistic.EndGame - statistic.StartGame;
+                context.SaveChanges();
+            }
+            
         }
 
         //Hash the password with SHA256 algoritm, before save into the User object

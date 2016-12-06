@@ -55,7 +55,7 @@
     <Compile Include="City.cs" />
     <Compile Include="Country.cs" />
     <Compile Include="Level.cs" />
-    <Compile Include="LevelCoordinates.cs" />
+    <Compile Include="LevelCoordinate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Statistic.cs" />
     <Compile Include="User.cs" />

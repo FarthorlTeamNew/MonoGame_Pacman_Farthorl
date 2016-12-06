@@ -30,7 +30,7 @@ namespace Pacman.Forms
             this.RegisterButton.Enabled = false;
 
             DataBridge.LogInUser(this.Username.Text, this.Password.Text);
-            
+
             if (DataBridge.UserIsLogin())
             {
                 var pacmanMenu = new PacmanMenu();
@@ -71,7 +71,7 @@ namespace Pacman.Forms
                 this.Password.BackColor = Color.LightCoral;
             }
 
-            if (email.IsValid(this.Username.Text) && pass.IsValid(this.Password.Text))
+            if (email.IsValid(this.Username.Text) && pass.IsValid(this.Password.Text) && this.Password.Text != this.Password.PlaceHolderText)
             {
                 this.LoginButton.Enabled = true;
             }
@@ -93,17 +93,17 @@ namespace Pacman.Forms
             LoginButton_Validating(null);
         }
 
-        private void Password_TextChanged_1(object sender, EventArgs e)
+        private void Password_TextChanged(object sender, EventArgs e)
         {
-            if (this.Password.Text == this.Password.PlaceHolderText && 
+            if (this.Password.Text == this.Password.PlaceHolderText &&
                 this.Password.UseSystemPasswordChar == true)
             {
                 this.Password.UseSystemPasswordChar = false;
             }
 
-            if (this.Password.Text != this.Password.PlaceHolderText && 
-                this.Password.UseSystemPasswordChar == false && 
-                this.Password.Text.Length>0)
+            if (this.Password.Text != this.Password.PlaceHolderText &&
+                this.Password.UseSystemPasswordChar == false &&
+                this.Password.Text.Length > 0)
             {
                 this.Password.UseSystemPasswordChar = true;
             }
@@ -113,15 +113,16 @@ namespace Pacman.Forms
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (this.LoginButton.Text== "Please wait...")
+            if (this.LoginButton.Text == "Please wait...")
             {
                 this.LoginButton.Text = "Please wait.";
 
-            } else if (this.LoginButton.Text == "Please wait.")
+            }
+            else if (this.LoginButton.Text == "Please wait.")
             {
                 this.LoginButton.Text = "Please wait..";
             }
-            else if(this.LoginButton.Text=="Please wait..")
+            else if (this.LoginButton.Text == "Please wait..")
             {
                 this.LoginButton.Text = "Please wait...";
             }
@@ -132,6 +133,38 @@ namespace Pacman.Forms
             PacmanContext context = new PacmanContext();
 
             context.Database.Initialize(true);
+            this.ActiveControl = this.Username;
+        }
+
+        private void Username_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue == 13)
+            {
+                if (string.IsNullOrEmpty(this.Password.Text) || this.Password.Text == this.Password.PlaceHolderText)
+                {
+                    this.ActiveControl = this.Password;
+                }
+                else if (this.LoginButton.Enabled)
+                {
+                    LoginButton_Click(sender, e);
+                }
+            }
+        }
+
+        private void Password_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue == 13)
+            {
+                if (string.IsNullOrEmpty(this.Username.Text) || this.Username.Text == this.Username.PlaceHolderText)
+                {
+                    this.ActiveControl = this.Username;
+                }
+                else if (this.LoginButton.Enabled)
+                {
+                    LoginButton_Click(sender, e);
+                }
+
+            }
         }
     }
 }

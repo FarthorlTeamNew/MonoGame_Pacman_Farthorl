@@ -13,7 +13,7 @@ namespace Pacman.Menu
     {
 
         bool isPlaceHolder = true;
-        private System.ComponentModel.IContainer components;
+        //private System.ComponentModel.IContainer components;
         string _placeHolderText;
         public string PlaceHolderText
         {
