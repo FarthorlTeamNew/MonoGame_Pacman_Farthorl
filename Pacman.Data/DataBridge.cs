@@ -152,16 +152,7 @@ namespace Pacman.Data
                 var sessionId = results.FirstOrDefault();
                 if (!string.IsNullOrEmpty(sessionId) && sessionId.Length == 64)
                 {
-                    var countries = AllCountries;
-                    var cities = GetAllCities;
-                    userIsLogin = true;
-                    userSessionId = sessionId;
-                    user.FirstName = firstName;
-                    user.LastName = lastName;
-                    user.BurthDate = burthDate;
-                    userEmail = email;
-                    user.Country = countries.FirstOrDefault(c => c.Id == countryId);
-                    user.City = cities.FirstOrDefault(c => c.Id == cityId);
+                   LogInUser(email,password);
                 }
 
 
