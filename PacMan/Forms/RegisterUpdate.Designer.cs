@@ -116,6 +116,7 @@
             // 
             // Countries
             // 
+            this.Countries.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Countries.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Countries.FormattingEnabled = true;
             this.Countries.Location = new System.Drawing.Point(149, 105);
@@ -147,6 +148,7 @@
             // Cities
             // 
             this.Cities.DropDownHeight = 150;
+            this.Cities.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Cities.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Cities.FormattingEnabled = true;
             this.Cities.IntegralHeight = false;

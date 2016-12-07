@@ -60,6 +60,7 @@
             // 
             // LevelsComboBox
             // 
+            this.LevelsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.LevelsComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.LevelsComboBox.FormattingEnabled = true;
             this.LevelsComboBox.ItemHeight = 20;
@@ -68,7 +69,6 @@
             this.LevelsComboBox.Size = new System.Drawing.Size(340, 28);
             this.LevelsComboBox.TabIndex = 2;
             this.LevelsComboBox.Tag = "Select game level";
-            this.LevelsComboBox.Text = "Select game level";
             // 
             // StartHardGame
             // 
