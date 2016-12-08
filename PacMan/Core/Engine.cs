@@ -170,9 +170,9 @@
                                     ghost.Value.Texture = GameTexture.GhostAsPokemon;
                                     ghost.Value.CanKillPakman = false;
                                     ghost.Value.StartTransformingToGhost();
-                                    //this.ghostGen.GhostMovements.Remove(ghost.Key);
-                                    //this.ghostGen.GhostAnimators.Remove(ghost.Key);
-                                    //this.ghostGen.Ghosts.Remove(ghost.Key);
+                                    //this.modelGenerator.MovableModels.Remove(ghost.Key);
+                                    //this.modelGenerator.AnimationModels.Remove(ghost.Key);
+                                    //this.modelGenerator.Ghosts.Remove(ghost.Key);
                                 }
                                 else
                                 {
