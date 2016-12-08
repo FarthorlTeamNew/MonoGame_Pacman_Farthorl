@@ -90,6 +90,7 @@
     <Compile Include="Forms\RegisterUpdate.Designer.cs">
       <DependentUpon>RegisterUpdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Globals\GameStatistic.cs" />
     <Compile Include="Globals\Global.cs" />
     <Compile Include="Handlers\GhostRandomMovement.cs" />
     <Compile Include="Enums\Directions.cs" />
