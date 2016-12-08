@@ -17,8 +17,11 @@
 
         public override void ActivatePowerup(ModelGenerator ghostGen, PacMan pacMan)
         {
-            pacMan.X = new Random().Next(2, 20) * Global.quad_Width;
-            pacMan.Y = new Random().Next(1, 10) * Global.quad_Height;
+            Random rnd = new Random();
+            pacMan.X = rnd.Next(2, 20) * Global.quad_Width;
+            pacMan.Y = rnd.Next(1, 10) * Global.quad_Height;
+
+            base.ActivatePowerup(ghostGen, pacMan);
         }
     }
 }

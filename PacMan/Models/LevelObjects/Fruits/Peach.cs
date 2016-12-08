@@ -16,6 +16,8 @@
         public override void ActivatePowerup(ModelGenerator ghostGen, PacMan pacMan)
         {
             ghostGen.MovableModels[nameof(PacMan)].DrunkMovement();
+
+            base.ActivatePowerup(ghostGen, pacMan);
         }
     }
 }

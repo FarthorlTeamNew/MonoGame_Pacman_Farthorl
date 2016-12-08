@@ -15,6 +15,7 @@
 
         public override void ActivatePowerup(ModelGenerator ghostGen, PacMan pacMan)
         {
+            base.ActivatePowerup(ghostGen, pacMan);
         }
     }
 }

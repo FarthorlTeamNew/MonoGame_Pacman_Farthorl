@@ -3,6 +3,7 @@
     using Core;
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework;
+    using Globals;
 
     public abstract class Fruit : LevelObject
     {
@@ -27,6 +28,9 @@
             Engine.sound.PacManEatGhost();
         }
 
-        public abstract void ActivatePowerup(ModelGenerator ghostGen, PacMan pacMan);
+        public virtual void ActivatePowerup(ModelGenerator ghostGen, PacMan pacMan)
+        {
+            GameStatistic.PlayerFruitEatenCount += 1;
+        }
     }
 }

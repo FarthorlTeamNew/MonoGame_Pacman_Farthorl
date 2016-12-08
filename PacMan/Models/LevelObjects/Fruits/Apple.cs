@@ -21,6 +21,8 @@
                 ghostGen.MovableModels[nameof(Inky)].DecreaseSpeed();
             if (ghostGen.MovableModels.ContainsKey(nameof(Clyde)))
                 ghostGen.MovableModels[nameof(Clyde)].DecreaseSpeed();
+
+            base.ActivatePowerup(ghostGen, pacMan);
         }
     }
 }

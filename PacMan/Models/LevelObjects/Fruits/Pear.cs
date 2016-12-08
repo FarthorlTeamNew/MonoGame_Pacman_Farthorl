@@ -23,7 +23,9 @@
             if (ghostGen.Ghosts.ContainsKey(nameof(Pinky)))
             {
                 ghostGen.Ghosts[nameof(Pinky)].GimmeFood();
-            }            
+            }
+
+            base.ActivatePowerup(ghostGen, pacMan);
         }
     }
 }

@@ -30,6 +30,8 @@
                 ghostGen.Ghosts[nameof(Pinky)].Y = new Random().Next(8, 11) * Global.quad_Height;
                 ghostGen.MovableModels[nameof(Pinky)].Reset();
             }
+            
+            base.ActivatePowerup(ghostGen, pacMan);
         }
     }
 }
