@@ -1,6 +1,4 @@
-﻿using Pacman.Forms;
-
-namespace Pacman.Core
+﻿namespace Pacman.Core
 {
     using System;
     using System.Collections.Generic;
@@ -145,27 +143,27 @@ namespace Pacman.Core
             string[] placeAvailable = this.AvailableXY().Split();
             int placeFruitX = int.Parse(placeAvailable[0]);
             int placeFruitY = int.Parse(placeAvailable[1]);
-            edible.X = placeFruitX * Global.quad_Width;
-            edible.Y = placeFruitY * Global.quad_Height;
+            edible.X = placeFruitX;
+            edible.Y = placeFruitY;
             edible.UpdateBoundingBox();
         }
 
         private string AvailableXY()
         {
+            Random rnd = new Random();
             while (true)
             {
-                int tryX = new Random(DateTime.Now.Millisecond).Next(1, Global.XMax - 1);
-                int tryY = new Random(DateTime.Now.Millisecond).Next(1, Global.YMax - 1);
+                int tryX = rnd.Next(1, Global.XMax - 1) * Global.quad_Width;
+                int tryY = rnd.Next(1, Global.YMax - 1) * Global.quad_Height;
 
-                var coordinates = this.level.LevelCoordinates.FirstOrDefault(coordinate => coordinate.QuadrantX == tryX && coordinate.QuadrantY == tryY);
-                if (coordinates != null && coordinates.isPoint && this.fruits.Count(f => f.X == tryX * Global.quad_Width && f.Y == tryY * Global.quad_Width) == 0)
+                var coordinates = this.level.LevelCoordinates.FirstOrDefault(coordinate => coordinate.QuadrantX * Global.quad_Width == tryX 
+                                                                                        && coordinate.QuadrantY * Global.quad_Height == tryY);
+                if (coordinates != null && coordinates.isPoint && this.fruits.Count(f => f.X == tryX && f.Y == tryY) == 0
+                                                          && this.ghostKillers.Count(gk => gk.X == tryX  && gk.Y == tryY) == 0 )
                 {
                     return $"{tryX} {tryY}";
                 }
 
-                //The old versinn of the code
-                //int tryX = new Random(DateTime.Now.Millisecond).Next(1, Global.XMax - 1);
-                //int tryY = new Random(DateTime.Now.Millisecond).Next(1, Global.YMax - 1);
                 //The old version of the code
                 //int tryX = new Random(DateTime.Now.Millisecond).Next(1, Global.XMax - 1);
                 //int tryY = new Random(DateTime.Now.Millisecond).Next(1, Global.YMax - 1);
