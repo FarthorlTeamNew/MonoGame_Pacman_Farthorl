@@ -37,6 +37,7 @@
             this.IsMouseVisible = true;
             this.level = level;
             this.difficulty = difficulty;
+            Global.Difficulty = this.difficulty;
         }
 
         protected override void Initialize()
