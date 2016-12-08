@@ -3,6 +3,7 @@
     using Core;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
+    using Globals;
 
     public class PointObj : LevelObject
     {
@@ -16,6 +17,7 @@
         {
             Engine.sound.EatFruit();
             pacman.Scores++;
+            GameStatistic.PlayerPointsEaten += 1;
         }
     }
 }

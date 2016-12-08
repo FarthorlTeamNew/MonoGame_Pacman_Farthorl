@@ -17,6 +17,7 @@
             pacman.CanEat = true;
             pacman.Texture = GameTexture.PacmanPokeball;
             Engine.sound.PacManEatGhost();
+            GameStatistic.PlayerGhostkillersEaten += 1;
         }
     }
 }

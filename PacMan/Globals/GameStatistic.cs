@@ -10,6 +10,8 @@
 
         public static int PlayerGhostsEatenCount { get; set; }
 
+        public static int PlayerGhostkillersEaten { get; set; }
+
         public static int LevelsCompleted { get; set; }
 
         public static int PlayerTimesDied { get; set; }
