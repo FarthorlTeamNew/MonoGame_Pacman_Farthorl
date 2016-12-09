@@ -4,7 +4,7 @@
     {
         //Player stats
 
-        public static int PlayerPointsEaten { get; set; }
+        public static int PlayerPointsEaten { get; set; } //Tested and working
 
         public static int PlayerFruitEatenCount { get; set; }
 

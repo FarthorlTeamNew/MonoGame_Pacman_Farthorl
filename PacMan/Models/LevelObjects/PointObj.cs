@@ -16,7 +16,6 @@
         public override void ReactOnCollision(PacMan pacman)
         {
             Engine.sound.EatFruit();
-            pacman.Scores++;
             GameStatistic.PlayerPointsEaten += 1;
         }
     }

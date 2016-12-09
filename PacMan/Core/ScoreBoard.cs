@@ -14,7 +14,7 @@
 
             spriteBatch.Draw(scoreBackground, new Vector2(0, 416));
             var scores =
-                $"Scores: {pacMan.Scores}   " +
+                $"Scores: {GameStatistic.PlayerPointsEaten}   " +
                 $"Left points: {levelMatrix.LeftPoints}  " +
                 $"Health: {pacMan.Health}  " +
                 $"Lives: {pacMan.Lives}      ";
