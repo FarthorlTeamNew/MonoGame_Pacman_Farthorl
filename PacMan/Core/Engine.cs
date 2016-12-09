@@ -200,6 +200,7 @@
         private void Reset()
         {
             GameStatistic.UpdateStatsToDatabase();
+            GameStatistic.NullifyStats();
             this.Initialize();
         }
     }
