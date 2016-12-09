@@ -1,11 +1,8 @@
-using System.Data.Entity.ModelConfiguration.Conventions;
-using Pacman.Models;
-
 namespace Pacman.Data
 {
-    using System;
     using System.Data.Entity;
-    using System.Linq;
+    using System.Data.Entity.ModelConfiguration.Conventions;
+    using Models;
 
     public class PacmanContext : DbContext
     {
@@ -21,12 +18,16 @@ namespace Pacman.Data
         public DbSet<Level> Levels { get; set; }
         public DbSet<LevelCoordinate> LevelCoordinateses { get; set; }
         public DbSet<Statistic> Statistics { get; set; }
+        public DbSet<PlayerStatistic> PlayerStatistics { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+
+            modelBuilder.Entity<User>()
+                .HasRequired(user => user.PlayerStatistic)
+                .WithRequiredPrincipal(stat => stat.User);
         }
     }
-
 }
