@@ -141,6 +141,14 @@
                         if (this.levelMatrix.LeftPoints == 0)
                         {
                             this.spriteBatch.Draw(GameTexture.WinPic, new Vector2(250, 100));
+                            if (Global.Difficulty == 0)
+                            {
+                                GameStatistic.EasyLevelsCompleted++;
+                            }
+                            else
+                            {
+                                GameStatistic.HardLevelsCompleted++;
+                            }
                             this.isLevelCompleted = true;
                         }
                         foreach (var ghost in this.modelGenerator.Ghosts)
@@ -151,6 +159,8 @@
                                 if (this.isLevelCompleted == false)
                                 {
                                     this.pacMan.Lives--;
+                                    GameStatistic.PlayerTimesDied++;
+                                    GameStatistic.GhostThatAtePacman = ghost.Key;
                                     this.isLevelCompleted = true;
                                     sound.Dead();
                                 }
@@ -161,9 +171,10 @@
                                 sound.GhostDies();
                                 if (Global.Difficulty == DifficultyEnumerable.Easy)
                                 {
-                                    ghost.Value.Texture = GameTexture.GhostAsPokemon;
-                                    ghost.Value.CanKillPakman = false;
-                                    ghost.Value.StartTransformingToGhost();
+                                    //ghost.Value.Texture = GameTexture.GhostAsPokemon;
+                                    //ghost.Value.CanKillPakman = false;
+                                    //ghost.Value.StartTransformingToGhost();
+                                    GameStatistic.PlayerGhostsEatenCount++;
                                     this.modelGenerator.MovableModels.Remove(ghost.Key);
                                     this.modelGenerator.AnimationModels.Remove(ghost.Key);
                                     this.modelGenerator.Ghosts.Remove(ghost.Key);

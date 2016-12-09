@@ -2,7 +2,7 @@
 {
     public enum DifficultyEnumerable
     {
-        Easy,
-        Hard
+        Easy = 0,
+        Hard = 1
     }
 }
