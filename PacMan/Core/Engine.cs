@@ -145,7 +145,7 @@
                         if (this.levelMatrix.LeftPoints == 0)
                         {
                             this.spriteBatch.Draw(GameTexture.WinPic, new Vector2(250, 100));
-                            if (Global.Difficulty == (DifficultyEnumerable)0 && this.isLevelCompleted == false)
+                            if (Global.Difficulty == (DifficultyEnumerable) 0 && this.isLevelCompleted == false)
                             {
                                 DataBridge.GetUserData().PlayerStatistic.EasyLevelsCompleted++;
                             }
