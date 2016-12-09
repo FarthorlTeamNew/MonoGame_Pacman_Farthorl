@@ -199,6 +199,7 @@
         }
         private void Reset()
         {
+            GameStatistic.UpdateStatsToDatabase();
             this.Initialize();
         }
     }

@@ -1,4 +1,7 @@
-﻿namespace Pacman.Globals
+﻿using System.Collections.Generic;
+using Pacman.Data;
+
+namespace Pacman.Globals
 {
     public static class GameStatistic
     {
@@ -29,16 +32,31 @@
             PlayerPointsEaten = 0;
             PlayerFruitEatenCount = 0;
             PlayerGhostsEatenCount = 0;
+            PlayerGhostkillersEaten = 0;
             HardLevelsCompleted = 0;
             EasyLevelsCompleted = 0;
             PlayerTimesDied = 0;
+
+
             NumberOfPointsEatenByGhost = 0;
             GhostThatAtePacman = string.Empty;
         }
 
         public static void UpdateStatsToDatabase()
         {
-            // Use DataBridge to update the stats of the current player
+            Dictionary<string, int> statsPackage = new Dictionary<string, int>();
+            statsPackage[nameof(PlayerPointsEaten)] = PlayerPointsEaten;
+            statsPackage[nameof(PlayerFruitEatenCount)] = PlayerFruitEatenCount;
+            statsPackage[nameof(PlayerGhostsEatenCount)] = PlayerGhostsEatenCount;
+            statsPackage[nameof(HardLevelsCompleted)] = HardLevelsCompleted;
+            statsPackage[nameof(EasyLevelsCompleted)] = EasyLevelsCompleted;
+            statsPackage[nameof(PlayerTimesDied)] = PlayerTimesDied;
+            statsPackage[nameof(PlayerGhostkillersEaten)] = PlayerGhostkillersEaten;
+
+            DataBridge.UpdateDatabaseStats(statsPackage);
+            //Not in the database yet
+            //statsPackage[nameof(NumberOfPointsEatenByGhost)] = NumberOfPointsEatenByGhost;
+            //statsPackage[nameof(GhostThatAtePacman)] = GhostThatAtePacman;
         }
     }
 }
