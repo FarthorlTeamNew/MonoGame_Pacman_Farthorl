@@ -4,12 +4,11 @@
     using Enums;
     using Globals;
     using Handlers;
-    using Menu;
     using Models;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
-    using Pacman.Data;
+    using Data;
 
     public class Engine : Game
     {
@@ -21,12 +20,8 @@
         private Matrix levelMatrix;
         private KeyPress keyPress;
         private KeyboardState oldState;
-        private bool isLevelCompleated;
+        private bool isLevelCompleted;
         private GameState currentGameState = GameState.Playing;
-        private CButton butEasyPlay;
-        private CButton butHardPlay;
-        private CButton butOptions;
-        private CButton butExit;
         private Level level;
         private DifficultyEnumerable difficulty;
 
@@ -51,7 +46,7 @@
             this.graphics.ApplyChanges();
             this.keyPress = new KeyPress();
             this.oldState = Keyboard.GetState();
-            this.isLevelCompleated = false;
+            this.isLevelCompleted = false;
             base.Initialize();
         }
 
@@ -87,7 +82,7 @@
 
         private void PlayingState(GameTime gameTime)
         {
-            if (!this.isLevelCompleated)
+            if (!this.isLevelCompleted)
             {
                 foreach (var kvp in this.modelGenerator.MovableModels)
                 {
@@ -134,8 +129,6 @@
                     //Test scores background.. if you want delete it :)
                     ScoreBoard.LoadBoard(this.pacMan, this.spriteBatch, this, this.levelMatrix);
 
-                    //==================
-
                     if (this.pacMan.Health > 0)
                     {
                         this.levelMatrix.Draw(this.spriteBatch);
@@ -148,17 +141,17 @@
                         if (this.levelMatrix.LeftPoints == 0)
                         {
                             this.spriteBatch.Draw(GameTexture.WinPic, new Vector2(250, 100));
-                            this.isLevelCompleated = true;
+                            this.isLevelCompleted = true;
                         }
                         foreach (var ghost in this.modelGenerator.Ghosts)
                         {
                             if (ghost.Value.IsColliding(this.pacMan) && !this.pacMan.CanEat && ghost.Value.CanKillPakman)
                             {
                                 this.spriteBatch.Draw(GameTexture.LosePic, new Vector2(250, 100));
-                                if (this.isLevelCompleated == false)
+                                if (this.isLevelCompleted == false)
                                 {
                                     this.pacMan.Lives--;
-                                    this.isLevelCompleated = true;
+                                    this.isLevelCompleted = true;
                                     sound.Dead();
                                 }
                             }
@@ -171,9 +164,9 @@
                                     ghost.Value.Texture = GameTexture.GhostAsPokemon;
                                     ghost.Value.CanKillPakman = false;
                                     ghost.Value.StartTransformingToGhost();
-                                    //this.modelGenerator.MovableModels.Remove(ghost.Key);
-                                    //this.modelGenerator.AnimationModels.Remove(ghost.Key);
-                                    //this.modelGenerator.Ghosts.Remove(ghost.Key);
+                                    this.modelGenerator.MovableModels.Remove(ghost.Key);
+                                    this.modelGenerator.AnimationModels.Remove(ghost.Key);
+                                    this.modelGenerator.Ghosts.Remove(ghost.Key);
                                 }
                                 else
                                 {

@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace Pacman.Core
+﻿namespace Pacman.Core
 {
     using System;
     using System.Collections.Generic;
@@ -13,6 +11,7 @@ namespace Pacman.Core
     using Models.LevelObjects;
     using Models.LevelObjects.Ghosts;
     using Microsoft.Xna.Framework;
+    using System.Linq;
 
     public class ModelGenerator
     {
@@ -70,25 +69,17 @@ namespace Pacman.Core
 
         private string AvailableXY(Matrix levelMatrix)
         {
-          var gostCoordinates = this.ghosts.Select(g => g.Value);
+          var ghostCoordinates = this.ghosts.Select(g => g.Value);
           while (true)
             {
                 int tryX = new Random(DateTime.Now.Millisecond).Next(3, Global.XMax - 1);
                 int tryY = new Random(DateTime.Now.Millisecond).Next(3, Global.YMax - 1);
                 var pointQuadrant = levelMatrix.Level.LevelCoordinates.FirstOrDefault(coordinate=>coordinate.QuadrantX==tryX && coordinate.QuadrantY==tryY);
                 
-                if (pointQuadrant != null && pointQuadrant.isPoint && gostCoordinates.Count(g => g.X == tryX * Global.quad_Width && g.Y == tryY * Global.quad_Height) == 0)
+                if (pointQuadrant != null && pointQuadrant.isPoint && ghostCoordinates.Count(g => g.X == tryX * Global.quad_Width && g.Y == tryY * Global.quad_Height) == 0)
                 {
                    return $"{tryX} {tryY}";
                 }
-
-                //The old version of the code
-                //var elements = levelMatrix.PathsMatrix[tryY, tryX].Trim().Split(',');
-                //if (int.Parse(elements[1]) == 1)
-                //{
-                //    levelMatrix.PathsMatrix[tryY, tryX] = "0,0";
-                //    return $"{tryX} {tryY}";
-                //}
             }
         }
 

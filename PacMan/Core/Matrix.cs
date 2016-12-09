@@ -38,7 +38,6 @@
             this.level = level;
         }
 
-
         public int LeftPoints
         {
             get { return this.pointsList.Count; }
@@ -46,9 +45,9 @@
 
         public string[,] PathsMatrix
         {
-            get { return pathsMatrix; }
+            get { return this.pathsMatrix; }
 
-            set { pathsMatrix = value; }
+            set { this.pathsMatrix = value; }
         }
 
         public Level Level
@@ -85,29 +84,6 @@
                     this.pointsList.Add(point);
                 }
             }
-
-            //The old version of the code
-            //this.PathsMatrix = this.GetMatrixValues();
-            //for (int y = 0; y < Global.YMax; y++)
-            //{
-            //    for (int x = 0; x < Global.XMax; x++)
-            //    {
-            //        var elements = this.PathsMatrix[y, x].Trim().Split(',');
-            //        int quadrant = int.Parse(elements[0]);
-            //        int pointIndex = int.Parse(elements[1]);
-            //
-            //        if (quadrant == 1)
-            //        {
-            //            Wall brick = new Wall(GameTexture.Brick, x * Global.quad_Width, y * Global.quad_Height, new Rectangle(x * Global.quad_Width, y * Global.quad_Height, Global.quad_Width, Global.quad_Height));
-            //            bricksList.Add(brick);
-            //        }
-            //        else if (pointIndex == 1)
-            //        {
-            //            PointObj point = new PointObj(GameTexture.Point, x * Global.quad_Width, y * Global.quad_Height, new Rectangle(x * Global.quad_Width, y * Global.quad_Height, Global.quad_Width, Global.quad_Height));
-            //            this.pointsList.Add(point);
-            //        }
-            //    }
-            //}
 
             this.LoadFruit();
             this.RemovePoints();
@@ -163,17 +139,6 @@
                 {
                     return $"{tryX} {tryY}";
                 }
-
-                //The old version of the code
-                //int tryX = new Random(DateTime.Now.Millisecond).Next(1, Global.XMax - 1);
-                //int tryY = new Random(DateTime.Now.Millisecond).Next(1, Global.YMax - 1);
-                //var elements = this.PathsMatrix[tryY, tryX].Trim().Split(',');
-                //int placeAvailable = int.Parse(elements[1]);
-                //if (placeAvailable == 1)
-                //{
-                //    this.PathsMatrix[tryY, tryX] = "0,0";
-                //    return $"{tryX} {tryY}";
-                //}
             }
         }
 
@@ -288,54 +253,6 @@
                 spriteBatch.Draw(ghostKiller.Texture, ghostKiller.BoundingBox, Color.White);
             }
         }
-
-        //The old version of the code 
-        //private string[,] GetMatrixValues()
-        //{
-        //    try
-        //    {
-        //        using (var fileMatrix = new StreamReader(this.Level))
-        //        {
-        //            string inputLine;
-        //            while ((inputLine = fileMatrix.ReadLine()) != null)
-        //            {
-        //                // Get values from the Coordinates.txt example splitLine[0]
-        //                var splitLine = inputLine.Trim().Split('=');
-        //
-        //                //Get the position values for the 2D array example arrayXYValues[0]=1 arrayXYValues[0]=0 
-        //                var arrayXyValues = splitLine[0].Trim().Split(',');
-        //                int arrayX;
-        //                int arrayY;
-        //
-        //                //This is the values of the array cell
-        //                string arrayValue = splitLine[1];
-        //                try
-        //                {
-        //                    arrayX = int.Parse(arrayXyValues[0]);
-        //                    arrayY = int.Parse(arrayXyValues[1]);
-        //                }
-        //                catch (Exception exception)
-        //                {
-        //                    Log.AddToLog(exception.Message, LogEnumerable.Errors);
-        //                    throw new ArgumentException("Cannot convert string to integer");
-        //                }
-        //
-        //                if (arrayX >= Global.XMax || arrayY >= Global.YMax)
-        //                {
-        //                    continue;
-        //                }
-        //                //Add element data in to the specific point in the 2D array
-        //                this.PathsMatrix[arrayY, arrayX] = arrayValue;
-        //            }
-        //        }
-        //        return this.PathsMatrix;
-        //    }
-        //    catch (Exception exception)
-        //    {
-        //        Log.AddToLog(exception.Message, LogEnumerable.Errors);
-        //        throw new FileLoadException("Level file didn't load!");
-        //    }
-        //}
 
         public static bool IsThereABrick(int quadrantX, int quadrantY)
         {
