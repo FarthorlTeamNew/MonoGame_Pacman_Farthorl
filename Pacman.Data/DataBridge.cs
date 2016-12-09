@@ -16,7 +16,7 @@ namespace Pacman.Data
         private static PacmanContext context = new PacmanContext();
         private static Random random = new Random();
         private static User user = new User();
-        private static Statistic statistic= new Statistic();
+        private static Statistic statistic = new Statistic();
         private static ICollection<Country> countries;
         private static ICollection<City> cities;
         private static ICollection<Level> levels;
@@ -92,25 +92,14 @@ namespace Pacman.Data
                     sqlCommand.Parameters.Add(userIdParameter);
 
                     sqlCommand.UpdatedRowSource = UpdateRowSource.OutputParameters;
-                    sqlCommand.ExecuteNonQuery();
-                    if (!string.IsNullOrEmpty(sqlCommand.Parameters["@sessionId"].Value.ToString()))
+                    sqlCommand.ExecuteNonQuery(); // Execute the Query
+                    if (!string.IsNullOrEmpty(sqlCommand.Parameters["@sessionId"].Value.ToString()) &&
+                        !string.IsNullOrEmpty(sqlCommand.Parameters["@userId"].Value.ToString()))
                     {
-                        user.FirstName = (string)sqlCommand.Parameters["@firstName"].Value;
-                        user.LastName = (string)sqlCommand.Parameters["@lastName"].Value;
-                        DateTime datetime = new DateTime();
-                        if (DateTime.TryParse(sqlCommand.Parameters["@burthDate"].Value.ToString(), out datetime))
-                        {
-                            user.BurthDate = datetime;
-                        }
-                        else
-                        {
-                            user.BurthDate = null;
-                        }
-                        user.Country = AllCountries.FirstOrDefault(c => c.Id == (int)sqlCommand.Parameters["@countryId"].Value);
-                        user.City = GetAllCities.FirstOrDefault(c => c.Id == (int)sqlCommand.Parameters["@cityId"].Value);
-                        userEmail = username;
+                        int userId = (int)sqlCommand.Parameters["@userId"].Value;
+
+                        user = context.Users.FirstOrDefault(u => u.Id == userId);
                         userSessionId = (string)sqlCommand.Parameters["@sessionId"].Value;
-                        user.Id = (int)sqlCommand.Parameters["@userId"].Value;
                         userIsLogin = true;
 
                     }
@@ -152,7 +141,7 @@ namespace Pacman.Data
                 var sessionId = results.FirstOrDefault();
                 if (!string.IsNullOrEmpty(sessionId) && sessionId.Length == 64)
                 {
-                   LogInUser(email,password);
+                    LogInUser(email, password);
                 }
 
 
@@ -297,13 +286,13 @@ namespace Pacman.Data
 
         public static void EndGame()
         {
-           if (statistic!=null)
+            if (statistic != null)
             {
-                statistic.EndGame=DateTime.Now;
+                statistic.EndGame = DateTime.Now;
                 statistic.Duration = statistic.EndGame - statistic.StartGame;
                 context.SaveChanges();
             }
-            
+
         }
 
         //Hash the password with SHA256 algoritm, before save into the User object
