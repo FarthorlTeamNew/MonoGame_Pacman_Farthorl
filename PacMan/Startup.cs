@@ -11,14 +11,7 @@
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Forms.Login());
-<<<<<<< .mine
-            //using (var game = new Engine())
-            //{
-            //    game.Run();
-            //}
-        }
 
-       
-=======        }     
->>>>>>> .theirs    }
+        }
+    }
 }

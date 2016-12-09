@@ -3,20 +3,20 @@
     using Core;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
-    using Globals;
+    using Data;
 
     public class PointObj : LevelObject
     {
         public PointObj(Texture2D texture ,float x, float y, Rectangle boundingBox)
             : base(texture, x, y, boundingBox)
         {
-
         }
 
         public override void ReactOnCollision(PacMan pacman)
         {
             Engine.sound.EatFruit();
-            GameStatistic.PlayerPointsEaten += 1;
+            pacman.PointsEaten++;
+            DataBridge.GetUserData().PlayerStatistic.PlayerPointsEaten++;
         }
     }
 }

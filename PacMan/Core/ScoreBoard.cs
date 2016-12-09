@@ -10,11 +10,11 @@
         public static void LoadBoard(PacMan pacMan, SpriteBatch spriteBatch, Game game, Matrix levelMatrix)
         {
             var scoreBackground = game.Content.Load<Texture2D>("ScoresBackground");
-            game.Window.Title = "PACMAN FARTHORL v.2.0";
+            game.Window.Title = "PACMAN FARTHORL v.3.0";
 
             spriteBatch.Draw(scoreBackground, new Vector2(0, 416));
             var scores =
-                $"Scores: {GameStatistic.PlayerPointsEaten}   " +
+                $"Scores: {pacMan.PointsEaten}   " +
                 $"Left points: {levelMatrix.LeftPoints}  " +
                 $"Health: {pacMan.Health}  " +
                 $"Lives: {pacMan.Lives}      ";

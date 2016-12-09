@@ -251,27 +251,8 @@ namespace Pacman.Data
             return levels.FirstOrDefault(level => level.Name == levelName);
         }
 
-        public static void UpdateDatabaseStats(Dictionary<string, int> stats)
+        public static void UpdateDatabaseStats()
         {
-            User loggedInUser = GetUserData();
-            PlayerStatistic statsToUpdate = context.PlayerStatistics.FirstOrDefault(stat => stat.Id == loggedInUser.Id);
-            if (statsToUpdate == null)
-            {
-                statsToUpdate = new PlayerStatistic();
-                statsToUpdate.Id = loggedInUser.Id;
-            }
-            statsToUpdate.PlayerPointsEaten += stats["PlayerPointsEaten"];
-            statsToUpdate.EasyLevelsCompleted += stats["EasyLevelsCompleted"];
-            statsToUpdate.HardLevelsCompleted += stats["HardLevelsCompleted"];
-            statsToUpdate.PlayerFruitEatenCount += stats["PlayerFruitEatenCount"];
-            statsToUpdate.PlayerTimesDied += stats["PlayerTimesDied"];
-            statsToUpdate.PlayerGhostsEatenCount += stats["PlayerGhostsEatenCount"];
-            statsToUpdate.PlayerGhostkillersEaten += stats["PlayerGhostkillersEaten"];
-
-            if (!context.PlayerStatistics.Any(stat => stat.Id == loggedInUser.Id))
-            {
-                context.PlayerStatistics.Add(statsToUpdate);
-            }
             context.SaveChanges();
         }
 

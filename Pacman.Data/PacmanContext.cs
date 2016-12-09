@@ -24,10 +24,6 @@ namespace Pacman.Data
         {
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
-
-            modelBuilder.Entity<User>()
-                .HasRequired(user => user.PlayerStatistic)
-                .WithRequiredPrincipal(stat => stat.User);
         }
     }
 }

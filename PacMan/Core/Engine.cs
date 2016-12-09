@@ -47,6 +47,10 @@
             this.keyPress = new KeyPress();
             this.oldState = Keyboard.GetState();
             this.isLevelCompleted = false;
+            if (DataBridge.GetUserData().PlayerStatistic == null)
+            {
+                DataBridge.GetUserData().PlayerStatistic = new PlayerStatistic();
+            }
             base.Initialize();
         }
 
@@ -112,7 +116,6 @@
                     {
                         throw new EntryPointNotFoundException($"The levels with name {newLevel} not found");
                     }
-
                 }
             }
             base.Update(gameTime);
@@ -144,11 +147,11 @@
                             this.spriteBatch.Draw(GameTexture.WinPic, new Vector2(250, 100));
                             if (Global.Difficulty == 0)
                             {
-                                GameStatistic.EasyLevelsCompleted++;
+                                DataBridge.GetUserData().PlayerStatistic.EasyLevelsCompleted++;
                             }
                             else
                             {
-                                GameStatistic.HardLevelsCompleted++;
+                                DataBridge.GetUserData().PlayerStatistic.HardLevelsCompleted++;
                             }
                             this.isLevelCompleted = true;
                         }
@@ -160,8 +163,7 @@
                                 if (this.isLevelCompleted == false)
                                 {
                                     this.pacMan.Lives--;
-                                    GameStatistic.PlayerTimesDied++;
-                                    GameStatistic.GhostThatAtePacman = ghost.Key;
+                                    DataBridge.GetUserData().PlayerStatistic.PlayerTimesDied++;
                                     this.isLevelCompleted = true;
                                     sound.Dead();
                                 }
@@ -172,10 +174,7 @@
                                 sound.GhostDies();
                                 if (Global.Difficulty == DifficultyEnumerable.Easy)
                                 {
-                                    //ghost.Value.Texture = GameTexture.GhostAsPokemon;
-                                    //ghost.Value.CanKillPakman = false;
-                                    //ghost.Value.StartTransformingToGhost();
-                                    GameStatistic.PlayerGhostsEatenCount++;
+                                    DataBridge.GetUserData().PlayerStatistic.PlayerGhostsEatenCount++;
                                     this.modelGenerator.MovableModels.Remove(ghost.Key);
                                     this.modelGenerator.AnimationModels.Remove(ghost.Key);
                                     this.modelGenerator.Ghosts.Remove(ghost.Key);
@@ -207,8 +206,7 @@
 
         private void UpdateDb()
         {
-            GameStatistic.UpdateStatsToDatabase();
-            GameStatistic.NullifyStats();
+            DataBridge.UpdateDatabaseStats();
         }
     }
 }

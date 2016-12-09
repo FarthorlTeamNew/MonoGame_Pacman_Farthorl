@@ -212,7 +212,6 @@
                 if (ghostGen.Ghosts.Where(g => g.Value.Hungry).Any(x => x.Value.IsColliding(point)))
                 {
                     this.pointsList.Remove(point);
-                    GameStatistic.NumberOfPointsEatenByGhost++;
                     break;
                 }
             }

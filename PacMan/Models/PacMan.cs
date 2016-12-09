@@ -21,5 +21,7 @@
         public bool CanEat { get; set; }
 
         public int Lives { get; set; } = 3;
+
+        public int PointsEaten { get; set; }
     }
 }

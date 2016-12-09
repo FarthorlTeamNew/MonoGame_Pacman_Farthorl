@@ -1,22 +1,12 @@
 ﻿namespace Pacman.Models
 {
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.ComponentModel.DataAnnotations;
 
     public class PlayerStatistic
     {
-        public PlayerStatistic()
-        {
-            PlayerPointsEaten = 0;
-            PlayerFruitEatenCount = 0;
-            PlayerGhostsEatenCount = 0;
-            PlayerGhostkillersEaten = 0;
-            HardLevelsCompleted = 0;
-            EasyLevelsCompleted = 0;
-            PlayerTimesDied = 0;
-        }
-
-        [ForeignKey("User")]
-        public int Id { get; set; }
+        [Key,ForeignKey("User")]
+        public int UserId { get; set; }
 
         public int PlayerPointsEaten { get; set; }
 

@@ -3,7 +3,7 @@
     using Core;
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework;
-    using Globals;
+    using Data;
 
     public abstract class Fruit : LevelObject
     {
@@ -30,7 +30,7 @@
 
         public virtual void ActivatePowerup(ModelGenerator ghostGen, PacMan pacMan)
         {
-            GameStatistic.PlayerFruitEatenCount += 1;
+            DataBridge.GetUserData().PlayerStatistic.PlayerFruitEatenCount++;
         }
     }
 }

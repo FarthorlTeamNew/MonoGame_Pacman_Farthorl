@@ -4,6 +4,7 @@
     using Globals;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
+    using Data;
 
     public class GhostKiller : LevelObject
     {
@@ -17,7 +18,7 @@
             pacman.CanEat = true;
             pacman.Texture = GameTexture.PacmanPokeball;
             Engine.sound.PacManEatGhost();
-            GameStatistic.PlayerGhostkillersEaten += 1;
+            DataBridge.GetUserData().PlayerStatistic.PlayerGhostkillersEaten++;
         }
     }
 }
