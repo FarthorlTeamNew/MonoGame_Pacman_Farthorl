@@ -84,7 +84,8 @@
                     this.pointsList.Add(point);
                 }
             }
-
+            PointObj pointZero = pointsList.FirstOrDefault(p => p.QuadrantX == 0 && p.QuadrantY == 0);
+            pointsList.Remove(pointZero);
             this.LoadFruit();
             this.RemovePoints();
         }
