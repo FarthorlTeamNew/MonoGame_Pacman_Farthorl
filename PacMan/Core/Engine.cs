@@ -66,7 +66,7 @@
         {
             if (this.keyPress.IsPressedKey(Keys.Escape, this.oldState))
             {
-
+                this.UpdateDb();
                 Exit();
                 return;
             }
@@ -99,6 +99,7 @@
                 }
                 else if (Keyboard.GetState().IsKeyDown(Keys.Enter))
                 {
+                    this.UpdateDb();
                     this.Exit();
                     string levelName = this.level.Name;
                     Level newLevel = DataBridge.GetLevelByName(levelName);
@@ -191,6 +192,7 @@
                     }
                     break;
                 case GameState.Exit:
+                    this.UpdateDb();
                     Environment.Exit(0);
                     break;
             }
@@ -199,9 +201,14 @@
         }
         private void Reset()
         {
+            this.UpdateDb();
+            this.Initialize();
+        }
+
+        private void UpdateDb()
+        {
             GameStatistic.UpdateStatsToDatabase();
             GameStatistic.NullifyStats();
-            this.Initialize();
         }
     }
 }
