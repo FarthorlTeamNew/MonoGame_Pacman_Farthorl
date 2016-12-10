@@ -76,7 +76,7 @@
                 int tryY = new Random(DateTime.Now.Millisecond).Next(3, Global.YMax - 1);
                 var pointQuadrant = levelMatrix.Level.LevelCoordinates.FirstOrDefault(coordinate=>coordinate.QuadrantX==tryX && coordinate.QuadrantY==tryY);
                 
-                if (pointQuadrant != null && pointQuadrant.isPoint && ghostCoordinates.Count(g => g.X == tryX * Global.quad_Width && g.Y == tryY * Global.quad_Height) == 0)
+                if (pointQuadrant != null && !pointQuadrant.isWall && ghostCoordinates.Count(g => g.X == tryX * Global.quad_Width && g.Y == tryY * Global.quad_Height) == 0)
                 {
                    return $"{tryX} {tryY}";
                 }

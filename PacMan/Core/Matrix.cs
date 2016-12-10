@@ -135,7 +135,7 @@
 
                 var coordinates = this.level.LevelCoordinates.FirstOrDefault(coordinate => coordinate.QuadrantX * Global.quad_Width == tryX 
                                                                                         && coordinate.QuadrantY * Global.quad_Height == tryY);
-                if (coordinates != null && coordinates.isPoint && this.fruits.Count(f => f.X == tryX && f.Y == tryY) == 0
+                if (coordinates != null && !coordinates.isWall && this.fruits.Count(f => f.X == tryX && f.Y == tryY) == 0
                                                           && this.ghostKillers.Count(gk => gk.X == tryX  && gk.Y == tryY) == 0 )
                 {
                     return $"{tryX} {tryY}";

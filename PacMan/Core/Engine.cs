@@ -115,7 +115,7 @@
                     }
                     else
                     {
-                        throw new EntryPointNotFoundException($"The levels with name {newLevel} not found");
+                        throw new EntryPointNotFoundException($"The levels with name {levelName} not found");
                     }
                 }
             }
