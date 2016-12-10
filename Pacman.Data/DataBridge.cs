@@ -136,7 +136,6 @@ namespace Pacman.Data
                                                             emailParameter, passwordParameter, isDeleteParameter,
                                                             roleParameter
                                                             );
-
             try
             {
                 var sessionId = results.FirstOrDefault();
@@ -147,9 +146,9 @@ namespace Pacman.Data
 
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
+                throw new DataException(e.Message);
             }
         }
 
@@ -275,6 +274,20 @@ namespace Pacman.Data
                 context.SaveChanges();
             }
 
+        }
+
+        public static int GetLevelsCount()
+        {
+            return levels.Count;
+            
+        }
+
+        public static Level GerRandomLevel(string exlusionByName)
+        {
+            var myLevels = GetAllLevels().Where(l => l.Name != exlusionByName);
+            var count = myLevels.Count();
+            var randomIndex = random.Next(1, count);
+            return myLevels.ToList()[randomIndex];
         }
 
         //Hash the password with SHA256 algoritm, before save into the User object

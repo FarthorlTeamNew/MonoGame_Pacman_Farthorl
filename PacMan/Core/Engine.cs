@@ -105,8 +105,9 @@
                 {
                     this.UpdateDb();
                     this.Exit();
+                  
                     string levelName = this.level.Name;
-                    Level newLevel = DataBridge.GetLevelByName(levelName);
+                    Level newLevel = DataBridge.GerRandomLevel(levelName);
                     if (newLevel != null)
                     {
                         using (var game = new Engine(newLevel, this.difficulty))
