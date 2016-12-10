@@ -1,8 +1,10 @@
 ﻿Databases Advanced :
 - Fix playing of sounds
-- Fix Easy Game Mode so that ghosts will be permanently die
+- (DONE) Fix Easy Game Mode so that ghosts will be permanently die
 - (DONE) Fix placement of the big ghostkiller ball. Should always be 4 balls for every level
-- Implement jumping to a random level when you complete the current level
+- (DONE) Implement jumping to a random level when you complete the current level
+- Add more buttons on the form for Exporting top players, ordered by particular stats to JSON
+- Add Ghost Statistics - TimesEatenPacman, PointsEaten
 - Implement Random Level select from the dropdown menu
 - Implement GameState.cs class, which remembers all the level progress (points eaten, ghosts dead, fruit eaten, pacman position, ghosts positions, etc), so that when a user exits a game, next time he logs in, he can continue his progress.
 
