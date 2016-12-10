@@ -100,6 +100,7 @@ namespace Pacman.Data
 
                         user = context.Users.FirstOrDefault(u => u.Id == userId);
                         userSessionId = (string)sqlCommand.Parameters["@sessionId"].Value;
+                        userEmail= (string)sqlCommand.Parameters["@userName"].Value;
                         userIsLogin = true;
 
                     }
