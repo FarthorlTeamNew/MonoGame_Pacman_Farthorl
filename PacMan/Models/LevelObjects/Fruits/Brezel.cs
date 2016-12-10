@@ -1,4 +1,6 @@
-﻿namespace Pacman.Models.LevelObjects.Fruits
+﻿using System.Linq;
+
+namespace Pacman.Models.LevelObjects.Fruits
 {
     using Core;
     using System;
@@ -17,9 +19,11 @@
 
         public override void ActivatePowerup(ModelGenerator ghostGen, PacMan pacMan)
         {
+            var coordinates = Engine.GetLevel().LevelCoordinates.Where(c => !c.isWall).ToList();
             Random rnd = new Random();
-            pacMan.X = rnd.Next(2, 20) * Global.quad_Width;
-            pacMan.Y = rnd.Next(1, 10) * Global.quad_Height;
+            int randomCoordinate = rnd.Next(0, coordinates.Count-1);
+            pacMan.X =coordinates[randomCoordinate].QuadrantX * Global.quad_Width;
+            pacMan.Y =coordinates[randomCoordinate].QuadrantY * Global.quad_Height;
 
             base.ActivatePowerup(ghostGen, pacMan);
         }

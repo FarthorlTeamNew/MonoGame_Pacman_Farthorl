@@ -28,16 +28,6 @@
             {
                 this.obstacles[coordinate.QuadrantY, coordinate.QuadrantX] = coordinate.isWall;
             }
-
-            //The old version of the code
-            //for (int i = 0; i < Global.YMax; i++)
-            //{
-            //    for (int j = 0; j < Global.XMax; j++)
-            //    {
-            //        string obstical = levelMatrix.PathsMatrix[i, j].Trim().Split(',')[0];
-            //        this.obstacles[i, j] = obstical == "1";
-            //    }
-            //}
         }
 
         public virtual void Reset()

@@ -1,4 +1,6 @@
-﻿namespace Pacman.Core
+﻿using System.Runtime.CompilerServices;
+
+namespace Pacman.Core
 {
     using System;
     using Enums;
@@ -22,7 +24,7 @@
         private KeyboardState oldState;
         private bool isLevelCompleted;
         private GameState currentGameState = GameState.Playing;
-        private Level level;
+        private static Level currentLevel;
         private DifficultyEnumerable difficulty;
 
         public Engine(Level level, DifficultyEnumerable difficulty)
@@ -30,7 +32,7 @@
             this.graphics = new GraphicsDeviceManager(this);
             this.Content.RootDirectory = "Content";
             this.IsMouseVisible = true;
-            this.level = level;
+            currentLevel = level;
             this.difficulty = difficulty;
             Global.Difficulty = this.difficulty;
         }
@@ -42,7 +44,7 @@
             this.pacMan = new PacMan(GameTexture.PacmanAndGhost, new Rectangle(0, 0, Global.quad_Width, Global.quad_Height));
             this.graphics.PreferredBackBufferWidth = Global.Screen_Width;
             this.graphics.PreferredBackBufferHeight = Global.Screen_Height;
-            this.levelMatrix = new Matrix(this.level);
+            this.levelMatrix = new Matrix(currentLevel);
             this.graphics.ApplyChanges();
             this.keyPress = new KeyPress();
             this.oldState = Keyboard.GetState();
@@ -106,7 +108,7 @@
                     this.UpdateDb();
                     this.Exit();
                   
-                    string levelName = this.level.Name;
+                    string levelName = currentLevel.Name;
                     Level newLevel = DataBridge.GerRandomLevel(levelName);
                     if (newLevel != null)
                     {
@@ -208,6 +210,11 @@
         private void UpdateDb()
         {
             DataBridge.UpdateDatabaseStats();
+        }
+
+        public static Level GetLevel()
+        {
+            return currentLevel;
         }
     }
 }
