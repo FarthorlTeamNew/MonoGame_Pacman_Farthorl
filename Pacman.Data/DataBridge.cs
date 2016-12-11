@@ -164,40 +164,43 @@ namespace Pacman.Data
             var passwordParameter = new SqlParameter { ParameterName = "@password", SqlDbType = SqlDbType.NVarChar, Value = Hash(password) };
             var isDeleteParameter = new SqlParameter { ParameterName = "@isDelete", SqlDbType = SqlDbType.Bit, Value = isDelete };
             var roleParameter = new SqlParameter { ParameterName = "@role", SqlDbType = SqlDbType.Int, Value = (int)role };
-            var sessionIdParameter = new SqlParameter { ParameterName = "@sessionId", SqlDbType = SqlDbType.VarChar, Value = userSessionId };
-            var returnSession = new SqlParameter { ParameterName = "@returnSession", SqlDbType = SqlDbType.VarChar, Value = "", Direction = ParameterDirection.Output };
+            var inputSessionIdParameter = new SqlParameter { ParameterName = "@inputSessionId", SqlDbType = SqlDbType.VarChar, Size = 100, Value = userSessionId};
+            var sessionIdParameter = new SqlParameter { ParameterName = "@sessionID", SqlDbType = SqlDbType.VarChar, Size = 100, Value = "", Direction = ParameterDirection.Output };
+            var userIdParameter = new SqlParameter { ParameterName = "@userId", SqlDbType = SqlDbType.Int, Size = 100, Value = 0, Direction = ParameterDirection.Output };
 
-            var results = context.Database.SqlQuery<string>("exec @returnSession= updateUser " +
-                                                            "@firstName, @lastName, @burthDate," +
-                                                            "@countryId, @cityId, @email, @password," +
-                                                            "@isDelete, @role, @sessionId",
-                                                            returnSession, firstNameParameter, lastNameParameter,
-                                                            burthDateParameter, countryIdParameter, cityIdParameter,
-                                                            emailParameter, passwordParameter, isDeleteParameter,
-                                                            roleParameter, sessionIdParameter
-                                                            );
-
-            try
+            var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["PacmanContext"].ConnectionString;
+            SqlConnection connection = new SqlConnection(connectionString);
+            using (connection)
             {
-                var sessionId = results.FirstOrDefault();
-                if (!string.IsNullOrEmpty(sessionId) && sessionId.Length == 64)
+                connection.Open();
+                SqlCommand sqlCommand = new SqlCommand("updateUser", connection);
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlCommand.Parameters.Add(firstNameParameter);
+                sqlCommand.Parameters.Add(lastNameParameter);
+                sqlCommand.Parameters.Add(burthDateParameter);
+                sqlCommand.Parameters.Add(countryIdParameter);
+                sqlCommand.Parameters.Add(cityIdParameter);
+                sqlCommand.Parameters.Add(emailParameter);
+                sqlCommand.Parameters.Add(passwordParameter);
+                sqlCommand.Parameters.Add(isDeleteParameter);
+                sqlCommand.Parameters.Add(roleParameter);
+                sqlCommand.Parameters.Add(inputSessionIdParameter);
+                sqlCommand.Parameters.Add(sessionIdParameter);
+                sqlCommand.Parameters.Add(userIdParameter);
+
+                sqlCommand.UpdatedRowSource = UpdateRowSource.OutputParameters;
+                sqlCommand.ExecuteNonQuery(); // Execute the Query
+                if (!string.IsNullOrEmpty(sqlCommand.Parameters["@sessionId"].Value.ToString()) &&
+                    !string.IsNullOrEmpty(sqlCommand.Parameters["@userId"].Value.ToString()))
                 {
-                    var countries = AllCountries;
-                    var cities = GetAllCities;
-                    userIsLogin = true;
-                    userSessionId = sessionId;
-                    user.FirstName = firstName;
-                    user.LastName = lastName;
-                    user.BurthDate = burthDate;
-                    userEmail = email;
-                    user.Country = countries.FirstOrDefault(c => c.Id == countryId);
-                    user.City = cities.FirstOrDefault(c => c.Id == cityId);
-                }
+                    int userId = (int)sqlCommand.Parameters["@userId"].Value;
 
-            }
-            catch (Exception e)
-            {
-                throw new DataException(e.Message);
+                    user = context.Users.FirstOrDefault(u => u.Id == userId);
+                    userSessionId = (string)sqlCommand.Parameters["@sessionId"].Value;
+                    userEmail = email;
+                    userIsLogin = true;
+
+                }
             }
         }
         public static bool CheckIsEmailExist(string email)
