@@ -1,4 +1,6 @@
-﻿namespace Pacman.Models.LevelObjects.Fruits
+﻿using System.Linq;
+
+namespace Pacman.Models.LevelObjects.Fruits
 {
     using Core;
     using System;
@@ -20,14 +22,20 @@
         {
             if (ghostGen.Ghosts.ContainsKey(nameof(Blinky)))
             {
-                ghostGen.Ghosts[nameof(Blinky)].X = new Random().Next(3, 5) * Global.quad_Width;
-                ghostGen.Ghosts[nameof(Blinky)].Y = new Random().Next(2, 4) * Global.quad_Height;
+                var coordinates = Engine.GetLevel().LevelCoordinates.Where(c => !c.isWall).ToList();
+                Random rnd = new Random();
+                int randomCoordinate = rnd.Next(0, coordinates.Count - 1);
+                ghostGen.Ghosts[nameof(Blinky)].X = coordinates[randomCoordinate].QuadrantX * Global.quad_Width;
+                ghostGen.Ghosts[nameof(Blinky)].Y = coordinates[randomCoordinate].QuadrantY * Global.quad_Height;
                 ghostGen.MovableModels[nameof(Blinky)].Reset();
             }
             if (ghostGen.Ghosts.ContainsKey(nameof(Pinky)))
             {
-                ghostGen.Ghosts[nameof(Pinky)].X = new Random().Next(17, 21) * Global.quad_Width;
-                ghostGen.Ghosts[nameof(Pinky)].Y = new Random().Next(8, 11) * Global.quad_Height;
+                var coordinates = Engine.GetLevel().LevelCoordinates.Where(c => !c.isWall).ToList();
+                Random rnd = new Random();
+                int randomCoordinate = rnd.Next(0, coordinates.Count - 1);
+                ghostGen.Ghosts[nameof(Pinky)].X = coordinates[randomCoordinate].QuadrantX * Global.quad_Width;
+                ghostGen.Ghosts[nameof(Pinky)].Y = coordinates[randomCoordinate].QuadrantY * Global.quad_Height;
                 ghostGen.MovableModels[nameof(Pinky)].Reset();
             }
             
