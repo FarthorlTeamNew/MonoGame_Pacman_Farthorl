@@ -15,6 +15,7 @@ namespace Pacman.Models
         public User()
         {
             this.Friends = new HashSet<User>();
+            this.Statistics = new HashSet<Statistic>();
         }
 
         [Key]
@@ -33,6 +34,8 @@ namespace Pacman.Models
         
         public virtual City City { get; protected set; }
         public int CityId { get; protected set; }
+
+        public ICollection<Statistic> Statistics { get; set; }
 
         public virtual PlayerStatistic PlayerStatistic { get; set; }
 
