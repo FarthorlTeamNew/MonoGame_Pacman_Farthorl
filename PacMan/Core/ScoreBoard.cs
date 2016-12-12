@@ -16,8 +16,7 @@
             var scores =
                 $"Scores: {pacMan.PointsEaten}   " +
                 $"Left points: {levelMatrix.LeftPoints}  " +
-                $"Health: {pacMan.Health}  " +
-                $"Lives: {pacMan.Lives}      ";
+                $"Health: {pacMan.Health}  ";
             if (Global.GhostKillerTimer.ElapsedMilliseconds != 0)
             {
                 scores += $"| Eat Ghosts : {Global.TimePokeball/1000 - 1- Global.GhostKillerTimer.ElapsedMilliseconds / 1000}:" +
