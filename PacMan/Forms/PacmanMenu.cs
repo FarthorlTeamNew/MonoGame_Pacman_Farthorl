@@ -13,7 +13,7 @@ namespace Pacman.Forms
     {
         public PacmanMenu()
         {
-            InitializeComponent();
+            this.InitializeComponent();
             this.AnimationButtons();
         }
 
@@ -94,7 +94,7 @@ namespace Pacman.Forms
         private void AnimationButtons()
         {
             this.StartEasyGame.BackColor = Color.LightGreen;
-            this.StartEasyGame.ForeColor = Color.Green;
+            this.StartEasyGame.ForeColor = Color.Blue;
             this.StartEasyGame.Font = new Font(this.StartEasyGame.Font.FontFamily, 12);
             this.StartHardGame.Font = new Font(this.StartHardGame.Font.FontFamily, 12);
             this.StartHardGame.BackColor = Color.LightGreen;

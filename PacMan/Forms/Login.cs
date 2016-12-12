@@ -12,11 +12,11 @@ namespace Pacman.Forms
     {
         public Login()
         {
-            InitializeComponent();
-            this.RegisterButton.BackColor = Color.Chartreuse;
-            this.LoginButton.BackColor = Color.Yellow;
+            this.InitializeComponent();
+            this.AnimationButtons();
         }
 
+      
         private void RegisterButton_Click(object sender, EventArgs e)
         {
             var register = new RegisterUpdate(Enums.FormEnumerable.Register);
@@ -168,5 +168,14 @@ namespace Pacman.Forms
 
             }
         }
+
+        private void AnimationButtons()
+        {
+            this.RegisterButton.BackColor = Color.Chartreuse;
+            this.LoginButton.BackColor = Color.Yellow;
+            this.LoginButton.Font = new Font(FontFamily.GenericMonospace, 17.6f);
+            this.RegisterButton.Font = new Font(FontFamily.GenericMonospace, 15.6f);
+        }
+
     }
 }
