@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace Pacman.Core
+﻿namespace Pacman.Core
 {
     using System;
     using Enums;
@@ -45,6 +43,7 @@ namespace Pacman.Core
             this.graphics.PreferredBackBufferWidth = Global.Screen_Width;
             this.graphics.PreferredBackBufferHeight = Global.Screen_Height;
             this.levelMatrix = new Matrix(currentLevel);
+            //graphics.IsFullScreen = true;
             this.graphics.ApplyChanges();
             this.keyPress = new KeyPress();
             this.oldState = Keyboard.GetState();
@@ -200,11 +199,6 @@ namespace Pacman.Core
             }
             this.spriteBatch.End();
             //base.Draw(gameTime);
-        }
-        private void Reset()
-        {
-            this.UpdateDb();
-            //this.Initialize();
         }
 
         private void UpdateDb()
