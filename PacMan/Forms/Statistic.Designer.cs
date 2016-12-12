@@ -29,74 +29,23 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.placeHolderTextBox1 = new Pacman.Menu.PlaceHolderTextBox();
-            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.maskedTextBox2 = new System.Windows.Forms.MaskedTextBox();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.placeHolderTextBox2 = new Pacman.Menu.PlaceHolderTextBox();
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.хммммToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.квоЕТToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ваToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.пешоПомагайToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.buttonUsers = new System.Windows.Forms.Button();
+            this.buttonAnecdotes = new System.Windows.Forms.Button();
             this.contextMenuStrip2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // placeHolderTextBox1
-            // 
-            this.placeHolderTextBox1.Location = new System.Drawing.Point(30, 42);
-            this.placeHolderTextBox1.Name = "placeHolderTextBox1";
-            this.placeHolderTextBox1.PlaceHolderText = null;
-            this.placeHolderTextBox1.Size = new System.Drawing.Size(108, 20);
-            this.placeHolderTextBox1.TabIndex = 0;
-            this.placeHolderTextBox1.Text = "Нищо не разбирам";
-            // 
-            // maskedTextBox1
-            // 
-            this.maskedTextBox1.Location = new System.Drawing.Point(301, 42);
-            this.maskedTextBox1.Mask = "хаха";
-            this.maskedTextBox1.Name = "maskedTextBox1";
-            this.maskedTextBox1.Size = new System.Drawing.Size(100, 20);
-            this.maskedTextBox1.TabIndex = 1;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(99, 104);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(146, 20);
-            this.textBox1.TabIndex = 2;
-            this.textBox1.Text = "Това по-добре ли е?";
-            // 
-            // maskedTextBox2
-            // 
-            this.maskedTextBox2.Location = new System.Drawing.Point(301, 172);
-            this.maskedTextBox2.Mask = "не";
-            this.maskedTextBox2.Name = "maskedTextBox2";
-            this.maskedTextBox2.Size = new System.Drawing.Size(100, 20);
-            this.maskedTextBox2.TabIndex = 3;
-            // 
-            // richTextBox1
-            // 
-            this.richTextBox1.Location = new System.Drawing.Point(38, 153);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(100, 96);
-            this.richTextBox1.TabIndex = 4;
-            this.richTextBox1.Text = "оо а това ?дсдссссссссссссссссссссссссссссссссссссссс";
             // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
-            // placeHolderTextBox2
-            // 
-            this.placeHolderTextBox2.Location = new System.Drawing.Point(443, 117);
-            this.placeHolderTextBox2.Name = "placeHolderTextBox2";
-            this.placeHolderTextBox2.PlaceHolderText = null;
-            this.placeHolderTextBox2.Size = new System.Drawing.Size(100, 20);
-            this.placeHolderTextBox2.TabIndex = 6;
             // 
             // contextMenuStrip2
             // 
@@ -132,38 +81,62 @@
             this.пешоПомагайToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
             this.пешоПомагайToolStripMenuItem.Text = "Пешо помагай";
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(12, 78);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.Size = new System.Drawing.Size(666, 285);
+            this.dataGridView1.TabIndex = 2;
+            // 
+            // buttonUsers
+            // 
+            this.buttonUsers.Location = new System.Drawing.Point(12, 12);
+            this.buttonUsers.Name = "buttonUsers";
+            this.buttonUsers.Size = new System.Drawing.Size(43, 37);
+            this.buttonUsers.TabIndex = 4;
+            this.buttonUsers.Text = "Users";
+            this.buttonUsers.UseVisualStyleBackColor = true;
+            this.buttonUsers.Click += new System.EventHandler(this.buttonUsers_Click);
+            // 
+            // buttonAnecdotes
+            // 
+            this.buttonAnecdotes.Location = new System.Drawing.Point(61, 12);
+            this.buttonAnecdotes.Name = "buttonAnecdotes";
+            this.buttonAnecdotes.Size = new System.Drawing.Size(67, 37);
+            this.buttonAnecdotes.TabIndex = 5;
+            this.buttonAnecdotes.Text = "Anecdotes";
+            this.buttonAnecdotes.UseVisualStyleBackColor = true;
+            this.buttonAnecdotes.Click += new System.EventHandler(this.buttonAnecdotes_Click);
+            // 
             // Statistic
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(549, 261);
-            this.Controls.Add(this.placeHolderTextBox2);
-            this.Controls.Add(this.richTextBox1);
-            this.Controls.Add(this.maskedTextBox2);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.maskedTextBox1);
-            this.Controls.Add(this.placeHolderTextBox1);
+            this.ClientSize = new System.Drawing.Size(690, 375);
+            this.Controls.Add(this.buttonAnecdotes);
+            this.Controls.Add(this.buttonUsers);
+            this.Controls.Add(this.dataGridView1);
             this.Name = "Statistic";
             this.Text = "Statistic";
             this.contextMenuStrip2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private Menu.PlaceHolderTextBox placeHolderTextBox1;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox2;
-        private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private Menu.PlaceHolderTextBox placeHolderTextBox2;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
         private System.Windows.Forms.ToolStripMenuItem хммммToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem квоЕТToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ваToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem пешоПомагайToolStripMenuItem;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Button buttonUsers;
+        private System.Windows.Forms.Button buttonAnecdotes;
     }
 }
