@@ -106,6 +106,7 @@
             this.RetrieveInput.Text = "Add/Remove Friend";
             this.RetrieveInput.UseVisualStyleBackColor = true;
             this.RetrieveInput.Click += new System.EventHandler(this.RetrieveInput_Click);
+            this.RetrieveInput.MouseClick += new System.Windows.Forms.MouseEventHandler(this.RetrieveInput_MouseClick);
             // 
             // FriendIdBox
             // 

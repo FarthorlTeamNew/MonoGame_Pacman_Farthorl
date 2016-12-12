@@ -1,7 +1,4 @@
-﻿using System.Drawing;
-using Pacman.Models;
-
-namespace Pacman.Forms
+﻿namespace Pacman.Forms
 {
     using System;
     using System.Linq;
@@ -9,6 +6,8 @@ namespace Pacman.Forms
     using Pacman.Core;
     using Pacman.Data;
     using Pacman.Enums;
+    using System.Drawing;
+
     public partial class PacmanMenu : Form
     {
         public PacmanMenu()
@@ -108,6 +107,11 @@ namespace Pacman.Forms
         {
             string friendId = this.FriendIdBox.Text;
             string operationResult = DataBridge.AddRemoveFriend(friendId);
+            DialogResult dialog = MessageBox.Show(operationResult);
+        }
+
+        private void RetrieveInput_MouseClick(object sender, MouseEventArgs e)
+        {
         }
     }
 }
