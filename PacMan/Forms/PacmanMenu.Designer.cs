@@ -34,6 +34,9 @@
             this.LevelsComboBox = new System.Windows.Forms.ComboBox();
             this.StartHardGame = new System.Windows.Forms.Button();
             this.statisticButton = new System.Windows.Forms.Button();
+            this.RetrieveInput = new System.Windows.Forms.Button();
+            this.FriendIdBox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // StartEasyGame
@@ -94,6 +97,33 @@
             this.statisticButton.UseVisualStyleBackColor = true;
             this.statisticButton.Click += new System.EventHandler(this.statisticButton_Click);
             // 
+            // RetrieveInput
+            // 
+            this.RetrieveInput.Location = new System.Drawing.Point(27, 190);
+            this.RetrieveInput.Name = "RetrieveInput";
+            this.RetrieveInput.Size = new System.Drawing.Size(155, 23);
+            this.RetrieveInput.TabIndex = 5;
+            this.RetrieveInput.Text = "Add/Remove Friend";
+            this.RetrieveInput.UseVisualStyleBackColor = true;
+            this.RetrieveInput.Click += new System.EventHandler(this.RetrieveInput_Click);
+            // 
+            // FriendIdBox
+            // 
+            this.FriendIdBox.Location = new System.Drawing.Point(224, 193);
+            this.FriendIdBox.Name = "FriendIdBox";
+            this.FriendIdBox.Size = new System.Drawing.Size(33, 20);
+            this.FriendIdBox.TabIndex = 6;
+            this.FriendIdBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(263, 196);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(48, 13);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Friend Id";
+            // 
             // PacmanMenu
             // 
             this.AcceptButton = this.StartEasyGame;
@@ -102,6 +132,9 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(584, 261);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.FriendIdBox);
+            this.Controls.Add(this.RetrieveInput);
             this.Controls.Add(this.statisticButton);
             this.Controls.Add(this.StartHardGame);
             this.Controls.Add(this.LevelsComboBox);
@@ -118,6 +151,7 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.PacmanMenu_FormClosed);
             this.Load += new System.EventHandler(this.PacmanMenu_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -128,5 +162,8 @@
         private System.Windows.Forms.ComboBox LevelsComboBox;
         private System.Windows.Forms.Button StartHardGame;
         private System.Windows.Forms.Button statisticButton;
+        private System.Windows.Forms.Button RetrieveInput;
+        private System.Windows.Forms.TextBox FriendIdBox;
+        private System.Windows.Forms.Label label1;
     }
 }

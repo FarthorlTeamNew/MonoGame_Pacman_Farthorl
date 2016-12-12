@@ -103,5 +103,11 @@ namespace Pacman.Forms
             this.StartHardGame.ForeColor = Color.Red;
             this.UpdateButton.BackColor = Color.Coral;
         }
+
+        private void RetrieveInput_Click(object sender, EventArgs e)
+        {
+            string friendId = this.FriendIdBox.Text;
+            string operationResult = DataBridge.AddRemoveFriend(friendId);
+        }
     }
 }

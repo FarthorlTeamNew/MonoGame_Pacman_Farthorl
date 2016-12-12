@@ -254,21 +254,37 @@ namespace Pacman.Data
             return levels.FirstOrDefault(level => level.Name == levelName);
         }
 
-        public static string AddRemoveFriend(int id)
+        public static string AddRemoveFriend(object id)
         {
-            User userToAddOrRemove = context.Users.Find(id);
-
-            if (GetUserData().Friends.Any(us => us.Id == GetUserData().Id))
+            int result = 0;
+            bool isNumber = int.TryParse(id.ToString(), out result);
+            if (!isNumber)
             {
-                GetUserData().Friends.Remove(userToAddOrRemove);
+                return $"Please write a valid integer number";
+            }
+            try
+            {
+                int friendId = int.Parse(id.ToString());
+                User userToAddOrRemove = context.Users.FirstOrDefault(us => us.Id == friendId);
+
+                if (GetUserData().Friends.Any(us => us.Id == userToAddOrRemove.Id))
+                {
+                    GetUserData().Friends.Remove(userToAddOrRemove);
+                    context.SaveChanges();
+                    return
+                        $"You have removed {userToAddOrRemove.FirstName} {userToAddOrRemove.LastName} from your friends list";
+                }
+                GetUserData().Friends.Add(userToAddOrRemove);
                 context.SaveChanges();
                 return
-                    $"You have removed {userToAddOrRemove.FirstName} {userToAddOrRemove.LastName} from your friends list";
-            }
-            GetUserData().Friends.Add(userToAddOrRemove);
-            context.SaveChanges();
-            return
                     $"You have added {userToAddOrRemove.FirstName} {userToAddOrRemove.LastName} to your friends list";
+            }
+            catch (Exception)
+            {
+                return $"No such user with Id = {id} was found";
+            }
+
+           
         }
 
         public static void UpdateDatabaseStats()
