@@ -282,7 +282,6 @@ namespace Pacman.Data
         public static int GetLevelsCount()
         {
             return levels.Count;
-            
         }
 
         public static Level GerRandomLevel(string exlusionByName)
