@@ -1,0 +1,44 @@
+[
+  {
+    "Place": 1,
+    "PlayerName": "Petar Dimitrov",
+    "EatenPoints": 5151,
+    "EasyLevelsCompleted": 21,
+    "TimesDied": 33
+  },
+  {
+    "Place": 2,
+    "PlayerName": "Stoyan Ivanov",
+    "EatenPoints": 1808,
+    "EasyLevelsCompleted": 13,
+    "TimesDied": 20
+  },
+  {
+    "Place": 3,
+    "PlayerName": "Doncho Patronski",
+    "EatenPoints": 2717,
+    "EasyLevelsCompleted": 5,
+    "TimesDied": 28
+  },
+  {
+    "Place": 4,
+    "PlayerName": "Alexander Krastev",
+    "EatenPoints": 277,
+    "EasyLevelsCompleted": 1,
+    "TimesDied": 1
+  },
+  {
+    "Place": 5,
+    "PlayerName": "d l",
+    "EatenPoints": 619,
+    "EasyLevelsCompleted": 0,
+    "TimesDied": 21
+  },
+  {
+    "Place": 6,
+    "PlayerName": "fdsfds fdsfsfds",
+    "EatenPoints": 18,
+    "EasyLevelsCompleted": 0,
+    "TimesDied": 1
+  }
+]

@@ -1,6 +1,7 @@
 ﻿namespace Pacman.JsonConverter
 {
     using System;
+    using Converters;
     using Data;
     using Enums;
 
@@ -11,8 +12,8 @@
             var context = new PacmanContext();
 
             var topPlayerByType = new TopPlayersByType(context, OrderType.EasyLevelsCompleted, 10);
-            Console.WriteLine(topPlayerByType.Message);
-            Console.WriteLine(string.Join(Environment.NewLine, topPlayerByType.GetTopScores()));
+            var topPlayersCollection = topPlayerByType.GetTopScores();
+            JsonExporter.ExportToJsonFile(topPlayersCollection,"PlayersTopScore");
         }
     }
 }
