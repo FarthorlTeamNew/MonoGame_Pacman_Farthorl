@@ -33,6 +33,7 @@
             this.UpdateButton = new System.Windows.Forms.Button();
             this.LevelsComboBox = new System.Windows.Forms.ComboBox();
             this.StartHardGame = new System.Windows.Forms.Button();
+            this.statisticButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // StartEasyGame
@@ -82,6 +83,17 @@
             this.StartHardGame.UseVisualStyleBackColor = true;
             this.StartHardGame.Click += new System.EventHandler(this.StartHardGame_Click);
             // 
+            // statisticButton
+            // 
+            this.statisticButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.statisticButton.Location = new System.Drawing.Point(419, 84);
+            this.statisticButton.Name = "statisticButton";
+            this.statisticButton.Size = new System.Drawing.Size(153, 32);
+            this.statisticButton.TabIndex = 4;
+            this.statisticButton.Text = "Statistic";
+            this.statisticButton.UseVisualStyleBackColor = true;
+            this.statisticButton.Click += new System.EventHandler(this.statisticButton_Click);
+            // 
             // PacmanMenu
             // 
             this.AcceptButton = this.StartEasyGame;
@@ -90,6 +102,7 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(584, 261);
+            this.Controls.Add(this.statisticButton);
             this.Controls.Add(this.StartHardGame);
             this.Controls.Add(this.LevelsComboBox);
             this.Controls.Add(this.UpdateButton);
@@ -114,5 +127,6 @@
         private System.Windows.Forms.Button UpdateButton;
         private System.Windows.Forms.ComboBox LevelsComboBox;
         private System.Windows.Forms.Button StartHardGame;
+        private System.Windows.Forms.Button statisticButton;
     }
 }

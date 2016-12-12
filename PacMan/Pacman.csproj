@@ -90,6 +90,12 @@
     <Compile Include="Forms\RegisterUpdate.Designer.cs">
       <DependentUpon>RegisterUpdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Statistic.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Statistic.Designer.cs">
+      <DependentUpon>Statistic.cs</DependentUpon>
+    </Compile>
     <Compile Include="Globals\Global.cs" />
     <Compile Include="Handlers\GhostRandomMovement.cs" />
     <Compile Include="Enums\Directions.cs" />
@@ -310,6 +316,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\RegisterUpdate.resx">
       <DependentUpon>RegisterUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Statistic.resx">
+      <DependentUpon>Statistic.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Menu\PlaceHolderTextBox.resx">
       <DependentUpon>PlaceHolderTextBox.cs</DependentUpon>

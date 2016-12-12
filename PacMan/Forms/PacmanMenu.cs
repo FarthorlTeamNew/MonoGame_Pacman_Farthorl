@@ -82,5 +82,12 @@ namespace Pacman.Forms
                 loginForm.Show();            
             }
         }
+
+        private void statisticButton_Click(object sender, EventArgs e)
+        {
+            var statisticForm = new Statistic();
+            //this.Hide();
+            statisticForm.Show();
+        }
     }
 }
