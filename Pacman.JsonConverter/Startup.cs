@@ -12,7 +12,7 @@
 
             var topPlayerByType = new TopPlayersByType(context, OrderType.EasyLevelsCompleted, 10);
             Console.WriteLine(topPlayerByType.Message);
-            Console.WriteLine(string.Join(Environment.NewLine, topPlayerByType.GetTopPlayers()));
+            Console.WriteLine(string.Join(Environment.NewLine, topPlayerByType.GetTopScores()));
         }
     }
 }

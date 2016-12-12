@@ -58,7 +58,6 @@
   <ItemGroup>
     <Compile Include="Converters\JsonExporter.cs" />
     <Compile Include="Converters\JsonImporter.cs" />
-    <Compile Include="IHighscore.cs" />
     <Compile Include="TopPlayersByType.cs" />
     <Compile Include="Interfaces\IHighscore.cs" />
     <Compile Include="Enums\OrderType.cs" />

@@ -2,10 +2,10 @@
 {
     using System.Collections.Generic;
 
-    public interface IHighscore
+    public interface IHighscore<out TEntity>
     {
         string Message { get; }
 
-        IEnumerable<TEntity> GetTopPlayers<TEntity>();
+        IEnumerable<TEntity> GetTopScores();
     }
 }

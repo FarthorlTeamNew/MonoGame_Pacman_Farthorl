@@ -4,6 +4,7 @@
     using System.Linq;
     using Data;
     using Enums;
+    using Interfaces;
     using ViewModels;
 
     public class TopPlayersByType : IHighscore<TopPlayerDto>
@@ -44,7 +45,7 @@
         }
 
 
-        public IEnumerable<TopPlayerDto> GetTopPlayers()
+        public IEnumerable<TopPlayerDto> GetTopScores()
         {
             var highscores = this.context.PlayerStatistics.OrderBy(p => p.UserId);
 
