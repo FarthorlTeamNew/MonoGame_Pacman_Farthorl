@@ -254,6 +254,23 @@ namespace Pacman.Data
             return levels.FirstOrDefault(level => level.Name == levelName);
         }
 
+        public static string AddRemoveFriend(int id)
+        {
+            User userToAddOrRemove = context.Users.Find(id);
+
+            if (GetUserData().Friends.Any(us => us.Id == GetUserData().Id))
+            {
+                GetUserData().Friends.Remove(userToAddOrRemove);
+                context.SaveChanges();
+                return
+                    $"You have removed {userToAddOrRemove.FirstName} {userToAddOrRemove.LastName} from your friends list";
+            }
+            GetUserData().Friends.Add(userToAddOrRemove);
+            context.SaveChanges();
+            return
+                    $"You have added {userToAddOrRemove.FirstName} {userToAddOrRemove.LastName} to your friends list";
+        }
+
         public static void UpdateDatabaseStats()
         {
             context.SaveChanges();
