@@ -10,7 +10,7 @@
         {
             var context = new PacmanContext();
 
-            var topPlayerByType = new TopPlayersByType(context, OrderType.PlayerTimesDied, 10);
+            var topPlayerByType = new TopPlayersByType(context, OrderType.EasyLevelsCompleted, 10);
             Console.WriteLine(topPlayerByType.Message);
             Console.WriteLine(string.Join(Environment.NewLine, topPlayerByType.GetTopPlayers()));
         }

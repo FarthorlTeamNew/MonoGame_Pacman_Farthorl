@@ -11,15 +11,38 @@
         private readonly PacmanContext context;
         private readonly int numberOfTopPlayers;
         private readonly OrderType orderType;
+        private string orderTypeString;
 
         public TopPlayersByType(PacmanContext pacmanContext, OrderType orderType, int numberOfTopPlayers)
         {
             this.context = pacmanContext;
             this.numberOfTopPlayers = numberOfTopPlayers;
             this.orderType = orderType;
+            this.OrderTypeString = orderType.ToString();
         }
 
-        public string Message => $"Top {this.numberOfTopPlayers} players by eaten points!";
+        public string Message => $"Top {this.numberOfTopPlayers} players by {this.OrderTypeString}!";
+
+        public string OrderTypeString
+        {
+            get { return this.orderTypeString; }
+            set
+            {
+                if (value == OrderType.PlayerPointsEaten.ToString())
+                {
+                    this.orderTypeString = "eaten points";
+                }
+                else if (value == OrderType.EasyLevelsCompleted.ToString())
+                {
+                    this.orderTypeString = "easy levels completed";
+                }
+                else if (value == OrderType.PlayerTimesDied.ToString())
+                {
+                    this.orderTypeString = "times died";
+                }
+            }
+        }
+
 
         public IEnumerable<TopPlayerDto> GetTopPlayers()
         {
@@ -51,7 +74,7 @@
                                             TimesDied = ps.PlayerTimesDied
                                         });
 
-            return resultHighscores; 
+            return resultHighscores;
         }
     }
 }
