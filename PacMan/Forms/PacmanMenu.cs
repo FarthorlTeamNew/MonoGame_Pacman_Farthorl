@@ -74,12 +74,12 @@ namespace Pacman.Forms
             this.Enabled = true;
             var levels = DataBridge.GetAllLevels().Select(level => level.Name);
             LevelsComboBox.Items.AddRange(levels.ToArray());
+            LevelsComboBox.SelectedIndex = 3;
             if (!DataBridge.UserIsLogin())
             {
                 Hide();
                 Login loginForm = new Login();
-                loginForm.Show();
-                
+                loginForm.Show();            
             }
         }
     }
