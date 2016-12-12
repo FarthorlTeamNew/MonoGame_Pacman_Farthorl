@@ -74,7 +74,7 @@ namespace Pacman.Forms
             this.Enabled = true;
             var levels = DataBridge.GetAllLevels().Select(level => level.Name);
             LevelsComboBox.Items.AddRange(levels.ToArray());
-            LevelsComboBox.SelectedIndex = 3;
+            LevelsComboBox.SelectedIndex = new Random().Next(1, levels.Count());
             if (!DataBridge.UserIsLogin())
             {
                 Hide();

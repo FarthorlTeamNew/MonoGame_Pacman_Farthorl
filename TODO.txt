@@ -3,7 +3,7 @@
 - (DONE) Fix placement of the big ghostkiller ball. Should always be 4 balls for every level
 - (DONE) Implement jumping to a random level when you complete the current level
 - Add more buttons on the form for Exporting top players, ordered by particular stats to JSON
-- Implement Random Level select from the dropdown menu, which should be default value when opening a new game session
+- (DONE) Implement Random Level select from the dropdown menu, which should be default value when opening a new game session
 - Implement GameState.cs class, which remembers all the level progress (points eaten, ghosts dead, fruit eaten, pacman position, ghosts positions, etc), so that when a user exits a game, next time he logs in, he can continue his progress.
 - (DONE) Add Many-To-Many Self-reference Property for Users, called Friends
 - On the windows form, add options to Add/Remove Friends from your list by entering user email address. Then add statistics export only among your friends and not all players.
