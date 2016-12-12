@@ -101,13 +101,8 @@ namespace Pacman.Core
             {
                 if (Keyboard.GetState().IsKeyDown(Keys.Space))
                 {
-                    this.Reset();
-                }
-                else if (Keyboard.GetState().IsKeyDown(Keys.Enter))
-                {
                     this.UpdateDb();
                     this.Exit();
-                  
                     string levelName = currentLevel.Name;
                     Level newLevel = DataBridge.GerRandomLevel(levelName);
                     if (newLevel != null)
@@ -119,6 +114,11 @@ namespace Pacman.Core
                     {
                         throw new EntryPointNotFoundException($"The levels with name {levelName} not found");
                     }
+                }
+                else if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+                {
+                    this.UpdateDb();
+                    this.Exit();
                 }
             }
             base.Update(gameTime);
@@ -204,7 +204,7 @@ namespace Pacman.Core
         private void Reset()
         {
             this.UpdateDb();
-            this.Initialize();
+            //this.Initialize();
         }
 
         private void UpdateDb()
