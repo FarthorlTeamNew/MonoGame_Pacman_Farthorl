@@ -260,7 +260,7 @@ namespace Pacman.Data
             bool isNumber = int.TryParse(id.ToString(), out result);
             if (!isNumber)
             {
-                return $"Please write a valid integer number";
+                return "Please write a valid integer number!";
             }
             try
             {
@@ -272,16 +272,16 @@ namespace Pacman.Data
                     GetUserData().Friends.Remove(userToAddOrRemove);
                     context.SaveChanges();
                     return
-                        $"You have removed {userToAddOrRemove.FirstName} {userToAddOrRemove.LastName} from your friends list";
+                        $"You have removed {userToAddOrRemove.FirstName} {userToAddOrRemove.LastName} from your friends list!";
                 }
                 GetUserData().Friends.Add(userToAddOrRemove);
                 context.SaveChanges();
                 return
-                    $"You have added {userToAddOrRemove.FirstName} {userToAddOrRemove.LastName} to your friends list";
+                    $"You have added {userToAddOrRemove.FirstName} {userToAddOrRemove.LastName} to your friends list!";
             }
             catch (Exception)
             {
-                return $"No such user with Id = {id} was found";
+                return $"No such user with Id = {id} was found!";
             }
 
            
