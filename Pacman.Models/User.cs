@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Pacman.Models
@@ -9,6 +10,11 @@ namespace Pacman.Models
         {
             user,
             admin
+        }
+
+        public User()
+        {
+            this.Friends = new HashSet<User>();
         }
 
         [Key]
@@ -29,5 +35,7 @@ namespace Pacman.Models
         public int CityId { get; protected set; }
 
         public virtual PlayerStatistic PlayerStatistic { get; set; }
+
+        public virtual ICollection<User> Friends { get; set; }
     }
 }

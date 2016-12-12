@@ -24,6 +24,16 @@ namespace Pacman.Data
         {
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+
+            modelBuilder.Entity<User>()
+                .HasMany(user => user.Friends)
+                .WithMany()
+                .Map(userFriends =>
+                {
+                    userFriends.MapLeftKey("UserId");
+                    userFriends.MapRightKey("FriendId");
+                    userFriends.ToTable("UsersFriends");
+                });
         }
     }
 }
