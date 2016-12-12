@@ -1,4 +1,5 @@
-﻿using Pacman.Models;
+﻿using System.Drawing;
+using Pacman.Models;
 
 namespace Pacman.Forms
 {
@@ -13,6 +14,7 @@ namespace Pacman.Forms
         public PacmanMenu()
         {
             InitializeComponent();
+            this.AnimationButtons();
         }
 
         private void PacmanMenu_FormClosed(object sender, FormClosedEventArgs e)
@@ -88,6 +90,18 @@ namespace Pacman.Forms
             var statisticForm = new Statistic();
             //this.Hide();
             statisticForm.Show();
+        }
+        private void AnimationButtons()
+        {
+            this.StartEasyGame.BackColor = Color.LightGreen;
+            this.StartEasyGame.ForeColor = Color.Green;
+            this.StartEasyGame.Font = new Font(this.StartEasyGame.Font.FontFamily, 12);
+            this.StartHardGame.Font = new Font(this.StartHardGame.Font.FontFamily, 12);
+            this.StartHardGame.BackColor = Color.LightGreen;
+            this.StartEasyGame.DialogResult = DialogResult.OK;
+            this.statisticButton.BackColor = Color.Coral;
+            this.StartHardGame.ForeColor = Color.Red;
+            this.UpdateButton.BackColor = Color.Coral;
         }
     }
 }

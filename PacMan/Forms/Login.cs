@@ -13,6 +13,8 @@ namespace Pacman.Forms
         public Login()
         {
             InitializeComponent();
+            this.RegisterButton.BackColor = Color.Chartreuse;
+            this.LoginButton.BackColor = Color.Yellow;
         }
 
         private void RegisterButton_Click(object sender, EventArgs e)
