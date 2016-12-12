@@ -115,6 +115,19 @@
             this.statisticButton.BackColor = Color.Coral;
             this.StartHardGame.ForeColor = Color.Red;
             this.UpdateButton.BackColor = Color.Coral;
+            this.RetrieveInput.BackColor = Color.LightGreen;
+            this.RetrieveInput.ForeColor = Color.Blue;
+            this.RetrieveInput.Font = new Font(FontFamily.GenericMonospace, 10.6f);
+            this.FriendIdBox.ForeColor = Color.Red;
+            this.FriendIdBox.BackColor = Color.LightGreen;
+            this.LevelsComboBox.BackColor = Color.LightGreen;
+            this.LevelsComboBox.ForeColor = Color.Blue;
+            this.label1.BackColor = Color.LightGreen;
+            this.label1.ForeColor = Color.Red;
+            this.LevelsComboBox.Tag = Color.LightGreen;
+
+
+
         }
 
         private void RetrieveInput_Click(object sender, EventArgs e)
@@ -126,6 +139,7 @@
 
         private void RetrieveInput_MouseClick(object sender, MouseEventArgs e)
         {
+            
         }
     }
 }
