@@ -6,13 +6,14 @@
 - (DONE) Implement Random Level select from the dropdown menu, which should be default value when opening a new game session
 - Implement GameState.cs class, which remembers all the level progress (points eaten, ghosts dead, fruit eaten, pacman position, ghosts positions, etc), so that when a user exits a game, next time he logs in, he can continue his progress.
 - (DONE) Add Many-To-Many Self-reference Property for Users, called Friends
-- On the windows form, add options to Add/Remove Friends from your list by entering user email address. Then add statistics export only among your friends and not all players.
+- (DONE)On the windows form, add options to Add/Remove Friends from your list by entering user email address. 
+- Add statistics export only among your friends and not all players.
 - (OPTIONAL) Add Ghost Statistics - TimesEatenPacman, PointsEaten
 
 From advanced C#:
 - (DONE) Improved pathfinding with increased difficulty
 - (DONE) make a factory class for the fruit 
-- add automatic level change
+- (DONE) add automatic level change
 - (DONE) create abstract class for ghost, with different colours (maybe different abilities)
 - maybe add a game menu to select different skins for the ghosts (add all kind of interesting skins - spongebob, some kind of animals
 - implement the logging of errors
