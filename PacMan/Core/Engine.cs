@@ -102,17 +102,25 @@
                 {
                     this.UpdateDb();
                     this.Exit();
-                    string levelName = currentLevel.Name;
-                    Level newLevel = DataBridge.GerRandomLevel(levelName);
-                    if (newLevel != null)
+                    if (this.pacMan.IsAlive)
                     {
-                        using (var game = new Engine(newLevel, this.difficulty))
-                            game.Run();
+                        string levelName = currentLevel.Name;
+                        Level newLevel = DataBridge.GerRandomLevel(levelName);
+                        if (newLevel != null)
+                        {
+                            using (var game = new Engine(newLevel, this.difficulty))
+                                game.Run();
+                        }
+                        else
+                        {
+                            throw new EntryPointNotFoundException($"The levels with name {levelName} not found");
+                        }
                     }
                     else
                     {
-                        throw new EntryPointNotFoundException($"The levels with name {levelName} not found");
-                    }
+                        using (var game = new Engine(currentLevel, this.difficulty))
+                            game.Run();
+                    }               
                 }
                 else if (Keyboard.GetState().IsKeyDown(Keys.Enter))
                 {
@@ -164,7 +172,7 @@
                                 this.spriteBatch.Draw(GameTexture.LosePic, new Vector2(250, 100));
                                 if (this.isLevelCompleted == false)
                                 {
-                                    this.pacMan.Lives--;
+                                    pacMan.IsAlive = false;
                                     DataBridge.GetUserData().PlayerStatistic.PlayerTimesDied++;
                                     this.isLevelCompleted = true;
                                     sound.Dead();

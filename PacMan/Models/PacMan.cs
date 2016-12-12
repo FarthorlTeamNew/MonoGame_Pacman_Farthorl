@@ -8,11 +8,13 @@
         public PacMan(Texture2D texture, Rectangle boundingBox)
             : base(texture, 0,  0, boundingBox)
         {
+            IsAlive = true;
             this.CanEat = false;
         }
 
         public PacMan() : base()
         {
+            IsAlive = true;
             this.CanEat = false;
         }
 
@@ -20,7 +22,7 @@
 
         public bool CanEat { get; set; }
 
-        public int Lives { get; set; } = 3;
+        public bool IsAlive { get; set; }
 
         public int PointsEaten { get; set; }
     }
