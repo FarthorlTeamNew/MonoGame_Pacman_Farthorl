@@ -100,7 +100,7 @@ namespace Pacman.Data
 
                         user = context.Users.FirstOrDefault(u => u.Id == userId);
                         userSessionId = (string)sqlCommand.Parameters["@sessionId"].Value;
-                        userEmail= (string)sqlCommand.Parameters["@userName"].Value;
+                        userEmail = (string)sqlCommand.Parameters["@userName"].Value;
                         userIsLogin = true;
 
                     }
@@ -164,7 +164,7 @@ namespace Pacman.Data
             var passwordParameter = new SqlParameter { ParameterName = "@password", SqlDbType = SqlDbType.NVarChar, Value = Hash(password) };
             var isDeleteParameter = new SqlParameter { ParameterName = "@isDelete", SqlDbType = SqlDbType.Bit, Value = isDelete };
             var roleParameter = new SqlParameter { ParameterName = "@role", SqlDbType = SqlDbType.Int, Value = (int)role };
-            var inputSessionIdParameter = new SqlParameter { ParameterName = "@inputSessionId", SqlDbType = SqlDbType.VarChar, Size = 100, Value = userSessionId};
+            var inputSessionIdParameter = new SqlParameter { ParameterName = "@inputSessionId", SqlDbType = SqlDbType.VarChar, Size = 100, Value = userSessionId };
             var sessionIdParameter = new SqlParameter { ParameterName = "@sessionID", SqlDbType = SqlDbType.VarChar, Size = 100, Value = "", Direction = ParameterDirection.Output };
             var userIdParameter = new SqlParameter { ParameterName = "@userId", SqlDbType = SqlDbType.Int, Size = 100, Value = 0, Direction = ParameterDirection.Output };
 
@@ -309,7 +309,6 @@ namespace Pacman.Data
                 statistic.Duration = statistic.EndGame - statistic.StartGame;
                 context.SaveChanges();
             }
-
         }
 
         public static int GetLevelsCount()
@@ -317,12 +316,154 @@ namespace Pacman.Data
             return levels.Count;
         }
 
+        public static string GetLastPlayedGame()
+        {
+            var result = context.Statistics
+                                .First(s=>s.UserId==user.Id)
+                                .Level
+                                .Name;
+            if (!string.IsNullOrEmpty(result))
+            {
+                return result;
+            }
+
+            return "n/a";
+        }
+
+        public static string GetUserTotalPoints()
+        {
+            var result = context.PlayerStatistics
+                                .Where(ps => ps.User.Id == user.Id)
+                                .Sum(ps=>ps.PlayerPointsEaten).ToString();
+
+            if (!string.IsNullOrEmpty(result))
+            {
+                return result;
+            }
+
+            return "n/a";
+        }
+
+        public static string GetUserComplateLevels()
+        {
+            var statisticData = context.PlayerStatistics
+                .Where(ps => ps.User.Id == user.Id)
+                .Select(ps => new {ps.EasyLevelsCompleted, ps.HardLevelsCompleted});
+
+            if (statisticData.Any())
+            {
+                return "Easy: " +
+                   statisticData.First().EasyLevelsCompleted +
+                   " / Hard: " +
+                   statisticData.First().HardLevelsCompleted;
+            }
+
+            return "n/a";
+
+        }
+
+        public static string UserNonCompleateLevels()
+        {
+            var result = context.PlayerStatistics
+                                .Where(ps => ps.User.Id == user.Id)
+                                .Select(ps => ps.PlayerTimesDied);
+
+            if (result.Any())
+            {
+                return result.First().ToString();
+            }
+
+            return "n/a";
+        }
+
+        public static string UserTotalDuration()
+        {
+            var result = context.Statistics.Where(s => s.UserId == user.Id).Select(s=>s.Duration).ToList();
+                
+
+            if (result!=null)
+            {
+                var sumResult = (from r in result let timeSpan = r where timeSpan != null select timeSpan.Value.TotalHours).Sum();
+                return sumResult.ToString("0.###") + " hours";
+            }
+
+            return "n/a";
+
+        }
+
+        public static string GetTotalPlayers()
+        {
+            var result = context.Users.Count();
+            return result.ToString();
+        }
+
+        public static string GetTotalPoints()
+        {
+            var result = context.PlayerStatistics
+                                .Sum(ps => ps.PlayerPointsEaten).ToString();
+
+            if (!string.IsNullOrEmpty(result))
+            {
+                return result;
+
+            }
+
+            return "n/a";
+        }
+
+        public static string GetComplateLevels()
+        {
+            var statisticData = context.PlayerStatistics
+                .GroupBy(ps => 1)
+                .Select(ps => new
+                {
+                    easyCount = ps.Sum(el => el.EasyLevelsCompleted),
+                    hardCount = ps.Sum(hc => hc.HardLevelsCompleted)
+                });
+
+            if (statisticData.Any())
+            {
+                return "Easy: " +
+                   statisticData.First().easyCount +
+                   " / Hard: " +
+                   statisticData.First().hardCount;
+            }
+
+            return "n/a";
+
+        }
         public static Level GerRandomLevel(string exlusionByName)
         {
             var myLevels = GetAllLevels().Where(l => l.Name != exlusionByName);
             var count = myLevels.Count();
             var randomIndex = random.Next(1, count);
             return myLevels.ToList()[randomIndex];
+        }
+
+        public static string NonCompleateLevels()
+        {
+            var result = context.PlayerStatistics
+                .Sum(ps => ps.PlayerTimesDied);
+
+            if (!string.IsNullOrEmpty(result.ToString()))
+            {
+                return result.ToString();
+            }
+
+            return "n/a";
+        }
+        public static string TotalDuration()
+        {
+            var result = context.Statistics.Select(s=>s.Duration).ToList();
+
+            if (result != null)
+            {
+                var sumResult = (from r in result let timeSpan = r where timeSpan != null select timeSpan.Value.TotalHours).Sum();
+                return sumResult.ToString("0.###") + " hours";
+            }
+
+            return "n/a";
+
         }
 
         //Hash the password with SHA256 algoritm, before save into the User object

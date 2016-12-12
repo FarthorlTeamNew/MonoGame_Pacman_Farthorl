@@ -62,7 +62,7 @@
                 }
                 DataBridge.EndGame();
                 Show();
-                
+
             }
             else
             {
@@ -80,8 +80,22 @@
             {
                 Hide();
                 Login loginForm = new Login();
-                loginForm.Show();            
+                loginForm.Show();
             }
+
+            //Fill User statistic
+            this.LastLevel.Text = DataBridge.GetLastPlayedGame();
+            this.UserTotalPoints.Text = DataBridge.GetUserTotalPoints();
+            this.UserComplateLevels.Text = DataBridge.GetUserComplateLevels();
+            this.UserNonCompleateLevels.Text = DataBridge.UserNonCompleateLevels();
+            this.UserTotalDuration.Text = DataBridge.UserTotalDuration();
+
+            //Fill Total statistic
+            this.TotalPlayers.Text = DataBridge.GetTotalPlayers();
+            this.TotalPoints.Text = DataBridge.GetTotalPoints(); ;
+            this.ComplateLevels.Text = DataBridge.GetComplateLevels(); ;
+            this.NonCompleateLevels.Text = DataBridge.NonCompleateLevels(); ;
+            this.TotalDuration.Text = DataBridge.TotalDuration(); ;
         }
 
         private void statisticButton_Click(object sender, EventArgs e)
