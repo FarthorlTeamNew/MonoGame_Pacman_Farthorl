@@ -11,8 +11,9 @@
         {
             var context = new PacmanContext();
 
-            var topPlayerByType = new TopPlayersByType(context, OrderType.EasyLevelsCompleted, 10);
-            var topPlayersCollection = topPlayerByType.GetTopScores();
+            var topPlayersCollection =
+            TopPlayersByType.Create(OrderType.EasyLevelsCompleted, 10).GetTopScores();
+            
             JsonExporter.ExportToJsonFile(topPlayersCollection,"PlayersTopScore");
         }
     }

@@ -14,9 +14,14 @@
         private readonly OrderType orderType;
         private string orderTypeString;
 
-        public TopPlayersByType(PacmanContext pacmanContext, OrderType orderType, int numberOfTopPlayers)
+        public static TopPlayersByType Create(OrderType orderType, int numberOfTopPlayers)
         {
-            this.context = pacmanContext;
+            return new TopPlayersByType(orderType, numberOfTopPlayers);
+        }
+
+        private TopPlayersByType(OrderType orderType, int numberOfTopPlayers)
+        {
+            this.context = new PacmanContext();
             this.numberOfTopPlayers = numberOfTopPlayers;
             this.orderType = orderType;
             this.OrderTypeString = orderType.ToString();
@@ -24,7 +29,7 @@
 
         public string Message => $"Top {this.numberOfTopPlayers} players by {this.OrderTypeString}!";
 
-        public string OrderTypeString
+        private string OrderTypeString
         {
             get { return this.orderTypeString; }
             set
