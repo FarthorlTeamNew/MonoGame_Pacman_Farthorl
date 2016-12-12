@@ -34,7 +34,12 @@
             this.LevelsComboBox = new System.Windows.Forms.ComboBox();
             this.StartHardGame = new System.Windows.Forms.Button();
             this.statisticButton = new System.Windows.Forms.Button();
-<<<<<<< .mine            this.panel1 = new System.Windows.Forms.Panel();
+            this.RetrieveInput = new System.Windows.Forms.Button();
+            this.FriendIdBox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.TotalPlayers = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.UserTotalDuration = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.TotalDuration = new System.Windows.Forms.Label();
@@ -54,14 +59,12 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.TotalPlayers = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
+            this.label100 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
-=======            this.RetrieveInput = new System.Windows.Forms.Button();
-            this.FriendIdBox = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
->>>>>>> .theirs            this.SuspendLayout();
+            this.SuspendLayout();
             // 
             // StartEasyGame
             // 
@@ -121,7 +124,35 @@
             this.statisticButton.UseVisualStyleBackColor = true;
             this.statisticButton.Click += new System.EventHandler(this.statisticButton_Click);
             // 
-<<<<<<< .mine            // panel1
+            // RetrieveInput
+            // 
+            this.RetrieveInput.Location = new System.Drawing.Point(12, 78);
+            this.RetrieveInput.Name = "RetrieveInput";
+            this.RetrieveInput.Size = new System.Drawing.Size(155, 23);
+            this.RetrieveInput.TabIndex = 5;
+            this.RetrieveInput.Text = "Add/Remove Friend";
+            this.RetrieveInput.UseVisualStyleBackColor = true;
+            this.RetrieveInput.Click += new System.EventHandler(this.RetrieveInput_Click);
+            this.RetrieveInput.MouseClick += new System.Windows.Forms.MouseEventHandler(this.RetrieveInput_MouseClick);
+            // 
+            // FriendIdBox
+            // 
+            this.FriendIdBox.Location = new System.Drawing.Point(209, 81);
+            this.FriendIdBox.Name = "FriendIdBox";
+            this.FriendIdBox.Size = new System.Drawing.Size(33, 20);
+            this.FriendIdBox.TabIndex = 6;
+            this.FriendIdBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(248, 84);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(48, 13);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Friend Id";
+            // 
+            // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Transparent;
             this.panel1.Controls.Add(this.TotalPlayers);
@@ -145,11 +176,33 @@
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(12, 82);
+            this.panel1.Controls.Add(this.label100);
+            this.panel1.Location = new System.Drawing.Point(12, 132);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(560, 167);
-            this.panel1.TabIndex = 5;
+            this.panel1.TabIndex = 12;
+            // 
+            // TotalPlayers
+            // 
+            this.TotalPlayers.AutoSize = true;
+            this.TotalPlayers.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.TotalPlayers.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.TotalPlayers.Location = new System.Drawing.Point(413, 35);
+            this.TotalPlayers.Name = "TotalPlayers";
+            this.TotalPlayers.Size = new System.Drawing.Size(31, 20);
+            this.TotalPlayers.TabIndex = 23;
+            this.TotalPlayers.Text = "n/a";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label8.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label8.Location = new System.Drawing.Point(306, 35);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(102, 20);
+            this.label8.TabIndex = 22;
+            this.label8.Text = "Total players:";
             // 
             // UserTotalDuration
             // 
@@ -360,80 +413,59 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Total statistic";
             // 
-            // label1
+            // label100
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(137, 26);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "User statistic";
+            this.label100.AutoSize = true;
+            this.label100.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label100.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label100.Location = new System.Drawing.Point(0, 0);
+            this.label100.Name = "label100";
+            this.label100.Size = new System.Drawing.Size(137, 26);
+            this.label100.TabIndex = 0;
+            this.label100.Text = "User statistic";
             // 
-            // TotalPlayers
+            // label7
             // 
-            this.TotalPlayers.AutoSize = true;
-            this.TotalPlayers.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.TotalPlayers.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.TotalPlayers.Location = new System.Drawing.Point(413, 35);
-            this.TotalPlayers.Name = "TotalPlayers";
-            this.TotalPlayers.Size = new System.Drawing.Size(31, 20);
-            this.TotalPlayers.TabIndex = 23;
-            this.TotalPlayers.Text = "n/a";
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(263, 246);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(48, 13);
+            this.label7.TabIndex = 15;
+            this.label7.Text = "Friend Id";
             // 
-            // label8
+            // textBox1
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label8.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label8.Location = new System.Drawing.Point(306, 35);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(102, 20);
-            this.label8.TabIndex = 22;
-            this.label8.Text = "Total players:";
+            this.textBox1.Location = new System.Drawing.Point(224, 243);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(33, 20);
+            this.textBox1.TabIndex = 14;
+            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-=======            // RetrieveInput
+            // button1
             // 
-            this.RetrieveInput.Location = new System.Drawing.Point(27, 190);
-            this.RetrieveInput.Name = "RetrieveInput";
-            this.RetrieveInput.Size = new System.Drawing.Size(155, 23);
-            this.RetrieveInput.TabIndex = 5;
-            this.RetrieveInput.Text = "Add/Remove Friend";
-            this.RetrieveInput.UseVisualStyleBackColor = true;
-            this.RetrieveInput.Click += new System.EventHandler(this.RetrieveInput_Click);
-            this.RetrieveInput.MouseClick += new System.Windows.Forms.MouseEventHandler(this.RetrieveInput_MouseClick);
+            this.button1.Location = new System.Drawing.Point(27, 240);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(155, 23);
+            this.button1.TabIndex = 13;
+            this.button1.Text = "Add/Remove Friend";
+            this.button1.UseVisualStyleBackColor = true;
             // 
-            // FriendIdBox
-            // 
-            this.FriendIdBox.Location = new System.Drawing.Point(224, 193);
-            this.FriendIdBox.Name = "FriendIdBox";
-            this.FriendIdBox.Size = new System.Drawing.Size(33, 20);
-            this.FriendIdBox.TabIndex = 6;
-            this.FriendIdBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(263, 196);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(48, 13);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Friend Id";
-            // 
->>>>>>> .theirs            // PacmanMenu
+            // PacmanMenu
             // 
             this.AcceptButton = this.StartEasyGame;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(584, 261);
-<<<<<<< .mine            this.Controls.Add(this.panel1);
-=======            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(584, 311);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.FriendIdBox);
             this.Controls.Add(this.RetrieveInput);
->>>>>>> .theirs            this.Controls.Add(this.statisticButton);
+            this.Controls.Add(this.statisticButton);
             this.Controls.Add(this.StartHardGame);
             this.Controls.Add(this.LevelsComboBox);
             this.Controls.Add(this.UpdateButton);
@@ -441,8 +473,8 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(600, 300);
-            this.MinimumSize = new System.Drawing.Size(600, 300);
+            this.MaximumSize = new System.Drawing.Size(600, 350);
+            this.MinimumSize = new System.Drawing.Size(600, 350);
             this.Name = "PacmanMenu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Farthorl Pacman Game";
@@ -462,17 +494,12 @@
         private System.Windows.Forms.ComboBox LevelsComboBox;
         private System.Windows.Forms.Button StartHardGame;
         private System.Windows.Forms.Button statisticButton;
-<<<<<<< .mine        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label UserNonCompleateLevels;
-        private System.Windows.Forms.Label UserComplateLevels;
-        private System.Windows.Forms.Label UserTotalPoints;
-        private System.Windows.Forms.Label LastLevel;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button RetrieveInput;
+        private System.Windows.Forms.TextBox FriendIdBox;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label TotalPlayers;
+        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label UserTotalDuration;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label TotalDuration;
@@ -483,10 +510,18 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label TotalPlayers;
-        private System.Windows.Forms.Label label8;
-=======        private System.Windows.Forms.Button RetrieveInput;
-        private System.Windows.Forms.TextBox FriendIdBox;
-        private System.Windows.Forms.Label label1;
->>>>>>> .theirs    }
+        private System.Windows.Forms.Label UserNonCompleateLevels;
+        private System.Windows.Forms.Label UserComplateLevels;
+        private System.Windows.Forms.Label UserTotalPoints;
+        private System.Windows.Forms.Label LastLevel;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label100;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button button1;
+    }
 }
