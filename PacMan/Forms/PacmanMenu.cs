@@ -122,8 +122,6 @@
             this.FriendIdBox.BackColor = Color.LightGreen;
             this.LevelsComboBox.BackColor = Color.LightGreen;
             this.LevelsComboBox.ForeColor = Color.Blue;
-            this.label1.BackColor = Color.LightGreen;
-            this.label1.ForeColor = Color.Red;
             this.LevelsComboBox.Tag = Color.LightGreen;
 
 

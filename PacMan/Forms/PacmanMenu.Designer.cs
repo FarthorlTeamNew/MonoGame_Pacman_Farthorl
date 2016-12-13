@@ -35,8 +35,6 @@
             this.StartHardGame = new System.Windows.Forms.Button();
             this.statisticButton = new System.Windows.Forms.Button();
             this.RetrieveInput = new System.Windows.Forms.Button();
-            this.FriendIdBox = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.TotalPlayers = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -63,6 +61,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.FriendIdBox = new Pacman.Menu.PlaceHolderTextBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -126,32 +125,15 @@
             // 
             // RetrieveInput
             // 
+            this.RetrieveInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.RetrieveInput.Location = new System.Drawing.Point(12, 78);
             this.RetrieveInput.Name = "RetrieveInput";
-            this.RetrieveInput.Size = new System.Drawing.Size(171, 23);
+            this.RetrieveInput.Size = new System.Drawing.Size(171, 33);
             this.RetrieveInput.TabIndex = 5;
             this.RetrieveInput.Text = "Add/Remove Friend";
             this.RetrieveInput.UseVisualStyleBackColor = true;
             this.RetrieveInput.Click += new System.EventHandler(this.RetrieveInput_Click);
             this.RetrieveInput.MouseClick += new System.Windows.Forms.MouseEventHandler(this.RetrieveInput_MouseClick);
-            // 
-            // FriendIdBox
-            // 
-            this.FriendIdBox.Location = new System.Drawing.Point(189, 80);
-            this.FriendIdBox.Name = "FriendIdBox";
-            this.FriendIdBox.Size = new System.Drawing.Size(33, 20);
-            this.FriendIdBox.TabIndex = 6;
-            this.FriendIdBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(228, 84);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(60, 16);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Friend Id";
             // 
             // panel1
             // 
@@ -454,6 +436,19 @@
             this.button1.Text = "Add/Remove Friend";
             this.button1.UseVisualStyleBackColor = true;
             // 
+            // FriendIdBox
+            // 
+            this.FriendIdBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Italic);
+            this.FriendIdBox.ForeColor = System.Drawing.Color.Gray;
+            this.FriendIdBox.Location = new System.Drawing.Point(189, 82);
+            this.FriendIdBox.MaximumSize = new System.Drawing.Size(163, 33);
+            this.FriendIdBox.MinimumSize = new System.Drawing.Size(163, 33);
+            this.FriendIdBox.Name = "FriendIdBox";
+            this.FriendIdBox.PlaceHolderText = "Please enter user ID";
+            this.FriendIdBox.Size = new System.Drawing.Size(163, 26);
+            this.FriendIdBox.TabIndex = 16;
+            this.FriendIdBox.Text = "Please enter User ID";
+            // 
             // PacmanMenu
             // 
             this.AcceptButton = this.StartEasyGame;
@@ -462,12 +457,11 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(584, 311);
+            this.Controls.Add(this.FriendIdBox);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.FriendIdBox);
             this.Controls.Add(this.RetrieveInput);
             this.Controls.Add(this.statisticButton);
             this.Controls.Add(this.StartHardGame);
@@ -499,8 +493,6 @@
         private System.Windows.Forms.Button StartHardGame;
         private System.Windows.Forms.Button statisticButton;
         private System.Windows.Forms.Button RetrieveInput;
-        private System.Windows.Forms.TextBox FriendIdBox;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label TotalPlayers;
         private System.Windows.Forms.Label label8;
@@ -527,5 +519,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button button1;
+        private Menu.PlaceHolderTextBox FriendIdBox;
     }
 }
