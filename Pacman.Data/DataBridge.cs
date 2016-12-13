@@ -352,9 +352,9 @@ namespace Pacman.Data
 
             if (statisticData.Any())
             {
-                return "Easy: " +
+                return "Easy:" +
                    statisticData.First().EasyLevelsCompleted +
-                   " / Hard: " +
+                   " / Hard:" +
                    statisticData.First().HardLevelsCompleted;
             }
 
@@ -423,9 +423,9 @@ namespace Pacman.Data
 
             if (statisticData.Any())
             {
-                return "Easy: " +
+                return "Easy:" +
                    statisticData.First().easyCount +
-                   " / Hard: " +
+                   " / Hard:" +
                    statisticData.First().hardCount;
             }
 

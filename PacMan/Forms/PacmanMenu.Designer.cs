@@ -128,7 +128,7 @@
             // 
             this.RetrieveInput.Location = new System.Drawing.Point(12, 78);
             this.RetrieveInput.Name = "RetrieveInput";
-            this.RetrieveInput.Size = new System.Drawing.Size(155, 23);
+            this.RetrieveInput.Size = new System.Drawing.Size(171, 23);
             this.RetrieveInput.TabIndex = 5;
             this.RetrieveInput.Text = "Add/Remove Friend";
             this.RetrieveInput.UseVisualStyleBackColor = true;
@@ -137,7 +137,7 @@
             // 
             // FriendIdBox
             // 
-            this.FriendIdBox.Location = new System.Drawing.Point(209, 81);
+            this.FriendIdBox.Location = new System.Drawing.Point(189, 80);
             this.FriendIdBox.Name = "FriendIdBox";
             this.FriendIdBox.Size = new System.Drawing.Size(33, 20);
             this.FriendIdBox.TabIndex = 6;
@@ -147,7 +147,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(248, 82);
+            this.label1.Location = new System.Drawing.Point(228, 84);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(60, 16);
             this.label1.TabIndex = 7;
@@ -188,18 +188,19 @@
             this.TotalPlayers.AutoSize = true;
             this.TotalPlayers.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.TotalPlayers.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.TotalPlayers.Location = new System.Drawing.Point(413, 35);
+            this.TotalPlayers.Location = new System.Drawing.Point(436, 35);
             this.TotalPlayers.Name = "TotalPlayers";
             this.TotalPlayers.Size = new System.Drawing.Size(31, 20);
             this.TotalPlayers.TabIndex = 23;
             this.TotalPlayers.Text = "n/a";
+            this.TotalPlayers.Click += new System.EventHandler(this.TotalPlayers_Click);
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label8.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label8.Location = new System.Drawing.Point(306, 35);
+            this.label8.Location = new System.Drawing.Point(291, 35);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(102, 20);
             this.label8.TabIndex = 22;
@@ -210,7 +211,7 @@
             this.UserTotalDuration.AutoSize = true;
             this.UserTotalDuration.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.UserTotalDuration.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.UserTotalDuration.Location = new System.Drawing.Point(176, 135);
+            this.UserTotalDuration.Location = new System.Drawing.Point(139, 135);
             this.UserTotalDuration.Name = "UserTotalDuration";
             this.UserTotalDuration.Size = new System.Drawing.Size(31, 20);
             this.UserTotalDuration.TabIndex = 21;
@@ -223,38 +224,39 @@
             this.label16.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label16.Location = new System.Drawing.Point(1, 135);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(170, 20);
+            this.label16.Size = new System.Drawing.Size(137, 20);
             this.label16.TabIndex = 20;
-            this.label16.Text = "Total games durations:";
+            this.label16.Text = "Total Time Played:";
             // 
             // TotalDuration
             // 
             this.TotalDuration.AutoSize = true;
             this.TotalDuration.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.TotalDuration.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.TotalDuration.Location = new System.Drawing.Point(473, 135);
+            this.TotalDuration.Location = new System.Drawing.Point(436, 135);
             this.TotalDuration.Name = "TotalDuration";
             this.TotalDuration.Size = new System.Drawing.Size(31, 20);
             this.TotalDuration.TabIndex = 19;
             this.TotalDuration.Text = "n/a";
+            this.TotalDuration.Click += new System.EventHandler(this.TotalDuration_Click);
             // 
             // label14
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label14.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label14.Location = new System.Drawing.Point(306, 135);
+            this.label14.Location = new System.Drawing.Point(291, 135);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(162, 20);
+            this.label14.Size = new System.Drawing.Size(137, 20);
             this.label14.TabIndex = 18;
-            this.label14.Text = "Total games duration:";
+            this.label14.Text = "Total Time Played:";
             // 
             // NonCompleateLevels
             // 
             this.NonCompleateLevels.AutoSize = true;
             this.NonCompleateLevels.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.NonCompleateLevels.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.NonCompleateLevels.Location = new System.Drawing.Point(470, 110);
+            this.NonCompleateLevels.Location = new System.Drawing.Point(436, 110);
             this.NonCompleateLevels.Name = "NonCompleateLevels";
             this.NonCompleateLevels.Size = new System.Drawing.Size(31, 20);
             this.NonCompleateLevels.TabIndex = 17;
@@ -265,7 +267,7 @@
             this.ComplateLevels.AutoSize = true;
             this.ComplateLevels.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.ComplateLevels.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ComplateLevels.Location = new System.Drawing.Point(401, 85);
+            this.ComplateLevels.Location = new System.Drawing.Point(436, 85);
             this.ComplateLevels.Name = "ComplateLevels";
             this.ComplateLevels.Size = new System.Drawing.Size(31, 20);
             this.ComplateLevels.TabIndex = 16;
@@ -276,7 +278,7 @@
             this.TotalPoints.AutoSize = true;
             this.TotalPoints.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.TotalPoints.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.TotalPoints.Location = new System.Drawing.Point(433, 60);
+            this.TotalPoints.Location = new System.Drawing.Point(436, 60);
             this.TotalPoints.Name = "TotalPoints";
             this.TotalPoints.Size = new System.Drawing.Size(31, 20);
             this.TotalPoints.TabIndex = 15;
@@ -287,29 +289,30 @@
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label11.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label11.Location = new System.Drawing.Point(306, 110);
+            this.label11.Location = new System.Drawing.Point(291, 110);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(159, 20);
+            this.label11.Size = new System.Drawing.Size(104, 20);
             this.label11.TabIndex = 13;
-            this.label11.Text = "Not compleate levels:";
+            this.label11.Text = "Total Deaths:";
+            this.label11.Click += new System.EventHandler(this.label11_Click);
             // 
             // label12
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label12.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label12.Location = new System.Drawing.Point(306, 85);
+            this.label12.Location = new System.Drawing.Point(291, 85);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(90, 20);
+            this.label12.Size = new System.Drawing.Size(139, 20);
             this.label12.TabIndex = 12;
-            this.label12.Text = "Compleate:";
+            this.label12.Text = "Levels Completed:";
             // 
             // label13
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label13.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label13.Location = new System.Drawing.Point(306, 60);
+            this.label13.Location = new System.Drawing.Point(291, 60);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(122, 20);
             this.label13.TabIndex = 11;
@@ -320,7 +323,7 @@
             this.UserNonCompleateLevels.AutoSize = true;
             this.UserNonCompleateLevels.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.UserNonCompleateLevels.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.UserNonCompleateLevels.Location = new System.Drawing.Point(165, 110);
+            this.UserNonCompleateLevels.Location = new System.Drawing.Point(139, 110);
             this.UserNonCompleateLevels.Name = "UserNonCompleateLevels";
             this.UserNonCompleateLevels.Size = new System.Drawing.Size(31, 20);
             this.UserNonCompleateLevels.TabIndex = 9;
@@ -331,7 +334,7 @@
             this.UserComplateLevels.AutoSize = true;
             this.UserComplateLevels.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.UserComplateLevels.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.UserComplateLevels.Location = new System.Drawing.Point(96, 85);
+            this.UserComplateLevels.Location = new System.Drawing.Point(140, 85);
             this.UserComplateLevels.Name = "UserComplateLevels";
             this.UserComplateLevels.Size = new System.Drawing.Size(31, 20);
             this.UserComplateLevels.TabIndex = 8;
@@ -342,7 +345,7 @@
             this.UserTotalPoints.AutoSize = true;
             this.UserTotalPoints.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.UserTotalPoints.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.UserTotalPoints.Location = new System.Drawing.Point(128, 60);
+            this.UserTotalPoints.Location = new System.Drawing.Point(139, 60);
             this.UserTotalPoints.Name = "UserTotalPoints";
             this.UserTotalPoints.Size = new System.Drawing.Size(31, 20);
             this.UserTotalPoints.TabIndex = 7;
@@ -353,7 +356,7 @@
             this.LastLevel.AutoSize = true;
             this.LastLevel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.LastLevel.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.LastLevel.Location = new System.Drawing.Point(135, 35);
+            this.LastLevel.Location = new System.Drawing.Point(140, 35);
             this.LastLevel.Name = "LastLevel";
             this.LastLevel.Size = new System.Drawing.Size(31, 20);
             this.LastLevel.TabIndex = 6;
@@ -366,9 +369,9 @@
             this.label6.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label6.Location = new System.Drawing.Point(1, 110);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(159, 20);
+            this.label6.Size = new System.Drawing.Size(92, 20);
             this.label6.TabIndex = 5;
-            this.label6.Text = "Not compleate levels:";
+            this.label6.Text = "Times Died:";
             // 
             // label5
             // 
@@ -377,9 +380,9 @@
             this.label5.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label5.Location = new System.Drawing.Point(1, 85);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(90, 20);
+            this.label5.Size = new System.Drawing.Size(139, 20);
             this.label5.TabIndex = 4;
-            this.label5.Text = "Compleate:";
+            this.label5.Text = "Levels Completed:";
             // 
             // label4
             // 
@@ -408,7 +411,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label2.Location = new System.Drawing.Point(305, 0);
+            this.label2.Location = new System.Drawing.Point(290, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(138, 26);
             this.label2.TabIndex = 1;

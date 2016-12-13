@@ -2,14 +2,13 @@
 - (DONE) Fix Easy Game Mode so that ghosts will be permanently die
 - (DONE) Fix placement of the big ghostkiller ball. Should always be 4 balls for every level
 - (DONE) Implement jumping to a random level when you complete the current level
-- Add more buttons on the form for Exporting top players, ordered by particular stats to JSON
+- (DONE) Add methods for Exporting top players, ordered by particular stats to JSON
 - (DONE) Implement Random Level select from the dropdown menu, which should be default value when opening a new game session
-- Implement GameState.cs class, which remembers all the level progress (points eaten, ghosts dead, fruit eaten, pacman position, ghosts positions, etc), so that when a user exits a game, next time he logs in, he can continue his progress.
 - (DONE) Add Many-To-Many Self-reference Property for Users, called Friends
 - (DONE)On the windows form, add options to Add/Remove Friends from your list by entering user email address. 
-- Add statistics export only among your friends and not all players.
 - (OPTIONAL) Add Ghost Statistics - TimesEatenPacman, PointsEaten
 
+- Implement GameState.cs class, which remembers all the level progress (points eaten, ghosts dead, fruit eaten, pacman position, ghosts positions, etc), so that when a user exits a game, next time he logs in, he can continue his progress.
 From advanced C#:
 - (DONE) Improved pathfinding with increased difficulty
 - (DONE) make a factory class for the fruit 
@@ -18,6 +17,7 @@ From advanced C#:
 - maybe add a game menu to select different skins for the ghosts (add all kind of interesting skins - spongebob, some kind of animals
 - implement the logging of errors
 - (DONE) better structured classes, and classes organized in appropriate folders
+- (DONE) Add Unit tests with mocking.
 
 Implement enum wherever possible, and use Parse/TryParse instead of simple strings
 - (DONE) Use reflections to get all the fruit classes and create their instances without using any strings
