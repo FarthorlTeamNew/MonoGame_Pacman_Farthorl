@@ -92,7 +92,16 @@ namespace Pacman.Data
                     sqlCommand.Parameters.Add(userIdParameter);
 
                     sqlCommand.UpdatedRowSource = UpdateRowSource.OutputParameters;
-                    sqlCommand.ExecuteNonQuery(); // Execute the Query
+                    try
+                    {
+                        sqlCommand.ExecuteNonQuery(); // Execute the Query
+                    }
+                    catch (Exception e)
+                    {
+
+                        throw;
+                    }
+
                     if (!string.IsNullOrEmpty(sqlCommand.Parameters["@sessionId"].Value.ToString()) &&
                         !string.IsNullOrEmpty(sqlCommand.Parameters["@userId"].Value.ToString()))
                     {
@@ -106,7 +115,7 @@ namespace Pacman.Data
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 throw;
             }
@@ -116,6 +125,7 @@ namespace Pacman.Data
         public static void RegisterUser(string firstName, string lastName, DateTime burthDate, int? countryId,
                                         int? cityId, string email, string password, bool isDelete, User.Roles role)
         {
+
             var firstNameParameter = new SqlParameter { ParameterName = "@firstName", SqlDbType = SqlDbType.NVarChar, Value = firstName };
             var lastNameParameter = new SqlParameter { ParameterName = "@lastName", SqlDbType = SqlDbType.NVarChar, Value = lastName };
             var burthDateParameter = new SqlParameter { ParameterName = "@burthDate", SqlDbType = SqlDbType.DateTime, Value = burthDate };
@@ -125,31 +135,45 @@ namespace Pacman.Data
             var passwordParameter = new SqlParameter { ParameterName = "@password", SqlDbType = SqlDbType.NVarChar, Value = Hash(password) };
             var isDeleteParameter = new SqlParameter { ParameterName = "@isDelete", SqlDbType = SqlDbType.Bit, Value = isDelete };
             var roleParameter = new SqlParameter { ParameterName = "@role", SqlDbType = SqlDbType.Int, Value = (int)role };
-            var returnSession = new SqlParameter { ParameterName = "@returnSession", SqlDbType = SqlDbType.VarChar, Value = "", Direction = ParameterDirection.Output };
+            var sessionIdParameter = new SqlParameter { ParameterName = "@sessionID", SqlDbType = SqlDbType.VarChar, Size = 100, Value = "", Direction = ParameterDirection.Output };
+            var userIdParameter = new SqlParameter { ParameterName = "@userId", SqlDbType = SqlDbType.Int, Size = 100, Value = 0, Direction = ParameterDirection.Output };
 
-            var results = context.Database.SqlQuery<string>("exec @returnSession= registerUser " +
-                                                            "@firstName, @lastName, @burthDate," +
-                                                            "@countryId, @cityId, @email, @password," +
-                                                            "@isDelete, @role",
-                                                            returnSession, firstNameParameter, lastNameParameter,
-                                                            burthDateParameter, countryIdParameter, cityIdParameter,
-                                                            emailParameter, passwordParameter, isDeleteParameter,
-                                                            roleParameter
-                                                            );
-            try
+            var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["PacmanContext"].ConnectionString;
+            SqlConnection connection = new SqlConnection(connectionString);
+            using (connection)
             {
-                var sessionId = results.FirstOrDefault();
-                if (!string.IsNullOrEmpty(sessionId) && sessionId.Length == 64)
+                connection.Open();
+                SqlCommand sqlCommand = new SqlCommand("registerUser", connection);
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlCommand.Parameters.Add(firstNameParameter);
+                sqlCommand.Parameters.Add(lastNameParameter);
+                sqlCommand.Parameters.Add(burthDateParameter);
+                sqlCommand.Parameters.Add(countryIdParameter);
+                sqlCommand.Parameters.Add(cityIdParameter);
+                sqlCommand.Parameters.Add(emailParameter);
+                sqlCommand.Parameters.Add(passwordParameter);
+                sqlCommand.Parameters.Add(isDeleteParameter);
+                sqlCommand.Parameters.Add(roleParameter);
+                sqlCommand.Parameters.Add(sessionIdParameter);
+                sqlCommand.Parameters.Add(userIdParameter);
+
+                sqlCommand.UpdatedRowSource = UpdateRowSource.OutputParameters;
+                try
+                {
+                    sqlCommand.ExecuteNonQuery(); // Execute the Query
+                }
+                catch (Exception e)
+                {
+                    throw;
+                }
+
+                if (!string.IsNullOrEmpty(sqlCommand.Parameters["@sessionId"].Value.ToString()) &&
+                    !string.IsNullOrEmpty(sqlCommand.Parameters["@userId"].Value.ToString()))
                 {
                     LogInUser(email, password);
                 }
-
-
             }
-            catch (Exception e)
-            {
-                throw new DataException(e.Message);
-            }
+
         }
 
         public static void UpdateUser(string firstName, string lastName, DateTime burthDate, int? countryId,
@@ -286,7 +310,7 @@ namespace Pacman.Data
                 return $"No such user with Id = {id} was found!";
             }
 
-           
+
         }
 
         public static void UpdateDatabaseStats()
@@ -323,13 +347,17 @@ namespace Pacman.Data
 
         public static string GetLastPlayedGame()
         {
-            var result = context.Statistics
-                                .First(s=>s.UserId==user.Id)
-                                .Level
-                                .Name;
-            if (!string.IsNullOrEmpty(result))
+            var firstOrDefault = context.Statistics
+                .FirstOrDefault(s => s.UserId == user.Id);
+            if (firstOrDefault != null)
             {
-                return result;
+                var result = firstOrDefault
+                    .Level
+                    .Name;
+                if (!string.IsNullOrEmpty(result))
+                {
+                    return result;
+                }
             }
 
             return "n/a";
@@ -338,12 +366,15 @@ namespace Pacman.Data
         public static string GetUserTotalPoints()
         {
             var result = context.PlayerStatistics
-                                .Where(ps => ps.User.Id == user.Id)
-                                .Sum(ps=>ps.PlayerPointsEaten).ToString();
+                .Where(ps => ps.User.Id == user.Id);
 
-            if (!string.IsNullOrEmpty(result))
+            if (result.Any())
             {
-                return result;
+                var sumResult = result.Sum(ps => ps.PlayerPointsEaten).ToString();
+                if (!string.IsNullOrEmpty(sumResult))
+                {
+                    return sumResult;
+                }
             }
 
             return "n/a";
@@ -352,15 +383,18 @@ namespace Pacman.Data
         public static string GetUserComplateLevels()
         {
             var statisticData = context.PlayerStatistics
-                .Where(ps => ps.User.Id == user.Id)
-                .Select(ps => new {ps.EasyLevelsCompleted, ps.HardLevelsCompleted});
+                .Where(ps => ps.User.Id == user.Id);
 
-            if (statisticData.Any())
+            if (statisticData != null)
             {
-                return "Easy:" +
-                   statisticData.First().EasyLevelsCompleted +
-                   " / Hard:" +
-                   statisticData.First().HardLevelsCompleted;
+                var resultStatisticData = statisticData.Select(ps => new { ps.EasyLevelsCompleted, ps.HardLevelsCompleted });
+                if (resultStatisticData.Any())
+                {
+                    return "Easy:" +
+                       resultStatisticData.First().EasyLevelsCompleted +
+                       " / Hard:" +
+                       resultStatisticData.First().HardLevelsCompleted;
+                }
             }
 
             return "n/a";
@@ -370,12 +404,15 @@ namespace Pacman.Data
         public static string UserNonCompleateLevels()
         {
             var result = context.PlayerStatistics
-                                .Where(ps => ps.User.Id == user.Id)
-                                .Select(ps => ps.PlayerTimesDied);
+                                .Where(ps => ps.User.Id == user.Id);
 
-            if (result.Any())
+            if (result != null)
             {
-                return result.First().ToString();
+                var returnResult = result.Select(ps => ps.PlayerTimesDied);
+                if (returnResult.Any())
+                {
+                    return result.First().ToString();
+                }
             }
 
             return "n/a";
@@ -383,10 +420,10 @@ namespace Pacman.Data
 
         public static string UserTotalDuration()
         {
-            var result = context.Statistics.Where(s => s.UserId == user.Id).Select(s=>s.Duration).ToList();
-                
+            var result = context.Statistics.Where(s => s.UserId == user.Id).Select(s => s.Duration).ToList();
 
-            if (result!=null)
+
+            if (result != null)
             {
                 var sumResult = (from r in result let timeSpan = r where timeSpan != null select timeSpan.Value.TotalHours).Sum();
                 return sumResult.ToString("0.###") + " hours";
@@ -404,13 +441,16 @@ namespace Pacman.Data
 
         public static string GetTotalPoints()
         {
-            var result = context.PlayerStatistics
-                                .Sum(ps => ps.PlayerPointsEaten).ToString();
+            var result = context.PlayerStatistics;
 
-            if (!string.IsNullOrEmpty(result))
+            if (result != null)
             {
-                return result;
+                var sumPoints = result.Sum(ps => ps.PlayerPointsEaten).ToString();
+                if (!string.IsNullOrEmpty(sumPoints))
+                {
+                    return sumPoints;
 
+                }
             }
 
             return "n/a";
@@ -418,21 +458,25 @@ namespace Pacman.Data
 
         public static string GetComplateLevels()
         {
-            var statisticData = context.PlayerStatistics
-                .GroupBy(ps => 1)
+            var statisticData = context.PlayerStatistics;
+
+            if (statisticData != null)
+            {
+                var resultData = statisticData.GroupBy(ps => 1)
                 .Select(ps => new
                 {
                     easyCount = ps.Sum(el => el.EasyLevelsCompleted),
                     hardCount = ps.Sum(hc => hc.HardLevelsCompleted)
                 });
-
-            if (statisticData.Any())
-            {
-                return "Easy:" +
-                   statisticData.First().easyCount +
-                   " / Hard:" +
-                   statisticData.First().hardCount;
+                if (resultData.Any())
+                {
+                    return "Easy:" +
+                       resultData.First().easyCount +
+                       " / Hard:" +
+                       resultData.First().hardCount;
+                }
             }
+
 
             return "n/a";
 
@@ -440,24 +484,32 @@ namespace Pacman.Data
 
         public static string NonCompleateLevels()
         {
-            var result = context.PlayerStatistics
-                .Sum(ps => ps.PlayerTimesDied);
-
-            if (!string.IsNullOrEmpty(result.ToString()))
+            var result = context.PlayerStatistics;
+            if (result != null)
             {
-                return result.ToString();
+                var returnResult = result.Sum(ps => ps.PlayerTimesDied);
+                if (!string.IsNullOrEmpty(returnResult.ToString()))
+                {
+                    return returnResult.ToString();
+                }
             }
+
+
+
 
             return "n/a";
         }
         public static string TotalDuration()
         {
-            var result = context.Statistics.Select(s=>s.Duration).ToList();
-
+            var result = context.Statistics;
             if (result != null)
             {
-                var sumResult = (from r in result let timeSpan = r where timeSpan != null select timeSpan.Value.TotalHours).Sum();
-                return sumResult.ToString("0.###") + " hours";
+                var returnResult = result.Select(s => s.Duration).ToList();
+                if (returnResult != null)
+                {
+                    var sumResult = (from r in returnResult let timeSpan = r where timeSpan != null select timeSpan.Value.TotalHours).Sum();
+                    return sumResult.ToString("0.###") + " hours";
+                }
             }
 
             return "n/a";

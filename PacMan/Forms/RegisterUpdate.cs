@@ -116,9 +116,8 @@ namespace Pacman.Forms
 
                             }
                         }
-                        catch (Exception)
+                        catch (Exception )
                         {
-
                             MessageBox.Show("something wrong...Please try again");
                         }
                     }
