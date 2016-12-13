@@ -71,8 +71,8 @@
         {
             if (this.keyPress.IsPressedKey(Keys.Escape, this.oldState))
             {
-                this.UpdateDb();
-                Exit();
+                
+                this.Exit();
                 return;
             }
 
@@ -100,8 +100,8 @@
             {
                 if (Keyboard.GetState().IsKeyDown(Keys.Space))
                 {
-                    this.UpdateDb();
                     this.Exit();
+                    this.UpdateDb();
                     if (this.pacMan.IsAlive)
                     {
                         string levelName = currentLevel.Name;
@@ -124,7 +124,6 @@
                 }
                 else if (Keyboard.GetState().IsKeyDown(Keys.Enter))
                 {
-                    this.UpdateDb();
                     this.Exit();
                 }
             }

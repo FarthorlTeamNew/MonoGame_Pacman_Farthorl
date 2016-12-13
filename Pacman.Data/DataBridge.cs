@@ -270,12 +270,14 @@ namespace Pacman.Data
                 if (GetUserData().Friends.Any(us => us.Id == userToAddOrRemove.Id))
                 {
                     GetUserData().Friends.Remove(userToAddOrRemove);
-                    context.SaveChanges();
+                    //context.SaveChanges();
+                    UpdateDatabaseStats();
                     return
                         $"You have removed {userToAddOrRemove.FirstName} {userToAddOrRemove.LastName} from your friends list!";
                 }
                 GetUserData().Friends.Add(userToAddOrRemove);
-                context.SaveChanges();
+                //context.SaveChanges();
+                UpdateDatabaseStats();
                 return
                     $"You have added {userToAddOrRemove.FirstName} {userToAddOrRemove.LastName} to your friends list!";
             }
@@ -289,7 +291,8 @@ namespace Pacman.Data
 
         public static void UpdateDatabaseStats()
         {
-            context.SaveChanges();
+            //context.SaveChanges();
+            context.SaveChangesAsync();
         }
 
         public static void StartNewGame(string levelName)
@@ -298,7 +301,8 @@ namespace Pacman.Data
             statistic.UserId = user.Id; //Important Do not change
             statistic.StartGame = DateTime.Now;
             context.Statistics.Add(statistic);
-            context.SaveChanges();
+            //context.SaveChanges();
+            UpdateDatabaseStats();
         }
 
         public static void EndGame()
@@ -307,7 +311,8 @@ namespace Pacman.Data
             {
                 statistic.EndGame = DateTime.Now;
                 statistic.Duration = statistic.EndGame - statistic.StartGame;
-                context.SaveChanges();
+                //context.SaveChanges();
+                UpdateDatabaseStats();
             }
         }
 
@@ -432,13 +437,6 @@ namespace Pacman.Data
             return "n/a";
 
         }
-        public static Level GerRandomLevel(string exlusionByName)
-        {
-            var myLevels = GetAllLevels().Where(l => l.Name != exlusionByName);
-            var count = myLevels.Count();
-            var randomIndex = random.Next(1, count);
-            return myLevels.ToList()[randomIndex];
-        }
 
         public static string NonCompleateLevels()
         {
@@ -464,6 +462,14 @@ namespace Pacman.Data
 
             return "n/a";
 
+        }
+
+        public static Level GerRandomLevel(string exlusionByName)
+        {
+            var myLevels = GetAllLevels().Where(l => l.Name != exlusionByName);
+            var count = myLevels.Count();
+            var randomIndex = random.Next(1, count);
+            return myLevels.ToList()[randomIndex];
         }
 
         //Hash the password with SHA256 algoritm, before save into the User object
