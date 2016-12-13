@@ -3,11 +3,14 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Interfaces;
     using Moq;
+    using Pacman.Handlers;
+    using Globals;
+    using Models;
 
     [TestClass]
     public class GhostHuntingRandomMovementTest
     {
-        global::Pacman.Handlers.GhostHuntingRandomMovement randMovement;
+        GhostHuntingRandomMovement randMovement;
 
         [TestInitialize]
         public void Test()
@@ -15,18 +18,19 @@
             var ghostMock = new Mock<Models.LevelObjects.Ghost>();
             var matrixMock = new Mock<IMatrix>();
 
-            string[,] fakeMatrix = new string[Globals.Global.YMax, Globals.Global.XMax];
-            for (int i = 0; i < Globals.Global.YMax; i++)
-            {
-                for (int j = 0; j < Globals.Global.XMax; j++)
-                {
-                    fakeMatrix[i, j] = "1,1";
-                }
-            }
-            matrixMock.SetupGet(m=>m.PathsMatrix).Returns(fakeMatrix);
+            //string[,] fakeMatrix = new string[Global.YMax, Global.XMax];
+            //for (int i = 0; i < Global.YMax; i++)
+            //{
+            //    for (int j = 0; j < Global.XMax; j++)
+            //    {
+            //        fakeMatrix[i, j] = "1,1";
+            //    }
+            //}
+            //matrixMock.SetupGet(m=>m.PathsMatrix).Returns(fakeMatrix);
+            matrixMock.SetupGet(m=>m.Level).Returns(new Level());
 
-            randMovement = new global::Pacman.Handlers.GhostHuntingRandomMovement(
-                ghostMock.Object, matrixMock.Object, new Models.PacMan());
+            randMovement = new GhostHuntingRandomMovement(
+                ghostMock.Object, matrixMock.Object, new PacMan());
         }
 
         [TestMethod]

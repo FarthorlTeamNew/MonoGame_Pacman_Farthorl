@@ -64,6 +64,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Pacman.Models\Pacman.Models.csproj">
+      <Project>{E2252858-2CEF-4442-B7EC-4661FA692929}</Project>
+      <Name>Pacman.Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PacMan\Pacman.csproj">
       <Project>{a2a0d825-1074-4851-a6e7-09f8b7ff6af9}</Project>
       <Name>Pacman</Name>
