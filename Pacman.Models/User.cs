@@ -30,10 +30,10 @@ namespace Pacman.Models
         public DateTime? BurthDate { get; protected set; }
 
         public virtual Country Country { get; protected set; }
-        public int CountryId { get; protected set; }
+        public int? CountryId { get; protected set; }
         
         public virtual City City { get; protected set; }
-        public int CityId { get; protected set; }
+        public int? CityId { get; protected set; }
 
         public ICollection<Statistic> Statistics { get; set; }
 
