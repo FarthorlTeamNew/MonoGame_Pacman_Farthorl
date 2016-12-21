@@ -140,7 +140,7 @@ namespace Pacman.Forms
 
         private void Username_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyValue == 13)
+            if (e.KeyValue == (int)Keys.Enter)
             {
                 if (string.IsNullOrEmpty(this.Password.Text) || this.Password.Text == this.Password.PlaceHolderText)
                 {
@@ -155,7 +155,7 @@ namespace Pacman.Forms
 
         private void Password_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyValue == 13)
+            if (e.KeyValue == (int)Keys.Enter   )
             {
                 if (string.IsNullOrEmpty(this.Username.Text) || this.Username.Text == this.Username.PlaceHolderText)
                 {

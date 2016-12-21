@@ -351,7 +351,7 @@ namespace Pacman.Data
         public static void UpdateDatabaseStats()
         {
             //context.SaveChanges();
-            context.SaveChangesAsync();
+            context.SaveChanges();
         }
 
         public static void StartNewGame(string levelName)
