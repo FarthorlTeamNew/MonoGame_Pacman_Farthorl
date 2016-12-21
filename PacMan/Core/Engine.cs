@@ -65,6 +65,7 @@
 
         protected override void UnloadContent()
         {
+            this.Content.Unload();
         }
 
         protected override void Update(GameTime gameTime)
@@ -73,6 +74,7 @@
             {
                 
                 this.Exit();
+                UnloadContent();
                 return;
             }
 
@@ -101,6 +103,7 @@
                 if (Keyboard.GetState().IsKeyDown(Keys.Space))
                 {
                     this.Exit();
+                    UnloadContent();
                     this.UpdateDb();
                     if (this.pacMan.IsAlive)
                     {
@@ -125,6 +128,7 @@
                 else if (Keyboard.GetState().IsKeyDown(Keys.Enter))
                 {
                     this.Exit();
+                    UnloadContent();
                 }
             }
             base.Update(gameTime);
@@ -201,6 +205,7 @@
                     break;
                 case GameState.Exit:
                     this.UpdateDb();
+                    UnloadContent();
                     Environment.Exit(0);
                     break;
             }

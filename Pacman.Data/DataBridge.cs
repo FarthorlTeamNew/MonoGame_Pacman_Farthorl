@@ -126,11 +126,11 @@ namespace Pacman.Data
                                         int? cityId, string email, string password, bool isDelete, User.Roles role)
         {
 
-            
+
             var firstNameParameter = new SqlParameter { ParameterName = "@firstName", SqlDbType = SqlDbType.NVarChar, Value = firstName };
             var lastNameParameter = new SqlParameter { ParameterName = "@lastName", SqlDbType = SqlDbType.NVarChar, Value = lastName };
             var burthDateParameter = new SqlParameter { ParameterName = "@burthDate", SqlDbType = SqlDbType.DateTime, Value = burthDate };
-            var countryIdParameter = new SqlParameter { ParameterName = "@countryId", SqlDbType = SqlDbType.Int};
+            var countryIdParameter = new SqlParameter { ParameterName = "@countryId", SqlDbType = SqlDbType.Int };
             if (countryId != null)
             {
                 countryIdParameter.Value = countryId;
@@ -140,8 +140,8 @@ namespace Pacman.Data
                 countryIdParameter.Value = DBNull.Value;
             }
 
-            var cityIdParameter = new SqlParameter { ParameterName = "@cityId", SqlDbType = SqlDbType.Int};
-            if (cityId!=null)
+            var cityIdParameter = new SqlParameter { ParameterName = "@cityId", SqlDbType = SqlDbType.Int };
+            if (cityId != null)
             {
                 cityIdParameter.Value = cityId;
             }
@@ -439,15 +439,13 @@ namespace Pacman.Data
         public static string UserNonCompleateLevels()
         {
             var result = context.PlayerStatistics
-                                .Where(ps => ps.User.Id == user.Id);
+                                .FirstOrDefault(ps => ps.User.Id == user.Id);
 
             if (result != null)
             {
-                var returnResult = result.Select(ps => ps.PlayerTimesDied);
-                if (returnResult.Any())
-                {
-                    return result.First().ToString();
-                }
+
+                return result.PlayerTimesDied.ToString();
+
             }
 
             return "n/a";
@@ -528,9 +526,6 @@ namespace Pacman.Data
                     return returnResult.ToString();
                 }
             }
-
-
-
 
             return "n/a";
         }
