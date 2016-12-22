@@ -1,4 +1,6 @@
-﻿namespace Pacman.Globals
+﻿using System;
+
+namespace Pacman.Globals
 {
     using System.Collections.Generic;
     using System.IO;
@@ -65,5 +67,6 @@
             }
             return fruits;
         }
+
     }
 }

@@ -66,15 +66,17 @@
         protected override void UnloadContent()
         {
             this.Content.Unload();
-        }
+            this.graphics.EndDraw();
+            this.graphics.Dispose();
+            this.spriteBatch.Dispose();
+            this.modelGenerator.Dispose();
+    }
 
         protected override void Update(GameTime gameTime)
         {
             if (this.keyPress.IsPressedKey(Keys.Escape, this.oldState))
             {
-                
                 this.Exit();
-                UnloadContent();
                 return;
             }
 
@@ -103,7 +105,6 @@
                 if (Keyboard.GetState().IsKeyDown(Keys.Space))
                 {
                     this.Exit();
-                    UnloadContent();
                     this.UpdateDb();
                     if (this.pacMan.IsAlive)
                     {
@@ -128,7 +129,6 @@
                 else if (Keyboard.GetState().IsKeyDown(Keys.Enter))
                 {
                     this.Exit();
-                    UnloadContent();
                 }
             }
             base.Update(gameTime);
@@ -204,12 +204,13 @@
                     }
                     break;
                 case GameState.Exit:
+                    this.spriteBatch.End();
                     this.UpdateDb();
-                    UnloadContent();
                     Environment.Exit(0);
                     break;
             }
             this.spriteBatch.End();
+
             //base.Draw(gameTime);
         }
 

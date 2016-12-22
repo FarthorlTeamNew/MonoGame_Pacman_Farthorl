@@ -13,7 +13,7 @@
     using Microsoft.Xna.Framework;
     using System.Linq;
 
-    public class ModelGenerator
+    public class ModelGenerator : IDisposable
     {
         private Dictionary<string, Ghost> ghosts;
         private Dictionary<string, Animator> animationModels;
@@ -101,6 +101,13 @@
             this.movableModels.Add(nameof(Pinky), new GhostHuntingRandomMovement(this.pinky, levelMatrix, pacMan));
             this.movableModels.Add(nameof(PacMan), new PacmanInputHandler(pacMan, levelMatrix));
             return this.movableModels;
+        }
+
+        public void Dispose()
+        {
+            this.ghosts.Clear();
+            this.animationModels.Clear();
+            this.movableModels.Clear();
         }
     }
 }

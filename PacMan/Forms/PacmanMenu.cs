@@ -38,7 +38,11 @@
                 using (var game = new Engine(selectedLevel, DifficultyEnumerable.Easy))
                 {
                     game.Run();
+                    game.Content.Unload();
+                    game.Dispose();
+                    GC.Collect();
                 }
+
                 DataBridge.EndGame();
                 Show();
 
