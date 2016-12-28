@@ -23,6 +23,7 @@ namespace Pacman.Data
         private static string userEmail;
         private static string userSessionId;
         private static bool userIsLogin = false;
+        private static int attempts;
 
         public static IQueryable<string> AllCountriesName
         {
@@ -51,7 +52,6 @@ namespace Pacman.Data
 
         public static Anecdote GetRandomeAnecdote()
         {
-
             var count = context.Anecdotes.Count();
             var randomIndex = random.Next(1, count);
             Anecdote anecdote = context.Anecdotes.FirstOrDefault(a => a.Id == randomIndex);
@@ -308,9 +308,9 @@ namespace Pacman.Data
 
         public static Level GetLevelByName(string levelName)
         {
-            var levels = GetAllLevels();
+            var level = context.Levels.FirstOrDefault(l => l.Name == levelName);
 
-            return levels.FirstOrDefault(level => level.Name == levelName);
+            return level;
         }
 
         public static string AddRemoveFriend(object id)
@@ -348,10 +348,34 @@ namespace Pacman.Data
 
         }
 
-        public static async void UpdateDatabaseStats()
+        public static void UpdateDatabaseStats()
         {
-            //context.SaveChangesAsync();
-            await context.SaveChangesAsync();
+
+            if (attempts == null || attempts == 6)
+            {
+                attempts = 1;
+            }
+
+            try
+            {
+                context.SaveChangesAsync();
+                attempts = 1;
+            }
+            catch (Exception)
+            {
+                System.Threading.Thread.Sleep(500);
+                if (attempts == 5)
+                {
+                    throw new InvalidOperationException();
+                }
+                else
+                {
+                    attempts++;
+                    UpdateDatabaseStats();
+                }
+
+            }
+
         }
 
         public static void StartNewGame(string levelName)
