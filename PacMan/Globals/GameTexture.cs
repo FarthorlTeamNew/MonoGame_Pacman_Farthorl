@@ -37,7 +37,7 @@ namespace Pacman.Globals
             PacmanAndGhost = game.Content.Load<Texture2D>("PacManSprite_sheets");
             PacmanPokeball = game.Content.Load<Texture2D>("Pokemons/pokeball");
             GhostAsPokemon = game.Content.Load<Texture2D>("Pokemons/Pika");
-            Brick = game.Content.Load<Texture2D>("brick.png");
+            Brick = game.Content.Load<Texture2D>("brick");
             Point = game.Content.Load<Texture2D>("Point");
             GhostKiller = game.Content.Load<Texture2D>("GhostKiller");
 
