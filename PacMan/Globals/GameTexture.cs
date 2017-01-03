@@ -30,7 +30,7 @@ namespace Pacman.Globals
 
         public static void LoadTextures(Game game)
         {
-           Font = game.Content.Load<SpriteFont>("ScoresFont");
+           Font = game.Content.Load<SpriteFont>("Font");
            WinPic = game.Content.Load<Texture2D>("PacManWin_image");
            LosePic = game.Content.Load<Texture2D>("PacManLose");
 

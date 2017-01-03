@@ -292,9 +292,6 @@
     <None Include="Content\Font.spritefont">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Content\ScoresFont.xnb">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="DataFiles\Logs\Errors.log">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

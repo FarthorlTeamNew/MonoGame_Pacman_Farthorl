@@ -301,12 +301,6 @@
 /processorParam:TextureFormat=Color
 /build:Pokemons/pokeball.png
 
-#begin Sound/ScoresFont.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:TextureFormat=Compressed
-/build:Sound/ScoresFont.spritefont
-
 #begin brick.png
 /importer:TextureImporter
 /processor:TextureProcessor
